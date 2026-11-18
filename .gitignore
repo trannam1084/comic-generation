@@ -1,5 +1,5 @@
 
-# Python
+# Python và công cụ kiểm tra
 __pycache__/
 *.py[cod]
 .pytest_cache/
@@ -11,36 +11,43 @@ __pycache__/
 venv/
 env/
 
-# Secrets
+# Thông tin bí mật
 .env
 .env.*
 !.env.example
 secrets.json
+kaggle.json
 
-# Jupyter
+# Notebook tạm của Jupyter
 .ipynb_checkpoints/
 
-# Models and checkpoints
-models/
+# Legacy local và model checkpoints; không force-add source legacy.
+/models/
 checkpoints/
 .cache/
+hf_cache/
+model_cache/
 *.safetensors
 *.ckpt
 *.pth
 *.pt
+*.gguf
+*.onnx
+pytorch_model*.bin
+diffusion_pytorch_model*.bin
 
-# Generated outputs
+# Kết quả được sinh ra
 outputs/*
 !outputs/.gitkeep
 
-# Raw datasets
+# Dataset thô và đã xử lý
 data/raw/
 data/processed/
 
-# IDE
+# Cấu hình IDE cá nhân
 .vscode/
 .idea/
 
-# Operating system
+# File của hệ điều hành
 .DS_Store
 Thumbs.db

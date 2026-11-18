@@ -1,0 +1,10 @@
+# Dependency CPU dự kiến cho schema, rendering, YAML và tests.
+# Chưa pin phiên bản hoặc xác minh toàn bộ môi trường development.
+# Không có mock pipeline hoàn chỉnh; xem docs/environment.md.
+pydantic
+Pillow
+PyYAML
+pytest
+
+# LLM inference và diffusion inference được chọn riêng trên Kaggle.
+# Không yêu cầu PyTorch, Transformers, Diffusers hoặc Gradio cho CPU cơ sở.
