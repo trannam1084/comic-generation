@@ -1,29 +1,34 @@
 # AI Comic Generation
 
-Vietnamese Summary-to-Four-Panel Comic Generation
+Sinh truyện tranh bốn khung từ tóm tắt tiếng Việt.
 
-## 1. Giới thiệu (Overview)
+## 1. Giới thiệu và trạng thái
 
 AI Comic Generation là đồ án xây dựng hệ thống tự động tạo truyện tranh gồm đúng 4 khung từ một đoạn tóm tắt truyện bằng tiếng Việt.
 
-Hệ thống sử dụng Large Language Model (LLM) để sinh nội dung có cấu trúc, mô hình sinh ảnh để minh họa từng cảnh và Pillow để kết hợp ảnh với caption tiếng Việt.
+Thiết kế dự kiến sử dụng Large Language Model (LLM) để sinh nội dung có cấu trúc, mô hình sinh ảnh để minh họa từng cảnh và Pillow để kết hợp ảnh với caption tiếng Việt.
 
-Đồ án tham khảo tài liệu AI VIET NAM – AIO2025 – Project: Comic Generation.
+Đồ án tham khảo tài liệu AI VIET NAM – AIO2025 – Project: Comic Generation. Repository chưa lưu PDF/phiên bản/trang trích dẫn để đối chiếu; không coi nội dung thiết kế bên dưới là trích dẫn đã xác minh từ PDF. Phương án nhóm đề xuất được phân biệt trong [kiến trúc](docs/architecture.md).
 
-**Project status: In Development**
+**Đang phát triển; chưa có pipeline end-to-end hoạt động.**
 
-## 2. Input & Output
+Tại nền `809350b`, toàn bộ `src/` và `app.py` vẫn là placeholder; datasets và tests chưa có nội dung. Notebook 02 local có code smoke test, chưa lưu outputs. Ba notebook còn lại chỉ có newline, chưa phải notebook JSON hợp lệ. Task nền tảng chỉ cập nhật tài liệu/cấu hình.
+
+Theo refs local đã kiểm tra ngày 18/11/2026, `origin/feature/image-pipeline` có commit `899f99f` triển khai PromptBuilder và sáu test functions; chưa được tích hợp hoặc chạy tests trong task nền tảng. Không suy ra code của branch này đã có tại `main`.
+
+## 2. Đầu vào và đầu ra mục tiêu
 
 **Input:** Một đoạn tóm tắt truyện bằng tiếng Việt.
 
 **Output:**
+
 - Storyboard JSON gồm đúng 4 cảnh.
 - 4 image prompts tiếng Anh.
 - 4 ảnh minh họa.
 - Caption tiếng Việt cho từng cảnh.
 - Truyện tranh hoàn chỉnh theo layout 2×2.
 
-## 3. System Architecture
+## 3. Kiến trúc dự kiến
 
 Vietnamese Summary
 → Input Validation
@@ -34,7 +39,9 @@ Vietnamese Summary
 → Caption Rendering
 → Four-Panel Comic
 
-## 4. Proposed Method
+Chi tiết trách nhiệm và ranh giới module: [docs/architecture.md](docs/architecture.md).
+
+## 4. Phương pháp nhóm đề xuất
 
 Nhóm tập trung vào một phương pháp sinh truyện chính: LLM Prompting.
 
@@ -50,7 +57,7 @@ Tái sử dụng mô tả ngoại hình nhân vật trong image prompts nhằm c
 
 Hiệu quả của các cải tiến sẽ được đánh giá bằng thực nghiệm.
 
-## 5. Technology Stack
+## 5. Công nghệ và môi trường development
 
 - Python
 - PyTorch
@@ -63,9 +70,13 @@ Hiệu quả của các cải tiến sẽ được đánh giá bằng thực ngh
 - Kaggle Notebooks
 - Git & GitHub
 
-Model LLM và Image Generation backend sẽ được xác định sau compatibility test và inference smoke test.
+Development mặc định: story backend `mock`, image backend `mock`, device `cpu`. Đây là cấu hình thiết kế; mock backend và config loader chưa được triển khai. Không có lệnh chạy ứng dụng end-to-end tại thời điểm này.
 
-## 6. Computing Environment
+`requirements.txt` chỉ liệt kê dependency CPU dự kiến, không kéo PyTorch/Transformers/Diffusers/Gradio. Không pin phiên bản chưa kiểm chứng. Các nhóm dependency LLM và diffusion được ghi riêng trong [docs/environment.md](docs/environment.md); không yêu cầu laptop cài toàn bộ GPU stack.
+
+`configs/settings.yaml` là cấu hình nền dự kiến; `.env.example` mô tả các biến tương ứng và credential để trống. Cách đọc/ghi đè cấu hình cần thống nhất trước khi triển khai loader. Không load model khi import module.
+
+## 6. Môi trường và smoke test
 
 Nhóm sử dụng laptop để phát triển source code và Kaggle Notebooks để chạy GPU inference.
 
@@ -81,7 +92,13 @@ Hardware audit ban đầu:
 
 Cấu hình Kaggle có thể thay đổi giữa các phiên làm việc.
 
-## 7. Evaluation
+Ứng viên LLM chính đã chạy smoke test trên một mẫu: `Qwen/Qwen2.5-3B-Instruct`, revision `aa8e72537993ba99e69dfaafa59ed015b17504d1`, FP16, một Tesla T4, greedy decoding, không quantization hoặc fine-tuning.
+
+Theo kết quả nhóm đã ghi nhận: input 102 tokens; sinh 78 tokens trong 5.7 giây, 13.68 token/giây; peak allocated VRAM 5.77 GiB; đúng bốn cảnh nhưng cảnh 3 và 4 có nội dung trùng lặp. Đây là smoke test văn bản đánh số, chưa chứng minh tuân thủ storyboard JSON. Notebook hiện không lưu outputs; các số đo chưa được tái kiểm chứng trong task nền tảng.
+
+Không khẳng định Qwen là model tốt nhất. License Review và development evaluation chưa hoàn thành; image backend chưa được chốt. Xem [môi trường](docs/environment.md) và [lựa chọn model](docs/model_selection.md).
+
+## 7. Đánh giá dự kiến
 
 Các chỉ số dự kiến:
 
@@ -96,17 +113,19 @@ Các chỉ số dự kiến:
 - Caption Readability
 - Generation Time
 
-Nhóm thực hiện các thử nghiệm so sánh baseline với phiên bản có Validation & Repair và shared character descriptions.
+Nhóm dự kiến so sánh baseline với phiên bản có Validation & Repair và shared character descriptions. Định nghĩa metrics, datasets và thực nghiệm chưa hoàn tất; chưa có kết quả chứng minh hiệu quả các cải tiến.
 
-## 8. Team Responsibilities
+## 8. Phân công
 
-| Member | Responsibility |
+| Thành viên | Trách nhiệm |
 |---|---|
-| Member 1 – Team Leader | LLM, Storyboard, Validation, Repair, Integration |
-| Member 2 | Image Generation, Character Consistency, Pillow, Gradio |
-| Member 3 | Dataset, Evaluation, Ablation Study, Testing |
+| TV1 – Nhóm trưởng | LLM, Storyboard, Validation, Repair, Integration |
+| TV2 | Image Generation, Character Consistency, Pillow, Gradio |
+| TV3 | Dataset, Evaluation, Ablation Study, Testing |
 
-## 9. Repository Structure
+Shared files và quy trình review: [CONTRIBUTING.md](CONTRIBUTING.md).
+
+## 9. Cấu trúc repository
 
 - `src/story_generator/`: LLM prompting và repair.
 - `src/storyboard/`: Schema và validator.
@@ -120,23 +139,24 @@ Nhóm thực hiện các thử nghiệm so sánh baseline với phiên bản có
 - `docs/`: Project documentation.
 - `app.py`: Gradio application.
 
-## 10. Development Roadmap
+Các đường dẫn trên thể hiện trách nhiệm dự kiến, không phải xác nhận implementation đã hoàn tất. [Data Contract sơ bộ](docs/data_contract.md) đối chiếu example hiện tại với code của TV2.
 
-- [x] Problem definition and architecture planning
-- [x] Kaggle hardware audit
-- [ ] Model compatibility check
-- [ ] Environment smoke test
-- [ ] Storyboard data contract
-- [ ] Mock end-to-end pipeline
-- [ ] LLM story generation
-- [ ] Storyboard validation and repair
-- [ ] Real image generation
-- [ ] Comic rendering
-- [ ] Gradio interface
-- [ ] Evaluation and ablation study
-- [ ] Final report and demonstration
+`models/` cũ đã bị xóa ở commit `809350b`. Hai script legacy được giữ trong backup ngoài repository; các bản local đang ignored được giữ nguyên. Chưa đưa chúng vào pipeline, GitHub hoặc `references/legacy/` do chưa xác minh đầy đủ quyền sử dụng. Không khôi phục bốn placeholder rỗng hoặc CSV cũ theo mặc định.
 
-## 11. References
+## 10. Lộ trình
+
+- [x] Xác định bài toán và kiến trúc dự kiến
+- [x] Ghi nhận Kaggle hardware audit và dependency/GPU smoke test
+- [x] Ghi nhận Qwen inference smoke test trên một mẫu
+- [ ] Hoàn tất License Review và development evaluation
+- [ ] Thống nhất Data Contract sơ bộ với TV2 và kiểm thử structured generation
+- [ ] Hoàn thiện môi trường tái lập và lưu bằng chứng thực thi
+- [ ] Mock end-to-end pipeline trên CPU
+- [ ] LLM Story Generation, Validation & Repair
+- [ ] Image Generation, rendering và Gradio
+- [ ] Evaluation, ablation study và báo cáo cuối kỳ
+
+## 11. Tài liệu tham khảo
 
 - AI VIET NAM – AIO2025 – Project: Comic Generation.
 - Hugging Face Transformers Documentation.
@@ -144,6 +164,6 @@ Nhóm thực hiện các thử nghiệm so sánh baseline với phiên bản có
 - PyTorch Documentation.
 - Kaggle Notebooks.
 
-## 12. Disclaimer
+## 12. Giới hạn và quyền sử dụng
 
-This repository is an academic project under development. Generated content may contain inaccuracies or inconsistencies. Model licenses and dataset usage rights must be verified before redistribution.
+Đây là đồ án học thuật đang phát triển. Nội dung sinh có thể sai hoặc thiếu nhất quán. MIT của repository không thay thế license của model, code tham khảo hoặc dataset bên ngoài. Phải xác minh quyền sử dụng trước khi phân phối các tài sản đó.
