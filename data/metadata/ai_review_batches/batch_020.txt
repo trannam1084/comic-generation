@@ -1,0 +1,161 @@
+
+Bạn là người đánh giá Dataset cho dự án Vietnamese Comic Generation.
+
+Hãy đánh giá từng truyện để xác định mức độ phù hợp
+khi chuyển thành comic khoảng 4 cảnh.
+
+Đánh giá 4 tiêu chí, mỗi tiêu chí từ 0 đến 2:
+
+1. characters_clear
+0: Không rõ nhân vật
+1: Nhân vật tương đối rõ
+2: Nhân vật rõ ràng
+
+2. events_clear
+0: Sự kiện không có trình tự rõ
+1: Trình tự tương đối rõ
+2: Trình tự sự kiện rõ ràng
+
+3. scene_suitable
+0: Không phù hợp tạo comic
+1: Có thể tạo comic nhưng cần chỉnh sửa
+2: Rất phù hợp để chia khoảng 4 cảnh
+
+4. ending_clear
+0: Không có kết thúc rõ
+1: Kết thúc tương đối rõ
+2: Kết thúc rõ ràng
+
+Tổng điểm score = tổng 4 tiêu chí, tối đa 8.
+
+selected_candidate:
+- true: Nếu score >= 6 và phù hợp tạo comic
+- false: Nếu không phù hợp
+
+difficulty:
+- easy
+- medium
+- hard
+
+Không bịa thêm sự kiện.
+Không đánh giá chỉ dựa trên tên truyện.
+Đánh giá dựa trên nội dung được cung cấp.
+
+Trả về JSON array hợp lệ, không Markdown.
+
+Mỗi truyện:
+
+{
+  "id": "story_001",
+  "title": "...",
+  "characters_clear": 0,
+  "events_clear": 0,
+  "scene_suitable": 0,
+  "ending_clear": 0,
+  "score": 0,
+  "selected_candidate": false,
+  "difficulty": "easy",
+  "reason": "..."
+}
+
+
+==================================================
+STORIES TO EVALUATE
+==================================================
+
+
+ID: story_111
+TITLE: Bác sĩ Gõ Kiến [Truyện đọc lớp 1]
+URL: https://truyendangian.com/bac-si-go-kien
+
+CONTENT:
+Bác sĩ Gõ Kiến là bạn của núi rừng. Bác sĩ đi đến đâu cũng râm ran tiếng chào hỏi.
+Vợ chồng nhà Sói mấy hôm nay mất ngủ vì Sói chồng đau răng. Lợi Sói sưng vù, không ăn uống gì được, suốt ngày há miệng rên hừ hừ. Đau quá, giữa đêm khuya Sói vợ mời bác sĩ Gõ Kiến đến chữa bệnh.
+Không quản đêm tối, trời lạnh, bác sĩ Gõ Kiến đến ngay. Bác sĩ Gõ Kiến kiên trì khêu từng miếng thịt nhỏ xíu giắt sâu trong răng Sói chồng. Từ miệng Sói chồng, phả ra mùi hôi nồng nặc. Bác sĩ Gõ Kiến bôi thuốc vào chân răng Sói, thuốc ngấm đến đâu, cơn đau dịu đến đấy.
+Sói chồng ngậm được miệng, hết đau, không rên hừ hừ nữa. Sói chồng nháy mắt cho Sói vợ, lập tức cửa hang đóng sập. Sói chồng cất giọng ồm ồm:
+– Ngươi đã chữa cho ta khỏi bệnh, tốt lắm! Phần thưởng của ta là mi được làm bữa ăn lót dạ cho ta. Ba hôm nay ta không ăn gì rồi. Ngươi bằng lòng chứ!
+– Rất bằng lòng!
+– Ờ được, nhưng sao ngươi cứ nhìn ta trừng trừng thế, không sợ à?
+– Không sợ, nhưng chỉ lo thôi! Nhìn vào mắt ông, biết ngay ông đang mắc bệnh hiểm nghèo , nguy hiểm đến tính mạng đấy!
+Sói chồng sợ xanh mặt:
+– Nguy hiểm đến tính mạng? Ngươi không đùa chứ?
+– Ta không biết đùa?
+Sói chồng sụp xuống chân bác sĩ Gõ Kiến, van lơn:
+– Ồ, bác sĩ Gõ Kiến đáng kính, bác sĩ không biết đùa nhưng tôi lại thích đùa. Tôi nói đùa bác sĩ một chút cho vui đấy thôi chứ không có bữa ăn lót dạ nào đâu. Bác sĩ lại chữa bệnh cho tôi chứ? Vợ của ta đâu, mau mở cửa ra cho thoáng để bác sĩ khám bệnh cho ta nào
+– Bệnh của ngươi nguy hiểm lắm, không có thuốc nào chữa được, ta cũng dành bó tay. Đó là bệnh tráo trở , độc ác, đang ở thời kì phát bệnh nặng.
+Nói đoạn bác sĩ bay thẳng. Vợ chồng nhà Sói tức giận sùi bọt mép, mắt trợn ngược nằm vật ra giường. Căn bệnh độc ác, nham hiểm đang lên cơn hành hạ vợ chồng nhà Sói.
+
+--------------------------------------------------
+
+
+ID: story_112
+TITLE: Không từ bỏ [Quà tặng cuộc sống]
+URL: https://truyendangian.com/khong-tu-bo
+
+CONTENT:
+Sau đây là một câu chuyện có thật về cách tổng thống Abraham Lincoln ứng xử trước tình huống khó khăn của chính ông:
+Vào thời gian đầu trong cuộc nội chiến ở Hoa Kỳ, người cố vấn của Lincoln khuyên ông nên từ bỏ trang trại Fort Sumter và mọi tài sản khác thuộc các bang miền Nam, vì sợ những tài sản này sẽ khiến mọi người nghi ngờ lý tưởng giải phóng nô lệ của ông.
+Khi nhận được lời khuyên ấy, ông chỉ cười mà trả lời người cố vấn của mình bằng một câu chuyện ngụ ngôn:
+“Anh có biết câu chuyện ngụ ngôn về sư tử và con gái người thợ rừng không?” – Lincoln hỏi người cố vấn. – “ Aesop kể rằng, trong một khu rừng nọ có một con sư tử đem lòng yêu con gái của người thợ rừng. Một hôm, nó quyết định đánh bạo đến gặp cha của cô gái để xin hỏi cưới cô.
+Khi sư tử đến, cha cô gái nói rằng ông không thể đồng ý vì răng nanh của sư tử dài quá, có thể làm tổn hại đến con gái ông. Thế là ngay tức thì, sư tử chạy đến chỗ nha sĩ và mài mòn toàn bộ hàm răng của nó.
+Quay trở lại, sư tử cầu hôn cô gái lần nữa. Nhưng người thợ rừng lại bảo móng vuốt của nó dài quá, ông không muốn con gái mình bị đau. Thế là sư tử tìm đến chỗ vị y sĩ và nhổ hết móng vuốt của mình đi rồi quay lại nhà người thợ rừng. Nhưng người thợ rừng thấy rằng sư tử giờ đây đã hoàn toàn vô hại nên đã lập tức giết chết nó”. Lincoln ngừng một lát rồi nói tiếp: “Chẳng phải số phận tôi cũng sẽ giống như con sư tử đó nếu từ bỏ mọi thứ như lời anh khuyên?”.
+
+--------------------------------------------------
+
+
+ID: story_113
+TITLE: Không gì có thể ngăn bước anh ấy [Quà tặng cuộc sống]
+URL: https://truyendangian.com/khong-gi-co-the-ngan-buoc-anh-ay
+
+CONTENT:
+Không gì có thể ngăn bước anh ấy là câu chuyện Quà tặng cuộc sống ý nghĩa kể về Glenn Cunningham – nhà vô địch điền kinh đã lập kỷ lục thế giới năm 1934.
+Phải có nghị lực lớn và lòng tự tin vào bản thân cao độ, cậu bé tàn tật trong câu chuyện mới đủ sức vượt qua sự đau đớn về thể xác để rời khỏi chiếc xe lăn tưởng chừng là phương tiện di chuyển vĩnh viễn của mình. Không những thế, bằng ý chí kiên cường sau này anh còn trở thành vận động viên tiêu biểu nhất thế kỷ về chạy tốc độ.
+Sau một trận bỏng nặng ở cả hai chân khi mới lên năm, Glenn Cunningham được các bác sĩ chuẩn đoán rằng trường hợp của cậu là vô phương cứu chữa. Họ cho rằng cậu bé sẽ bị tàn tật và suốt đời phải ngồi xe lăn. “Cậu bé sẽ không bao giờ có thể đi lại được nữa”, họ khẳng định: “Không còn cơ hội nào nữa”.
+Các bác sĩ kiểm tra đôi chân của Glenn Cunningham , nhưng họ không thể hiểu được con người cậu. Cậu bé chẳng tin vào lời các bác sĩ, vẫn một mực bắt đầu tập đi trở lại. Nằm trên giường, với đôi chân đỏ đầy những vết sẹo chưa kéo da non, Glenn nguyện rằng: “Tuần tới mình sẽ bước xuống đường, mình sẽ đi được”. Và Glenn đã làm được.
+Mẹ cậu bé kể lại những lần bà vén màn nhìn ra cửa sổ, thấy cảnh Glenn rướn tay lên nắm lấy cái cày cũ kĩ trong vườn. Nắm lấy tay cầm của nó, cậu bé bắt đầu cuộc đấu tranh buộc đôi chân xương xấu vặn vẹo của mình phải hoạt động. Mỗi bước đi của cậu là một bước đau. Mặt cậu bé liên tục nhăn lại, mồ hôi túa ra như tắm. Nhưng cậu bé vẫn kiên định. Dần dần cậu có thể đi từng bước ngắn, và chẳng bao lâu sau, cậu gần như có thể đi lại bình thường. Khi cậu bé bắt đầu chạy được trên đôi chân chằng chịt sẹo bỏng của mình, cậu lại càng tỏ rỏ quyết tâm hơn.
+“Lúc nào tôi cũng tin là mình có thể đi được, và tôi đã làm như vậy. Còn bây giờ tôi đang cố gắng để có thể chạy nhanh hơn bất kỳ người nào khác”. Và cậu bé đã chứng minh rằng cậu có thể thực hiện những điều mình nói.
+Cậu bé ngày ấy đã trở thành nhà vô địch môn điền kinh đường trường cự ly một dặm khi lập kỷ lục thế giới trong thời gian chỉ có 4 phút 6 giây vào năm 1934. Anh đã được trao tặng bằng khen danh dự dành cho vận động viên tiêu biểu nhất thế kỷ ở quảng trường danh tiếng Madison.
+
+--------------------------------------------------
+
+
+ID: story_114
+TITLE: Những người bạn tốt [Truyện đọc lớp 5]
+URL: https://truyendangian.com/nhung-nguoi-ban-tot
+
+CONTENT:
+Arion là một nghệ sĩ nổi tiếng của nước Hy Lạp cổ. Trong một cuộc thi ca hát ở đảo Sicily, ông đoạt giải nhất với nhiều tặng vật quý giá. Trên đường trở về kinh đô, đến giữa biển thì đoàn thủy thủ trên chiếc tàu chở ông nổi lòng tham, cướp hết tặng vật và đòi giết Arion. Nghệ sĩ xin được hát bài ông yêu thích trước khi chết. Bọn cướp đồng ý. Arion đứng trên boong tàu cất tiếng hát, đến đoạn mê say nhất, ông nhảy xuống biển. Bọn cướp cho rằng Arion đã chết liền dong buồm trở về đất liền.
+Nhưng những tên cướp đã nhầm. Khi tiếng đàn, tiếng hát của Arion vang lên, có một đàn cá heo đã bơi đến vây quanh tàu, say sưa thưởng thức tiếng hát của người nghệ sĩ tài ba. Bầy cá heo đã cứu Arion . Chúng đưa ông trở về đất liền nhanh hơn cả tàu của bọn cướp. Arion tâu với vua toàn bộ sự việc nhưng nhà vua không tin, sai giam ông lại.
+Hai hôm sau, bọn cướp mới về tới đất liền. Vua cho gọi chúng vào gặng hỏi về cuộc hành trình . Chúng bịa chuyện Arion ở lại đảo. Đúng lúc đó Arion bước ra. Đám thủy thủ sửng sốt , không tin vào mắt mình. Vua truyền lệnh trị tội bọn cướp và trả lại tự do cho Arion.
+Sau câu chuyện kì lạ ấy, ở nhiều thành phố Hy Lạp và La Mã đã xuất hiện những đồng tiền khắc hình một con cá heo cõng người trên lưng. Có lẽ đó là đồng tiền được ra đời để ghi lại tình cảm yêu quý con người của loài cá thông minh.
+
+--------------------------------------------------
+
+
+ID: story_115
+TITLE: Tai ai thính nhất? [Kể chuyện lớp 2]
+URL: https://truyendangian.com/tai-ai-thinh-nhat
+
+CONTENT:
+Tai ai thính nhất? là một câu chuyện vui khoa học sinh động, kể về cuộc tranh cãi của Thỏ trắng, Rắn và Châu Chấu xem đôi tai của ai mới là thính nhất.
+Truyện đã cho chúng ta biết về đặc điểm nghe của một số loài vật trong tự nhiên, đồng thời giới thiệu loài vật có “tai” thính nhất xưa nay chính là Châu Chấu.
+Một chú Thỏ Trắng xưa nay vẫn tự cho mình là có đôi tai thính nhất. Một hôm, chú vừa nhảy nhót trên bãi cỏ, vừa hát:
+Là lá la la, Thỏ Trắng là ta, Tai dài thính nhất, Ai cũng thua tất, Là lá la la…
+Bỗng có một tiếng “phì” mạnh làm chú thỏ giật nẩy người. Mắt chú nhớn nhác nhìn quanh. Một con Rắn ngóc đầu dậy và nói:
+– Phì! Tai thính mà tớ bò đến bên cạnh cũng không biết. Thính nhất phải là Rắn này!
+Rắn còn đnag lắc lư cái đầu ra vẻ đắc ý thì một con chây chấu nhô lên trên đám cỏ và hét to:
+– Thôi đi nào! Chớ vội khoe khoang! T ai tớ mới thính nhất . Tớ có thể nghe được những tiếng động ở cách xa hàng ngàn km (kilometer) cơ!
+Ba con vật ra sức tranh cãi, không ai chịu thua ai. Cuối cùng đành phải nhờ chim Họa Mi phân xử giúp. Chim Họa Mi bèn lấy một chiếc lá sen to buộc chặt đôi tai của Thỏ lại. Rồi Họa Mi lấy một lá mía buộc chặt vào đầu Rắn, và lấy một lá cỏ buộc đầu Châu Chấu.
+Mọi việc xong xuôi, Họa Mi nhảy lên cành cây cất tiếng hót véo von:
+Rich ri ri, Cứ khoe khoang đi: Tai buộc rồi, Còn thấy chi!
+Rắn và Châu Chấu cùng lên tiếng:
+– Chúng tôi nghe thấy rồi! Chúng tôi nghe thấy rồi!
+Riêng Thỏ Trắng kêu lên:
+– Tôi chẳng nghe thấy gì cả! Đúng là chị Họa Mi buộc tai tôi chặt quá!
+Nói xong, Thỏ Trắng đòi buộc lại tai Rắn và Châu Chấu. Thỏ lấy thêm một lá mía khác buộc chặt luôn cả mồm của Rắn lại và quấn thêm vào chân Châu Chấu một lá cỏ dày nữa. Vì Thỏ Trắng nghe đâu các nhà khoa học cho biết là Rắn nghe bằng lưỡi và Châu Chấu nghe bằng chân cơ.
+Họa Mi đợi Thỏ buộc xong, nhảy tít trên cành cây cao, cất tiếng hót lanh lảnh :
+Rích ri ri, Cứ khoe khoang đi: Tai buộc rồi, Còn nghe thấy chi!
+Lần này cả Thỏ và Rắn đều thú nhận là không nghe thấy gì. Chỉ có một mình Châu Chấu vẫn nghe rõ ràng tiếng Họa Mi hót. Cả bọn đành công nhận là tai Châu Chấu thính nhất.
+
+--------------------------------------------------
+

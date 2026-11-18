@@ -1,0 +1,212 @@
+
+Bạn là người đánh giá Dataset cho dự án Vietnamese Comic Generation.
+
+Hãy đánh giá từng truyện để xác định mức độ phù hợp
+khi chuyển thành comic khoảng 4 cảnh.
+
+Đánh giá 4 tiêu chí, mỗi tiêu chí từ 0 đến 2:
+
+1. characters_clear
+0: Không rõ nhân vật
+1: Nhân vật tương đối rõ
+2: Nhân vật rõ ràng
+
+2. events_clear
+0: Sự kiện không có trình tự rõ
+1: Trình tự tương đối rõ
+2: Trình tự sự kiện rõ ràng
+
+3. scene_suitable
+0: Không phù hợp tạo comic
+1: Có thể tạo comic nhưng cần chỉnh sửa
+2: Rất phù hợp để chia khoảng 4 cảnh
+
+4. ending_clear
+0: Không có kết thúc rõ
+1: Kết thúc tương đối rõ
+2: Kết thúc rõ ràng
+
+Tổng điểm score = tổng 4 tiêu chí, tối đa 8.
+
+selected_candidate:
+- true: Nếu score >= 6 và phù hợp tạo comic
+- false: Nếu không phù hợp
+
+difficulty:
+- easy
+- medium
+- hard
+
+Không bịa thêm sự kiện.
+Không đánh giá chỉ dựa trên tên truyện.
+Đánh giá dựa trên nội dung được cung cấp.
+
+Trả về JSON array hợp lệ, không Markdown.
+
+Mỗi truyện:
+
+{
+  "id": "story_001",
+  "title": "...",
+  "characters_clear": 0,
+  "events_clear": 0,
+  "scene_suitable": 0,
+  "ending_clear": 0,
+  "score": 0,
+  "selected_candidate": false,
+  "difficulty": "easy",
+  "reason": "..."
+}
+
+
+==================================================
+STORIES TO EVALUATE
+==================================================
+
+
+ID: story_058
+TITLE: Phù thủy sợ ma [Truyện cười dân gian Việt Nam]
+URL: https://truyendangian.com/phu-thuy-so-ma
+
+CONTENT:
+Xưa có một anh thầy phù thủy có tiếng là cao tay. Nhưng chị vợ thì không phục, biết là hắn bịp người lấy tiền. Có lần trong bữa cơm, chị vợ hỏi:
+– Mình có sợ ma không?
+Hắn ngạc nhiên nhìn vợ:
+– Hỏi gì lạ thế? Tôi làm nghề trừ ma, trừ quỷ, ma quỷ nó sợ tôi thì có, chứ tôi đâu lại sợ ma quỷ !
+Chị vợ mỉm cười không nói gì.
+Một hôm, hắn đi cúng ở một làng bên cạnh. Đám tan thì trời đã khuya. Hắn vội vàng thu xếp xôi, chuối, thủ lợn vào đãy rồi ra về. Trời tối như mực. Hắn vừa đến gần một bụi cây rậm thì thấy có một vật gì đỏ như một hòn than bay lên bay xuống trước mặt. Hắn ta thấy hơn rợn người, nhưng vẫn làm ra bộ can đảm, bỏ đãy xuống vừa bắt quyết vừa lầm bẩm đọc thần chú :
+– Úm! Thiên lý thu lai! Vạn lý thu lai!
+Cái vật kỳ dị ấy vẫn bay lên bay xuống rồi bay vụt lại gần chỗ hắn đứng. Hắn kinh hoàng ù té chạy, rơi cả khăn, quăng cả đãy, vừa chạy vừa kêu thất thanh :
+– Úm! Thiên lý cha ôi! Úm! Vạn lý cha ôi! Ôi làng nước ôi!
+Sáng hôm sau, đến bữa ăn, nhìn mâm cơm, hắn rất ngạc nhiên, lẩm bẩm một mình:
+– Thủ… giống thủ… xôi… giống xôi…!
+Chị vợ bật cười:
+– Thủ chẳng giống thủ, xôi chẳng giống xôi thì giống cái gì? Hay là giống cái con ma trơi tối hôm qua?
+Anh thầy phù thủy biết mình mắc mưu vợ, xấu hổ, cúi gằm mặt xuống, suốt bữa cơm không nói lấy một lời.
+Con ma tối hôm trước, chính là chị vợ anh thầy phù thủy. Chị ta biết chồng về khuya nên đã mang theo một hòn than đỏ, ngồi nấp sau bụi cây cạnh đường để dọa chồng một mẻ, hết nói láo.
+Câu chuyện lan ra. Từ đó, thấy anh thầy phù thủy ấy đâu, trẻ con tinh nghịch chạy theo, hát mấy câu giễu cợt như sau:
+Đom đóm, thầy ngỡ là ma! Thầy bỏ thầy chạy, Rơi khăn, rơi đãy, Rơi cả cục xôi, Thầy ngồi thầy réo Ma bắt thầy đi! Kim nhật kim thì, Kim đương thỉnh giải .
+
+--------------------------------------------------
+
+
+ID: story_059
+TITLE: Cậu bé và ông già cho thuê sách [Truyện đọc lớp 1]
+URL: https://truyendangian.com/cau-be-va-ong-gia-cho-thue-sach
+
+CONTENT:
+Một buổi trưa… vào giờ tan tầm , bác thợ sửa xe đạp đầu phố thấy một cậu bé đạp xe đi tới đi lui mấy lần. Lát sau cậu bé mới dắt xe vào quán:
+– Xe của cháu hỏng gì? – Bác thợ hỏi cậu bé.
+– Xe cháu không sao ạ. – Cậu bé trả lời. Cháu đi trả sách . Bác ơi, ông già cho thuê sách ở bên cạnh bác hôm nay không mở hàng ạ?
+– Không! – Bác thợ bực dọc – Tuần sau ông ấy mới tới.
+Sau mấy ngày cậu bé đạp xe đến.
+– Xe hỏng gì? – Bác thợ lại hỏi cậu bé. Bác không nhận ra nó.
+– Cháu đi trả sách ạ – Cậu bé rụt rè. Hôm nọ bác nói tuần này ông già cho thuê sách sẽ mở hàng…
+Bác thợ cáu kỉnh:
+– Lại là cậu… Ông già ấy chưa tới.
+Cậu bé như biết lỗi, mặt đỏ bừng:
+– Cháu xin… xin lỗi…
+– Sao cứ phải tìm ông già để trả sách ngay? – Giọng bác thợ đã dịu hơn.
+Cậu bé tần ngần :
+– Thấy cháu không có tiền thuê sách, ông già bảo: “Cháu thích đọc cuốn này lắm phải không? Ông cho cháu mượn không lấy tiền nhưng đúng một tuần thôi nhé. Để ông còn cho người khác thuê…”. Mà cháu đã chậm mất năm ngày rồi ạ.
+– À à… ra thế… – Bác thợ kéo dài tiếng “à” – Thôi cháu cứ an tâm về đi, mấy hôm nữa trả cũng được.
+Đầu tuần cậu bé đạp xe đến. Lần này bác thợ nhận ngay ra nó:
+– Ông già vẫn chưa tới. Bác nghe nói ông ấy bị ốm nặng, khó qua khỏi.
+Cậu bé chớp chớp mắt. Im lặng một hồi nó run run hỏi bác thợ:
+– Bác ơi, bác biết nhà ông già cho thuê sách ở đâu không ạ?
+Bác cũng không biết. Hình như ông già ở xa.
+Thằng bé cúi đầu, hấp tấp dắt xe ra. Ngày hôm sau, bác thợ ngạc nhiên thấy cậu bé lại xuất hiện. Nó đưa tiền cho bác và bảo:
+– Bác cho cháu gửi ông già số tiền cháu thuê sách nhé.
+– Ơ, cháu nói ông già không lấy tiền của cháu cơ mà.
+– Nhưng ông già đang bị ốm…
+Bác thợ cảm động nhìn cậu bé:
+– Bác sẽ đem số tiền này đến tận tay ông già.
+Một tuần nữa trôi qua, cậu bé mới quay lại. Chỗ ngồi của ông già cho thuê sách vẫn trống trơn. Từng đám lá khô lăn xao xác theo gió. Bác thợ xe buồn bã nói với nó:
+– Ông già cho thuê sách mất rồi cháu ạ.
+Cậu bé đứng lặng. Bác thợ lắc đầu:
+– Bác không chuyển được số tiền của cháu gửi cho ông già. Bác hỏi thăm mãi mới biết địa chỉ. Đến nơi thì đã muộn. Ông già sống độc thân, nghèo lắm…
+Cậu bé trân trân nhìn cuốn sách đang cầm trên tay. Nó thì thào:
+– Tại cháu… Tại cháu lỡ hẹn nên ông già cho thuê sách mới bị ốm.
+– Ừ…
+Không hiểu sao bác thợ lại “ừ” như vậy. Đặt tay lên vai cậu bé, bác nói thêm:
+– Giá ông già cho thuê sách biết được ông có một người khách hàng tốt như thế này, có lẽ ông ấy chưa thể đi xa.
+
+--------------------------------------------------
+
+
+ID: story_060
+TITLE: Kéo cây lúa lên [Truyện cười dân gian Việt Nam]
+URL: https://truyendangian.com/keo-cay-lua-len
+
+CONTENT:
+Kéo cây lúa lên là câu chuyện cười dân gian Việt Nam, có ý chế giễu những người ngốc nghếch trong xã hội, hễ động tay động chân đến việc gì cũng hỏng.
+Truyện từng được đưa vào giảng dạy trong sách Tiếng Việt lớp 3, tập 1, NXB Giáo dục Việt Nam.
+Mọi người thường gọi anh ta là một chàng ngốc. Một hôm anh ta ra đồng thấy ruộng lúa nhà mình xấu hơn ruộng lúa nhà người. Anh bèn kéo tất cả cây lúa của ruộng mình lên cao hơn lúa của nhà bên cạnh. Làm xong, anh quay về nhà khoe với vợ:
+– Thấy lúa nhà mình xấu quá, tôi đã kéo chúng lên. Bây giờ thì nó đã cao hơn lúa của mọi người rồi!
+Nghe chồng nói vậy, chị vợ vội ra đồng xem thử, thì thấy lúa trong thửa ruộng nhà mình đã héo rũ xuống cả rồi.
+
+--------------------------------------------------
+
+
+ID: story_063
+TITLE: Chiếc rương thần [Truyện đọc lớp 1]
+URL: https://truyendangian.com/chiec-ruong-than
+
+CONTENT:
+Buồn cười thật, chiếc rương chiếc rương cũ kĩ thế mà mẹ lại bảo là chiếc rương thần. Mẹ còn dặn:
+– Con đừng tự tiện lục vào đấy nhé. Cả mẹ cũng không dám đâu. Chỉ khi nào bố cho phép.
+Cái Vân càng ngạc nhiên hơn:
+– Ở trong rương có cái gì ạ? Có vàng không hả mę?
+– Có đấy, Mẹ cái Vân mỉm cười – Còn quý hơn cả vàng nữa cơ…
+Cái Vân nóng ruột đợi bố đi công tác về. Bố đã hứa kì này cái Vân đạt học sinh giỏi, bố sẽ thưởng một món quà thật dễ thương. Một con búp bê xinh xắn có váy hồng, hay một chú chó bông trắng muốt, mắt long lanh như hai viên bi. Không! Lần này cái Vân sẽ xin bố cho xem cái rương thần đựng gì thôi. Chắc trong đó có nhiều cái thích lắm. Chẳng hạn như đôi đũa thần chỉ cần gõ xuống mâm một cái, là các đồ ăn tuyệt ngon hiện ra như trong chuyện mẹ kể. Bố sắp đến ngày về thì trong nhà cái Vân xảy ra chuyện. Tối hôm đó mưa to, nước chảy ồ ồ thành dòng ngoài hiên. Mẹ cùng cái Vân ngủ trong buồng. Chiếc rương vẫn để trên nắp tủ. Vậy mà… Buổi sáng, mẹ cái Vân mặt tái nhợt, kêu hoảng hốt
+– Mất hết rồi con ơi…
+Cái Vân ngơ ngác nhìn mẹ rồi nhìn vào đôi cánh cửa tủ bị tháo tung. Trên nắp tủ, chiếc rương thần của bố không thấy đâu nữa. Bọn trộm ác thật. Sao chúng không lấy chiếc xe đạp mẹ dựng ở góc nhà nhỉ? Sao chúng lại chọn đúng chiếc rương thần ấy…
+Bố về. Nhìn nét mặt của mẹ, bố hỏi ngay:
+– Ở nhà có chuyện gi à?
+Cái Vân báo cho bố biết việc nhà mất trộm. Nhắc đến chiếc rương, cái Vân tấm tức:
+– Con định lần này… lần này… con chỉ xin bố cho xem… chiếc rương thần… thôi…. Con đã đạt học sinh giỏi rồi…
+Nghe đến thế, bố cái Vân đặt túi xuống chạy vội vào buồng. Mặt bố cũng tái nhợt giống mẹ buổi sáng hôm nào đứng trước tủ. Giọng bố khản đặc:
+– Quân khốn nạn…
+Chưa bao giờ cái Vân thấy bố giận dữ như thế. Mắt bố đỏ vằn, hai bàn tay nắm chặt. Nếu bây giờ bố bắt được bọn trộm thì…
+Gần một tuần sau chiếc rương thần mới được tìm thấy. Không phải là tìm thấy mà ai đó đã đem chiếc rương đến đặt ngay trước cửa nhà. Mẹ mừng rỡ hét toáng:
+– Anh ơi, chiếc rương này…
+Lúc cái Vân tỉnh giấc chạy ra thì bố đã ôm chiếc rương vào giữa nhà. Bố đang kiểm tra lại từng thứ. Nhiều đồ lạ quá nhưng đều đã cũ. Cái Vân hồi hộp nhìn theo tay bố: Chiếc ba lô bạc màu, bộ quần bộ đội đã sờn gấu… không thấy vàng, không thấy đôi đũa có phép mầu. Cái Vân không hiểu vì sao bố mẹ lại vui đến vậy. Những thứ cũ kĩ kia thì có phép gì cơ chứ. Thế mà mẹ bảo là chiếc rương thần.
+Mừng việc chiếc rương trở về, bố mẹ cái Vân quyết định tổ chức liên hoan. Chủ nhật, nhà có khách. Toàn những bác sàn sàn tuổi bố. Sau chén rượu, bố cái Vân hạ chiếc rương xuống. Những người khách chăm chú nhìn theo tay bố. Có tiếng nghèn nghẹn từ phía những người khách:
+– Đây là chiếc bị đông của thằng Chiến. Nó hi sinh đợt chiến dịch A.68. Hơn hai chục đứa… Giờ chỉ còn lại bốn chúng mình…
+Cuối cùng bố cái Vân giở ra một tờ giấy:
+– Còn đây là lá thư của một người không quen biết. Cả nhà nghe nhé: “… Sau khi đọc những dòng ghi chép và được xem những kỉ vật ở chiến trường cất trong rương, tôi tự thấy xấu hổ vô cùng. Xin được hoàn lại chiếc rương này. Tôi rất ân hận. Đây sẽ là tội lỗi cuối cùng của tôi…”.
+Cái Vân cùng mẹ từ đầu đến giờ vẫm im lặng theo dõi. Chẳng biết mẹ đang nghĩ gì. Đúng là chiếc rương thần như mẹ nói. Không thế mà chiếc rương lại quay về nhà được. Không thế mà bố và những người bạn của bố cảm động đến thế. Ai cũng rơm rớm nước mắt. Người lớn cũng khóc đấy, đâu riêng gì trẻ con.
+Bây giờ Cái Vân đã hiểu vì sao mẹ lại bảo những thứ cất trong rương quý hơn vàng.
+
+--------------------------------------------------
+
+
+ID: story_064
+TITLE: Nhất bên trọng, nhất bên khinh [Truyện cười Việt Nam]
+URL: https://truyendangian.com/nhat-ben-trong-nhat-ben-khinh
+
+CONTENT:
+Một anh thợ mộc hay chữ vào làm cho nhà một ông quan hưu trí. Ông quan thấy anh ta lanh lợi, nói năng hoạt bát, mới hỏi:
+– Trước kia anh có học hành được chữ gì không?
+Anh ta trả lời:
+– Bẩm có ạ!
+Ông quan liền chỉ con ngựa bạch quí của mình đang đứng ăn ở góc sân, bảo:
+– Anh thử làm bài thơ vịnh con ngựa xem, hay thì ta sẽ thưởng.
+Anh thợ mộc ứng khẩu đọc:
+Bạch mã mao như tuyết (Ngựa trắng lông như tuyết) Tứ túc cương như thiết (Bốn chân cứng như sắt) Tướng công kỵ bạch mã (Ngài cưỡi ngựa trắng) Bạch mã tẩu như phi (Ngựa trắng chạy như bay)
+Quan gật gù khen hay, rồi thưởng cho một thúng thóc, một quan tiền.
+Anh thợ ra về, gánh bên thúng thóc, bên đồ lề, thấy bên nặng bên nhẹ, liền nói chữ: “ Nhất bên trọng, nhất bên khinh “. Quan nghe nói liền cho thêm một thúng thóc nữa để gánh cho cân.
+Anh ta về nhà kể lại câu chuyện cho mọi người nghe. Có anh hàng xóm, dốt đặc cán mai, nhưng thấy được lắm tiền, lắm thóc như thế, nổi tính tham, liền bảo anh thợ mộc dạy cho bài thơ và câu nói chữ nọ. Học thuộc rồi, anh ta cũng sắp một đôi quang gánh và một ít dụng cụ vào dinh quan xin việc. Quan cũng hỏi như lần trước và anh này hí hửng đáp mình là học trò. Quan nhìn ra sân, thấy bà cụ quét sân bèn bảo anh ta làm thơ vịnh bà cụ. Anh này đã hơi lúng túng, vì chỉ thuộc mỗi bài thơ vịnh con ngựa, bây giờ biết vịnh bà cụ thế nào? Nhưng đã trót thì phải trét cũng ứng khẩu đọc:
+Bà cụ mao như tuyết…
+Quan gật đầu:
+– Ừ, được đấy!
+Nghe quan khen, anh ta vững bụng đọc tiếp:
+Tứ túc cương như thiết.
+Quan cau mày:
+– Ý hơi ép, nhưng cũng tạm được, ngâm tiếp đi!
+Mừng quá, anh này đọc một mạch:
+Tướng công kỵ bà cụ, Bà cụ tẩu như phi.
+Quan nghe xong giận quá, quát người nhà nọc ra đánh cho ba mươi roi vào mông. Ðứng dậy anh ta vừa xoa vừa nói: “Nhất bên trọng, nhất bên khinh”. Quan nghe nói liền bảo đánh thêm ba mươi roi nữa vào lưng cho cân.
+
+--------------------------------------------------
+

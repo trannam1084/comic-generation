@@ -1,0 +1,217 @@
+
+Bạn là người đánh giá Dataset cho dự án Vietnamese Comic Generation.
+
+Hãy đánh giá từng truyện để xác định mức độ phù hợp
+khi chuyển thành comic khoảng 4 cảnh.
+
+Đánh giá 4 tiêu chí, mỗi tiêu chí từ 0 đến 2:
+
+1. characters_clear
+0: Không rõ nhân vật
+1: Nhân vật tương đối rõ
+2: Nhân vật rõ ràng
+
+2. events_clear
+0: Sự kiện không có trình tự rõ
+1: Trình tự tương đối rõ
+2: Trình tự sự kiện rõ ràng
+
+3. scene_suitable
+0: Không phù hợp tạo comic
+1: Có thể tạo comic nhưng cần chỉnh sửa
+2: Rất phù hợp để chia khoảng 4 cảnh
+
+4. ending_clear
+0: Không có kết thúc rõ
+1: Kết thúc tương đối rõ
+2: Kết thúc rõ ràng
+
+Tổng điểm score = tổng 4 tiêu chí, tối đa 8.
+
+selected_candidate:
+- true: Nếu score >= 6 và phù hợp tạo comic
+- false: Nếu không phù hợp
+
+difficulty:
+- easy
+- medium
+- hard
+
+Không bịa thêm sự kiện.
+Không đánh giá chỉ dựa trên tên truyện.
+Đánh giá dựa trên nội dung được cung cấp.
+
+Trả về JSON array hợp lệ, không Markdown.
+
+Mỗi truyện:
+
+{
+  "id": "story_001",
+  "title": "...",
+  "characters_clear": 0,
+  "events_clear": 0,
+  "scene_suitable": 0,
+  "ending_clear": 0,
+  "score": 0,
+  "selected_candidate": false,
+  "difficulty": "easy",
+  "reason": "..."
+}
+
+
+==================================================
+STORIES TO EVALUATE
+==================================================
+
+
+ID: story_131
+TITLE: Một lời khen [Quà tặng cuộc sống]
+URL: https://truyendangian.com/mot-loi-khen
+
+CONTENT:
+Cách đây đúng 40 năm, tôi còn nhớ như in khi gia đình tôi chuyển từ vùng núi cao bang Chicago tới một khu phố nghèo ở New York để kiếm sống.
+New York tráng lệ và sôi động, cuộc sống và tất cả những gì được chứng kiến ở đây khiến một đứa trẻ chín tuổi như tôi cảm thấy sợ hãi. Ba tôi đã cố gắng xin cho tôi vào học tại một trường học nhỏ cách nhà không xa.
+Những ngày tháng đầu tiên ở trường mới, tôi hoàn toàn cô độc. Tất cả học sinh đều xa lánh thay vì giúp đỡ tôi hòa nhập. Thậm chí khi tôi chủ động làm quen, chúng bỏ đi, chẳng thèm nhếch mép sau khi đã ném về phía tôi những cái nhìn chế giễu, miệt thị. Vài đứa lớn còn tụ tập lại để bắt nạt tôi.
+Tôi lờ mờ hiểu rằng ở đây chẳng ai ưa một đứa trẻ da đen con nhà nghèo, gầy gò và quê mùa như tôi cả. Suốt ba tháng, tâm lý sợ hãi và bị bỏ rơi khiến tôi gần như đứng bét lớp, mặc dù chương trình học đối với tôi chẳng khó khăn gì.
+Thế nhưng, sau kỳ nghỉ đông mọi sự đã khác khi thầy Sean tới. Thầy được phân công chủ nhiệm lớp tôi thay cho thầy Paul bị nằm viện. Thầy rất nghiêm khắc, nhưng không nặng lời với bất kỳ ai. Dần dần lớp học trở nên có trật tự hơn, và những rắc rối của tôi cũng giảm đi nhiều. Có một điều tôi cảm thấy được an ủi, đó là thầy Sean cũng là người da đen.
+Một ngày, đó là ngày mà tôi chẳng thể nào quên, khi thầy Sean công bố kết quả thi giữa kỳ. Thầy nhìn khắp cả lớp, từng người một, và khi tới tôi, thầy dừng lại thật lâu làm tôi cảm thấy run sợ. Nhưng rồi thầy vui vẻ nói:
+– Bài thi này các em làm rất tốt, nhưng luôn có một người làm tốt nhất. Thầy hoan nghênh tất cả các em.
+Khỏi phải nói lúc đó tôi vui như thế nào, vì tất cả các lần thầy Paul đọc điểm thi tôi đều bị than phiền.
+Cuối buổi học, thầy nói tôi ở lại. Tôi sợ, rụt rè đến bên thầy, ấp úng:
+– Thưa thầy …
+– Ồ, Joe, hôm nay em là người làm bài tốt nhất đấy, tuyệt lắm!
+Tôi òa khóc, cái điều mà tôi chưa từng làm từ khi tới đây. Thầy Sean ôm tôi vào lòng:
+– Đừng sợ, cố gắng lên, có thầy luôn bên em.
+Những lời của thầy Sean đã làm thay đổi cuộc đời tôi. Lúc nào trong đầu tôi cũng có hình ảnh của thầy đang cổ vũ cho tôi. Và tôi trở lại là tôi, học sinh xuất sắc nhất lớp vào cuối năm học đó, giống như khi tôi còn ở Chicago.
+Năm sau, thầy Sean lại ra đi khi thầy Paul khỏe trở lại. Nhưng lúc nào tôi cũng thấy như có thầy ở bên, và năm đó, cũng như những năm về sau, tôi luôn là người đứng đầu lớp.
+Mãi sau này, khi tôi học đại học, khi tôi bảo vệ luận án tiến sĩ, và ngay giờ đây khi tôi đang đứng giảng bài trước hàng trăm sinh viên của một trường đại học danh tiếng, không khi nào tôi quên được hình bóng thầy.
+Hôm qua, tôi mừng đến phát khóc khi biết được địa chỉ của thầy sau 40 năm xa cách. Tôi đã lái xe một mạch 300 km tới thăm người thầy mà tôi kính yêu nhất đời.
+Gặp lại thầy, tôi bật khóc, những kỷ niệm ngày đó bỗng sống lại như mới.
+– Ồ, Joe – thầy nói hệt như 40 năm trước – em vẫn yếu đuối như ngày nào.
+Tôi lặng người khi nghe thầy kể:
+– Hôm đó, bài làm em chỉ được điểm B, nhưng em đã cố gắng. Nhìn vào em, thầy thấy lại mình nhiều năm trước. Khi đó, một lời động viên của cô giáo đã giúp thầy vượt qua tất cả. Thầy đã tin rằng em cũng vậy, đó là lý do mà thầy gọi em ở lại hôm ấy. Và thầy không lầm.
+Một lời khen đúng lúc mới kỳ diệu làm sao!
+
+--------------------------------------------------
+
+
+ID: story_132
+TITLE: Sự lợi hại của thất bại [Bài học cuộc sống]
+URL: https://truyendangian.com/su-loi-hai-cua-that-bai
+
+CONTENT:
+Sự lợi hại của thất bại là một câu chuyện ý nghĩa, cho thấy sau mỗi lần thất bại chúng ta sẽ rút ra được những bài học kinh nghiệm quý giá cho bản thân.
+Thất bại là mẹ thành công – Tục ngữ Việt Nam –
+Một công ty lớn tuyển mộ nhân sự và số người ứng tuyển rất đông. Họ đều có bề dày kinh nghiệm và có bằng cấp, học vị đáng kính nể. Qua ba vòng thi tuyển chỉ còn lại 11 người lọt vào vòng cuối cùng cho sáu vị trí quan trọng của công ty do chính tổng giám đốc và những nhân vật cao cấp trong công ty trực tiếp phỏng vấn.
+Khi vị tổng giám đốc phát hiện có đến 12 người tham dự, ông hỏi:
+– Ai trong số các vị đã không lọt qua các vòng tuyển chọn trước đó?
+– Thưa ông, tôi – Một chàng trai đứng dậy nói. – Tôi bị loại ngay từ vòng đầu, nhưng tôi tin mình có thể trúng tuyển nên vẫn muốn thử sức ở vòng cuối cùng này.
+Mọi người trong phòng đều bật cười, kể cả ông già lo việc trà nước đứng ở phía cửa ra vào. Ông tổng giám đốc vừa ngạc nhiên, vừa tò mò hỏi tiếp:
+– Anh đã bị loại từ vòng đầu, vậy hôm nay anh tới đây có nghĩa gì?
+Tôi chỉ tốt nghiệp đại học và là một nhân viên bình thường, nhưng tôi có 11 năm kinh nghiệm làm việc và đã từng làm cho 18 công ty khác nhau – Rất tự tin, chàng trai trả lời.
+– Bằng cấp, học lực và chức vụ của anh đều ở mức trung bình. 11 năm kinh nghiệm làm việc tại 18 công ty khác nhau đúng là điều đáng ngạc nhiên. Tuy nhiên với tư cách là nhà tuyển dụng, chúng tôi không thích điều này. – Ông tổng giám đốc ngắt lời.
+– Thưa ông, tôi không hề chuyển công ty, mà tại vì 18 công ty tôi đã từng làm việc đều… phá sản. – Chàng thanh niên vẫn trả lời tỉnh bơ.
+Lần này thì cả khán phòng cười ồ. Có tiếng bình phẩm từ phía trên:
+– Cậu ta đúng là người xui xẻo.
+Nhưng chàng trai nói tiếp:
+– Tôi cho rằng đó mới chính là điểm mạnh của riêng tôi mà không phải ai trong quý vị ở đây cũng có được.
+Cả phòng lại ồn ào lên. Lúc này, ông già phục vụ nước tiến đến bàn chủ tọa và rót nước cho các vị lãnh đạo trong hội đồng giám khảo. Chàng trai tiếp tục:
+– Tôi hiểu rất rõ 18 công ty đó bởi tôi đã từng cùng những đồng nghiệp của mình chung lưng đấu cật để kéo chúng khỏi bờ vực phá sản. Tuy không thành nhưng tôi đã học được rất nhiều từ những sai lầm khiến công ty thất bại. Đa số chúng ta thường thích tìm hiểu và học hỏi những kinh nghiệm để thành công, nhưng khác với quý vị, tôi chắc chắn có nhiều kinh nghiệm hơn người khác ở chỗ biết làm thế nào để tránh sai lầm và sự thất bại . Tôi biết chắc những kinh nghiệm để thành công thường có những điểm tương đồng nhưng lý do để dẫn đến thất bại thì luôn khác nhau. Thật sự rất khó biến kinh nghiệm thành công của người khác thành của cải của chính mình, nhưng chúng ta lại rất dễ phạm sai lầm của kẻ khác.
+Nói xong, chàng trai đứng dậy tỏ ý muốn đi ra khỏi phòng. Ông phục vụ già lại chồm lên rót nước cho ông tổng giám đốc. Bất ngờ chàng trai quay đầu lại mỉm cười và nói với ông tổng giám đốc:
+– 11 năm với 18 công ty khác nhau cho phép tôi có sự quan sát và óc phân tích về người và việc. Vì vậy, tôi biết rõ giám khảo thật sự của ngày hôm nay không phải là ông mà chính là ông già lao công, phục vụ nước.
+Cả 11 thí sinh trong phòng đều ngạc nhiên nhìn về phía người phục vụ già với ánh mắt hoài nghi. Lúc này, ông già lao công mỉm cười hài lòng và nói:
+– Rất giỏi! Anh sẽ là người đầu tiên được nhận vào làm việc tại công ty chúng tôi.
+
+--------------------------------------------------
+
+
+ID: story_133
+TITLE: Tiếng hát của Chẫu Chàng [Truyện thiếu nhi hay cho bé]
+URL: https://truyendangian.com/tieng-hat-cua-chau-chang
+
+CONTENT:
+Lớp học của cô Sẻ Nâu trên giàn mướp, bên cạnh một cái ao nhỏ. Học trò của cô nhiều lắm: Ong Bầu này, Ong Mật này, Bướm Vàng, Bướm Trắng này,… Ai cũng xinh đẹp, cũng ngoan ngoãn. Đặc biệt là Chẫu Chàng nhút nhát nhưng rất tốt bụng. Mấy hôm nay, Chẫu Chàng thấy các bạn bàn tán chuẩn bị ngày tết thầy cô, Ong Mật lên tiếng trước:
+– Mình sẽ tặng cô một túi mật ong thơm ngon.
+Bướm Vàng chen vào:
+– Mình sẽ múa một điệu thật đẹp, thật quyến rũ để tặng cô.
+Cả lớp lao xao, chỉ có Chẫu Chàng rụt rè không dám lên tiếng. Khi lớp trưởng Ong Bầu hỏi đến thì Chẫu Chàng ấp úng đáp:
+– Mình sẽ… hát tặng cô một bài…
+Cả lớp cười rộ lên. Châu Chấu đệm một câu chế nhạo:
+– Chẫu Chàng mà hát thì mọi người điếc tại, nhức óc mất!
+Mỗi người thêm vào một câu. Chẫu Chàng xấu hổ quá, chui tọt xuống mép nước, lặn xuống ao. Nó khóc:
+– Ai cũng có tài, ai cũng có món quà quý tặng cô. Chỉ có mình vô tích sự thôi. Hu… hu… hu…
+Một bàn tay mát rượi vuốt mặt Chẫu Chàng. Chẫu Chàng kể cho mẹ nghe về chuyện vừa rồi. Mẹ nhẹ nhàng an ủi, cười rồi nói nhỏ vào tai Chẫu Chàng điều gì đó…
+Khi cả lớp ào vào tặng quà cho cô Sẻ Nâu, Chẫu Chàng đến sau cùng. Cầm bông hoa nở mười ngôi sao, Chẫu Chàng nói:
+– Em xin hát tặng cô một bài để nhớ ơn cô đã dạy em.
+Rồi Chẫu Chàng hát say sưa, giọng cao vút. Cả lớp bất ngờ vì giọng hát rất hay của Chẫu Chàng . Tất cả đều cảm thấy xấu hổ vì đã trêu Chẫu Chàng, không giúp bạn tự tin. Chẫu Chàng nhìn các bạn với đôi mắt thân ái và bắt nhịp cho các bạn hát theo. Cô giáo Sẻ Nâu cảm động vì thấy học trò mình đoàn kết, ngoan ngoãn. Đó là món quà tuyệt vời nhất đối với cô.
+
+--------------------------------------------------
+
+
+ID: story_135
+TITLE: Ba viên bi màu đỏ [Quà tặng cuộc sống]
+URL: https://truyendangian.com/ba-vien-bi-mau-do
+
+CONTENT:
+Trong suốt những năm khủng hoảng ở cái bang Idaho bé nhỏ nằm phía Đông Nam nước Mỹ này, tôi thường đến cửa hàng nhỏ của ông Miller để mua rau quả tươi. Thực phẩm và tiền bạc đều khan hiếm, nên đôi khi chúng tôi dùng hình thức đổi chác.
+Một hôm, khi ông Miller đang bỏ một ít khoai tây vào túi cho tôi, thì tôi nhìn thấy một cậu bé gầy gò, ăn mặc rách rưới nhưng khá sạch sẽ, đang nhìn giỏ đựng quả đậu xanh với ánh mắt đói khát. Tôi trả tiền xong bèn đứng lại nghe cuộc nói chuyện giữa ông Miller và cậu bé ăn mặc rưới kia.
+– Chào Barry, cháu khỏe không? – Tiếng của ông Miller.
+– Chào ông Miller, cháu khỏe ạ! Cháu đang ngắm giỏ quả đậu này. Trông chúng ngon thật đấy!
+– Chúng ngon lắm, Barry a! Mẹ cháu khỏe không?
+– Cũng bình thường ạ. Hình như mẹ cháu đang khỏe lên.
+– Tốt! Ta có thể giúp gì cho cháu nào?
+– Không ạ, thưa ông. Cháu chỉ ngắm giỏ quả đậu thôi.
+– Cháu có muốn lấy một ít không?
+– Không ạ, thưa ông. Cháu không có tiền trả đâu.
+– Được, cháu có gì để đổi nào?
+– Cháu…
+– Tiếng cậu bé ngập ngừng – Cháu chỉ có một viên bị cháu mới chơi thắng được thôi ạ!
+– Thế à? Cho ta xem nào!
+– Đây, viên đẹp nhất đấy ạ!
+– Nó màu xanh à… Nhưng ta đang cần viên màu đỏ. Cháu có viên màu đỏ không?
+– Cháu không nhớ, để cháu xem…
+– Này, cháu đem giỏ đậu này về nhà đi và lần sau mang cho ta viên đỏ nhé!
+– Chắc chắn rồi, cảm ơn ông!
+– Có hai cậu bé như thế nữa ở làng này. Chúng nghèo lắm. Ông Jim nhà tôi cứ thích đổi chác, cho chúng quả đậu, táo, cà chua và những thứ khác. Cứ khi chúng giơ viên bị màu xanh ra, ông ấy lại bảo chúng cầm một ít rau quả về nhà và lần sau mang viên bi màu đỏ cho ông ấy. Vừa để chúng chịu mang rau quả về nhà ngay, vừa để chúng cảm thấy chúng thực sự đã có gì đó để trao đổi, chứ không phải được cho không. – Bà Miller nói với tôi.
+Tôi thấy rất cảm phục ông Miller. Không lâu sau, tôi chuyển nhà, nhưng câu chuyện về ông Miller, người nông dân nhân hậu ấy, thì tôi không bao giờ quên.
+Nhiều năm sau, lại có lần tôi quay về làng quê ở Idaho và rất buồn vì trong thời gian ở đó thì nghe tin ông Miller mất. Khi cùng vài người bạn cũ đến nhà ông Miller, tôi thấy ở đó có ba chàng trai trẻ, trông rất thành đạt. Họ đến gần bà Miller, ôm lấy bà và nói những lời an ủi. Rồi từng người một, họ đến bên ông Miller đang nằm đó, chạm những bàn tay nóng ấm của mình vào bàn tay lạnh lẽo của ông Miller và lau nước mắt.
+Rồi tôi cũng lại gần bà Miller và nói rằng tôi vẫn nhớ câu chuyện về những viên bi ve ngày nào. Bà Miller nói:
+– Ba chàng trai lúc nãy chính là những cậu bé ngày trước, tôi kể với cô. Họ vừa nói với tôi là họ đã biết ơn ông Jim và những gì ông đã “đổi chác” cho họ biết chừng nào. Và cuối cùng, bây giờ, khi ông Jim không còn đòi họ đổi những viên bị màu nào nữa, thì họ quay lại để tỏ lòng biết ơn ông ấy. Ông Jim luôn nghĩ mình là người giàu có nhất ở bang Idaho này với những viên bị ông có được.
+Rất nhẹ nhàng, bà Miller nhấc bàn tay của ông Jim lên. Dưới bàn tay ông là ba viên bi màu đỏ , sáng bóng và trong veo.
+
+--------------------------------------------------
+
+
+ID: story_136
+TITLE: Cây táo yêu thương [Quà tặng cuộc sống]
+URL: https://truyendangian.com/cay-tao-yeu-thuong
+
+CONTENT:
+Ngày xửa ngày xưa, có một cây táo rất to. Một cậu bé rất thích đến chơi với cây táo mỗi ngày. Cậu leo lên ngọn cây hái táo ăn, ngủ trưa trong bóng râm. Cậu yêu cây táo và cây cũng rất yêu cậu. Thời gian trôi qua, cậu bé đã lớn và không còn đến chơi với cây táo nữa.
+Một ngày nọ, cậu bé trở lại chỗ cây táo với vẻ mặt buồn rầu, cây táo reo to:
+– Hãy đến chơi với ta.
+– Cháu không còn là trẻ con, cháu chẳng thích chơi quanh gốc cây nữa. Cháu chỉ thích đồ chơi thôi, và cháu đang cần tiền để mua chúng.
+– Ta rất tiếc là không có tiền, nhưng cậu có thể hái tất cả trái của ta và đem bán.
+Rồi cậu sẽ có tiền. Cậu bé rất mừng. Cậu vặt hết quả trên cây và sung sướng bỏ đi. Cây táo lại buồn bã vì cậu bé chẳng quay lại nữa.
+Một hôm, cậu bé – giờ đã là một chàng trai – trở lại, và cây táo vui lắm:
+– Hãy đến chơi với ta.
+– Cháu không có thời gian để chơi. Cháu còn phải làm việc nuôi sống gia đình . Gia đình cháu đang cần một mái nhà để trú ngụ. Ông có giúp gì được cháu không?
+– Ta xin lỗi, ta không có nhà. Nhưng cậu có thể chặt cành của ta để dựng nhà.
+Và chàng trai chặt hết cành cây. Cây táo mừng lắm. Nhưng sau đó cậu bé vẫn chẳng quay lại. Cây táo lại cảm thấy cô đơn và buồn bã.
+Một ngày hè nóng nực, chàng trai – bây giờ đã là người có tuổi – quay lại, và cây táo vô cùng vui sướng.
+– Hãy đến chơi với ta.
+– Cháu đang buồn vì cảm thấy mình già đi. Cháu muốn đi chèo thuyền thư giãn một mình. Ông có thể cho cháu một cái thuyền không?
+– Hãy dùng thân cây của ta để đóng thuyền. Rồi cậu chèo ra xa thật xa và sẽ thấy thanh thản.
+Chàng trai chặt thân cây làm thuyền. Cậu chèo thuyền đi…
+Nhiều năm sau, chàng trai quay lại.
+– Xin lỗi, con trai của ta. Nhưng ta chẳng còn gì cho cậu nữa. Không còn táo.
+– Cháu có còn răng nữa đâu mà ăn.
+– Ta cũng chẳng còn cành cho cậu leo trèo.
+– Cháu đã quá già rồi để mà leo trèo.
+– Ta thật sự chẳng giúp gì cho cậu được nữa. Cái duy nhất còn lại là bộ rễ đang chết dần mòn của ta. – Cây táo nói trong nước mắt.
+– Cháu chẳng cần gì nhiều, chỉ cần một chỗ ngồi nghỉ. Cháu đã quá mệt mỏi sau những năm đã qua.
+– Ôi, thế thì cái gốc cây già cỗi này là một nơi rất tốt cho cậu ngồi dựa vào và nghỉ ngơi. Hãy đến đây với ta.
+Chàng trai ngồi xuống, và cây táo mừng rơi nước mắt.
+
+--------------------------------------------------
+

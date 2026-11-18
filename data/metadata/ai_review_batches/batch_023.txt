@@ -1,0 +1,225 @@
+
+Bạn là người đánh giá Dataset cho dự án Vietnamese Comic Generation.
+
+Hãy đánh giá từng truyện để xác định mức độ phù hợp
+khi chuyển thành comic khoảng 4 cảnh.
+
+Đánh giá 4 tiêu chí, mỗi tiêu chí từ 0 đến 2:
+
+1. characters_clear
+0: Không rõ nhân vật
+1: Nhân vật tương đối rõ
+2: Nhân vật rõ ràng
+
+2. events_clear
+0: Sự kiện không có trình tự rõ
+1: Trình tự tương đối rõ
+2: Trình tự sự kiện rõ ràng
+
+3. scene_suitable
+0: Không phù hợp tạo comic
+1: Có thể tạo comic nhưng cần chỉnh sửa
+2: Rất phù hợp để chia khoảng 4 cảnh
+
+4. ending_clear
+0: Không có kết thúc rõ
+1: Kết thúc tương đối rõ
+2: Kết thúc rõ ràng
+
+Tổng điểm score = tổng 4 tiêu chí, tối đa 8.
+
+selected_candidate:
+- true: Nếu score >= 6 và phù hợp tạo comic
+- false: Nếu không phù hợp
+
+difficulty:
+- easy
+- medium
+- hard
+
+Không bịa thêm sự kiện.
+Không đánh giá chỉ dựa trên tên truyện.
+Đánh giá dựa trên nội dung được cung cấp.
+
+Trả về JSON array hợp lệ, không Markdown.
+
+Mỗi truyện:
+
+{
+  "id": "story_001",
+  "title": "...",
+  "characters_clear": 0,
+  "events_clear": 0,
+  "scene_suitable": 0,
+  "ending_clear": 0,
+  "score": 0,
+  "selected_candidate": false,
+  "difficulty": "easy",
+  "reason": "..."
+}
+
+
+==================================================
+STORIES TO EVALUATE
+==================================================
+
+
+ID: story_126
+TITLE: Tre và dương xỉ [Quà tặng cuộc sống]
+URL: https://truyendangian.com/tre-va-duong-xi
+
+CONTENT:
+Một ngày, tôi quyết định sẽ từ bỏ. Từ bỏ công việc, mọi mọi mối quan hệ, từ bỏ mọi mong ước, hy vọng của mình. Tôi muốn từ bỏ cuộc sống. Tôi đã đến tìm và nói chuyện với Chúa.
+– Thưa Chúa, Người có thể cho con một lý do để không từ bỏ cuộc sống của con không?
+Chúa rất ngạc nhiên khi tôi hỏi câu đó.
+– Con hãy nhìn đây. – Chúa lên tiếng – Con có nhìn thấy cây dương xỉ và cây tre này không?
+– Có. – Tôi kính cẩn trả lời.
+– Khi ta gieo hạt của dương xỉ và cây tre, ta đã chăm sóc chúng rất cẩn thận. Ta cho chúng ánh sáng, ta tưới đầy đủ nước cho chúng. Cây dương xỉ lớn rất nhanh trên mặt đất. Màu xanh của nó chẳng mấy mà phủ kín cả một vùng. Nhưng chẳng có dấu hiệu gì từ hạt giống của cây tre cả. Tuy nhiên, ta đã không từ bỏ hạt mầm đó. Một năm trôi qua, dương xỉ nhanh chóng phát triển lớn mạnh. Nhưng một lần nữa, không một dấu hiệu của hạt giống cây tre. Và cũng một lần nữa ta không từ bỏ. – Chúa chậm rãi kể.
+“Bước sang năm thứ ba, vẫn chẳng thấy gì từ hạt giống cây tre cả. Nhưng ta vẫn không từ bỏ. Năm thứ tư cũng không có gì khác. Ta vẫn tiếp tục công việc và không từ bỏ…”
+“…Đến năm thứ năm, một mầm xanh vươn mình lên khỏi mặt đất. So với đám dương xỉ xung quanh, nó quá nhỏ bé và chẳng có chút ấn tượng nào. Nhưng chỉ 6 tháng thôi, cây tre đã cao hơn 30 mét. Nó đã mất tới 5 năm để phát triển bộ rễ. Rễ của nó rất khoẻ mạnh và có thể cung cấp cho nó tất cả những gì cần thiết để sống và vươn lên. Ta đã không cho cây tre một chút thử thách nào”.
+“Con có biết không, con của ta, tất cả thời gian mà con phải vật lộn để sống, con đã xây dựng và hoàn thiện gốc rễ của mình” – Chúa nói tiếp.
+“Ta đã không rời bỏ cây tre. Và ta cũng sẽ không bao giờ xa con. Đừng so sánh bản thân con với bất cứ thứ gì khác”.
+“ Cây tre và dương xỉ có cách sống khác nhau dù mặc mục tiêu của chúng đều là màu xanh cho trái đất. Cơ hội của con sẽ đến…  – Chúa khẳng định – Con sẽ vươn cao”.
+– Liệu con có thể vươn cao đến đâu thưa Người?
+– Vậy con có biết cây tre vươn cao đến đâu không? – Chúa không trả lời mà hỏi lại.
+– Cao hết mức mà nó có thể phải không ạ? – Tôi ngập ngừng hỏi lại.
+– Đúng thế! – Chúa mỉm cười – Hãy cho ta cảm thấy tự hào khi thấy con vươn đến đỉnh cao nhất mà con có thể.
+
+--------------------------------------------------
+
+
+ID: story_127
+TITLE: Anh khờ làm quan thượng thư [Truyện cổ tích cho bé]
+URL: https://truyendangian.com/anh-kho-lam-quan-thuong-thu
+
+CONTENT:
+Ngày xưa, có một người tiều phu sống với vợ mình ở một vùng núi non hẻo lánh. Để kiếm miếng ăn hàng ngày, anh phải làm việc cực nhọc ở trong rừng. Từ thuở ấu thơ , người đàn ông ngay thẳng lương thiện và thật thà này ở suốt ngày trên núi, làm việc từ sáng tới tối. Trong hoàn cảnh đó, làm sao anh có thể học hành và mở mang trí tuệ? Thực tế là anh biết rất ít việc đời và mọi người ở trong làng sẵn sàng coi anh là người khờ khạo.
+Một hôm, người tiều phu từ trên núi về nhà, vác trên lưng bó củi to và thấy một đoàn người long trọng trên con đường hẹp. Quan huyện vùng này ngồi trên kiệu có bốn người khiêng đang đi tới với các thuộc viên. Binh lính vung búa dẹp đường.
+– Tránh đường cho chúng ta, đồ vô lại! Ngươi không thấy quan huyện đi tới sao? – Họ quát tháo anh tiều phu.
+Còng lưng dưới bó củi nặng, anh cố lui khỏi con đường mòn hẹp nhưng không được. Thế là một tên lính đẩy anh một cách hung bạo, làm anh ngã xuống vũng bùn cạnh đấy.
+– A ha! Nhìn cái mặt của thằng ngốc kia kìa? – Quan huyện cười khẩy khi thấy anh tiều phu ngơ ngác cố gượng mang bó củi nặng đứng dậy.
+“Đáng xấu hổ thay, những tên vô lại! Sao các ngươi có thể cư xử bỉ ổi như vậy với một con người ?” – Anh tiều phu tức giận nghĩ thầm.
+Tuy nhiên, anh không dám lớn tiếng phản đối. Sự nhục mạ này xúc phạm anh rất nặng nên anh cũng không thèm tìm cách ra khỏi cái vũng, anh nằm trong bùn, ngẫm nghĩ về sự bất công trên đời. Một lúc sau, một người hàng xóm gặp anh trong tình trạng đó.
+– Anh làm gì mà lặn lội trong bùn vậy? – Người đó hỏi.
+Anh tiều phu kể lại mọi chuyện. Khi anh kể xong người kia nhếch mép kết luận:
+– Anh đừng oán than nữa. Đó là số phận của người nghèo hèn chúng ta. Hoặc giả anh được làm quan thì anh sẽ không bao giờ gặp chuyện rủi ro như vậy.
+Anh tiều phu suy nghĩ một lúc rồi buột miệng:
+– Anh có lý, tôi cũng kiếm một chức quan!
+Và bỏ bó củi trong vũng bùn, anh trở về nhà.
+– Anh mất trí rồi! – Vợ anh than khi anh kể lại câu chuyện và cho biết quyết định của mình. – Anh nên trở lại tìm bó củi và quên những chuyện ngốc nghếch đó đi. Một người tiểu phu dốt đặc như anh mà có thể làm quan được sao?
+Nhưng từ đó anh tiều phu chỉ nghĩ tới chuyện làm quan. Ngày nào anh cũng tới làng và hỏi phải làm thế nào để kiếm được một chức quan danh giá.
+– Phải học thuộc lòng nhiều bộ sách và thi đậu. – Một người nói.
+– Anh cứ đi chu du thiên hạ, có lẽ anh sẽ gặp một cái mũ lông ở đâu đó như các quan to vẫn đội. – Một người khác vừa nói vừa cười.
+– Anh hãy tới kinh thành, cứ lê lết ở đó ba năm, có lẽ rồi người ta sẽ ban cho anh một chức vụ! – Ông lý trưởng đề nghị nửa đùa nửa thật.
+– Quả là ai cũng biết rằng, những người giàu có xuất thân từ giai cấp quý tộc nông thôn thường mất thì giờ lê lết và tiêu khiển ở triều đình, chờ được ban cho một chức vụ.
+– Không phải là ý kiến dở. – Anh tiều phu đồng ý. Và anh đi ngay tới kinh thành.
+Anh đào một cái hang sau cổng thành để có chỗ ngủ, rồi đi vào các con phố. Kể từ đó, dân chúng ở kinh thành được chứng kiến một cảnh tượng bất thường: một anh chàng nghèo nàn, rách rưới, lê lết trong bùn ở các phố quanh hoàng cung và ở chợ. Anh chàng rừng núi tính tình chất phác đã hiểu lời khuyên của ông lý trưởng theo nghĩa đen. Người ta đã bảo anh tới lê lết ở kinh thành, thế là anh lê lết ở kinh thành. Anh lăn lộn dưới đất cả ngày, như trẻ con lăn lộn trên cỏ.
+– Anh chàng điên đó làm sao vậy?
+– Tại sao anh ta lăn lộn dưới đất khi hai chân anh ta lành lặn?
+– Anh ta quả quyết rằng, nếu anh ta lê lết như vậy được ba năm thì anh ta sẽ có được một chức quan. – Một bà già trả lời. – Thật ngốc quá!
+Nhưng anh tiều phu không chú ý tới những lời chế nhạo, nhục mạ và chọc ghẹo. Anh lăn lộn trong bụi bặm, bùn lầy trên các con phố hết ngày này tới ngày khác, buổi tối anh xin một ít thức ăn, về ngủ trong cái lỗ sau cổng thành và hôm sau lại vội vàng tới chợ. Nắng dãi, mưa dầm không ngăn cản được anh.
+Chẳng bao lâu, cả kinh thành đều biết tới anh vì một bài vè mà trẻ con đặt ra để trêu anh. Người ta gọi anh là thằng khờ.
+Chuyện về người điên kỳ lạ này và bài vè của đám ranh con lan truyền tới hoàng cung, và cuối cùng tới tai đức vua.
+– Hẳn đó là một người điên thực sự.
+– Nhưng sự điên rồ này có lẽ đã do một người nào gợi ý với anh ta, hoặc để bỡn cợt, hoặc vì độc ác.
+Một tối, đức vua mặc thường phục đi ra phố, chỉ có một đầy tớ theo hầu để không ai biết. Ông muốn tự mình tìm hiểu người dân sinh sống ra sao và phê phán việc cai trị của mình như thế nào. Vua ra khỏi cổng thành, đi tới cái lỗ mà anh tiều phu mệt mỏi đang ngủ.
+– Tại sao các ông đánh thức tôi? – Anh càu nhàu khi người hầu của đức vua lay anh thức dậy. – Các ông không thấy tôi đang ngủ sao?
+Tội nghiệp anh tiều phu! Làm sao anh ngờ được người mặc áo quần trắng rộng và đi dép rơm chính là đức vua!
+– Hình như anh lăn lộn trong bùn để làm quan. Đúng vậy không?
+– Đúng vậy! – Anh tiều phu trả lời. – Tôi sẽ làm quan…
+– Anh muốn làm chức vụ gì?
+– Chức vụ gì ư? Làm sao tôi biết được, tôi…
+– Thế thì chức vụ gì đối với anh cũng không quan trọng, có phải không? – Đức vua mỉm cười.
+– Hoàn toàn không quan trọng hả? Không phải vậy! – Anh chống chế. – Phải lớn hơn chức quan huyện!
+– Như tổng đốc có được không? – Vua lại hỏi.
+– Chức đó được lắm.
+– Hoặc giả anh thích làm thượng thư hơn?
+– Tôi sẵn sàng nhận chức quan thượng thư.
+– Còn tể tướng, anh nghĩ sao?
+Anh tiều phu lạnh lùng tuyên bố:
+– Tôi nói cho ông biết, cái đó tôi không màng để ý. Tại sao lại không là tể tướng được! Nhưng bây giờ thì để yên cho tôi ngủ, sáng mai tôi còn phải đi lê lết nữa.
+– Thế còn ngôi vua? Anh không muốn làm vua sao? – Đức vua hỏi thêm.
+– Cái gì? – Anh tiều phu giận đỏ mặt và tức mình tát cho đức vua cải trang một cái.
+Anh khờ kết thúc khô khan:
+– Khốn kiếp, sao anh cả gan nói một điều như vậy? Ngôi vua là do thiên mệnh! Làm sao người ta có thể tự ý đưa mình lên ngôi vị đó được? Và bây giờ thì đủ rồi. Đi đi, nếu không…
+Người hầu định sửa trị anh tiều phu về tội xúc phạm đức vua, nhưng vua ngăn anh ta lại và trở về cung, có vẻ trầm ngâm suy nghĩ.
+Hôm sau, vua cho gọi các mưu thần tới và kể lại chuyện đêm qua. Vua nói:
+– Cũng như chư khanh, ta nghĩ rằng người này có tính tình chất phác, có lẽ là một người điên nữa. Có người đã nói đùa với anh ta rằng, anh ta sẽ được một chức vụ nếu anh ta lê lết trong bùn suốt ba năm và anh ta tin thật. Tuy nhiên, anh ta có hai điểm khiến ta rất vui lòng. Trước hết, tính lương thiện và nhiệt tâm muốn tìm cách làm quan để những người nghèo hèn như anh ta không phải bị sỉ nhục như anh ta đã chịu đựng với viên quan huyện kiêu căng kia. Kế đó là lòng trung quân. Nếu chư khanh thấy anh ta hăng hái chứng tỏ tình cảm trọng vọng của mình đối với quân vương… Nếu chư khanh đồng ý, ta đề nghị chúng ta bổ nhiệm anh ta làm thượng thư, chỉ trong năm ngày.
+Các mưu thần tán thành đề nghị của đức vua và anh tiều phu được phong chức thượng thư, khiến dân chúng cả kinh thành sửng sốt. Anh mặc quan phục, đội mũ lông trở về làng, có cả một đoàn người phục dịch đi theo. Anh ngồi trong kiệu, trang nghiêm mực thước, tự hào vì đã thực hiện được ý định của mình.
+Khi đoàn tùy tùng đi trên một đường núi hẹp, một nông dân vác một bó củi to bỗng xuất hiện trước mặt họ. Thấy một đoàn người hùng hậu như vậy, người dân quê tội nghiệp này hoảng sợ, lảo đảo với gánh nặng trên lưng, cố gắng nép qua một bên để nhường đường. Binh lính vung roi, tiến lên quát nạt, nhưng anh khờ đã phản ứng tích cực. Anh ra lệnh cho đoàn tùy tùng dừng lại, để trống đường cho người nông dân đi qua.
+– Người khốn khổ đó đã mang một gánh nặng, tại sao còn bắt anh ta lo âu thêm một cách vô ích?
+Anh khờ chỉ làm thượng thư trong năm ngày. Nhưng anh coi như vậy là đủ lắm rồi! Anh không thích làm quan to và chức vụ này làm anh mệt nhọc hơn vác một bó củi nặng. Khi hết kỳ hạn, anh vui vẻ đổi quan phục và chiếc mũ lông để mặc lại chiếc áo rách. Tay cầm rìu, miệng hát líu lo, anh vui vẻ trở lên núi. Ý nghĩ đã chứng tỏ cho các quan to thấy rằng, ngay một tiều phu tầm thường cũng phải được cư xử xứng đáng với tư cách con người đã đủ cho anh thỏa mãn và từ đó không bao giờ anh muốn làm quan nữa.
+
+--------------------------------------------------
+
+
+ID: story_128
+TITLE: Chàng rể hay chữ [Truyện cười dân gian Việt Nam]
+URL: https://truyendangian.com/chang-re-hay-chu
+
+CONTENT:
+Một phú hộ muốn chọn cho con gái cưng của mình một người chồng hay chữ. Ở cùng làng có một anh nông dân mồ côi cha mẹ. Hằng ngày, anh ta phải đi cày thuê cuốc mướn, cuộc sống vất vả mà cũng không đủ ăn. Khi biết nhà phú ông muốn kén rể, anh ta đến nhờ ông mai lo việc mối lái cho mình. Biết chàng trai nghèo khổ, lại cũng chẳng thân thế gì nhà phú hộ, ông mai cố gắng thu xếp giúp.
+Khi được ngỏ ý, vì tin tưởng ông mai, phú hộ nhận lời với điều kiện: Anh nông dân phải ở rể ba năm, nếu anh ta là người hay chữ, biết làm ăn thì phú hộ sẽ cho làm lễ cưới rước dâu.
+Một hôm, anh nông dân và phú hộ cùng lên rẫy. Muốn thử tài con rể, phú hộ mới ra câu đối: “Tích cốc phòng cơ”. Đứng trước đám rẫy xanh tốt, anh nông dân không nghĩ ra câu đối, tức mình quá anh bỏ rựa xuống và chửi đổng một câu rồi anh bỏ về.
+Lão phú hộ giận quá đến nhà hỏi ông mai:
+– Ông bảo nó hay chữ lắm, thế mà khi tôi ra câu đối, nó lại hỗn xược bảo: “Con c…”, rồi bỏ về.
+Ông mai nhanh nhẩu trả lời:
+– Thì hắn đã đối lại câu: “Tích cốc phòng cơ” của ông rồi đó, ý nó đối là: “Tử tôn kế nghiệp” (sinh con cháu để kế nghiệp ông cha).
+Lão phú hộ thấy câu đối thông minh quá, mới vội vàng tới nhà anh nông dân đón rể về nhà.
+Hôm sau, cha vợ, chàng rể lại lên rẫy tiếp. Trời nóng, lão phú hộ đưa tay lên che đầu và ra câu đối: “Ngũ duyên lai định thượng”.
+Anh con rể lúng túng đưa tay vỗ vào bụng “cái bạch” rồi bỏ ra về. Lão phú hộ không hiểu anh chàng rể đối thế nào phải lò dò đến ông mai, giận dữ nói:
+– Tôi thật chẳng hiểu gì cả!
+– Có thế mà ông cũng không biết, nó đối thế là hay quá, ý nó là: “Phúc trung tấp thư tịch”. (trong bụng chứa rất nhiều chữ nghĩa). Từ đây về sau, ông chẳng nên thử tài nó nữa, nó mà giận bỏ về lần thứ ba thì tôi không chịu trách nhiệm nữa đâu!
+Bữa kia, anh nông dân đi làm gặp trời mưa, anh ghé vào nhà ông mai nói chuyện, nhìn màn mưa bên ngoài, ông mai buột miệng: “Lác đác mưa sa làn gió thị”. Chiều về trời vẫn mưa chưa hết, sấm chớp lại nổi lên liên hồi, lão phú hộ tức cảnh đọc: “Ầm ầm sấm dậy đất kim bôi”. Chàng rể liền đọc ngay: “Lác đác mưa sa làn gió thị”. Lão phú hộ nghe vậy cứ gật đầu khen hay mãi vì câu đối chỉnh quá.
+Từ đó về sau, lão yên tâm không thử tài chàng rể hay chữ nữa. Hết thời hạn ở rể ba năm, anh nông dân được lão phủ hộ tổ chức đám cưới linh đình, bao nhiêu phí tổn lão chịu hết. Bên làng biết được cười rằng:
+“Dốt thôi dốt đặc cán mai, Gặp may chàng cũng thành trai lão làng”.
+
+--------------------------------------------------
+
+
+ID: story_129
+TITLE: Viên kim cương [Quà tặng cuộc sống]
+URL: https://truyendangian.com/vien-kim-cuong
+
+CONTENT:
+Viên kim cương là một câu chuyện ý nghĩa, nhắc nhở chúng ta hãy coi tất cả những việc khó khăn trong cuộc sống đều có thể giải quyết được một cách dễ dàng.
+Bạn đừng tự vẽ cho mình những chướng ngại vật cao lớn khiến bản thân không thể vượt qua.
+Một doanh nhân mua được viên kim cương khổng lồ ở Nam Phi, kích thước của nó bằng lòng đỏ trứng gà. Người đàn ông rất buồn vì phát hiện ra một vết nứt bên trong viên đá quý này. Ông ta đưa viên kim cương cho thợ kim hoàn xem với hi vọng được tư vấn sẽ làm gì với cái vết nứt đó. Người thợ lắc đầu và nói:
+– Viên kim cương này có thể chia ra làm 2 phần, và mỗi phần sẽ đắt hơn chính viên to này. Nhưng vấn đề là chỉ cần một nhát đập bất cẩn là ta có thể sẽ làm vỡ viên đá quý kỳ diệu của thiên nhiên, biến nó thành hai cục đá sứt mẻ. Những viên kim cương ta nhận được sẽ rẻ hơn viên to này rất nhiều, và có thể sẽ chẳng có giá trị gì. Tôi sẽ không liều mà nhận làm việc này đâu. Và những người thợ ở các nước khác nhau cũng kể cho ông những điều có thể xảy ra và cũng không dám giúp ông.
+Sau đó ông được mọi người giới thiệu một người thợ có bàn tay vàng ở Amsterdam. Và doanh nhân này ngay lập tức bay đến Amsterdam để tìm người thợ cao tuổi đó.
+Ông thợ ngắm nghía viên đá quý qua kính lúp với vẻ mặt thích thú, và bắt đầu cảnh báo về những nguy cơ có thể xảy ra. Ngắt lời ông thợ, doanh nhân nói rằng ông đã nghe về câu chuyện này quá nhiều rồi và đã thuộc nó làu làu.
+Ông thợ đồng ý giúp và ra giá dịch vụ. Khi ông chủ viên đá quý đồng ý, người thợ gọi cậu học nghề trẻ tuổi đang ngồi ở phía sau chăm chú công việc của mình. Cầm viên kim cương , cậu dùng búa đập một nhát dứt khoát, chia viên đá quý ra làm đôi mà không chút rụt rè, rồi đưa cho ông thợ. Doanh nhân quá đỗi bất ngờ, hỏi:
+– Cậu bé đó làm chỗ ông lâu chưa?
+– Mới có 3 ngày. Nó vẫn chưa biết giá trị của viên đá quý này cho nên tay nó không run và rất dứt khoát.
+
+--------------------------------------------------
+
+
+ID: story_130
+TITLE: Đôi cánh thiên thần [Hạt giống tâm hồn]
+URL: https://truyendangian.com/doi-canh-thien-than
+
+CONTENT:
+Ngày xưa, một cậu bé luôn mặc cảm tự ti vì trên lưng cậu có 2 vết thẹo rất rõ. Nó kéo dài từ bả vai xuống đến tận phần eo với phần da nhăn nhúm. Vì thế, cậu bé luôn cảm thấy xấu hổ với chính bản thân mình.
+Ngày ngày đi học, cậu rất sợ bị bạn bè phát hiện. Vào giờ thể dục, khi ai nấy háo hức thay chiếc áo thể dục trắng tinh không đẫm chút mồ hôi thì cậu bé lại trốn vào một góc sân, nhanh chóng thay áo để mọi người không nhìn thấy gì ở lưng cậu.
+Thời gian dài trôi qua, rồi cái gì đến cũng phải đến. “Ôi, gớm quá!”, “A… quái vật!”, “Ôi, thật khủng khiếp!”. Những lời vô tâm ấy đã làm đau lòng người bạn nhỏ của chúng ta. Cậu vừa khóc vừa chạy vào trong lớp, trốn tránh tất cả. Từ đó, cậu bé không bao giờ bước ra khỏi lớp và đặc biệt cậu không học môn thể dục nữa.
+Sau sự việc này, mẹ cậu bé dịu dàng nắm tay cậu đến gặp cô chủ nhiệm. Cô là một nữ giáo viên đôn hậu. Người mẹ kể rằng khi mới sinh, cậu con trai đã mắc bệnh nặng, gần như mất hết hi vọng nhưng gia đình không đành lòng bỏ rơi và quyết cứu cho được đứa con. Qua cuộc phẫu thuật vô cùng khó khăn vất vả, đứa con đã được cứu nhưng từ đó để lại hai vết thẹo lớn trên lưng. Nói đến đây, người mẹ run run bật khóc.
+Đến giờ thể dục ngày hôm sau, cậu bé xuất hiện ở một góc tối với chiếc áo thể dục. Các bạn nhỏ khác thấy thế và lại ngây thơ thốt lên những lời vô tâm: “Ôi, thật đáng sợ!”, “…trên lưng cậu ấy có 2 con trùng to lắm”. Ngay lúc ấy, cô giáo vô tình đi ngang, các bạn nhỏ vây quanh lấy cô và nói về vết thẹo.
+Cô giáo tiến gần đến cậu bé, đặt nhẹ tay lên bờ vai gầy nhỏ ấy, mỉm cười nói:
+– Lúc trước cô định sau này sẽ kể cho các con nghe một câu chuyện, nhưng xem ra, cô phải kể ngay lúc này.
+Các bạn trẻ lại vây quanh lấy cô. Cô giáo nhẹ nhàng kéo chiếc áo của cậu bé lên làm lộ rõ hai vết thẹo lớn.
+– Đây là một truyền thuyết. Ngày xưa, các thiên thần trên trời đã bay xuống và biến thân thành các bạn nhỏ như chúng ta đây. Tất nhiên có thiên thần nhanh nhẹn đã kịp tháo gỡ đôi cánh của mình, nhưng cũng có thiên thần hơi chậm, không kịp tháo hết đôi cánh của mình và để lại hai vết như thế này.
+– Vậy đó là cánh của thiên thần hả cô?
+– Đúng đó! – cô giáo mỉm cười.
+Bỗng một bạn gái lên tiếng:
+– Thưa cô, chúng con có thể sờ chúng không?
+Từ nãy giờ cậu bé cứ đứng ngẩn người ra, cậu lại khóc. Cô giáo cười và nói:
+– Chúng ta phải xin phép vị thiên thần nhỏ của chúng ta chứ?
+Lặng người một hồi, cậu bé lấy lại bình tĩnh đáp:
+– Vâng, được a!
+Các bạn nhỏ vây quanh lấy cậu, hết bạn này đến bạn khác sờ vào “đôi cánh” ấy.
+– Ôi, tuyệt thật, con đã sờ được cánh của thiên thần rồi!
+Năm tháng dần trôi, người bạn nhỏ của chúng ta đã lớn hơn nhiều, cậu vẫn thầm cảm ơn cô giáo đã đem lại cho cậu một niềm tin mới, một nghị lực mới. Lên cấp ba, cậu mạnh dạn tham gia giải bơi lội cấp thành phố và đạt ngôi Á quân. Cậu đã dũng cảm chọn môn bơi lội, bởi cậu tin rằng vết thẹo trên lưng chính là món quà cô giáo năm xưa dành tặng với tất cả sự yêu thương – đôi cánh thiên thần .
+
+--------------------------------------------------
+

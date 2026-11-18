@@ -1,0 +1,152 @@
+
+Bạn là người đánh giá Dataset cho dự án Vietnamese Comic Generation.
+
+Hãy đánh giá từng truyện để xác định mức độ phù hợp
+khi chuyển thành comic khoảng 4 cảnh.
+
+Đánh giá 4 tiêu chí, mỗi tiêu chí từ 0 đến 2:
+
+1. characters_clear
+0: Không rõ nhân vật
+1: Nhân vật tương đối rõ
+2: Nhân vật rõ ràng
+
+2. events_clear
+0: Sự kiện không có trình tự rõ
+1: Trình tự tương đối rõ
+2: Trình tự sự kiện rõ ràng
+
+3. scene_suitable
+0: Không phù hợp tạo comic
+1: Có thể tạo comic nhưng cần chỉnh sửa
+2: Rất phù hợp để chia khoảng 4 cảnh
+
+4. ending_clear
+0: Không có kết thúc rõ
+1: Kết thúc tương đối rõ
+2: Kết thúc rõ ràng
+
+Tổng điểm score = tổng 4 tiêu chí, tối đa 8.
+
+selected_candidate:
+- true: Nếu score >= 6 và phù hợp tạo comic
+- false: Nếu không phù hợp
+
+difficulty:
+- easy
+- medium
+- hard
+
+Không bịa thêm sự kiện.
+Không đánh giá chỉ dựa trên tên truyện.
+Đánh giá dựa trên nội dung được cung cấp.
+
+Trả về JSON array hợp lệ, không Markdown.
+
+Mỗi truyện:
+
+{
+  "id": "story_001",
+  "title": "...",
+  "characters_clear": 0,
+  "events_clear": 0,
+  "scene_suitable": 0,
+  "ending_clear": 0,
+  "score": 0,
+  "selected_candidate": false,
+  "difficulty": "easy",
+  "reason": "..."
+}
+
+
+==================================================
+STORIES TO EVALUATE
+==================================================
+
+
+ID: story_045
+TITLE: Nói có đầu có đuôi [Truyện cười dân gian Việt Nam]
+URL: https://truyendangian.com/noi-co-dau-co-duoi
+
+CONTENT:
+Một lão nhà giàu có anh đầy tớ tính rất bộp chộp, thấy có gì nói ấy, gặp đâu nói đó, chẳng có đầu có đuôi gì cả. Lão mới gọi anh ta bảo:
+– Mày ăn nói chẳng có đầu đuôi gì cả, người ta cười cả tao lẫn mày. Từ rày nói cái gì thì phải nói cho có đầu có đuôi nghe không!
+Anh đầy tớ vâng vâng dạ dạ.
+Một hôm lão mặc quần áo sắp sửa đi chơi, đang ngồi hút thuốc thì thấy anh đầy tớ đứng chắp tay trịnh trọng nói:
+– Thưa ông, con tằm nó nhả tơ, người ta mang tơ bán cho người Tàu, người Tàu đem dệt thành the rồi bán sang ta. Ông đi mua the về may thành áo. Hôm nay ông mặc áo ông hút thuốc. Tàn thuốc nó rơi vào áo ông, và áo ông đang cháy.
+Lão giật mình nhìn xuống thì áo đã cháy to bằng bàn tay rồi.
+
+--------------------------------------------------
+
+
+ID: story_046
+TITLE: Ba anh đầy tớ [Truyện cười dân gian Việt Nam]
+URL: https://truyendangian.com/ba-anh-day-to
+
+CONTENT:
+Một lão nhà giàu có ba anh đầy tớ , nhưng mỗi anh một tính, anh thì rất cẩn thận, anh thì rất lo xa, còn một anh thì rất lễ phép. Lão lấy làm đắc ý lắm.
+Một hôm, cậu con cả lão ngã xuống ao, anh cẩn thận trông thấy chạy về thưa với chủ:
+– Thưa ông, cậu cả nhà ngã xuống ao, xin ông cho phép con đi vớt cậu lên ạ!
+Vớt lên được, thì cậu cả đã chết nghẻo rồi. Lão liền vác gậy đuổi, anh cẩn thận chạy biến. Lão sai anh lo xa đi mua áo quan về liệm. Ðược một lúc, anh này mang về hai cái. Thấy thế ông chủ trừng mắt:
+– Tại sao lại mua những hai cái, thằng kia?
+Anh này trả lời:
+– Ấy, con mua phòng xa, nhỡ cậu hai có chết đuối thì có cái dùng ngay.
+Lão lại vác gậy đuổi đi.
+Chỉ còn anh lễ phép vẫn được lòng chủ. Một hôm anh ta cùng một người nữa cáng chủ nhà đi chơi. Ðến chỗ lội bùn ngập đến lưng ống chân mà anh ta vẫn vui vẻ không một lời phàn nàn. Thấy thế ông chủ khen:
+– Anh khá lắm, biết chịu khó. Cứ cố đi rồi đến Tết ta sẽ may cho bộ cánh.
+Vừa nói đến đấy thì anh đầy tớ đặt cáng xuống giữa đống bùn khoanh tay lễ phép nói:
+– Con xin đa tạ ông!
+
+--------------------------------------------------
+
+
+ID: story_047
+TITLE: Trả ơn con lợn [Truyện cười dân gian Việt Nam]
+URL: https://truyendangian.com/tra-on-con-lon
+
+CONTENT:
+Có hai anh em kết nghĩa đèn sách. Một anh gặp may thi đỗ, ra làm quan, liền trở mặt. Bạn đến thăm nhiều lần, lần nào cũng cho người ra bảo, khi thì ngài giấc, ngài ngơi, khi thì ngài bận công việc không tiếp. Năm bảy phen như thế, anh này giận lắm.
+Một hôm, anh ta mua một con lợn , quay vàng, để lên mâm bưng tới. Lính lệ vào bẩm, một lát trở ra, niềm nở mời vào.
+Vào đến nơi, quan chào vồn vã rồi sai lính lệ mang trầu ra mời. Anh ta cầm lấy miếng trầu, đút vào miệng con lợn, vái nó mấy vái mà rằng:
+– Tao trả ơn mày ! Nhờ mày tao mới lọt vào cửa quan để nhìn lại bạn cũ!
+
+--------------------------------------------------
+
+
+ID: story_048
+TITLE: Một giấc mơ [Truyện thiếu nhi cho bé]
+URL: https://truyendangian.com/mot-giac-mo
+
+CONTENT:
+Một giấc mơ là một câu chuyện dành cho thiếu nhi, có ý nhắc nhở chúng ta phải biết giữ gìn vệ sinh, giúp cho cơ thể luôn luôn được khỏe mạnh và sạch sẽ.
+Truyện được trích trong sách Giáo dục nếp sống thanh lịch, văn minh cho học sinh Hà Nội lớp 3, NXB Hà Nội – 2021.
+Có một cậu bé rất lười rửa mặt, tắm gội. Mẹ cậu rất buồn vì mỗi lần mẹ gọi ra rửa mặt hay gội đầu, tắm giặt là cậu lại đáp: “Con không rửa mặt đâu! Không tắm gội đâu!”. Vì vậy ít lâu sau, mặt cậu ta trở lên nhem nhuốc, người ngợm bẩn thỉu, ngay cả trong lỗ tai cũng đầy ghét bẩn.
+Một hôm, đi đá bóng về mệt quá, cậu ngủ thiếp đi. Rồi cậu thấy mình đang lang thang ngoài đồng. Bỗng nhiên có một bác bò cứ bám riết theo cậu ta. Cậu ta sợ quá cứ thế ba chân bốn cẳng chạy. Bác bò liền đuổi theo sau. Cuối cùng, mệt quá, cậu không thể chạy được nữa bèn hổn hển quay lại hỏi bác bò:
+– Bác bò ơi, sao bác cứ đuổi theo cháu vậy?
+Bác bò đáp:
+– Vì bác đang thèm cỏ, mà trong tai cháu lại có một bụi cỏ rất ngon.
+Cậu bé liền đưa tay lên tai, cậu hoảng hốt vì thấy có cỏ trong tai thật. Cậu bé giật mình tỉnh dậy. Thì ra đó là một giấc mơ.
+Ngay sáng hôm sau, không đợi mẹ nhắc, cậu bé đã đi đánh răng, rửa mặt. Mẹ cậu rất vui vì từ đó, cậu chăm rửa mặt mũi chân tay cũng như tắm gội và còn làm rất kĩ, rất sạch sẽ.
+
+--------------------------------------------------
+
+
+ID: story_049
+TITLE: Quan đối với chó [Truyện cười dân gian Việt Nam]
+URL: https://truyendangian.com/quan-doi-voi-cho
+
+CONTENT:
+Một hôm, quan huyện Thạch Thành qua bến đò Thạch gặp một thằng bé cắp sách đi học. Thằng bé nhìn quan vẻ lơ láo. Quan gọi lại bảo:
+– Mày đã cắp sách đi học, hẳn phải biết đối, bây giờ tao ra một vế, nếu mày đối được thì có thưởng, mà không đối được thì tao sẽ đánh đòn vì tội vô lễ nghe chưa.
+Thằng bé nhơn nhơn gật đầu. Quan bèn đọc:
+– Quan huyện Thạch sang bến đò Thạch.
+Thằng bé gãi đầu gãi tai:
+– Bẩm quan… có cho phép thì con mới dám nói!
+Quan giục:
+– Cứ đối xem!
+Thằng bé bây giờ mới mạnh bạo đọc:
+– Con chó vàng ăn cục cứt vàng.
+Quan huyện giận tím tái cả mặt vì bị ví với chó , nhưng đã trót hứa trước mặt nhiều người ở quanh bến đò rồi vẫn buộc phải rút tiền thưởng cho thằng bé học trò.
+
+--------------------------------------------------
+

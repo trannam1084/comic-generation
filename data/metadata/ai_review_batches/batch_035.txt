@@ -1,0 +1,220 @@
+
+Bạn là người đánh giá Dataset cho dự án Vietnamese Comic Generation.
+
+Hãy đánh giá từng truyện để xác định mức độ phù hợp
+khi chuyển thành comic khoảng 4 cảnh.
+
+Đánh giá 4 tiêu chí, mỗi tiêu chí từ 0 đến 2:
+
+1. characters_clear
+0: Không rõ nhân vật
+1: Nhân vật tương đối rõ
+2: Nhân vật rõ ràng
+
+2. events_clear
+0: Sự kiện không có trình tự rõ
+1: Trình tự tương đối rõ
+2: Trình tự sự kiện rõ ràng
+
+3. scene_suitable
+0: Không phù hợp tạo comic
+1: Có thể tạo comic nhưng cần chỉnh sửa
+2: Rất phù hợp để chia khoảng 4 cảnh
+
+4. ending_clear
+0: Không có kết thúc rõ
+1: Kết thúc tương đối rõ
+2: Kết thúc rõ ràng
+
+Tổng điểm score = tổng 4 tiêu chí, tối đa 8.
+
+selected_candidate:
+- true: Nếu score >= 6 và phù hợp tạo comic
+- false: Nếu không phù hợp
+
+difficulty:
+- easy
+- medium
+- hard
+
+Không bịa thêm sự kiện.
+Không đánh giá chỉ dựa trên tên truyện.
+Đánh giá dựa trên nội dung được cung cấp.
+
+Trả về JSON array hợp lệ, không Markdown.
+
+Mỗi truyện:
+
+{
+  "id": "story_001",
+  "title": "...",
+  "characters_clear": 0,
+  "events_clear": 0,
+  "scene_suitable": 0,
+  "ending_clear": 0,
+  "score": 0,
+  "selected_candidate": false,
+  "difficulty": "easy",
+  "reason": "..."
+}
+
+
+==================================================
+STORIES TO EVALUATE
+==================================================
+
+
+ID: story_188
+TITLE: Bẩm, chó cả [Truyện cười dân gian Việt Nam]
+URL: https://truyendangian.com/bam-cho-ca
+
+CONTENT:
+Bẩm, chó cả là truyện cười dân gian Việt Nam, châm biếm và đả kích sâu cay bè lũ quan lại tham nhũng thường hạch sách người dân trong xã hội phong kiến.
+Truyện đã cho thấy được sự căm ghét của các tầng lớp nhân dân đối với giai cấp thống trị.
+Nhà nho nọ thấy quan lại tham nhũng, trong lòng rất khinh. Một hôm, các quan đến nhà hơi, trong số đó có mấy bạn đồng song thủa trước. Ông ta bảo người nhà dọn cơm thết.
+Người nhà bưng mâm lên, ông ta đứng dậy thưa:
+– Chả mấy khi rồng đến nhà tôm. Các ngài có bụng yêu nhà nho thanh bạch đến chơi, có chén rượu nhạt xin các ngài chiếu cố cho.
+Các quan cầm đũa, gắp mấy món. Các quan ăn thấy ngon miệng, liền khề khà hỏi: đây đĩa gì, kia bát gì,…
+Nhà nho thong thả nói:
+– Đây là chó, kia cũng là chó. Bẩm, toàn chó cả !
+
+--------------------------------------------------
+
+
+ID: story_189
+TITLE: Ăn trộm mèo [Truyện cười dân gian Trạng Quỳnh]
+URL: https://truyendangian.com/an-trom-meo
+
+CONTENT:
+Nhà vua có một con mèo quý lắm, xích bằng xích vàng và cho ăn toàn những đồ ngon.
+Trạng Quỳnh biết vậy, một hôm vào chầu, bí mật bắt trộm mèo về, cất xích vàng đi và buộc bằng xích sắt. Đến bữa ăn thì để hai bát cơm, một bát thịt cá, một bát chỉ có rau, xương và đầu tôm. Mèo quen ăn ngon, cứ chạy đến bát cơm thịt trước, Quỳnh cầm roi đứng cạnh hễ ăn thì đánh. Mèo đói quá phải ăn bát cơm rau với đầu tôm. Lâu dần chịu phép, mào không dám mon men đến bát cơm thịt. Quỳnh mới thả cho mèo ra.
+Nhà vua mất mèo, tiếc quá, sai người đi tìm. Thấy nhà Quỳnh có con mèo giống hệt mèo của vua, lính vâng lệnh bắt Quỳnh đưa mèo vào chầu. Vua hỏi:
+– Con mèo này giống mèo của trẫm lắm. Hay là khanh thấy mèo đẹp mà bắt về.
+– Tâu bệ hạ, bệ hạ nghĩ cho thần ăn trộm thì oan quá. Xin bệ hạ đem ra thử thì sẽ biết.
+– Thử thế nào?
+– Muôn tâu, bệ hạ phú quý thì ắt cho mèo ăn thức ngon vật lạ, hạ thần nghèo túng chỉ cho mèo ăn cơm rau. Xin cứ thử thì thấy ngay.
+Vua bằng lòng cho thử. Quả nhiên đưa hai bát cơm ra, mèo chạy thẳng đến bát cơm rau, ăn sạch.
+Quỳnh ung dung ôm mèo ra về và tâu lại với vua:
+– Xin bệ hạ lượng cho. Người ta phú quý thì cao lương mĩ vị , nghèo hèn thì cơm hẩm rau dưa. Mèo cũng vậy, phải theo nếp nhà của chủ nó.
+
+--------------------------------------------------
+
+
+ID: story_190
+TITLE: Đào trường thọ [Truyện cười dân gian Trạng Quỳnh]
+URL: https://truyendangian.com/dao-truong-tho
+
+CONTENT:
+Một hôm, lúc Quỳnh đang trực trong cung, có người đem dâng vua một mâm đào, gọi là “ đào trường thọ ” . Quỳnh thủng thẳng lại gần, lấy một quả, ngồi ăn, giữa đông đủ mặt vua quan, làm như không trông thấy ai cả. Vua quở , giao xuống cho các quan trị tội. Các quan chiếu theo luật “mạn quân” , tâu nghị trảm . Quỳnh quỳ xuống tâu rằng:
+– Đình thần nghị tội hạ thần như vậy thật là đúng luật, không oan, song xin Hoàng thượng rộng dung cho thần được nói vài lời rồi chết cũng thỏa!
+Vua phán:
+– Ừ, muốn nói gì cho nói!
+Muôn tâu bệ hạ , thần có bụng tham sống sợ chết nên thấy quả gọi là quả “trường thọ” thì thèm quá, tưởng ăn vào được sống lâu, để được thờ vua cho tận trung. Không ngờ nuốt chưa khỏi mồm mà chết đã đến cổ! Hạ thần trộm nghĩ nên đặt tên quả ấy là quả “đoản thọ” thì hơn. Và xin nhà vua trị tội người dâng đào để trừ kẻ xu nịnh.
+Vua nghe Quỳnh tâu phải, bật cười tha tội cho.
+
+--------------------------------------------------
+
+
+ID: story_191
+TITLE: Ba lần gõ cửa nhà Trời [Truyện cổ tích hay cho bé]
+URL: https://truyendangian.com/ba-lan-go-cua-nha-troi
+
+CONTENT:
+Thuở ấy, xa xôi lắm rồi, tại một làng nhỏ kia có một bác nông phu nghèo nàn, quanh năm chạy bữa sớm mất buổi chiều. Mặc dù bác ta đã làm lụng vất vả một nắng hai sương, nhưng hoa lợi thu về vẫn không đủ nuôi nấng một đàn con đông đúc đến gần hai chục đứa.
+Vợ bác ta lại quen dạ, cứ đẻ năm một, ba năm đôi, thành ra lũ con mỗi ngày một đông thêm… Thật là một điều vô cùng nguy hại! Bác ta thầm nhủ:
+– Nếu không có một sự màu nhiệm nào xảy ra thì gia đình nhà mình có ngày sẽ chết đói mất!
+Năm ấy vào mùa trồng đậu, bác nông phu vơ vét khắp trong nhà, còn một mẻ đậu giống cuối cùng liền đem ra trồng ở ngoài vườn. Trong số các cây mọc lên, có một cây to lớn dị thường, cành lại cứu đưa lên cao mãi và chẳng bao lâu nó đã chạm với trời xanh. Bác nông phu thấy sự lạ lùng, bèn bàn với vợ:
+– Hay ta thử lên hỏi ông Trời xem tại sao đã cho ta nhiều con lại không cho ta của để nuôi chúng được đầy đủ?
+Vợ gật đầu khen phải. Thế là ngay sáng hôm sau bác khăn gói lên Trời. Bác leo từ cành này tới cành khác, đến xế chiều thì tới cửa thiên đình. Đó là một bức thành cao ngất xây toàn bằng pha lê trong vắt và những ngọn đèn (là những ngôi sao, mặt trăng và mặt trời) từ trong chiếu ra, tạo thành muôn màu sắc lung linh tuyệt đẹp.
+Đứng trước quang cảnh nguy nga, tráng lệ ấy, bác nông phu đã hơi sờ sờ. Nhưng điều cần nhất là phải cứu đàn con cho khỏi đói. Bác liền tiến lại gõ cổng:
+– Cộp, cộp, cộp!
+Một vị thần mặt đỏ như chu sa, từ trong bước ra hỏi:
+– Nhà ngươi có việc gì mà tới đây gõ cửa nhà Trời?
+Bác nông phu cúi rạp người xuống chào vị thần và kể rõ hoàn cảnh của mình. Bác kết luận:
+– Tôi muốn vào chầu Thượng đế để xin ngài ban cho một phép gì về cứu đàn con, giờ đây, có lẽ nằm đói lả ở nhà.
+Vị thần có vẻ ái ngại, bảo bác:
+– Được, nhà ngươi hãy đứng chờ đây để ta vào tâu với Thượng đế.
+Một lát sau vị thần trở ra, tay cầm một cái bàn, bảo bác:
+– Đây là một cái bàn thần, Thượng đế ban cho ngươi đem về nuôi con. Cái bàn này màu nhiệm vô cùng, mỗi khi thấy đói bụng nhà ngươi cứ việc bảo: “Bàn ơi! Dọn cơm ra!”, tức khắc sẽ có đủ sơn hào hải vị cho ngươi dùng.
+Bác nông phu nghe thấy vậy mừng lắm, nghĩ bụng từ nay sẽ không còn phải lo đói nữa. Bác bèn cảm tạ vị thần rồi vác bàn trở về. Vị thần bảo:
+– Bây giờ nhà ngươi hãy nhắm mắt lại để ta hóa phép cho về được nhanh chóng.
+Bác nông phu chỉ nghe thấy vù vù tiếng gió thổi bên tai, và thoắt cái, bác đã thấy mình đang đứng ở một vùng xa lạ. Nửa mừng, nửa sợ, bác vội vàng đi tìm người hỏi thăm đường trở về nhà. Xẩm tối hôm ấy, bác tới một quán trọ ở bên đường, liền xin vào ngủ đậu một đêm, rồi sáng mai ra đi sơm.
+Chủ quán đon đả chào mời:
+– Thưa quý khách, muốn dùng gì xin cho biết, để tôi kêu người mang lên?
+Bác nông phu mỉm cười kiêu hãnh.
+– Không, tôi cần có một chỗ trọ, còn ăn tôi sẽ tự lo liệu lấy.
+Nói đoạn, bác quay ra bảo cái bàn:
+– Bàn ơi! Dọn cơm ra!
+Tức thì đủ món sơn hào hải vị, nào thịt bung, cá rán, nào nem công chả phượng hiện la liệt ra bàn. Bác ung dung ngồi vào ăn giữa sự kinh ngạc của mọi người. Tên chủ quán lại càng ngạc nhiên hơn. Hắn nghĩ thầm:
+– Giá mình có được cái bàn này thì khỏi cần phải mướn đầu bếp, khỏi cần phải mua sắm cái gì mà cũng có thể làm giàu như trở bàn tay.
+Nghĩ vậy, hắn liền lập mưu kế chiếm đoạt cái bàn.
+Cơm no, rượu sau rồi, bác nông phu vác bàn vào phòng ngủ. Vì suốt một hành trình vất vả, nên đặt mình xuống, bác đã ngủ say như sấm. Tên chủ quán chỉ mong có thế. Hắn liền lấy một chiếc bàn thường đánh tráo chiếc bàn của bác nông phu.
+Sáng dậy, bác nông phu chẳng nghi ngờ gì, tính tiền trọ trả chủ quán rồi vác bàn về. Đến nhà, bác hí hửng khoe với vợ:
+– Từ nay, ta sẽ không còn phải lo chết đói nữa, vì đã có chiếc bàn thần này!
+Bác gọi cả bầy con mười mấy đứa, vây xung quanh chiếc bàn và dõng dạc nói:
+– Bàn ơi, dọn cơm ra!
+Nhưng hỡi ơi! cái bàn vẫn trơ trơ nằm chình ình ở giữa nhà, chả có cơm nước gì cả.
+Thất vọng quá, bác lại trở nên lần nữa. Bận này, bác cũng gõ cổng, lại thấy vị thần mặt đỏ như chu sa hiện ra hỏi:
+– Ô kìa! Thế cái bàn chưa đủ cho nhà ngươi nuôi lũ con hay sao?
+Bác nông phu buồn rầu kể rõ cho vị thần nghe những chuyện xảy ra ở dọc đường. Vị thần giậm chân bảo:
+– Thôi thế thì chính tên chủ quán đã đánh tráo cái bàn của ngươi rồi!
+Nói thế, nhưng vị thần cũng vào tâu với Thượng đế. Một lát sau ông trở ra, tau dắt một con lừa, bảo:
+– Đây, Thượng đế cho ngươi con lừa này. Khi nào cần tiền tiêu xài cứ bảo nó: “Lừa ơi! Giúp ta đi!”, tức khắc ngươi sẽ được toại nguyện.
+Bác nông phu mừng quá phục xuống lạu ta Trời và cám ơn vị thần, rồi dắt lừa về. Cũng chỉ thoát cái, bác đã trở về với hạ giới. Bác cưỡi lên lừa hỏi thăm đường về nhà.
+Xẩm tối hôm ấy, bác lại tới một tửu lầu lớn. Tửu lầu này cũng chính của tên chủ quán đã đánh tráo chiếc bàn hôm nọ.
+Sau khi cơm rượu no say, để có tiền trả, bác nông phu tới cạnh con lừa:
+– Lừa ơi, giúp ta đi!
+Màu nhiệm thay! Bác vừa nói dứt lời, con lừa đã cong đuôi phun ra đống tiền vàng. Bác nông phu mừng rỡ, nhặt tiền bỏ đầy hai túi. Công việc xảy ra không đầy một phút nhưng không lọt khỏi mắt lão chủ quán gian xảo. Hắn nghĩ bụng:
+– Trời ơi! Sao có chuyện lạ lùng như vậy! Nếu ta mà có con lừa này thì khỏi cần phải làm ăn gì nữa cũng đủ nuôi sướng cả đời!
+Một mưu kế chợt nảy ra trong đầu hắn. Cũng như lần trước, hắn đợi bác nông phu ngủ say, liền đi kiếm một con lừa khác đánh tráo vào.
+Bác nông phu không biết mưu gian, sáng hôm sau dắt lừa về khoe với vợ.
+– Với con lừa này, từ nay chúng ta sẽ trở thành một người giàu có nhất trong tỉnh.
+Nói đoạn, bác lại vỗ vào lưng lừa và bảo:
+– Lừa ơi, giúp ta đi!
+Không may cho bác lại đúng vào lúc ấy con lừa đang muốn đi ngoài. Và vì nó là con lừa thường như tất cả những con lừa khác nên cái chất thải của nó thải ra ngoài làm cho mọi người rất khó chịu.
+bác nông phu thất vọng, lại quyết lên gõ cửa nhà Trời một lần nữa. Thoạt nhìn thấy bác ta, vị thần mặt đỏ đã lạ lùng hỏi:
+– Ủa! Nhà ngươi lại lên nữa?
+Bác nông phu nhất thiết kể lại sự tình cho vị thần nghe và nhờ vị thần tâu xin Thượng đế giúp cho một vật khác. Vị thần ái ngại cho tình cảnh của bác ta, liền trở vào và một lát sau đem ra một cái túi bên trong có một cây gậy. Vị thần bảo:
+– Thượng đế thương tình ban cho ngươi một chiếc gậy này. Ngươi nhớ trở về đúng nơi quán trọ bữa nọ. Khi gặp tên chủ quán, ngươi hãy vỗ vào túi mà bảo: “Gậy ơi, ra tay!”, lập tức sẽ có một phép màu nhiệm xảy đến.
+Bác nông phu không hiểu thần dặn là ý thế nào. Nhưng bác cũng vâng lời trở về và làm đúng như lời thần dặn. Tên chủ quán trông thấy ông khác quý đã hai lần mang đến cho hắn hai của báu thì tưởng bở, vội vã ra đoán mừng. Hắn hy vọng lần này vị thần tài kia lại đến gõ cửa hắn một lần nữa. Bất ngờ, hắn vừa tiến đến nơi, bác nông phu đã vỗ vào túi hô:
+– Gậy ơi, ra tay!
+Lời hô vừa dứt, chiếc gậy ở trong túi liền bay vụt ra ngoài và cứ thế đập vào đầu, vào vai, vào lưng lão chủ quán như một trận mưa bấc. Tên chủ quán bay hồn tán đởm. Sợ hãi chui cả vào gầm giường, nhưng hắn chạy tới đâu chiếc gậy bay theo tới đó vụt tới tấp, không còn biết đường nào mà tránh nữa.
+Sau cùng, tên chủ quán phải van lạu bác nông phu, đem trả lại cái bàn và con lừa. Bác nông phu vui vẻ vác bàn và dắt lừa về nhà. Từ đó, bác sống một cuộc đời giàu sang, hạnh phúc nhờ mấy vật báu của Trời ban cho.
+
+--------------------------------------------------
+
+
+ID: story_192
+TITLE: Món ăn mầm đá [Truyện cười dân gian Trạng Quỳnh]
+URL: https://truyendangian.com/mon-an-mam-da
+
+CONTENT:
+Chúa Trịnh quanh năm ăn toàn sơn hào, hải vị , chả thiếu thức gì, mà vẫn không thấy ngon miệng.
+Môt hôm, Quỳnh túc trực, Chúa bảo:
+– Ta ăn đủ của thơm vật lạ, mà không biết ngon. Ngươi có biết thứ gì ngon thì nói cho ta hay?
+– Tâu Chúa, Chúa đã dùng món ăn mầm đá chưa ạ?
+– Vị ấy ngon lắm à?
+– Dạ, ngon lắm.
+– Thật như thế thì làm để ta nếm thử xem?
+Quỳnh sai người lập tức đi lấy “mầm đá” về ninh nhừ để làm đồ ngự thực , còn mình thì lủi về nhà lấy một lọ tương ngon, một đĩa muối trắng. Lọ tương thì bịt thật kỹ ngoài đề hai chữ “Đại phong” đem sang giấu một chỗ.
+Chúa đợi lâu, thấy đói bụng, hỏi:
+– Mầm đá đã chín chưa ?
+Quỳnh thưa:
+– Chưa được.
+Chốc chốc, Chúa lại hỏi, Quỳnh tâu:
+– Thứ ấy phải cho thật chín, không thì lâu tiêu. Khuya, Chúa lại hỏi. Quỳnh biết Chúa đói lắm rồi, mới tâu:
+– Xin Chúa hãy xơi tạm vài thứ dã vị này, còn mầm đá xin dâng sau.
+Rồi truyền dọn cơm tương với muối dâng lên. Chúa đang đói, ăn ngon miệng. Trông thấy lọ đề hay chữ “Đại phong” lấy làm lạ. Chúa hỏi:
+– Mắm “Đại phong” là mắm gì mà ngon thế?
+– Bẩm, đó là thức ăn thường dùng.
+– Là gì, nói lên cho ta biết?
+– Bẩm, tương ạ!
+– Ngươi để hai chữ “Đại phong” là nghĩa là sao?
+– Bẩm “Đại phong” là gió lớn, gió lớn thì đổ chùa, đổ chùa là tượng lo, tuợng lo là lọ tương.
+– Lâu nay ta không ăn, quên mất cả vị, sao ngon thế?
+– Tâu Chúa, quả không sai. Lúc đói thì ăn gì cũng ngon, no thì không thấy gì vừa miệng!
+Chúa cười bảo:
+– Ngươi nói phải. Thế ra ngươi làm cho ta thật đói để ăn cho biết ngon, chứ đợi món ăn mầm đá thì biết đến bao giờ cho chín!
+
+--------------------------------------------------
+

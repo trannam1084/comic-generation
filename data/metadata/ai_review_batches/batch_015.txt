@@ -1,0 +1,221 @@
+
+Bạn là người đánh giá Dataset cho dự án Vietnamese Comic Generation.
+
+Hãy đánh giá từng truyện để xác định mức độ phù hợp
+khi chuyển thành comic khoảng 4 cảnh.
+
+Đánh giá 4 tiêu chí, mỗi tiêu chí từ 0 đến 2:
+
+1. characters_clear
+0: Không rõ nhân vật
+1: Nhân vật tương đối rõ
+2: Nhân vật rõ ràng
+
+2. events_clear
+0: Sự kiện không có trình tự rõ
+1: Trình tự tương đối rõ
+2: Trình tự sự kiện rõ ràng
+
+3. scene_suitable
+0: Không phù hợp tạo comic
+1: Có thể tạo comic nhưng cần chỉnh sửa
+2: Rất phù hợp để chia khoảng 4 cảnh
+
+4. ending_clear
+0: Không có kết thúc rõ
+1: Kết thúc tương đối rõ
+2: Kết thúc rõ ràng
+
+Tổng điểm score = tổng 4 tiêu chí, tối đa 8.
+
+selected_candidate:
+- true: Nếu score >= 6 và phù hợp tạo comic
+- false: Nếu không phù hợp
+
+difficulty:
+- easy
+- medium
+- hard
+
+Không bịa thêm sự kiện.
+Không đánh giá chỉ dựa trên tên truyện.
+Đánh giá dựa trên nội dung được cung cấp.
+
+Trả về JSON array hợp lệ, không Markdown.
+
+Mỗi truyện:
+
+{
+  "id": "story_001",
+  "title": "...",
+  "characters_clear": 0,
+  "events_clear": 0,
+  "scene_suitable": 0,
+  "ending_clear": 0,
+  "score": 0,
+  "selected_candidate": false,
+  "difficulty": "easy",
+  "reason": "..."
+}
+
+
+==================================================
+STORIES TO EVALUATE
+==================================================
+
+
+ID: story_083
+TITLE: Chiếc đèn lồng [Kể chuyện lớp 2]
+URL: https://truyendangian.com/chiec-den-long
+
+CONTENT:
+Bác đom đóm già ngồi nhìn bầy đom đóm nhỏ tuổi rước đèn lồng làm sáng rực cả con đường. Trông chúng giống như những ngôi sao nhỏ lấp lánh.
+– Ôi chao! Mình thực sự già rồi! – Bác đom đóm thở dài.
+Chợt bác nghe thấy tiếng khóc từ dưới bãi cỏ. Bác bay tới và nhận ra đó là chú ong non. Anh bạn nhỏ này bị lạc đường.
+– Đừng quá lo lắng, ta sẽ đưa cháu về.
+Bác đom đóm an ủi ong non, rồi bác thắp chiếc đèn lồng của mình lên, dắt cu cậu bay đi. Bác bay mãi, bay mãi, cuối cùng cũng đưa được ong non về bên ong mę.
+Bác đom đóm quay trở về. Nhưng chiếc đèn lồng của bác cứ tối dần, tối dần rồi tắt hẳn. Chao ôi! Tuổi già thật phiền phức! Nhưng bác thấy vui vì chút ánh sáng cuối cùng của mình thật có ích. Bác đom đóm đập nhẹ đôi cánh, chậm chạp bay trong bóng tối…
+Đột nhiên, có những chiếc đèn lồng lung linh tiến về phía bác:
+– Bác ơi! Bác đã đưa bạn ong về nhà. Chúng cháu tới để soi đường cho bác ạ!
+Thì ra là bầy đom đóm nhỏ.
+– Các cháu ngoan lắm! – Bác đom đóm cảm động nói. Giọt nước mắt hạnh phúc trào ra trên khuôn mặt nhăn nheo của bác.
+
+--------------------------------------------------
+
+
+ID: story_084
+TITLE: Người thợ đóng giày vui tính [Truyện cổ tích ý nghĩa cho bé]
+URL: https://truyendangian.com/nguoi-tho-dong-giay-vui-tinh
+
+CONTENT:
+Ngày xưa có một người thợ đóng giày lưng gù, tuy rất nghèo nhưng chàng lại rất lạc quan.
+Một hôm, chàng đem ba đôi giày đã làm xong đến chợ để bán. Vì bán được giá nên chàng rất vui, vừa chạy về nhà vừa ca hát.
+Lúc đó, trời đã bắt đầu tối nhưng vẫn còn cách nhà rất xa. Người thợ đóng giày quyết định đi vào khu rừng, vòng qua một con đường nhỏ, như thế có thể về nhà sớm hơn một chút.
+Đi được một quãng, bỗng người thợ đóng giày phát hiện phía trước có một bóng trắng lướt qua, chàng nhìn chăm chú, hóa ra đó là một tiên nữ trong rừng. Nàng đang ngồi khóc trên một cành cây.
+Người thợ đóng giày đến trước mặt nàng và hỏi:
+– Vì sao nàng khóc?
+Tiên nữ thấy chàng thợ đóng giày là một người lương thiện, nàng liền trả lời:
+– Vì tôi cảm thấy cô đơn.
+– Cô đơn ư? Tôi có thể đuổi được nỗi cô đơn đi!
+Người thợ đóng giày nói xong liền ca hát vui vẻ cho tiên nữ nghe. Tiên nữ nghe tiếng hát vui vẻ của người thợ đóng giày, nàng lau nước mắt và nở cười.
+Người thợ đóng giày cho nàng tiên nữ xem đội giày dưới chân mình và nói:
+– Tôi là thợ đóng giày, nếu ai đi giày tôi đóng thì người đó sẽ vui vẻ cả đời.
+Tiên nữ nói:
+– Thế thì chàng hãy đóng cho tôi một đôi nhé!
+Người thợ đóng giày ngắt hai chiếc lá, dùng cỏ để thay thế dây gai, lấy gai tùng để thay kim, không lâu sau chàng đã làm xong một đôi giày. Nàng tiên nữ đi vào, thật vừa vặn, không to không nhỏ. Nàng tiên nữ đi đôi giày vào và vui vẻ múa hát cùng người thợ đóng giày .
+Họ múa hát say sưa cả đêm. Khi đó nàng tiên nữ nói:
+– Ta nhảy múa đủ rồi, chàng đã khiến ta vô cùng vui vẻ. Chàng nói xem chàng muốn ta báo đáp chàng như thế nào?
+– Báo đáp ư? Tôi không cần gì cả, chỉ cần nàng chữa khỏi chiếc lưng gù của tôi, như thế là đủ rồi!
+– Được, tôi sẽ giúp chàng ngay.
+Tiên nữ nói xong, dùng chiếc gậy thần gõ vào lưng của người đóng giày, chiếc lưng gù của chàng bỗng chốc thẳng lại, tưởng chừng như nó chưa từng gù bao giờ.
+Sau khi người thợ đóng giày trở về nhà bà lão hàng xóm vô cùng kinh ngạc khi nhìn thấy chàng, bà vội vàng hỏi thăm:
+– Ai đã giúp cháu trở nên trẻ đẹp như thế?
+Người thợ đóng giày không chút do dự nói:
+– Là nàng tiên nữ trong khu rừng đã giúp cháu.
+Bà lão cũng rất muốn mình hết bị còng, vì thế bà cũng đến khu rừng, bà cũng nhìn thấy nàng tiên nữ. Tiên nữ nói:
+– Bà hát cho tôi nghe một bài nhé!
+– Hát thì có gì hay đâu, nhìn tôi này, lưng của tôi còng như thế này thì còn lòng nào để hát nữa.
+– Thế thì chúng ta cùng nhảy múa nhé!
+– Nàng muốn tôi nhảy múa với chiếc lưng cong, lẽ nào nàng đang cười nhạo tôi?
+Nàng tiên nữ nhìn bà lão tỏ vẻ không hài lòng, vì thế nàng nói:
+– Thế thì bà muốn đến chỗ tôi làm gì?
+– Tôi muốn nàng giúp tôi trở nên trẻ đẹp!
+– Được thôi! Bà hãy đợi nhé!
+Nàng tiên nói xong và giơ chiếc gậy thần lên gõ vào cái lưng công của bà lão, sau đó nàng biến mất.
+Bà lão thấy mình không những không được trẻ đẹp, mà lưng lại càng còng hơn. Bà ta buồn bã trở về nhà.
+
+--------------------------------------------------
+
+
+ID: story_085
+TITLE: Yêu ma gió xoáy [Truyện cổ tích cho bé]
+URL: https://truyendangian.com/yeu-ma-gio-xoay
+
+CONTENT:
+Ngày xưa, có một người nông dân tên là Kearney, chàng rất chăm chỉ làm việc.
+Một hôm, Kearney đi làm đồng về, bỗng nhiên một cơn gió xoáy đưa đến một người mặt mày nhem nhuốc, người đó tỏ vẻ đáng thương nói:
+– Tôi là người tiều phu chặt củi, cơn gió xoáy đã cuốn tôi đến đây, người tôi như rời rụng ra.
+Nói xong, ông ta lại tỏ vẻ đau đớn, khóc lóc. Kearney đưa ông ta về nhà, nấu cơm nước cho ông ta ăn, rồi lại mời ông ta đi nghỉ.
+Đêm đó, gió rít từng cơn. Kearney sợ người khách lạ bị lạnh, liền mang chăn đến đưa cho ông ta. Chàng đến bên giường thì nhìn thấy một con yêu ma đang ăn thịt cha mẹ mình.
+Kearney khi đó mới biết mình dẫn yêu ma về nhà, hại chết cha mẹ, chàng vô cùng buồn bã và quyết định báo thù. Kearney đem theo chiếc chậu gỗ và lặng lẽ chạy đi, rồi nhảy xuống sông Hồng Hà.
+Kearney trôi dạt trên sông suốt ba ngày ba đêm, chiếc chậu gỗ dần dần dạt vào bờ. Trên bờ sông có một bà lão đang ngồi khóc lóc thảm thiết. Kearney đến trước mặt bà lão, ân cần nói:
+– Bà ơi, bà đừng khóc nữa!
+Bà lão kéo tay Kearney lại nói:
+– Chàng trai dũng cảm, ta sẽ kể hết mọi chuyện cho cháu nghe. Đứa con gái đáng thương của ta bị yêu ma gió xoáy cuốn đi rồi!
+Rồi bà lại khóc thảm thiết. Kearney nghe xong liền nói với bà lão:
+– Bà ơi, tên yêu ma gió xoáy chính là kẻ thù chung của chúng ta. Cháu nhất định sẽ giết chết nó, không thể để cho dân làng bị nó hãm hại.
+Kearney cáo biệt bà lão, đem theo một thanh kiếm và chuẩn bị ra đi. Bà lão nói với chàng:
+– Chàng trai, trong lòng bàn tay phải của con gái ta có một nốt ruồi đen. Hy vọng cháu sẽ đưa nó trở về với ta.
+Nói xong, bà tháo chiếc vòng tay đưa cho chàng và nói:
+– Khi nhìn thấy con gái ta, cháu hãy đưa thứ này cho nó.
+Một hôm, Kearney đến một sườn núi hoang, vẫn chưa tìm được yêu ma gió xoáy. Kearney mệt mỏi rã rời, chàng liền tìm đến một tảng đá lớn để nghỉ ngơi. Vừa chợp mắt, chàng mơ thấy ở bên cạnh mình có một bà cụ tóc bạc trắng đưa cho chàng một con rết, nói chàng hãy nghĩ cách để cho tên yêu ma ăn con rết đó, như vậy yêu ma gió xoáy sẽ không thể chạy đi được nữa. Kearney tỉnh dậy, bên cạnh chàng đúng là có một con rết. Chàng bắt lấy nó lại tiếp tục đi tìm tên yêu ma kia.
+Chạy mãi chạy mãi, đến một chân núi hoang, chàng nhìn thấy một căn nhà và chạy đến gần gõ cửa. Cửa mở ra, trước mắt chàng là một cô gái xinh đẹp. Khi nàng rót nước cho chàng, chàng phát hiện trong lòng bàn tay phải của nàng rõ ràng có một nốt ruồi đen. Khi đó, Kearney cố ý đeo chiếc vòng tay vào. Cô gái vừa nhìn thấy đã nhận ra ngay đó là chiếc vòng tay của mẹ mình, bỗng rơi lệ, nước mắt nàng như những hạt ngọc trai rơi xuống.
+Kearney nói:
+– Xin cô hãy lượng thứ cho sự thô lỗ của tôi, nếu tôi không nhầm thì nàng chính là cô gái đã bị tên yêu ma gió xoáy bắt đi.
+Cô gái nghe xong khóc nức nở. Kearney vội vàng đưa cho cô gái chiếc vòng tay đó và kể cho nàng nghe chuyện chàng đã gặp mẹ nàng. Kearney cầm con rết ra, bảo nàng hãy lén bỏ nó vào trong thức ăn của tên yêu ma gió xoáy. Cô gái cầm lấy con rết và nói cho Kearney biết tên yêu ma gió xoáy đó sắp trở về, chàng hãy mau trốn đi.
+Yêu ma gió xoáy trở về. Cô gái vội vàng cho con rết vào một ống rượu trúc nướng lên. Tên yêu ma gió xoáy ngửi thấy hương vị của rết nướng và mùi thơm của rượu liền ngồi xuống bàn ăn uống ngon lành. Hắn vừa ăn vừa nói:
+– Thơm ngon quá! Thơm ngon quá!
+Một lát sau, con rết đã ở trong bụng của tên yêu mà gió xoáy và cắn phá trong đó khiến cho hắn đau đớn và lăn lộn dưới đất. Lúc đó, Kearney chạy ra đậm chết tên yêu ma.
+Một ngày tháng giêng, khi Kearney đưa cô gái trở về thôn xóm, những người láng giềng bày biện thịt rượu ở giữa đường để nghênh đón chào mừng và tổ chức hôn lễ rất long trọng cho hai người. Sau đó, Kearney lại đón người mẹ của cô gái đến, họ cùng nhau sống những tháng ngày tràn đầy hạnh phúc.
+
+--------------------------------------------------
+
+
+ID: story_086
+TITLE: Chú bò Ba Bớt [Truyện đọc lớp 1 cho bé]
+URL: https://truyendangian.com/chu-bo-ba-bot
+
+CONTENT:
+Ba Bớt là con bò đẹp. Ở nó hội đủ các tiêu chuẩn: mình thon, chân cao, mắt sáng, lông mượt, sừng khoẻ, dáng đi oai vệ. Giữa cái trán rộng màu hạt dẻ nổi lên ba cái bớt màu trắng, thế nên nó có tên là Ba Bớt.
+Được thả vào đàn đã gần một tháng, nhưng Ba Bớt vẫn chưa làm thân với con nào. Từ bác Bò đực cao niên đầu đàn có cặp sừng quặp xuống hai má như hai quả mướp, hay chị Bò cái óng ả, duyên dáng đến con bê con vô tư suốt ngày rúc vú mẹ, v.v… có con nào tìm đến thể hiện tình cảm, Ba Bớt tỏ thái độ khinh khỉnh quay đi nơi khác. Khi những con khác ăn theo đàn thì Ba Bớt lại tách ra một mình một chỗ. Cậy mình có sức khoẻ, gặp con bò đực nào nó cũng nghênh sừng thách đố. Thực ra trong đàn nhiều con chẳng thua kém gì Ba Bớt, song hay gì cái chuyện đánh lộn kia chứ. Vậy nên khi Ba Bớt gây sự là chúng vội lảng đi. Nhưng nào Ba Bớt có biết, nó lại nghĩ tất cả đều sợ nó.
+Một hôm, có con Hổ Vằn xuất hiện ở bìa rừng. Đàn bò cụm lại, những con bò đực đứng dàn hàng, hướng cặp sừng nhọn hoắt về phía con Hổ, bảo vệ đảm bò cái, bê con. Phát hiện con Ba Bớt đứng một mình, Hổ lao tới. Ba Bớt hoảng sợ tung vó chạy, nó chạy tới đâu Hổ Vằn bám theo tới đó. Cuộc rượt đuổi thật ngoạn mục. Cuối cùng, Ba Bớt chạy thoát nhưng nó bị lạc đàn.
+Buổi chiều, khi đàn bò lục tục kéo nhau về chuồng thì Ba Bớt vẫn một mình bươn bả ngoài rừng. Chưa quen địa hình, mỗi lúc nó càng đi xa hơn. Đêm đầu tiên trong rừng, nó dừng chân bên con suối cạn. Đói, mệt và sợ hãi, Ba Bớt không sao ngủ được. Đầu lắc, đuôi đập liên hồi mà vẫn không xua được đám muỗi đói. Nhưng cái làm nó hoảng sợ nhất là những đốm sáng lân tinh , ẩn hiện chập chờn như ma trơi dưới lớp lá mục. Ba Bớt thầm mong cho đêm chóng tàn, nhưng càng mong càng thấy đêm rộng dài hơn.
+Rồi mặt trời cũng mọc, Ba Bớt mừng rơn khi ánh sáng trải khắp khu rừng. Nó vươn vai định bước đi, chợt một trận mưa trái cây trút xuống. Những con khỉ nghịch ngợm và lém lỉnh vừa ném trái cây vừa quát: “Này anh bò kia, đàn của anh đâu? Anh không có bạn bè hay sao mà đi một mình?…”. Những trái cúc cắc chỉ to bằng hạt ngô, đập vào đầu vào lưng, không đau nhưng Ba Bớt thấy sao mà hổ thẹn. Đã bao giờ nó bị xua đuổi như một tên ăn cắp thế này đâu.
+Nuốt nhục, nó lặng lẽ bước đi, đói thì ăn lá rừng, khát uống nước suối, buồn ngủ đứng tựa vào gốc cây gà gật. Có đêm đang thiêm thiếp, thấy động nó choàng tỉnh, ôi chao một con trăn đất to như cây chuối, da cóc cáy, loang lổ đang trườn qua lưng nó. Hoảng sợ, nó chồm lên, lao bừa vào bụi cây, thật hú vía.
+Cuộc phiêu lưu bất đắc dĩ đưa Ba Bớt đến những nơi cảnh sắc nổi tiếng như giếng Tiên, hang Đầu Voi, cây chò 3.000 tuổi… Nhưng nó còn tâm trí nào mà thưởng ngoạn . Một mình lủi thủi, lại phải thường xuyên đề phòng chuyện bất trắc, Ba Bớt cảm thấy cô đơn và nhớ đàn.
+Một hôm vừa lách qua đám lau, nó gặp một con Lợn Rừng đang đào măng. Tưởng Bò đến giành ăn con Lợn lao vào cắn xé. Ba Bớt bị những chiếc răng nanh lợn dài, sắc xẻ toạc cổ, máu phun ra như suối.
+Mang tấm thân rách nát bươn bả tìm đàn, Ba Bớt tự hỏi vì đâu nên nỗi? Phải chăng do cái tính kiêu căng ngạo mạn của nó gây nên. Giá nó sống giản dị, khiêm tốn như những con bò kia, chắc không phải nhận hậu quả đáng buồn.
+Trưa ngày thứ mười thì Ba Bớt tìm về được trảng cỏ . Vừa trông thấy nó, cả đàn bò lao tới vây quanh, chúng đã chờ đợi giây phút này lâu lắm rồi. Con nào cũng muốn len vào trong để được đứng gần Ba Bớt, nhìn rõ người bạn sau bao ngày lưu lạc. Trông thân hình gầy rộc, đầy thương tích và đôi mắt trõm sâu vì đói khát, mất ngủ của Ba Bớt, những con bò trong đàn rất xúc động. Chúng hỏi Ba Bớt những ngày qua sống ở đâu, ăn uống thế nào và làm sao bị thương. Ở trong rừng, Ba Bớt có nghe được tiếng gọi của chúng không, v.v…
+Nghe Ba Bớt kể lại nỗi vất vả, nguy hiểm trong chuyến lạc đàn, bác Bò đực đầu đàn nhẹ nhàng nói:
+– Khi cháu bị lạc, cả đàn cũng không ăn không ngủ được vì nhớ thương. Ở đời, không có ai hiểu và cảm thông với ta bằng giữa chúng ta với nhau đâu. Nhưng thật may cháu đã trở về.
+Ba Bớt cứ nghĩ rằng khi trở về nó sẽ phải nhận thái độ ghẻ lạnh và những lời nhiếc móc giễu cợt của đàn bò, nhưng tất cả đều yêu thương nó. Tình cảm đó đã xoá tan mặc cảm trong lòng Ba Bớt và nó cảm thấy ân hận về lối sống trước đây của mình. Từ đôi mắt trõm sâu của Ba Bớt ứa ra hai giọt nước mắt. Ba Bớt xúc động nói:
+– Những ngày lưu lạc, tôi đã thấy thấm thía rằng: Không thể nào sống mà không có bạn, không có đàn. Kể từ nay tôi sẽ sống gần gũi, chân tình với các thành viên trong đàn.
+Những con bò cất tiếng hò vang. Chúng sung sướng chạy khắp bãi cỏ, đùa vui với nhau vì chú bò Ba Bớt đã nhận ra một bài học sâu sắc ở đời.
+
+--------------------------------------------------
+
+
+ID: story_087
+TITLE: Hồ Gương [Truyện đọc lớp 1 cho bé]
+URL: https://truyendangian.com/ho-guong
+
+CONTENT:
+Có một hồ nước rộng, trông thấy đáy. Những khi gió nhẹ mặt hồ phẳng lặng như gương. Một chú Chim nhỏ bay qua thấy bóng mình dưới nước, bèn cất tiếng:
+– Này, Hồ Nước ơi! Có phải bóng mình đấy không?
+Hồ Nước hồn nhiên trả lời:
+– Vâng, bạn đẹp lắm! Nếu vắng đôi cánh của bạn, bầu trời sẽ buồn biết bao nhiêu.
+Chim nhỏ vui vẻ bay đi, miệng hót ríu ran. Nó chợt nghĩ phải bay thật nhiều để làm vui thêm những khoảng trời. Nghe Chim mách bảo, cây cối trong vùng lần lượt kéo đến bên hồ nước:
+– Hồ Gương ơi! Cậu thấy bọn tớ thế nào?
+Không chút băn khoăn, Hồ Nước đáp:
+– Sắc màu hoa lá của các bạn làm đẹp cho bầu trời mặt đất, những bản nhạc ẩn náu trong vòm lá nghe thật du dương.
+Nghe vậy, hoa lá lao xao hoan hỉ . Tiếng rì rào vọng tới trời cao. Trên đường dạo chơi, những chị Mây Trắng cũng dừng lại ghé thăm Hồ Nước:
+– Hồ Gương ơi! Cậu thấy bọn tớ thế nào?
+– Sẽ ra sao nếu bầu trời xanh màu ngọc bích kia thiếu đi những làn mây trắng. Chỉ có một điều…
+– Có gì ở chúng tôi chưa làm bạn hài lòng?
+– Các chị nhàn nhã quá, chỉ suốt ngày lang thang…
+Những đám Mây thẹn thùng nhìn nhau:
+– Thì các chị cũng đang đi tìm việc làm đây. Thôi tạm biệt Hồ Nước trung thực nhé!
+Cứ thế, Hồ Gương trả lời cho tất cả những ai tìm đến với mình. Từ vầng trăng, cơn gió, cho đến những vì sao nhấp nháy trên nền trời đêm.
+Một ngày, khi Hồ Nước vừa tỉnh giấc, đã thấy đằng đông chói lóa. Bộ mặt chín đỏ của lão Mặt Trời trồi lên khỏi mặt biển xanh. Mặt mũi nhăn nhó, lão phóng xuống mặt hồ những tia nắng nóng:
+– Này Hồ Gương! Có phải ta là người đẹp, rực rỡ oai hùng nhất hay không?
+Ngước nhìn Mặt Trời chói đỏ, những vòng sóng trên hồ nước rì rào:
+– Ông rực rỡ oai hùng thật nhưng rượu đã làm ông đổi tính. Ông làm mọi người sợ hãi hơn là thích thú đấy!
+Nghe thế, Mặt Trời lấy làm tức tối. Lão quyết định trừng phạt kẻ đã dám nói ra sự thật. Ngón đòn của lão cũng thật độc. Chịu đựng những lằn roi nóng khủng khiếp của Mặt Trời, hồ nước cạn dần, thoi thóp . Những con chim, cây lá ven hồ cất tiếng thở than. Vầng trăng và các vì sao cũng không có cách gì cứu được hồ nước đang ngày một héo mòn.
+Một chiều, trời đang chang chang nắng bỗng nhiên sầm sập tối. Mây Đen kéo về. Hồ Nước ngạc nhiên ngước nhìn những đám Mây:
+– Lẽ nào các chị lại là những làn Mây Trắng?
+– Đúng thế, các chị đến cứu em đây! Lâu nay các chị tìm thầy luyện võ nên da mới đen đúa thế này. Giờ thì em sẽ thấy ngón võ của các chị chống lại sự tàn ác của Mặt Trời nhé!
+Dứt lời, những đám mây kéo lên bủa kín Mặt Trời. Cuộc chiến xảy ra trong tiếng u u của gió. Những làn roi nhì nhằng của Mặt Trời bị các đám Mây vây bọc, không chạm tới được mặt hồ. Và điều kì diệu đã xảy ra, mưa, nước chảy thành dòng tràn trề trên mặt đất.
+Sau cơn mưa, hồ nước lại tròn đầy. Trời vừa tạnh, một chú Ễnh Ương ngồi vắt vẻo trên một bụi cây thích thú gào váng lên: “Đẹp! Đẹp!”, rồi nhảy tòm xuống nước. Chẳng hiểu, chú chàng khoái được tắm táp trong nước mát hay nhầm tưởng mình đang bay vào một khung trời rực rỡ thần tiên.
+
+--------------------------------------------------
+

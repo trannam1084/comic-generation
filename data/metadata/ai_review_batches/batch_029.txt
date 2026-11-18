@@ -1,0 +1,191 @@
+
+Bạn là người đánh giá Dataset cho dự án Vietnamese Comic Generation.
+
+Hãy đánh giá từng truyện để xác định mức độ phù hợp
+khi chuyển thành comic khoảng 4 cảnh.
+
+Đánh giá 4 tiêu chí, mỗi tiêu chí từ 0 đến 2:
+
+1. characters_clear
+0: Không rõ nhân vật
+1: Nhân vật tương đối rõ
+2: Nhân vật rõ ràng
+
+2. events_clear
+0: Sự kiện không có trình tự rõ
+1: Trình tự tương đối rõ
+2: Trình tự sự kiện rõ ràng
+
+3. scene_suitable
+0: Không phù hợp tạo comic
+1: Có thể tạo comic nhưng cần chỉnh sửa
+2: Rất phù hợp để chia khoảng 4 cảnh
+
+4. ending_clear
+0: Không có kết thúc rõ
+1: Kết thúc tương đối rõ
+2: Kết thúc rõ ràng
+
+Tổng điểm score = tổng 4 tiêu chí, tối đa 8.
+
+selected_candidate:
+- true: Nếu score >= 6 và phù hợp tạo comic
+- false: Nếu không phù hợp
+
+difficulty:
+- easy
+- medium
+- hard
+
+Không bịa thêm sự kiện.
+Không đánh giá chỉ dựa trên tên truyện.
+Đánh giá dựa trên nội dung được cung cấp.
+
+Trả về JSON array hợp lệ, không Markdown.
+
+Mỗi truyện:
+
+{
+  "id": "story_001",
+  "title": "...",
+  "characters_clear": 0,
+  "events_clear": 0,
+  "scene_suitable": 0,
+  "ending_clear": 0,
+  "score": 0,
+  "selected_candidate": false,
+  "difficulty": "easy",
+  "reason": "..."
+}
+
+
+==================================================
+STORIES TO EVALUATE
+==================================================
+
+
+ID: story_157
+TITLE: Chiếc đó cá [Câu chuyện ý nghĩa về cuộc sống]
+URL: https://truyendangian.com/chiec-do-ca
+
+CONTENT:
+Trời đã xế chiều, Tiến tha thẩn ra bờ mương chơi. Thấy trong người nóng bức, nó nhảy tùm xuống mương tắm. Đang vùng vẫy, chợt nó thấy lấp ló có chiếc đó của ai be vào mép bờ. Tiến bơi tới gần nhấc chiếc đó cá lên. Nó sung sướng và hồi hộp khi thấy trong chiếc đó có đàn cá nhảy lách chách . Trong một thoáng, nó như chợt nghĩ tới điều gì. Nhìn quanh quẩn không có ai, nó vội vã tháo nắp đó và dốc hết cá vào chiếc áo buộc túm lại, quẳng chiếc đó đi, và vụt chạy về phía chợ…
+Cầm nắm tiền trong tay, Tiến hớn hở xông thẳng tới hàng kem và làm một lúc ba, bốn chiếc, hết veo số tiền bán cá. Sau đó Tiến thủng thẳng về nhà.
+Chiều tối, cả nhà quây quần quanh mâm cơm, trên mâm chỉ vẻn vẹn có bát canh rau và đĩa tép rang từ bữa sáng còn lại. Vừa ăn, mẹ Tiến vừa ca cẩm :
+– Rõ khổ, bố cu Tiến thì ốm, chiều lại hết cả tiền đi chợ, thương ông không có gì tẩm bổ , mang cái đó ra mương bắt con cua, con cá làm bữa tươi. Ai dè đứa nào nó ăn cắp, vứt lại cái đó trống rỗng ngoài bờ…
+Nghe mẹ nói, Tiến bàng hoàng cả người, nó cắn đũa trân trân nhìn sang bố. Nó không nuốt nổi miếng cơm, hình như có cái gì đó nghẹn đắng ở cổ họng. Rồi bỗng nhiên hai dòng nước mắt của Tiến lăn tràn trên má…
+
+--------------------------------------------------
+
+
+ID: story_158
+TITLE: Bánh đúc lạc [Câu chuyện về lòng hiếu thảo]
+URL: https://truyendangian.com/banh-duc-lac
+
+CONTENT:
+Bánh đúc lạc là câu chuyện kể về tấm gương của một người đàn ông hết lòng chăm sóc mẹ già và nhường nhịn con cái, khiến mọi người cảm phục và kính trọng.
+“Đói lòng ăn hạt chà là Để cơm nuôi mẹ, mẹ già yếu răng”. – Ca dao Việt Nam –
+Ở quê tôi mỗi tháng có mười hai ngày họp chợ ngay cổng đình làng. Bánh đúc lạc đổ vào bát ăn cơm úp vào lá chuối là một thứ quà quê rẻ, dễ mua. Ông Hiếu phiên chợ nào cũng mua hai cối bánh đúc. Một cối ông thái nhỏ mời mẹ chấm muối để ăn. Có hôm ông phải nấu bát canh mồng tơi cho mẹ chan. Còn cối bánh đúc kia ông bẻ cho con già nửa. Nếu con ăn nữa thì ông cũng thôi. Có người tò mò hỏi:
+– Thế sao ông không mua đủ ba cối cho ba người?
+Ông mỉm cười:
+– Mẹ tôi già rồi sống được bao lâu nữa. Con tôi còn bé cần ăn để mau lớn. Còn tôi trẻ thì đã qua, già chưa đến, bỏ quên thói quen ăn sáng đã lâu rồi.
+Nhìn thấy một ông đã ngoài sáu mươi tuổi lên chợ mua bánh đúc về bón cho mẹ già, ai cũng thầm nghĩ:
+– Thật là một người con chí hiếu.
+Câu chuyện Bánh đúc lạc
+
+--------------------------------------------------
+
+
+ID: story_159
+TITLE: Ông trạng Nồi [Truyện dân gian Việt Nam]
+URL: https://truyendangian.com/ong-trang-noi
+
+CONTENT:
+Thuở xưa, có một chàng trai nhà nghèo lắm, hàng ngày phải đi kiếm củi lấy tiền ăn học. Chàng rất thông minh và ham học.
+Năm ấy nhà vua sắp mở khoa thi kén chọn nhân tài . Chàng học trò nghèo kia ngày đêm miệt mài đèn sách, nhiều bữa quên ăn. Thường đến bữa cơm, chàng đợi nhà bên cạnh vừa ăn xong, là chạy sang mượn nồi ngay. Lần nào chàng cũng cọ sạch bóng nồi trước khi đem trả.
+Ngày thi đến. Chàng ung dung đến trường thi. Đến ngày yết bảng , tên chàng được xếp đầu bảng vàng, chàng đỗ trạng nguyên . Nhà vua mở tiệc ban thưởng cho quan trọng và các vị đỗ đạt. Tiệc xong, nhà vua vời quan trạng đến phán hỏi:
+– Nay nhà ngươi đã đỗ trạng nguyên, tiếng tăm lừng lẫy, ta muốn giữ lại đây để phò vua giúp nước. Trước khi nhà ngươi lĩnh việc, ta cho phép về tạ ơn tổ tiên , thăm làng xóm họ hàng. Ta muốn ban thưởng cho nhà ngươi những vật báu và cho phép nhà ngươi tự chọn.
+Nhà vua và các quan rất đỗi ngạc nhiên khi quan trạng tâu lên:
+– Tâu bệ hạ ! Thần chỉ xin bệ hạ một chiếc nồi nhỏ.
+Hôm sau, quan trạng lên đường thăm quê mang theo chiếc nồi nhỏ đúc bằng vàng của nhà vua ban cho.
+Tin người học trò nghèo nọ đỗ trạng nguyên bay về làng làm nức lòng mọi người. Dân làng treo cờ, kết hoa, nổi chiêng trống, đón quan trạng về thăm quê hương và lễ tổ.
+Khi về đến đầu làng, quan trạng xuống kiệu , chào hỏi, cảm ơn dân làng, rồi tay cầm chiếc nồi nhỏ bằng vàng đi thẳng đến nhà ông hàng xóm trước kia đã cho chàng mượn nồi trong dịp ôn thi. Dân làng lũ lượt đi theo. Thấy quan trạng đến, chủ nhà vội vàng ra chào đón vào nhà. Quan trạng nói:
+– Thưa ông, tôi xin biếu ông chiếc nồi vàng nhà vua ban cho tôi để tạ ơn ông. VÌ nhờ ông có lòng giúp đỡ, tôi mới đỗ đạt và được như ngày nay.
+Vợ chồng ông hàng xóm nghe quan trạng nói vừa mừng rỡ vừa bối rối, nghĩ thầm: “Cho mượn nồi thì có gì mà quan trạng phải trả ơn to đến thế!”. Dân làng cũng nghĩ như vậy. Như đoán biết ý nghĩ mọi người, quan trạng mỉm cười thong thả nói:
+– Hồi đó vì nghèo, trong thời gian ôn thi tôi không có thì giờ đi kiếm gạo, nên đã cố tình mượn nồi của ông chủ đây để ăn vét cơm cháy trong mấy tháng trời. Nay đã đỗ đạt, tôi có chút quà mọn trả ơn ông chủ như thế này đã bõ gì!
+Chủ nhà và dân làng nghe nói rất xúc động và cảm phục gương hiếu học và lòng biết ơn của quan trạng.
+Vị trạng nguyên trẻ tuổi ấy chính là Tô Tịch, một người nổi tiếng thời trước của nước ta, dân gian yêu mến vẫn quen gọi là Ông Trạng Nồi là lẽ như vậy.
+
+--------------------------------------------------
+
+
+ID: story_160
+TITLE: Ai đáng khen nhiều hơn? [Truyện ngụ ngôn Việt Nam]
+URL: https://truyendangian.com/ai-dang-khen-nhieu-hon
+
+CONTENT:
+Một nhà kia có hai anh em Thỏ Xám ở với mẹ. Bố đi làm xa nên cậu nào cũng muốn tỏ ra là đứa bé ngoan, biết thương mẹ nhiều nhất. Thỏ anh biết mình lớn hơn nên lúc nào cũng nhường nhịn em. Song Thỏ em thì cứ muốn được mẹ khen nhiều hơn anh.
+Một hôm, Thỏ mẹ bảo hai anh em:
+– Hôm nay, các con được nghỉ học. Thỏ anh lên rừng kiếm cho mẹ mười chiếc nấm hương . Thỏ em vào đồng cỏ hái cho mẹ mười bông hoa thật đẹp. Đường hơi xa, các con đi phải cẩn thận, đừng có la cà ở đâu.
+Hai anh em vâng lời, hăng hái đi ngay.
+Thỏ em hăm hở chạy một mạch ra đồng đồng cỏ. Tới nơi, Thỏ em chưa vội hái ngay những bông hoa vừa trông thấy. Cậu ta đi vòng một lượt, chọn khóm đẹp nhất, bông nào rực rỡ nhất mới hái mang về. Ra khỏi đồng cỏ, Thỏ em lại chạy một mạch về nhà khoe với mẹ:
+– Mẹ ơi, con mang được hoa đẹp về đây này! Mẹ khen con đi!
+Mẹ đón lấy bó hoa xuýt xoa:
+– Hoa đẹp quá! Hoa đẹp quá!
+Thỏ em hớn hở:
+– Mẹ khen con đi ! Con không la cà một tí nào ở dọc đường đâu mẹ ạ!
+Thỏ mẹ nhìn con âu yếm:
+– Con mẹ ngoan quá! Thế trên đường đi con có gặp ai, có thấy gì không?
+Thỏ con nhanh nhảu:
+– Có, mẹ ạ. Con thấy cái Sóc – con bé con nhà bác Sóc vàng – đứng khóc ở bên gốc ổi. Nó hư, mẹ nhỉ?
+– Con có hỏi vì sao Sóc khóc không?
+– Không, mẹ ạ! Con sợ ở nhà mẹ mong.
+Thỏ mẹ nghe xong không hỏi gì thêm nữa.
+Hai mẹ con chờ một lúc, khá lâu mới thấy Thỏ anh về. Chiếc giỏ đeo bên sườn Thỏ anh đầy những nấm hương và mộc nhĩ . Thỏ anh vừa chào mẹ vừa bốc từ trong túi áo ra từng nắm hạt dẻ đưa cho em:
+– Em thích ăn hạt dẻ, anh mang về cho em đây!
+Thỏ mẹ hỏi Thỏ anh:
+– Sao con hái nhiều nấm thế?
+Thỏ anh tươi cười:
+– Cũng một công đi, con hái nhiều để dành lần sau mẹ cần đến.
+Thỏ mẹ lại hỏi:
+– Sao con đi lâu vậy?
+Thỏ anh thưa:
+– Thưa mẹ, trên đường về, con còn phải giúp cô Gà hoa mơ.
+– Cô Gà hoa mơ làm sao?
+– Dạ, cô Gà hoa mơ dẫn đàn con đi ăn bị lạc mất một đứa. Con phải dừng lại giúp cô tìm cậu Gà nhép. Vì vậy, con về chậm, mẹ ạ!
+Nghe Thỏ anh nói xong, Thỏ mẹ mỉm cười gật đầu, gọi cả hai anh em đến và nói:
+– Các con của mẹ! Các con rất đáng khen vì đã biết vâng lời mẹ. Thỏ em luôn luôn nghĩ tới mẹ là đúng. Song Thỏ anh còn biết nghĩ tới người khác, biết hái thêm nấm cho mẹ, mang quà về cho em, giúp cô Hoa mơ lúc khó khăn.
+Thỏ em  ạ! Con hãy làm những việc tốt không phải chỉ để được khen, mà trước hết vì giúp ích cho người khác.
+Thỏ em hiểu ra, bẽn lẽn nói:
+– Thưa mẹ, vâng ạ!
+
+--------------------------------------------------
+
+
+ID: story_161
+TITLE: Câu chuyện Chàng trai làng Phù Ủng [Phạm Ngũ Lão]
+URL: https://truyendangian.com/chang-trai-lang-phu-ung
+
+CONTENT:
+Ông Phạm Ngũ Lão là chàng trai làng Phù Ủng , huyện Đường Hào, tỉnh Hải Dương. Ông có sức khỏe lạ thường, muôn người không địch nổi.
+Phạm Ngũ Lão mặt mũi khôi ngô, văn võ đều giỏi. Nhà vốn chỉ có nghề làm ruộng, đến ông mới theo nghiệp bút nghiên . Mới hai mươi tuổi ông đã có tính khẳng khái . Trong làng có người tên là Bùi Công Tiến đỗ tiến sĩ làm lễ ăn mừng, cả làng kéo đến mừng rỡ, chỉ Ngũ Lão không đến.
+Bà mẹ Ngũ Lão bảo rằng:
+– Con làm thế nào cho bằng người ta thì làm. Nay người ta ăn mừng, cả làng mừng rỡ, sao con không đến mừng một chút?
+Phạm Ngũ Lão thưa rằng:
+– Thưa mẹ, con chưa làm nên gì để vui lòng mẹ mà con đi mừng người ta thì con lấy làm nhục lắm.
+Nhà ở bên cạnh đường cái, có một hôm, Phạm Ngũ Lão ngồi vệ đường vót tre đan sọt. Chợt có Hưng Đạo Vương đi qua để vào kinh, quan quân kéo đi rất đông. Quân đi mở đường thấy Ngũ Lão ngồi xếp bằng tròn bên cạnh đường, quát lên bắt phải đứng dậy. Ngũ Lão cứ ngồi nghiễm nhiên như không nghe tiếng. Quân lính cầm ngọn giáo đâm vào đùi, Ngũ Lão cũng cứ ngồi vững không động mình. Đến lúc xe Hưng Đạo Vương đến nơi, trông thấy thế lấy làm lạ gọi đến hỏi, bấy giờ Ngũ Lão mới biết là có quan quân đi qua, và quân lính đã đâm vào đùi mình.
+Hưng Đạo Vương hỏi rằng:
+– Nhà thầy kia ở đâu, sao ta đi qua đây mà cứ ngồi chững chàng làm vậy?
+Ngũ Lão thưa rằng:
+– Tôi đang mải nghĩ một việc, cho nên không biết là ngài trẩy qua đây.
+Hưng Đạo Vương lấy làm kì, hỏi đến việc học hành kinh sử thì hỏi đâu nói đấy, không sót chỗ nào, ứng đối nhanh như nước chảy.
+Hưng Đạo Vương bèn sai quân lấy thuốc dấu dịt vào vết đâm, rồi cho Ngũ Lão ngồi xe đem về kinh, tiến cử lên vua Trần Thánh Tông.
+Vua thấy người có sức khỏe, lại có học thức, cho sung chức quản vệ sĩ . Các vệ sĩ không chịu, xin đấu sức với Ngũ Lão. Ngũ Lão xin vâng, nhưng xin vua cho về nhà ba tháng để thu xếp việc nhà, rồi sẽ xin đấu sức và nhận chức luôn thể.
+Vua cho về, Ngũ Lão về nhà, ra ngoài đồng, tìm chỗ gò cao tập nhảy, cứ cách mười trượng chạy đến nhảy vọt qua gò. Tập luyện xong xuôi rồi, vào kinh đấu sức.
+Khi đấu quyền với các vệ sĩ thì không ai địch nổi. Sau Ngũ Lão thách tất cả các vệ sĩ cùng ra đấu. Các vệ sĩ xúm xít chung quanh hàng trăm người, Ngũ Lão tay đấm chân đá, nhảy nhót như bay, chạm phải ai kẻ ấy không ngũ đau thì què tay. Các vệ sĩ không tài gì mà đánh lại được, bấy giờ mới xin chịu phục.
+Vua thấy người kiên dũng làm vậy, cho theo Hưng Đạo Vương đi đánh giặc Nguyên thì đánh trận nào cũng thắng, lập nên công trạng rất nhiều. Hưng Đạo Vương có lòng yêu mến, gả con gái nuôi là Nguyên quận chúa cho,
+Về sau, vua nước Ai Lao đem hơn một vạn quân và voi sang cướp đất Thanh, Nghệ. Vua sai Ngũ Lão cầm quân đi đánh. Ngũ Lão sai dân chặt tre đực dài độ một trượng, chồng chất trên các vệ đường. Khi Ngũ Lão kéo quân vào đánh giặc, giặc thúc voi sấn lên, Ngũ Lão chỉ chân tay không mà sấn vào gặp đống tre nào thì vớ lấy đống tre chỗ ấy, đập vào chân voi. Voi bị đau, gầm rống lên chạy trở về, giày xéo lên cả quân Ai Lao. Ngũ Lão mới thúc quân đánh tràn sang, quan giặc tan vỡ, phải trốn về nước.
+Vì có những công to ấy, Ngũ Lão được cất lên làm Điện tiền thượng tướng quân. Đến khi mất, được phong làm thượng đẳng phúc thần , và được dân làng Phù Ủng lập miếu thờ ngay ở chỗ nhà Ngũ Lão.
+
+--------------------------------------------------
+

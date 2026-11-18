@@ -1,0 +1,167 @@
+
+Bạn là người đánh giá Dataset cho dự án Vietnamese Comic Generation.
+
+Hãy đánh giá từng truyện để xác định mức độ phù hợp
+khi chuyển thành comic khoảng 4 cảnh.
+
+Đánh giá 4 tiêu chí, mỗi tiêu chí từ 0 đến 2:
+
+1. characters_clear
+0: Không rõ nhân vật
+1: Nhân vật tương đối rõ
+2: Nhân vật rõ ràng
+
+2. events_clear
+0: Sự kiện không có trình tự rõ
+1: Trình tự tương đối rõ
+2: Trình tự sự kiện rõ ràng
+
+3. scene_suitable
+0: Không phù hợp tạo comic
+1: Có thể tạo comic nhưng cần chỉnh sửa
+2: Rất phù hợp để chia khoảng 4 cảnh
+
+4. ending_clear
+0: Không có kết thúc rõ
+1: Kết thúc tương đối rõ
+2: Kết thúc rõ ràng
+
+Tổng điểm score = tổng 4 tiêu chí, tối đa 8.
+
+selected_candidate:
+- true: Nếu score >= 6 và phù hợp tạo comic
+- false: Nếu không phù hợp
+
+difficulty:
+- easy
+- medium
+- hard
+
+Không bịa thêm sự kiện.
+Không đánh giá chỉ dựa trên tên truyện.
+Đánh giá dựa trên nội dung được cung cấp.
+
+Trả về JSON array hợp lệ, không Markdown.
+
+Mỗi truyện:
+
+{
+  "id": "story_001",
+  "title": "...",
+  "characters_clear": 0,
+  "events_clear": 0,
+  "scene_suitable": 0,
+  "ending_clear": 0,
+  "score": 0,
+  "selected_candidate": false,
+  "difficulty": "easy",
+  "reason": "..."
+}
+
+
+==================================================
+STORIES TO EVALUATE
+==================================================
+
+
+ID: story_016
+TITLE: Sự tích cái sừng – Truyện cổ tích loài vật
+URL: https://truyendangian.com/su-tich-cai-sung
+
+CONTENT:
+Ngày xửa ngày xưa, trong các loài vật chỉ riêng loài Voi là có sừng, mà rất nhiều sừng.
+Voi cậy có sừng nên gặp con gì cũng húc chết, một mình làm chúa cả rừng núi. Sư Tử, Hổ, Báo khỏe thế mà cũng phải sợ Voi. Các loài khác yếu đuối như Trâu, Bò, Hươu, Dê lại càng phải tránh xa Voi.
+Một hôm, có con chim Vàng Anh đậu trên ngọn cây hót rằng:
+Trâu, Bò, Hươu, Dê nghe chim Vàng Anh hót thì mừng quá, cùng nói:
+– Nếu thế, xin anh đưa chúng tôi đi.
+Vàng Anh bảo:
+– Được, nhưng các anh phải đi nhanh mưới kịp. Vì nếu đi chậm thì mặt trời mọc, sừng của Voi sẽ dính liền vào đầu các anh, bấy giờ muốn giũ ra cũng không được nữa.
+Trâu, Bò, Hươu, Dê đều đáp:
+– Vâng.
+Nhưng chỉ có Hươu, Dê là đi được nhanh, còn Trâu và Bò đều đi rất chậm. Hươu cứ phải đợi Dê, Dê cứ phải đợi Bò, Bò cứ phải đợi Trâu. Khi chúng đến hang Voi thì trời sắp sáng. Voi vẫn ngủ say, Hươu sợ trời sáng mặt trời mọc thì Voi dậy nên chạy vụt lên trước húc đầu vào đống sừng Voi đội thử. Hươu vừa đội sừng thì mặt trời mọc, thế là cả đống sừng Voi dính vào đầu nó. Nó sợ quá lắc đầu thật mạnh, những chiếc sừng con tuột ra còn hai cái sừng lớn vẫn dính vào đầu Hươu. Voi thấy động, giật mình chồm dậy, thấy mất sừng, bèn đuổi theo Hươu để lấy lại. Nhưng Hươu chạy nhanh quá, Voi không đuổi được, đành phải quay về.
+Voi vừa về đến hang thì gặp con Dê đang đội hai cái sừng nhỏ xíu chạy ra. Nó không thèm đuổi, vào ngay trong hang để tìm cặp sừng lớn nhất, nhưng nó chỉ còn thấy có một đôi sừng trắng. Nó tiếc ngẩn ngơ một lúc rồi mới ghé mồm hôn hít đôi sừng này. Lúc ấy nó quên là mặt trời đã mọc, nên đôi sừng trắng dính chặt vào hai bên mép mà hóa ra đôi ngà ngày nay. Voi hốt hoảng vì thấy sừng mọc nhầm vào mép, song nó không làm thế nào mà giũ ra được nữa, đành chép miệng thở than một mình.
+Đang thở than thì thấy Trâu và Bò đội hai cặp sừng nghênh ngang đi ra, nó cáu tiết đuổi theo để cướp lại. Trâu và Bò sợ quá cố chạy trốn thì may sao có một vật kỳ lạ ở sau hang chạy xổ ra, húc vào sau Voi. Voi đau quá, chạy lại xem con gì thì ra đó là con Tê Giác. Hôm đó tình cờ Tê Giác vào hang Voi thấy có chiếc sừng Voi ở trên khe đá không biết là cái gì, đang ngửi xem thì chiếc sừng dính ngay vào mũi nó. Nó hoảng sợ chạy bổ ra, chẳng may húc phải Voi. Trâu, Bò thừa lúc Voi mải đuổi Tê Giác nên trốn thoát.
+Vậy là kể từ đó, các loài vật Hươu, Dê, Trâu, Bò, Tê Giác và Voi đều mang trên đầu chiếc sừng ở những vị trí và đặc điểm khác nhau.
+Câu chuyện “Sự tích cái sừng” Truyện cổ tích Việt Nam Hồ Lãng kể
+Sừng là một cấu trúc đặc biệt thường mọc trên đầu hoặc trên cơ thể của một số loài động vật. Nó có một số đặc điểm như sau:
+Sừng thường được làm từ một loại protein cứng gọi là keratin, tương tự như tóc và móng người. Chúng có cấu trúc mạng tinh thể đặc biệt, giúp chúng rất cứng và bền.
+Sừng có thể mọc trên đầu, mũi, hoặc các phần khác của cơ thể của động vật. Chúng mọc từ lớp biểu bì ngoài cùng và tiếp tục phát triển qua thời gian.
+Sừng có thể có kích thước và hình dạng khác nhau tùy thuộc vào loài động vật và mục đích sử dụng. Chúng có thể nhỏ như sừng của nai hoặc lớn như sừng của voi, tê giác.
+Theo quan niệm dân gian, nguồn gốc của chiếc sừng trên đầu một số loài động vật được giải thích qua câu chuyện “Sự tích cái sừng” kể trên.
+Tác dụng chính của sừng là bảo vệ động vật khỏi các mối nguy hiểm. Nó giống như là vũ khí của các loài động vật. Ví dụ, sừng của hươu có thể được sử dụng để tự vệ hoặc tấn công kẻ thù trong thiên nhiên.
+Nhiều loài động vật sử dụng sừng để đánh dấu lãnh thổ của mình. Chúng gắn liên quan lãnh thổ bằng cách găm sừng vào cây, đất, hoặc các bề mặt khác, để thể hiện sự thống trị và cảnh báo đối thủ.
+Sừng cũng có thể được sử dụng trong việc thu hút đối tác trong mùa giao phối. Động vật thường sử dụng sừng để thể hiện sức mạnh và khả năng thụ thai.
+Sừng của một số loài động vật, như nai, tê giác và bò tót,… được sử dụng trong nghề thủ công và nghệ thuật, và chúng có giá trị thương mại cao. Sừng còn được sử dụng trong y học truyền thống của một số vùng, mặc dù việc sử dụng chúng trong y học đã gặp phải nhiều tranh cãi về mặt đạo đức khi con người nhẫn tâm tàn sát chúng để lấy sừng.
+Cũng cần lưu ý rằng việc sử dụng sừng của động vật trong các hoạt động thương mại và y học có thể đe dọa các loài động vật và đã gây ra tình trạng suy thoái và bảo tồn.
+Ngoài câu chuyện “Sự tích cái sừng” kể trên, TruyenDanGian.Com còn giới thiệu đến các bạn những câu chuyện cổ tích Việt Nam và thế giới hấp dẫn được sưu tầm và chọn lọc kỹ lưỡng. Qua đó giúp các bạn nhỏ rút ra được những bài học ý nghĩa cho bản thân cũng như có những giờ phút thư giãn thú vị khi được hòa mình trong thế giới của các câu chuyện cổ tích.
+
+--------------------------------------------------
+
+
+ID: story_017
+TITLE: Đám mây nhỏ có lòng tốt – Hạt giống tâm hồn
+URL: https://truyendangian.com/dam-may-nho-co-long-tot
+
+CONTENT:
+Đoàn xe lửa chạy qua một cánh đồng và phụt ra dưới vòm trời đẹp một luồng hơi, tạo thành một đám mây nhỏ. Đám mấy trắng, nhẹ, mỏng manh. Nó bay lững lờ và tự nhủ:
+– Ta phải giúp ích cho một người nào đó. Ta phải làm được một việc tốt.
+Đám mây nhìn xuống đất và thấy một đám lúa xanh bị hạn. Đám mây bay tới che cho đám lúa đỡ nắng. Những bụi lúa nhỏ kêu lên:
+– A! Sẽ có nước, sẽ có nước, mây kia kìa!
+Nhưng đám mây nhỏ không thế làm mưa được dù nó có vo tròn lại như quả quýt hoặc trải mỏng ra như một tấm vải.
+– Các bạn lúa ạ! Tôi chỉ là một đám mây nhỏ từ đầu tau xe lửa phun ra. Tôi không làm theo mong ước của các bạn được. Tôi sẽ đi gọi những đám mây to từ biển vào nếu tới gặp họ.
+Đám mây nhỏ lại đi và gặp những con chim đang làm tổ.
+– Các bạn chim thân mến ơi! Các bạn hãy lấy những sợi tơ của tôi để làm tổ. Tổ của các bạn sẽ đẹp và êm làm sao! Tôi sẵn sàng giúp ích các bạn.
+Mấy con chim bay tới để kiếm ít sợi tơ. Nhưng chúng không lấy được một sợi nào. Chúng thất vọng trả lời:
+– Tơ của bạn quá nhỏ và quá mịn nên không lấy được. Thôi, chúng tôi sẽ đi lấy những sợi lông cừu vậy.
+Đám mây nhỏ lại buồn bã trôi đi, vì chưa làm được việc gì có ích cho người khác.
+Đám mây nhỏ thấy một anh chăn ngỗng và muốn sà xuống làm một chiếc khăn quàng cho anh đỡ lạnh. Nhưng anh chăn ngỗng nói: “Những hạt bụi gì thế này?” và lấy mồm thổi đi.
+Muốn làm được việc tốt không phải dễ! Đám mây nhỏ nghĩ thầm và lại đi. Bỗng đám mấy thấy một người đang giơ súng ngắm đôi chim ở trên cây. Đám mây vội sà xuống đầu mũi súng. Người đi săn ngạc nhiên và thấy đám khói ở đầu súng. Người ấy tự hỏi: “Quái lạ! Ta chưa bóp cò mà đạn đã nổ ư? Sao ta không nghe tiếng nổ? Ta điếc chăng? Hay ta say? Cái gì đã xảy ra?
+Trong khi người đi săn còn mải suy nghĩ thì đôi chim đã thấy động bay đi.
+Đám mây nhỏ tốt bụng tự nhủ: “Ta đã cứu được đôi chim. Đời ta không phải là vô ích”.
+Đám mây nhỏ rất bằng lòng với mình và tan biến không một tiếng động, như một cái bong bóng xà phong tan trong không khí.
+
+--------------------------------------------------
+
+
+ID: story_018
+TITLE: Tay trái và tay phải – Câu chuyện về sự đoàn kết
+URL: https://truyendangian.com/tay-trai-va-tay-phai
+
+CONTENT:
+Từ trước đến giờ, tay trái và tay phải luôn là hai người bạn thân thiết của nhau. Một hôm, tay phải xách một chiếc túi nặng, mệt quá, nó liền trách tay trái:
+– Cậu thật là sướng, chẳng phải làm việc nặng nhọc. Còn tớ thì việc gì cũng phải làm. Từ việc xúc cơm, cầm bút, rồi quét nhà,… đều đến tớ cả.
+Nghe bạn nói vậy, tay trái buồn bã, chẳng nói gì. Nó lẳng lặng ngoảnh mặt đi chỗ khác và tự nhủ sẽ không giúp tay phải việc gì nữa.
+Sáng hôm sau, tay phải thực hiện nhiệm vụ đánh răng. Nhưng tay trái đã giận tay phải mất rồi. Tay phải bận cầm bản chải nên không sao cầm được cốc nước nữa. Đến lúc cài khuy áo , cũng thật khó khăn, cứ phải loay hoay với một tay. Khi cần vẽ tranh thì hết chịu nổi! Chỉ có một tay cầm bút màu, không có tay nào để giữ lấy. Tay phải hối hận lắm, liền xin lỗi tay trái.
+Thế là tay phải và tay trái lại cùng nhau làm việc. Việc gì cũng hoàn thành một cách nhanh chóng. Tay phải thốt lên:
+– Cậu và tớ đều quan trọng như nhau. Nếu không có cậu thì có nhiều việc, một mình tớ không thể nào làm được.
+
+--------------------------------------------------
+
+
+ID: story_019
+TITLE: Chuyện bên cửa sổ – Hạt giống tâm hồn
+URL: https://truyendangian.com/chuyen-ben-cua-so
+
+CONTENT:
+Chuyện bên cửa sổ của tác giả Phong Thu nhắc nhở chúng ta không nên gây hại hoặc phá hủy nơi sống của các loài vật khác xung quanh mình.
+Truyện hiện được đưa vào giảng dạy trong sách Tiếng Việt lớp 3, Tập 2, bộ “Kết nối tri thức với cuộc sống”.
+Ngày xưa, nơi ấy là rừng. Còn ngày nay, khu rừng ấy đã hết cây. Thay vào đó là những ngồi nhà tầng có sân thượng.
+Cây ổi ít nên vắng bóng chim. Khu nhà xây đã lâu, bay mới thấp thoáng mấy con chim sẻ lách chách bay đến. Chúng ẩn vào các hốc tường, lỗ thông hơi, cửa ngách để trú chân, làm tổ. Bầy chim rụt rè sà xuống những cây cảnh.
+Ở ngôi biệt thự ba tầng kia, có một cậu bé đã nhìn thấy bầy chim sẻ. Không hiểu vì thích quá hay là đùa nghịch, cậu đã lên sân thượng cầm sỏi ném lũ sẻ. Con nọ theo con kia bay sang nhà khác. Bẵng đi một vài tuần, chẳng may cậu bé bị ốm. Nhìn sang sân thượng nhà bên, cậu thấy có đàn chim sẻ léo nhéo đến là nhộn . Con bay, con nhảy, có con nằm lăn ra rũ cánh, rồi mổ đùa nhau… nom vui quá.
+Bấy giờ cậu bé mới ngẩn người nhớ ra: “Đáng lẽ lũ chim ấy đã ở trên sân thượng nhà mình.”.
+
+--------------------------------------------------
+
+
+ID: story_020
+TITLE: Vị khách tốt bụng – Câu chuyện về lòng biết ơn
+URL: https://truyendangian.com/vi-khach-tot-bung
+
+CONTENT:
+Một du khách nhìn thấy một bà cụ đứng bên bờ suối. Bà lão đang lo lắng vì chưa có cách nào qua suối. Chẳng là có trận mưa nên suối còn ngập nước. Người khác hỏi:
+– Bà ơi, bà có muốn con cõng bà vượt suối không?
+Bà lão ngạc nhiên và lặng lẽ gật đầu. Du khách cõng bà qua suối. Sang tới bờ, anh cũng thấy thấm mệt. Anh thấy bà lão quay lại nhìn mình, gật gật đầu, rồi rời đi mà chẳng cảm ơn anh một lời. Anh thoáng buồn. Anh không mong bà báo đáp, nhưng nghĩ rằng: Ít ra, bà cũng nên nói với anh đôi lời, hay bày tỏ sự cảm kích.
+Một giờ sau, vị khách đã đi được quãng đường khá xa. Thật là một hành trình gian nan với anh. Chân của anh bị côn trùng căn sưng tấy. Vừa lúc đó, một thanh niên đuổi kịp anh, vừa nói vừa thở hổn hển: “Cảm ơn anh đã giúp bà tôi. Bà bảo anh sẽ cần những thứ này và muốn tôi mang chúng đến cho anh.”. Nói đoạn, cậu ấy lấy một ít thức ăn và thuốc men trong túi ra đưa cho du khách tốt bụng . Vị du khách không ngừng cảm ơn anh thanh niên. Sau đó, người thanh niên kể: “Bà của tôi không nói được. Vì vậy, bà muốn tôi thay mặt để cảm ơn anh!”.
+
+--------------------------------------------------
+

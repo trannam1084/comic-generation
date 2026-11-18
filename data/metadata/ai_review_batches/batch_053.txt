@@ -1,0 +1,257 @@
+
+Bạn là người đánh giá Dataset cho dự án Vietnamese Comic Generation.
+
+Hãy đánh giá từng truyện để xác định mức độ phù hợp
+khi chuyển thành comic khoảng 4 cảnh.
+
+Đánh giá 4 tiêu chí, mỗi tiêu chí từ 0 đến 2:
+
+1. characters_clear
+0: Không rõ nhân vật
+1: Nhân vật tương đối rõ
+2: Nhân vật rõ ràng
+
+2. events_clear
+0: Sự kiện không có trình tự rõ
+1: Trình tự tương đối rõ
+2: Trình tự sự kiện rõ ràng
+
+3. scene_suitable
+0: Không phù hợp tạo comic
+1: Có thể tạo comic nhưng cần chỉnh sửa
+2: Rất phù hợp để chia khoảng 4 cảnh
+
+4. ending_clear
+0: Không có kết thúc rõ
+1: Kết thúc tương đối rõ
+2: Kết thúc rõ ràng
+
+Tổng điểm score = tổng 4 tiêu chí, tối đa 8.
+
+selected_candidate:
+- true: Nếu score >= 6 và phù hợp tạo comic
+- false: Nếu không phù hợp
+
+difficulty:
+- easy
+- medium
+- hard
+
+Không bịa thêm sự kiện.
+Không đánh giá chỉ dựa trên tên truyện.
+Đánh giá dựa trên nội dung được cung cấp.
+
+Trả về JSON array hợp lệ, không Markdown.
+
+Mỗi truyện:
+
+{
+  "id": "story_001",
+  "title": "...",
+  "characters_clear": 0,
+  "events_clear": 0,
+  "scene_suitable": 0,
+  "ending_clear": 0,
+  "score": 0,
+  "selected_candidate": false,
+  "difficulty": "easy",
+  "reason": "..."
+}
+
+
+==================================================
+STORIES TO EVALUATE
+==================================================
+
+
+ID: story_293
+TITLE: Câu thần chú [Truyện cổ tích Ấn Độ]
+URL: https://truyendangian.com/cau-than-chu
+
+CONTENT:
+[alert style=”danger”]
+Câu thần chú là truyện cổ tích Ấn Độ , phê ph án lòng dạ nham hiểm, tàn ác của viên quan đại thần và ca ngợi đức độ trong sáng của nhà vua Bơ-ha-đua.
+Mặt khác truyện cũng cho thấy quyền lực ở trong tay những người tốt như nhà vua thì chẳng có hại gì cho ai, nhưng nếu lọt vào tay kẻ xấu giống như viên đại thần thì chẳng những có hại cho người khác mà còn có hại cho chính mình nữa.
+[/alert]
+Chuyện này xảy ra đã lâu lắm rồi, từ khi vua Bơ-ha-đua còn trị vì xứ Kác-mi-rơ.
+Một hôm, vua dạo chơi trong vườn thượng uyển cùng với một viên quan đại thần. Ngoài vua và quan đại thần, không ai được bén mảng vào khu vườn cấm tuyệt đẹp đó. Nhưng chiều hôm ấy, cửa vườn bỏ ngỏ và một đạo sĩ đã bước vào trong vườn.
+Nhác thấy đạo sĩ, quan đại thần nổi giận quát:
+– Quân bay đâu! Mau mang tên ăn mày này ra trị tội. Hắn dám làm cho ô uế cả khu vườn cấm của nhà vua.
+Nhưng nhà vua đã ngăn bọn quân hầu lại và nói với đạo sĩ:
+– Thưa cụ, cụ đã già nua tuổi tác, có trí thông minh hơn người; cụ đã từng trải nhiều sự đời và nhìn xa biết rộng. Cụ hãy san sẻ cho chúng tôi một chút thông minh rồi hãy về, không ai làm gì cụ đâu.
+– Thôi được! Đạo sĩ bằng lòng – Tôi sẽ dạy cho các ngài một phép lạ. Nhưng xin nhớ rằng phép đó đối với những người hiền lành tốt bụng thì không sao, còn đối với những kẻ độc ác thì sẽ rất tai hại.
+Viên quan đại thần vội can vua:
+– Xin bệ hạ đừng nghe hắn!
+– Cứ để cho cụ ấy nói không hề gì. Trong lòng ta không có ác ý.
+Đạo sĩ đưa mắt nhìn chung quanh vườn, trông thấy một con vẹt chết nằm ở lối đi và tiến  lại gần nó. Ông ta cúi xuống chỗ con chim, lẩm nhẩm đọc mấy câu thần chú và lập tức ngã lăn ra chết.
+Còn con vẹt thì bỗng nhiên sống lại và bay lên cây.
+Vua và quan đại thần vô cùng kinh ngạc. Trong lúc ấy con vẹt bay một vòng quanh vườn, quay lại chỗ cũ và lại ngã lăn ra chết giữa lối đi. Vừa lúc ấy thi hài đạo sĩ bỗng như động đậy sau đó ông ta mở mắt và nhỏm dậy, đứng trước mặt hai người, y như không có chuyện gì xảy ra.
+Vua và quan đại thần sửng sốt ngạc nhiên. Khi đã bình tĩnh, vua nhờ đạo sĩ dạy cho môn phép lạ đó. Viên quan đại thần cũng năn nỉ xin học, đạo sĩ bảo cho họ mấy câu thần chú bí hiểm và nói:
+– Chỉ xin các ngài chớ quên một điều là phép đó đối với những người hiền lành tốt bụng thì không sao, nhưng nó sẽ làm hại tất cả những kẻ gian ác.
+Đạo sĩ nói xong, cúi đầu chào và đi ra khỏi vườn thượng uyển.
+Ít lâu sau, một hôm vua cùng các chư hầu đi săn. Đi tới rừng, vua và viên quan đại thần nọ tách ra khỏi đoàn và đi dọc theo con đường nhỏ hẹp vắng vẻ. Bỗng con ngựa của vua dừng lại, vua cúi xuống và nhìn thấy một con vẹt chết nằm ngay trên lối đi, một con vẹt đẹp chưa từng thấy, trắng như tuyết, trên đầu có một chỏm lông đỏ thắm, mỏ và chân đều vàng.
+Vua muốn thử sức màu nhiệm của câu thần chú bèn bảo quan đại thần:
+– Trông kìa, con vẹt đẹp quá! Nhà ngươi hãy đọc thử câu thần chú của đạo sĩ làm nó sống lại xem sao!
+Nhưng viên quan nọ chối đây đẩy:
+– Kẻ hạ thần chịu không làm được! Thần chưa thật thuộc câu thần chú . Thấy vậy, vua nói:
+– Thôi được, nhà ngươi hãy giữ ngựa cho ta, để ta thử đọc câu thần chú của đạo sĩ.
+Vua nhảy xuống ngựa, cúi xuống con vẹt và lẩm nhẩm đọc câu thần chú. Ngay lập tức, vua ngã xuống đất tắt thở, còn con vẹt tuyệt đẹp thì sống lại và hí hửng vỗ cánh bay lên cây.
+Viên quan đại thần chỉ chờ có thế. Hắn ta nhảy phốc xuống ngựa cúi xuống xác nhà vua mà độc câu thần chú.
+Bỗng nhiên hắn ngã khuỵu xuống, tắt thở ngay tức khắc và xác vua Bơ-ha-đua sống lại. Nhưng bây giờ không phải là vua Bơ-ha-đua thật nữa mà là viên quan đại thần xảo quyệt đội lốt vua. Từ nay chúng ta sẽ gọi hắn là vua giả.
+Vua giả rút kiếm chém lia lịa vào xác viên quan đại thần, đoạn giương cung bắn con vẹt trắng. Nhưng vẹt đã kịp bay vút vào rừng thẳm, buông lại những tiếng kêu não ruột.
+Vua giả nổi giận nhảy phắt lên ngựa phóng tới các chư hầu đang săn bắn ở phía khác và dõng dạc nói:
+– Quan đại thần của chúng ra chẳng may bị ngã ngựa chết dập xác, vì một con vẹt lông trắng mào đỏ đã làm ngựa của ông ta hoảng sợ. Nay ta ra lệnh cho các ngươi hãy giết cho kì hết những con vẹt lông trắng mào đỏ trong khu rừng này.
+Những người đi săn rất lấy làm ngạc nhiên. Thật là một mệnh lệnh kì quái. Một việc khó hiểu! Nhưng không ai trong bọn họ lại có thể nghĩ ra rằng đó là viên quan đại thần đội lốt vua đã ra lệnh cho họ, còn con vẹt trắng kia mới chính là vua Bơ-ha-đua.
+Thế là họ tản ra khắp rừng và bắn tất cả những con vẹt lông trắng mào đỏ.
+Khi các chư hầu đã giết hết cả vẹt, vua giả khen ngợi họ lấy làm hài lòng mà trở về hoàng cung.
+Vua giả trở về cung điện và bắt đầu cầm quyền theo ý mình. Nhân dân và triều đình rất đỗi ngạc nhiên, không hiểu vua có chuyện gì xảy ra mà bỗng nhiên trở nên tàn ác, bất công như vậy. Nhưng chẳng ai có thể hiểu được.
+Mấy hôm sau, vua giả lại đi săn. Lần này hắn bắn chết được hai con lợn lòi, một con hươu con và một con nai. Nhưng con hươu tuyệt đẹp thì đã thoát khỏi vòng vây và chạy vào rừng. Vua giả đương hăng tiết, liền phóng ngựa đuổi theo. Cuộc săn đuổi kéo dài khá lâu. Hươu đã mệt, nhưng ngựa  của vua giả cũng kiệt sức. Vua giả nổi giận lồng lên và bỗng nhìn thấy xác một con báo đen nằm chết sau bụi cây.
+– A ha! Vua giả reo lên – Bây giờ thì mày hết đường chạy trốn! Không một con vật nào có thể thoát khỏi báo đen.
+Vua giả nhảy phắt xuống ngựa, cúi xuống báo đen lẩm nhẩm đọc câu thần chú, lập tức hóa thành báo đen và lao theo hươu. Còn xác vua giả thì nằm lại trong bụi.
+Lúc đó từ trên ngọn cây một con vẹt lông trắng mào đỏ nhảy vụt xuống như một mũi tên. Nó ngã gục xuống đất, cụp cánh và tắt thở. Còn vua Bơ-ha-đua thì sống lại, nhảy lên ngựa và vui vẻ phóng đến chỗ các chư hầu.
+Những người đi săn rất ngạc nhiên thấy vua lại vui vẻ như xưa. Họ đâu biết rằng từ trước đến giờ là vua giả bên họ và chỉ bây giờ vua Bơ-ha-đua thật mới quay lại. Vua Bơ-ha-đua thân mật khuyến khích mọi người và nói:
+– Ta nhận thấy ở trong rừng có một con báo đen. Nó đương đuổi theo một con hươu. Giờ các ngươi hãy đi đánh chết nó hoặc bắt sống nó mang về đây cho ta. Nếu được, muốn gì ta cũng thưởng.
+Những người đi săn reo lên vui vẻ và phóng ngựa vào rừng. Tiếng của họ mỗi lúc một xa rồi lắng xuống trong cảnh rừng núi bao la. Bốn bề trở nên yên lặng.
+Vua Bơ-ha-đua chờ rất lâu và cuối cùng nghe thấy tiếng họ đã trở về. Cả bọn cười nói nhộn nhịp vây quanh lấy vua.
+– Chiến lợi phẩm của các ngươi ở đâu rồi? Vua hỏi.
+– Thưa bệ hạ, nó kia kìa. – Họ đáp
+Họ lập tức dãn ra. Vua nhìn thấy một con báo đen đã chết bị những mũi giáo của các chư hầu xuyên khắp người. Vua nhủ thầm: “Tên đại thần xảo quyệt kia. Trái tim mi tàn bạo như thú dữ và mi đã chết như thú dữ. Đạo sĩ nọ nói quả đúng: câu thần chú đã mang lại cái chết cho kẻ độc ác”. Đoạn vua nói to:
+– Các ngươi hãy quẳng xác con báo này cho chó rừng ăn thịt. Bây giờ không đáng sợ chút nào!
+Các chư hầu làm đúng theo lời vua bảo.
+Nhưng từ đấy trở đi, vua Bơ-ha-đua không bao giờ độc câu thần chú cảu đạo sĩ truyền cho nữa. Biết đâu lại chẳng xảy ra chuyện gì không hay!
+
+--------------------------------------------------
+
+
+ID: story_294
+TITLE: Điền thanh và Cỏ gừng [Truyện thiếu nhi]
+URL: https://truyendangian.com/dien-thanh-va-co-gung
+
+CONTENT:
+[alert style=”danger”]
+Điền thanh và Cỏ gừng là truyện thiếu nhi của nhà văn Phong Thu, phê phán lối sống cá nhân ích kỷ. Những người như vậy sẽ nhận được kết quả không tốt.
+[/alert]
+Vào một ngày mưa kia, ở giữa hai luống khoai lang mọc lên từng khóm cây lăn tăn, xanh rờn.
+Gần như cùng một lúc, dưới tầng lớp mịn màng cũng tòi ra những cái mầm xanh lè, nhọn hoắt. Cả hai bên – cây lăn tăn và mầm xanh lè – cùng thi nhau vươn tới. Chẳng bao lâu, cây lăn tăn đã lộ rõ là Điền thanh nhỏ, mảnh dẻ và dịu dàng. Cái mầm nhọn kia đã rõ mặt là gã Cỏ gừng.
+Cỏ gừng ngó sang bên, giọng sin sít:
+– Tớ biết ngay mà. Nhìn cái hạt rơi xuống, là tớ biết ngay.
+Điền thanh thật thà:
+– Cậu biết cái gì nào?
+Cỏ gừng ngặt nghẽo:
+– Biết cậu là Điền thanh.
+Điền thanh rung cành thay cho cái gật đầu:
+– Ừ, tớ là Điền thanh đây. Cậu là gì nào?
+Cỏ gừng có vẻ đắc chí:
+– Cậu thì làm sao biết được. Tớ ấy à, tớ là thứ đi tới đâu, mọc ngay tới đấy. Vứt chỗ nào cũng sống.
+Điền thanh lấy làm lạ:
+– Nhưng mà để làm gì?
+Cỏ gừng lăn ra cười:
+– Cậu thật ngốc. Để… rồi đi tới đâu, mọc luôn tới đấy. Tên tớ là Cỏ gừng mà. Tớ cũng có củ như củ gừng.
+– Ra… cậu là Cỏ gừng.
+– Đúng tớ.
+Điền thanh im lặng không nói gì. Cỏ gừng lấy làm thú vị, khích Điền thanh:
+– Thế nào, sợ hả?
+– Không
+– Sao không nói?
+– Không muốn nói.
+Từ lúc ấy, cả hai bên – Điền thanh và Cỏ gừng – cùng thi nhau lớn. Điền thanh tẽ ra từng cây cao vọt lên, nhưng thân thì gầy gò và dài. Cỏ gừng cũng duỗi ra béo tròn và chui sâu vào đến đâu, lập tức sinh con đẻ cái, rúc rễ xuống đấy mà ăn màu. Điền thanh cũng cố giành lại màu đất, ủ vào thân vào lá, để sẽ trả lại cho đất và bón cho khoai có củ to.
+Cỏ gừng vừa chen vừa quấn lấy Điền thanh:
+– Cậu đừng hòng bỏ bọn tớ. Tớ mà chết thì cậu cũng chết.
+Điền thanh không trả lời…
+Những luống khoai xanh um từ buổi ấy bị Cỏ gừng chen vào, phủ gần hết. Điền thanh đã lên cao…
+Một hôm, tổ lao động của hợp tác xã ra vun luống. Cỏ gừng bị cuốc bật rễ, và Điền thanh cũng ngả rạp trên tay người. Cỏ gừng cố bám vào đất mà không được. Nó bám lấy Điền thanh thì lại bị người gỡ ra.
+Cỏ gừng tức lắm, rít lên:
+– Điền thanh! Tao chết, mày cũng chết.
+Điền thanh đủng đỉnh:
+– Chẳng ai sống được mãi. Đằng ấy chết là đáng đời. Xem tớ với cậu ai có ích và kẻ nào có hại.
+Cỏ gừng tắc họng.
+Điền thanh được người cho ở chung với khoai trong luống. Còn Cỏ gừng thì bị vứt xuống ao.
+
+--------------------------------------------------
+
+
+ID: story_295
+TITLE: Cái cò đi đón cơn mưa [Truyện thiếu nhi]
+URL: https://truyendangian.com/cai-co-di-don-con-mua
+
+CONTENT:
+[alert style=”danger”]
+Cái cò đi đón cơn mưa là câu chuyện giải thích cho các bé hiểu vì sao cứ trước mỗi khi có cơn bão đến, họ hàng nhà cò đều bay đi để tìm nơi ẩn nấp.
+[/alert]
+Một hôm, Cò Trắng đang tha thẩn bên bãi sống thì gặp đàn Kiến cỏ. Ơ kìa, sao Kiến lại kéo nhau chạy ngược vào trong đê thế? Cò ngơ ngác hỏi một chị Kiến đang khênh bọc trứng tướng:
+– Nhà chị đi đâu mà vội thế này?
+Chị Kiến vừa chạy vừa nói:
+– Sắp mưa bão, lụt đến nơi rồi.
+Cò lạ quá:
+– Sao nhà chị biết?
+Chị Kiến đành phải đứng dừng chân giảng giải cho Cò:
+– Thế nhà anh không thấy rễ cây si trắng nhợt cả ra rồi ư? Mà hễ trong người tôi khó thở là y như sắp có mưa to. – Nói xong, Kiến chạy tiếp.
+Cò ngửa cổ lên nhìn trời. Mây cao thẳm. Nhưng từ phía biển Đông, một vệt đen đặc, kéo dài đang nhích dần lên. Gió se se mang hơi lạnh gai gai. Cò mang máng nhớ ra, hình như có ai đã nói cho mình biết rồi thì phải. Chuyện gì ấy, nó giông giống thế này. Cò chớp mắt, bước theo chị Kiến:
+– Nhà chị định về đâu, cho tôi theo với!
+– Chúng tôi đi tìm nơi cao.
+– Nơi cao là ở đâu?
+– Trên tít ngọn cây ấy.
+– À, thế thì tôi sẽ đi sau.
+Nói đoạn, Cò đủng đỉnh đi nhặt tép. Không ngờ, bão ập tới nhanh quá. Từng cơn gió xoay quay tít trên bãi sông và gào lên như bị ai đánh. Bấy giờ, Cò mới hốt hoảng hướng về phía cây cao mà bay. Nhưng khó quá, cánh Cò vừa rộng, vừa mảnh. Thân Cò nhẹ bẫng như nắm bông. Vì thế nên gió đã cuốn Cò và ném xuống mặt nước. May sao, Cò giạt vào được một bụi tre. Trong con rét run và sợ hãi, Cò bỗng nhớ ra bài học đã quên. Đó là bài học mà thấy giáo Cò Lửa giảng đã lâu rằng:
+– “Khi thấy có gió lạnh heo heo và mây đen đùn đến thì phải tìm ngay nơi ẩn nấp”.
+Cò lại nhớ tới chị Kiến tốt bụng, biết lo xa, đã mách bảo mà Cò không chịu nghe.
+Từ đấy, Cò trắng chăm học hơn.
+Và về sau này, cứ trước cơn bão nào cũng thế, trên cánh đồng quê đã vắng tanh ngắt cánh cò…
+[alert style=”danger”]
+[button url=”https://truyendangian.com/tag/nha-van-phong-thu/” style=”danger” target=_blank]➤ Xem ngay truyện và thơ Phong Thu[/button]
+[/alert]
+Người xưa đã mượn hình ảnh cánh cò bay đi tranh bão để đưa vào trong các câu ca dao. Chẳng hạn như:
+Cái cò đi đón cơn mưa, Tối tăm mù mịt ai đưa cò về. Cò về thăm quán cùng quê, Thăm cha thăm mẹ cò về thăm anh.
+Cái cò đi đón cơn mưa là câu ca dao cổ rất đỗi quen thuộc với chúng ta, diễn tả thân phận xót thương của người phụ nữ trong xã hội phong kiến, luôn phải một nắng hai sương vất vả với cuộc sống. Nhưng cho dù có khó khăn mệt nhọc đến đâu, thì họ vẫn luôn hết lòng gắn bó, thương yêu những người thân trong gia đình.
+[alert style=”danger”]
+[button url=”https://truyendangian.com/truyen-thieu-nhi/” style=”danger” target=_blank]➤ Kho tàng truyện thiếu nhi[/button]
+[/alert]
+
+--------------------------------------------------
+
+
+ID: story_296
+TITLE: Sáo, Sẻ và Chích Bông [Chuyện về ba con chim]
+URL: https://truyendangian.com/sao-se-va-chich-bong-chuyen-ve-ba-con-chim
+
+CONTENT:
+[alert style=”danger”]
+Sáo, Sẻ và Chích Bông là chuyện nói về đặc tính của ba con chim khác nhau và giải thích nguyên nhân vì sao Sáo với Sẻ hay gặp tai nạn và bị bắt nhiều nhất.
+[/alert]
+Từ thuở xa xưa, Sáo, Sẻ và Chích Bông cùng sống chung với nhau trong một khu vườn. Ba loài chim này thường cùng nhau đi, cùng đến và cùng làm ăn sinh sống với nhau. Đấy cùng là ba loài chim ở đâu cũng gặp vì chúng luôn luôn quấn quít với người. Nhìn vóc dáng và dõi theo tính nết, Chích Bông hiền lành, nhỏ bé và yếu ớt hơn cả.
+Trông kìa anh Sáo: tới đâu, Sáo cũng tung tăng, mải mê bắt mồi. Bụng no rồi, Sáo nhảy nhót lên lưng Trâu, hót vang. Trâu mến chàng Sáo vui tính, thích bắt ve, bắt ruồi hộ Trâu. Sáo là anh bạn chưa thấy bóng đã nghe tiếng. Chẳng mấy ai trông thấy Sáo buồn. Sáo ít lo nghĩ đến mức chỉ khi nào mặt trời lặn, mới nhớ ra là cần phải đi ngủ. Đêm đêm, Sáo đậu lẫn vào trong ngọn cây cao, đánh một giấc ngon lành. Sáng hôm sau, mở mắt ra, Sáo lại hót vang.
+Ấy là Sáo.
+Còn Sẻ, chị Sẻ nào cũng se sẻ xập xè trong sân, vườn nhà và chao chát trên mái ngói, mái rạ. Sẻ rất chịu khó kiếm ăn, chăm nhặt từng hạt rơi hạt rụng. Có khi Sẻ rúc cả vào ruộng lúa chưa gặt mà kiếm ăn. Tắt nắng, gặp đâu Sẻ ẩn đấy. Khi gốc rạ, lúc chân đống rơm. Tiện hơn thì tọt thu lu ngay đầu ống tre thòi ra ở mái nhà, mái bếp. Thế là giấc “khò” đến chẳng cần phải nghĩ ngợi gì cả.
+Còn Chích Bông?
+Chích lích tích vừa tìm bắt sâu bọ cho cây cối, vừa để ý khu vực nghỉ ngơi của mình. Nhác thấy túm bông rơi, chích nhặt. Gặp chiếc lông nhỏ, cọng rơm xơ, Chích tha về. Biết mình sức yếu, Chích chăm chỉ, chịu khó lượm lặt dần…
+Tới chốn nào, Sáo cũng vượt lên trước, Sẻ cũng vút bay đi. Chỉ có Chích là lích tích, nhỏ nhẹ, quyến luyến bịn rịn với cây cành lâu nhất. Chích cẩn thận chọn nơi kín đáo, thoáng mát, đặt vào đó những sợi tơ, cọng rơm xơ mềm mại….
+Tới mùa sinh nở và khi gió rét tràn về…
+Sáo vội tìm những tổ chim, tổ cò bỏ trống. Có khi đấy là cái tổ của người bẫy Sáo.
+Sẻ liền biến ngay ống tre, tay đòn, kẻ hở, chân đống rơm làm …nhà Sẻ.
+Cũng lúc bấy giờ, chỉ có Chích là ung dung, đàng hoàng nhất. Trên cành cây, một chiếc tổ tròn ấm áp, xinh xắn đã là nhà của Chích. Nhìn chiếc tổ nhỏ này, ai cũng thấy mến yêu…
+Vì thế cho nên Sáo và Sẻ là hai loài chim hay gặp tai nạn và bị bắt nhiều nhất.
+
+--------------------------------------------------
+
+
+ID: story_297
+TITLE: Đẽo cày giữa đường [Truyện ngụ ngôn Việt Nam]
+URL: https://truyendangian.com/deo-cay-giua-duong
+
+CONTENT:
+Xưa có một người thợ mộc dốc hết vốn trong nhà ra mua gỗ để làm cái nghề đẽo cày mà bán. Cửa hàng anh ta mở ngay bên đường, ngổn ngang gỗ dài gỗ ngắn. Người đi qua kẻ đi lại, thường ghé vào xem anh ta đục đẽo.
+Người này thì nói:
+– Phải đẽo cho cao, cho to thì mới dễ cày.
+Anh ta cho là phải, đẽo cái nào cũng vừa to vừa cao.
+Nhưng rồi người khác lại nói:
+– Có đẽo nhỏ hơn, thấp hơn thì mới dễ cày.
+Anh ta cũng cho là phải, lại đẽo cày vừa nhỏ vừa thấp.
+Anh đẽo cũng đã nhiều cày, mà hàng bán vẫn không chạy. Chợt lại có người vào xem và bảo:
+– Nay ở trên ngàn, hiện có người đang phá hoang bao nhiêu ruộng rẫy và cày tinh bằng voi cả . Anh nên đẽo cày cho thật cao, thật to gấp đôi gấp ba như thế để cày voi được, thì hàng bán sẽ đắt, anh sẽ lãi vô vàn.
+Nghe nói như mở cờ trong bung, anh ta đẽo ngay một lúc bao nhiêu cày to gấp năm, gấp bảy thứ cày thường đem ra bán. Nhưng ngày qua tháng lại, chẳng thấy ai mua cho một cái nào. Thành ra bao nhiêu gỗ đẽo hỏng hết, cái nhỏ thì nhỏ quá, cái to thì to quá; vốn liếng đi đời nhà ma .
+Anh thợ mộc bấy giờ mới biết dễ nghe người là dại.
+Việc đã quá muộn, không sao chữa được nữa!
+Do truyện này, người đời sau mới có câu tục ngữ: “Đẽo cày giữa đường” để răn những ai hay cả tin đến chỗ chuốc lấy thất bại chua cay.
+
+--------------------------------------------------
+

@@ -1,0 +1,264 @@
+
+Bạn là người đánh giá Dataset cho dự án Vietnamese Comic Generation.
+
+Hãy đánh giá từng truyện để xác định mức độ phù hợp
+khi chuyển thành comic khoảng 4 cảnh.
+
+Đánh giá 4 tiêu chí, mỗi tiêu chí từ 0 đến 2:
+
+1. characters_clear
+0: Không rõ nhân vật
+1: Nhân vật tương đối rõ
+2: Nhân vật rõ ràng
+
+2. events_clear
+0: Sự kiện không có trình tự rõ
+1: Trình tự tương đối rõ
+2: Trình tự sự kiện rõ ràng
+
+3. scene_suitable
+0: Không phù hợp tạo comic
+1: Có thể tạo comic nhưng cần chỉnh sửa
+2: Rất phù hợp để chia khoảng 4 cảnh
+
+4. ending_clear
+0: Không có kết thúc rõ
+1: Kết thúc tương đối rõ
+2: Kết thúc rõ ràng
+
+Tổng điểm score = tổng 4 tiêu chí, tối đa 8.
+
+selected_candidate:
+- true: Nếu score >= 6 và phù hợp tạo comic
+- false: Nếu không phù hợp
+
+difficulty:
+- easy
+- medium
+- hard
+
+Không bịa thêm sự kiện.
+Không đánh giá chỉ dựa trên tên truyện.
+Đánh giá dựa trên nội dung được cung cấp.
+
+Trả về JSON array hợp lệ, không Markdown.
+
+Mỗi truyện:
+
+{
+  "id": "story_001",
+  "title": "...",
+  "characters_clear": 0,
+  "events_clear": 0,
+  "scene_suitable": 0,
+  "ending_clear": 0,
+  "score": 0,
+  "selected_candidate": false,
+  "difficulty": "easy",
+  "reason": "..."
+}
+
+
+==================================================
+STORIES TO EVALUATE
+==================================================
+
+
+ID: story_183
+TITLE: Kiện ngành đa [Kho tàng truyện cổ tích Việt Nam]
+URL: https://truyendangian.com/kien-nganh-da
+
+CONTENT:
+Ngày xưa có hai vợ chồng một người lái buôn hương. Họ chưa có con cái gì cả. Chồng vắng nhà liên miên, chỉ thỉnh thoảng mới về một lần. Có lần chồng đi khá lâu. Vợ ở nhà lọt vào mắt một tên xã trưởng. Dựa vào quyền thế, xã trưởng tìm cách quyến rũ người đàn bà đó và cuối cùng hai người tằng tịu với nhau. Nhưng hắn rất khôn ngoan, thỉnh thoảng mượn cớ đi tuần đến với người đàn bà một lần. Vì thế trong xóm ngoài làng chả một ai ngờ cả.
+Lần ấy ông lái hương mải mê buôn bán nên không tiện về nhà. Ông cất hàng đi rất xa và làm ra rất nhiều tiền. Sau ba năm, một hôm gần giỗ cha, ông mới sực nhớ đến vợ bèn thu xếp tiền nong tìm về quê cũ. Sắp về tới làng thì trời đã tối, ông sực nghĩ tới số tiền công lao mồ hôi nước mắt trong mấy năm trời: – “Ta đi vắng lâu quá! Không biết chừng ở nhà có sự thay đổi”. Nghĩ thế, ông đem 120 lạng bạc trong bồ ra buộc làm một gói. Khi đến cây đa đầu làng, ông ta trèo lên và đem số bạc ấy giấu vào hốc cây. Ông khấn:
+– Tôi là dân làng này, tôi làm ăn dành dụm được có chừng ấy, tôi gửi cho ngài, trăm sự nhờ ngài giữ hộ.
+Vợ thấy chồng về lăng xăng cơm nước tiếp đón hết sức thân mật. Nhưng khi nhìn thấy chiếc bồ không, liền hết lời trách móc:
+– Anh buôn thua bán lỗ làm sao mà bỏ vợ dại ở nhà ba năm đằng đẵng không đoái không hoài gì cả. Tiền nong anh vứt đi đâu? Trời ơi sao mà tệ thế!
+Thấy tình hình không có gì đáng ngại mà vợ vẫn có vẻ một lòng một dạ với mình, người lái hương yên tâm, nên đêm ấy khi nằm lên giường, ông tỷ tê kể hết việc làm ăn khấm khá của mình cùng việc gửi bạc ở hốc cây đa đầu làng cho vợ nghe.
+Không ngờ đêm ấy, xã trưởng theo thói quen tìm đến nhà nhân ngãi. Hắn quen chó, lại thuộc cách mở cổng nên chả mấy chốc đã lọt vào thềm nhà. Sắp bước vào buồng, hắn bỗng nghe tiếng trò chuyện nhỏ to. Biết là chồng cô ả đã về, hắn đứng lại nghe ngóng. Và khi biết rõ người lái hương giấu bạc ở cây đa, hắn mừng quá, vội lùi một mạch ra đầu làng, cuỗm ngay gói bạc. Hắn lấy một cách ngon lành, chả một ai biết cả.
+Rạng ngày hôm sau, khi người lái hương ra lấy bạc thì ôi thôi, bạc đã không cánh mà bay mất tự bao giờ. Xót lòng vì mất của mà không biết kêu van với ai, ông ta đấm ngực kêu trời rất thảm thiết. Mãi về sau nghe tin gần miền có một ông Trạng xử kiện nổi tiếng, ông bèn chặt lấy một cành đa mang đến kiện với Trạng. Tuy thấy sự tình éo le, Trạng cũng nhận lấy cành đa rồi báo người lái hương về, sáng mai lại đến. Lập tức, Trạng sai quân hầu rào bốn bên cây đa lại, không cho một ai đến gần, rồi ngầm sai đào hố ở gốc, cho người xuống nấp dưới đó.
+Sáng hôm sau, Trạng đến đóng dinh ở gần cây đa rồi trước mặt bàn dân đông đủ, Trạng bắt nguyên cáo và bị cáo ra đối chất. Cây nhận có giữ gói bạc nhưng không biết người nào lấy đi. Hỏi mãi cây vẫn không khai được một điều gì. Quân hầu của Trạng được lệnh khảo đả cây túi bụi. Mọi người đứng trước dinh Trạng đều nghe bị cáo van khóc rối rít. Mãi đến ngày thứ ba, bị cáo mới tả cho biết mặt mũi người ăn trộm, nhưng chỉ nói riêng cho Trạng nghe mà thôi. Liền đó, Trạng cho người lái hương về, ba ngày sau sẽ bắt tên trộm hoàn lại số tiền, nhưng trước đó phải dọn cỗ bàn tạ thần mình và mời làng nước đến ăn mừng về việc tìm lại được của. Trạng còn ghé tai dặn dò ông ta: – “Trong nhà có bao  nhiêu chó dữ phải thả ra trong khi khách đến”.
+Người lái hương tin lời Trạng, về nhà mổ trâu khoản đãi bà con làng nước. Mỗi một người đến ăn cỗ lại làm cho mấy con chó cũi một phen sủa hết hơi. Duy chỉ có xã trưởng vì ba năm lui tới nên chó không còn lạ hơi nữa. Khi thấy mấy con chó vẫy đuôi mừng xã trưởng, lập tức những người của Trạng, trực sẵn ở sau nhà, bắt lấy giải đi.
+Trước mặt Trạng, ban đầu xã trưởng chối lấy chối để. Nhưng sau thấy Trạng vạch tội hắn có ngành có ngọn và cho biết thêm là cây đã thú thật mặt mũi người lấy trộm như thế nên hắn đành cúi đầu nhận tội.
+Ngày nay, người Nghệ An và Hà Tĩnh có câu: “ Kiện ngành đa ” ý nói kiện một cách gián tiếp, nghĩa là kiện một sự việc này nhưng chính nhờ đó làm nảy ra ánh sáng một sự việc khác.
+
+--------------------------------------------------
+
+
+ID: story_184
+TITLE: Trả lời vắn tắt [Truyện cười dân gian Việt Nam]
+URL: https://truyendangian.com/tra-loi-van-tat
+
+CONTENT:
+Trả lời vắn tắt là câu chuyện cười dân gian Việt Nam, ngoài việc phê phán những kẻ tham ăn tục uống còn nhắc nhở chúng ta khi giao tiếp phải có văn hóa.
+Lời nói gói vàng – Tục ngữ Việt Nam –
+Có một anh chàng vốn tính tham ăn, hễ ngồi vào mâm là chú mục vào những món ngon, cắm đầu gắp, lo sao ăn cho được đầy bụng. Vì thế anh ta rất ngại nói chuyện trong bữa cơm.
+Một lần, đi ăn cỗ ở nhà nọ, ngồi vào mâm là anh ta gắp lia gắp lịa. Có một ông khách lạ thấy anh ta ăn uống lỗ mãng như thế, mới tìm cớ nói chuyện để hãm bớt anh ta lại. Ông ta hỏi:
+– Chẳng hay ông người ở đâu ta?
+Anh ta trả lời vắn tắt :
+– Đây!
+Rồi cắm cổ gắp.
+– Thế ông được mấy cô cậu rồi?
+– Mỗi!
+Lại cúi xuống gắp lia lịa.
+Ông kia vẫn chưa chịu thua, hỏi tiếp:
+– Các cụ thân sinh chắc là còn cả chứ?
+Anh ta vẫn không ngẩng đầu lên, đáp:
+– Tiệt!
+
+--------------------------------------------------
+
+
+ID: story_185
+TITLE: Chàng rể thong manh [Truyện cười dân gian Việt Nam]
+URL: https://truyendangian.com/chang-re-thong-manh
+
+CONTENT:
+Có một anh chàng đẹp trai, lanh lợi, nhưng bị tật thong manh từ thuở nhỏ. Cặp mắt anh vẫn trong trẻo nên người ngoài không ai biết là mù. Nhưng anh thì rất khôn khéo, cố tìm cách giấu không cho người lạ biết mình có tật.
+Một hôm nghe nói có một đám hát ở một làng nọ, vui bạn, anh theo nhóm trai làng đi xem. Đêm tối, người đông chen chúc, mỗi người tìm ngồi một nơi, nên lúc về họ lục tục mỗi người đi một đàng, bỏ quên anh lại. Anh phải nằm đó đợi sáng, nhưng lúc về vì không thấy rõ đường, anh cứ đi liều. Cuối cùng bị lạc, anh lọt vào một nhà nọ. Nhà này đang sẵn có cuộc vui. Thấy chàng trai lạ đến, họ mời anh vào dự. Anh không từ chối, đi theo người dẫn vào ngồi phía tận cùng. Đến lúc mãn cuộc anh phải sờ vào vách để tìm cửa ra. Chủ nhân thấy thế, bèn hỏi:
+– Anh làm gì đấy?.
+Anh nhanh miệng đáp:
+– Dạ, cháu đo xem chiều dài nhà này có bằng nhà bố mẹ cháu chăng.
+– Thế bên nào rộng hơn?
+– Dạ, cũng suýt soát như nhau!
+Chủ nhân cho rằng nhà anh này cũng thuộc loại khá giả như mình. Khi đã tìm được cửa ra, anh vội cáo từ chủ nhân để về, nhưng chủ nhân cố lưu anh lại ăn cơm. Đói bụng, anh từ chối lấy lệ rồi cũng ngồi vào mâm. Trước mặt anh là đĩa rau, nên anh cứ gắp mãi vào món ấy. Chủ nhân bảo:
+– Kìa thịt cá đây sao không ăn, lại cứ gắp rau mãi?
+Anh đáp:
+– Nhà cháu rau dưa quen thói, chứ không phải làm khách đâu ạ!
+Chủ nhân cho anh là con nhà cần kiệm nết na. Ăn xong bước ra hè anh vấp phải cái cào, cán cào va nào đầu đau điếng bèn ngồi lại nhặt cào, sẵn sờ thấy cái vồ bên cạnh, anh cầm lấy gõ vào đầu cán cào mấy cái cho hả giận. Chủ nhà thấy vậy, hỏi:
+– Anh làm gì đấy?
+– Cháu tra cán cào!
+– Ồ, tốt quá?
+Chủ nhân cho anh là con nhà siêng năng, hay lam hay làm. Trong bụng ông nghĩ: “Con nhà ai đây, nhà thì không đến nỗi nghèo, mà lại siêng năng cần kiệm nết na, thật là ít có. Ta có đứa con gái nên gả cho hạng trai như thế này mới phải”. Cho nên khi chàng thong manh cáo từ ra về, chủ nhân ghé vào tai bảo:
+– Anh khá lắm. Có muốn lấy con gái lão, lão sẽ gả cho.
+Cuối cũng anh chàng thong manh cũng lần về được đến nhà. Khi về đến nơi, anh giục bố mẹ đi hỏi cô gái nhà nọ cho anh làm vợ. Do được bố vợ thỏa thuận từ trước, nên mọi việc cưới hỏi đều diễn ra êm thấm trót lọt. Chỉ còn một việc quan trọng là đi làm rể, mà việc này thì không ai thay thế được anh. Vì vậy anh chàng đành phải dấn thân ra đi.
+Đến nhà vợ mới được một hôm, anh phải đi cày ruộng. Khi ra đồng, nhờ mẹ vợ dắt trâu đi trước nên anh theo không chút vất vả. Tới ruộng, mẹ vợ chỉ cho anh phần đất phải cày. Ruộng sẵn có bờ nên anh cũng dễ phân biệt. Vì vậy anh cày đúng ruộng nhà vợ, nhưng đôi lúc cũng cày lấn sang cả ruộng láng giềng, thậm chí còn cày lật cả một đoạn bờ. Khi mẹ vợ ra gọi anh về ăn trưa, thì bà kêu lên:
+– Chết nỗi, sao con lại cày sang ruộng của người ta?!
+Anh đáp không chút ngần ngừ:
+– Vì bờ ruộng thấp nên con cày cả hai bên để lấy đất đắp bờ đấy ạ!
+Nghe nói xuôi tai, bà nhạc không nghi ngờ gì cả.
+Ăn cơm xong, anh lần ra giếng thơi, vô phúc thế nào lại rơi tõm xuống nước không lên dược, nhưng anh kiên gan không kêu la. Chừng vợ anh ra múc nước, thấy anh dưới giếng thì hốt hoảng:
+– Ôi chao, mắt mũi để đâu mà lại ngã xuống giếng thế?
+Anh đáp ngay:
+– Giếng rong rêu bẩn quá, tôi phải xuống khai cho sạch
+– Thế sao không lấy thang mà trèo?
+– Vội quá không tìm được thang, nên tôi phải men tường trèo xuống. Thôi bây giờ vớt hết rồi, hãy bắc thang xuống cho tôi lên, kẻo mệt quá.
+Cả nhà đã không ngờ, mà còn khâm phục.
+Mấy hôm sau, vợ anh đi vắng, mẹ vợ thổi xôi đơm ra một đĩa mời chàng rể ăn. Đĩa xôi đặt trên mâm nan. Trong khi mẹ vợ lúi húi dưới bếp mà anh thì chưa kịp tới ngồi, con chó thấy vắng người bèn trèo lên mâm chén hết cả. Khi mẹ vợ ở bếp lên thấy đĩa đã sạch trơn xôi, vội nói:
+– Con đã ăn hết rồi ư? Có ăn nữa không để mẹ đơm thêm?
+Biết là con chó đã ăn mất xôi, nhưng anh không ngạc nhiên, chỉ đáp:
+– Đủ rồi mẹ ạ!
+Bận khác, vợ lại đi vắng, mẹ vợ lại thổi xôi dọn ra mời anh ăn. Trong khi bà ta chạy xuống bếp thì anh đã chú ý rình kẻo chó ăn mất như bận trước. Đến khi bà ta mang thức ăn lên, đang lúi húi đặt vào mâm, anh tưởng là chó bèn đấm một cái, không ngờ nhầm vào mặt mẹ vợ. Đau quá, bà ta kêu lên. Biết là mình nhầm, anh buông đũa không nói gì cả. Giữa lúc ấy người vợ về. Nghe mẹ mình kể lại câu chuyện vừa rồi, chị ta gầm lên. Anh thủng thỉnh đáp:
+– Theo phong tục tổ tiên, chỉ có vợ bưng cơm hầu chồng. Lần trước mẹ đã làm trái, con không dám nói. Nay thì không thể làm trái lần thứ hai. Xin mẹ thứ lỗi cho, con làm thế là bất đắc dĩ. Chẳng qua là để khỏi có sự dị nghị.
+Nghe nói thế, mẹ vợ và vợ hết giận. Còn bố vợ sau đó về nghe kể thì tấm tắc khen ngợi. Ông bảo xóm giềng:
+– Bây giờ tôi mới hay thằng ấy lại là con nhà có học. Nó làm việc gì cũng đúng phép tắc.
+Một hôm, bố vợ bảo anh dẫn người nhà vào rừng chặt gỗ làm cày. Đường rừng khó đi, sai một bước là đụng phải cây, vì thế chàng rể thong manh rất ngại, bèn bảo người nhà:
+– Đi đường im lặng buồn lắm anh em ạ! Nên thay nhau hò hát ít câu cho vui và bớt sợ.
+Họ hát lên, anh đi len vào giữa, không sợ lạc nữa. Cả mấy người đẵn được mấy cây gỗ ghé vai khiêng về. Anh cũng đẵn được một cây, nhưng anh biết rằng đi đường rừng mà mắt mù thì không thể nào vác về một cách trót lọt. Mấy người cùng đi bỗng thấy chàng rể thong manh ta đột nhiên kêu đau bụng ầm lên và quẳng gỗ xuống đất. Xoa bóp mãi không lành, họ đành dìu anh lên một cái chòi bỏ trống ở gần đường cho anh ở lại, còn họ phải đem gỗ về trước.
+Sáng hôm sau, có hai người cưỡi ngựa đi qua. Anh rên to tiếng trên chòi. Hai người ghé lại hỏi:
+– Sao lại nằm rên một mình ở đây?
+Anh đáp:
+– Chao! Tôi đi đẵn gỗ đẽo cày cho chủ tôi, nhưng chưa đẽo được thì không may bị bệnh đau bụng, đến nay cũng chưa lành.
+Hai người ấy lại hỏi:
+– Anh có cần chúng tôi đưa giúp về không?
+– Nếu các ông có lòng thương tôi, thì sẵn rìu đó làm ơn đẽo hộ cho chủ tôi cái cày, kẻo về đấy ông ấy không trả công cho thì tội lắm, biết lấy gì để nuôi con. Còn bệnh đau bụng của tôi thì cứ để vậy ít bữa nữa rồi cũng lành.
+Nói rồi anh lại rên hừ hừ. Hai người kia thương hại bèn xuống ngựa đẽo hộ anh, chỉ một lát được một cái cày rất đẹp.
+Họ đi được hồi lâu thì vợ anh mang cơm nước và thuốc men đến. Đến chòi, vì chị ta đi nhẹ nhàng không lên tiếng, nên anh không biết. Thấy chồng nhìn mình mà không nhận ra, chị ta hồ nghi, vội hỏi:
+– Mắt anh làm sao thế? Hay là có điều gì lạnh nhạt đối với tôi? Vì thấy tôi mà không lên tiếng thì chỉ có một trong hai điều đó thôi.
+Anh chàng chống chế ngay:
+– Thú thật là tôi cũng có nhìn thấy nhà nó đến, nhưng vì vừa đẽo xong cái cày, thích chí quá nên mải ngắm mà quên đi, có việc gì đâu mà lạnh nhạt.
+Lại một lần nữa, vợ giải được mối ngờ. Rồi đó hai vợ chồng trở về. Bố vợ thấy cái cày đẽo đẹp, khen lấy khen để.
+Một hôm khác, bố vợ giết trâu mở tiệc mừng thọ. Cỗ bốn người một mâm, chàng rể thong manh cũng được dự ngồi một cỗ. Anh lần lượt gắp ăn, nhưng chẳng biết gắp thế nào cho trúng, mà gắp không trúng thì e rằng những người cùng dự chê cười. Anh bèn bàn:
+– Cỗ chỉ có mấy món thôi, giá ta trộn cả vào với nhau thì ăn ngon hơn. Thế rồi ta chia nhau mỗi người một phần lại càng tiện.
+Họ đều nghe theo. Nhờ thế anh ung dung gắp ăn phần của mình. Nhưng không may cho anh là ăn phải miếng thịt trâu thái to quá, mà anh lại vội nuốt nên bị nghẹn ở cổ, nhả ra không được. Anh ngồi chống đũa cố nuốt, nước mắt giàn giụa mà miếng thịt vẫn không chịu vào. Mãi sau, anh lấy hết gân sức cố nuốt, cuối cùng miếng thịt cũng trôi được vào dạ dày. Nhưng thật là may mắn, con mắt anh nhờ thế đột ngột sáng ra. Nhìn thấy mọi người mọi vật, anh mừng quá. Anh bỗng có ý muốn nhìn một vợ một tý để xem xem con người như thế nào. Nhưng khi đi vào nhà trong thì đàn bà con gái ngồi ăn cỗ ở đây khá đông, anh chả biết làm sao mà phân biệt. Bèn nghĩ được một mẹo: anh giả bộ say, chân đi thất tha thất thểu. Đến chỗ có phụ nữ, anh giả vờ đụng vào người này lại va vào người khác. Thấy thế, vợ anh nổi ghen, và cũng sợ chồng mình quá chén còn làm điều gì thất thố nữa chăng, nên vội chạy lại dìu anh vào buồng. Từ đó anh mới biết mặt vợ.
+
+--------------------------------------------------
+
+
+ID: story_186
+TITLE: Sự tích núi Ngũ Hành Sơn (Đà Nẵng) – Truyền thuyết Việt Nam
+URL: https://truyendangian.com/su-tich-nui-ngu-hanh-son-da-nang
+
+CONTENT:
+Ngày xưa, có một ông già sống một một mình trong túp lều con bên cạnh bãi biển vắng. Suốt cuộc đời ông làm bạn với những làn gió biển mát rượi và tiếng sóng ì ầm vỗ vào bờ cát trắng.
+Một hôm, ngoài khơi xa bỗng có một vùng sóng gió nổi lên dữ dội, khiến bầu trời cũng tối sầm lại. Gió thổi ào ào, cát bụi bay mù mịt. Túp lều của ông già vặn vẹo như muốn đổ. Lát sau có một con giao long rất lớn ngoi vào bờ, trườn lên bãi cát. Giao long quằn quại, làm vẹt cát thành những đường hào sâu ngoằn ngoèo.
+Trời chợt bừng sáng, một tiếng kêu kỳ lạ vang lên, rồi một quả trứng lớn, sáng lấp lánh từ trong bụng giao long rơi ra, lăn đến cạnh túp lều của ông lão. Đẻ xong, giao long lại trườn xuống biển biến mất.
+Trong chốc lát, mặt biển trở lại phẳng lặng. Một con rùa vàng to lớn khác thường từ ngoài khơi chậm chạp bơi vào. Rùa vàng đào hố, chôn trứng giao long vào trong cát.
+Sau đó, rùa vàng đến tìm ông lão, trao cho ông một cái móng và nói:
+– Ta là thần Kim Quy. Ta muốn ngươi phải hết sức bảo vệ giọt máu này của Long Vương. Khi nào gặp khó khăn nguy cấp thì đặt cái móng này vào tai, ta sẽ giúp ngay.
+Dứt lời, rùa vàng lặn ngay xuống biển.
+Ông già nhớ lời thần dặn, ngày đêm lo việc trông coi quả trứng. Một hôm, có chiếc xe trâu chở mấy tên lính hung dữ cứ nhằm đúng hướng quả trứng mà lao tới.
+Ông già hoảng hốt tới ngăn xe lại, nhưng con trâu vẫn kéo xe phóng như bay về phía trước, bốn chân hất cát bay mù mịt.
+Ông cụ vội lấy móng rùa đặt vào tai. Lập tức bên tai ông vẳng nghe mấy tiếng: “Nằm xuống! Nằm xuống!”.
+Ông vừa phủ phục xuống hóa ngay thành một con hổ to lớn. Hổ gầm lên mấy tiếng khiến cả người lẫn trâu vứt xe tháo chạy.
+Mấy ngày sau, ông già dỡ túp lều ra, dựng trên đống cát để che nắng mưa cho trứng thần. Nhưng rồi trứng cứ mỗi ngày một lớn, đến nỗi đội cát lên rồi chồi ra… Cụ già hì hục từ sáng đến tối, xúc cát lập lại. Nhưng hôm sau trứng lại càng nhô cao thêm, phình ra to, cuối cùng nó đội cả túp lều của ông cụ lên cao tít mây xanh. Màu vỏ trứng đủ sắc lóng lánh như một viên ngọc khổng lồ.
+Ông cụ chẳng còn chỗ nào để ở nữa, đành phải cầu cứu rùa vàng. Ông vừa đặt móng rùa vào tai, tự nhiên vỏ trứng nứt ra thành một cái hang có đủ giường, gối. Ông cụ vừa đặt mình xuống liền ngủ thiếp đi.
+Đúng lúc đó, trời bỗng nhiên bừng sáng, trong không gian thoang thoảng một mùi hương thơm nhè nhẹ tinh khiết. Và một cô bé xinh xắn hồng hào từ trong lòng trứng sinh ra. Sữa từ các mạch đá trong hang tuôn ra trắng ngần, nuôi cô bé lớn nhanh như thổi.
+Hàng ngày có một bầy khỉ thay nhau mang hoa quả đến cho cô ăn. Một đàn chim tha bông đến dệt quần áo cho cô mặc. Chẳng bao lâu cô bé đã trở thành một thiếu nữ xinh đẹp tuyệt trần.
+Ông cụ trở mình tỉnh dậy, vô cùng kinh ngạc khi thấy một cô gái đang ngồi bên cạnh. Còn cô gái thì sung sướng reo lên:
+– Mười lăm năm nay, ngày ngày con lắng nghe hơi thở đều đặn của cha, con vui mừng biết mấy!
+Ông cụ ngơ ngác nhìn trứng thần bây giờ đã thành một hòn núi đá to lớn, cỏ cây rậm rạp, và có vô số các loài chim chóc, muông thú sinh sống. Ông dắt cô gái ra khỏi hang đá, chặt cây dựng nhà, khai khẩn đất ruộng nương.
+Hàng ngày ông chăm sóc, dạy dỗ cô gái rất chu đáo, từ việc bếp núc canh cửi đến cả việc cày ruộng, bắn cung.
+Cô gái vốn thông minh chăm chỉ, nên việc nào cũng giỏi giang. Ông cụ mừng lắm: “Cô bé đúng là con Rồng cháu Tiên , vừa đẹp người vừa đẹp nết!”.
+Một hôm, có đám cướp từ ngoài biển kéo vào. Mặt mũi tên nào cũng hung ác, gớm ghiếc. Chúng hằm hè xông đến định bắt ông già và cô gái đem đi, hòng chiếm lấy hòn núi mới.
+Đột nhiên một vùng lửa đỏ rực ngùn ngụt bốc lên vây lấy chúng, không cho một tên nào chạy thoát. Móng rùa thần đã làm chúng chết không kịp ngáp.
+Dân quanh vùng, thấy núi và người bỗng dưng hiện lên, kháo nhau rằng trời cho tiên xuống trần giúp người hạ giới. Họ kéo nhau đến gặp ông già và cô gái xin cô thuốc chữa bệnh.
+Bấy giờ bệnh sốt rét đang hoành hành trong dân chúng. Cô gái bèn tìm những viên đá màu sắc khác nhau, buộc lại rồi ném ra vườn. Trên mặt đất bỗng mọc lên một loài cây có hoa năm cánh dùng để chữa bệnh sốt rét rất hiệu nghiệm.
+Tiếng đồn về nàng tiên xinh đẹp có tài chữa bệnh đến tai đức vua. Vua liền sai người mang lễ vật đến cầu hôn cho hoàng tử. Ông cụ đàng cùng cô gái chơi cờ, thấy sứ giả đến thì lúng túng chưa biết xử trí ra sao.
+Đúng lúc ấy, rùa vàng hiện lên, báo tin cho ông lão biết là Long Vương bằng lòng gả con gái cho hoàng tử.
+Cô gái vâng lời, từ biệt cha nuôi lên kiệu về kinh đô, còn cụ già trả móng lại cho rùa thần, rồi cưỡi lên lưng rùa đi ra biển.
+Ngày nay hòn núi đá ấy vẫn còn. Đó là hòn núi đẹp nhất nổi ở bờ biển Quảng Nam. Người ta gọi là núi Ngũ Hành (hay còn gọi là núi Ngũ Hành Sơn ).
+
+--------------------------------------------------
+
+
+ID: story_187
+TITLE: Viên ngọc ước của quạ [Truyện cổ tích Việt Nam]
+URL: https://truyendangian.com/vien-ngoc-uoc
+
+CONTENT:
+Thuở ấy, có năm trời làm bão lụt liên miên, mùa màng mất trắng, nạn đói xảy ra ở khắp nơi. Trong xóm nhỏ ven đê có một nhà kia đã nghèo lại đông con, gặp lúc hoạn nạn nên càng khốn khó,
+Đê là con trai cả của nhà ấy, đành đi ở đợ cho một lão trọc phú để kiếm thêm bát cơm đỡ cho đàn em qua cơn đói.
+Lão chủ thấy Đê khỏe mạnh, nhanh nhẹn liền bắt anh phải chăn dắt cả đàn trâu nhà lão.
+Một hôm, Đê sơ suất để lạc mất con trâu vốn được lão chủ yêu quý nhất. Anh hoảng hốt chạy bổ đi các nơi tìm kiếm. Đám bạn chăn trâu thấy vậy cũng xúm vào giúp Đe. Mọi người lặn lội hết đồng nọ đến đồng kia, đi từ xóm gần đến làng xa, leo lên tận các ngọn núi, vẫn chẳng thấy tăm hơi con vật đâu.
+Đê sợ bị chủ bắt đền, phạt vạ nên không dám về nhà. Anh lang thang mãi đến mỏi rã đôi chân đành dừng lại nghỉ. Đê đang mơ màng chợt giật mình choàng tỉnh và thấy đau nhói khắp mặt mũi tay chân, còn bên tai thì vang lên tiếng đập cánh loạn xạ. Hóa ra lũ quạ tưởng anh đã chết nên kéo đến mổ xác.
+Đê cứ nằm im, rồi bất ngờ vùng dậy, tóm được một con.
+Quạ vội vàng van vỉ bằng tiếng người:
+– Xin tha cho tôi, tôi sẽ biếu anh một vật quý.
+Nói rồi, quạ nhả vào tay Đê một viên ngọc nhỏ sáng lấp lánh và dặn:
+– Đây là viên ngọc ước màu nhiệm nhất thế gian. Anh muốn cầu xin việc gì sẽ được ngay việc đó. Xin hãy giữ gìn ngọc cẩn thận,
+Đê mải mê ngắm nghía viên ngọc, nên quạ bay đi từ lúc nào cũng không biết. Bỗng anh buột miệng nói:
+– Ngọc ơi, ta muốn tìm thấy con trâu bị lạc để trả cho ông chủ.
+Ngay lúc ấy, con trâu quý của lão trọc phú đã chậm rãi bước đến đứng ngay trước mặt Đê, khiên anh ngỡ ngàng không tin vào mắt mình.
+– Ôi, quả là viên ngọc ước thần kỳ của quạ! Đúng là mình được trời thương rồi!
+Đê mừng rỡ cất vội viên ngọc quý.
+Từ ngày có ngọc quý, Đê trở nên sung sướng, giàu có. Anh xây nhà, mua ruộng, tậu bò cho cha mẹ, tìm thầy đồ về nhà dạy chữ cho đàn em.
+Đê còn thường lấy viên ngọc ước của quạ ra ước có nhiều gạo tiền đem giúp bà con xóm giềng, khiến ai nấy không phải sống trong cảnh đói khổ như ngày trước nữa.
+Thời gian cứ thế trôi qua, đã nhiều lần cha mẹ giục Đê cưới vợ, nhưng anh cứ khất lần, chưa chịu lấy ai. Một hôm, anh nói với viên ngọc:
+– Ngọc ơi, ta muốn có một người vợ đẹp.
+Lời ước vừa dứt thì ngoài ngõ đã có tiếng người gọi cửa. Đấy là một bà mối đến bảo Đê rằng:
+– Ở làng bên, có nhà giàu đánh tiếng muốn gả con gái cho anh.
+Đê theo bà mối sang nhà ấy, thấy cô gái mày ngài mắt phượng, thiên hạ khó có ai hơn, liền ưng thuận cưới cô gái ấy làm vợ.
+Từ hôm về nhà chồng, cô vợ không chịu làm lụng gì, suốt ngày quanh quẩn bên Đê, cốt để dò la xem viên ngọc diệu kỳ giấu ở chỗ nào. Thấy Đê không chịu nói lộ chỗ giấu viên ngọc, một hôm, cô ta chuốc rượu cho chồng say bí tỉ. Trong cơn say, Đê lảm nhảm nói ra nơi để ngọc cho vợ biết. Cô vợ đợi chồng say ngủ mê man, mới lấy trộm viên ngọc, rồi lẻn về nhà cha mẹ.
+Khi Đê tỉnh dậy không thấy vợ đâu, tìm đến ngọc thì ngọc đã biến mất. Anh vội sang nhà bố mẹ vợ để tìm, nhưng vừa đến cổng, bố vợ đã xua chó ra đuổi.
+Đê buồn quá, thất thiểu ra về, vừa đi vừa than:
+– Lòng người quả là khó dò! Vợ mình còn thế nữa là người thiên hạ!…
+Vừa lúc ấy, có một cụ già cầm trên tay một bông hoa trắng và một bông hoa đỏ, bước lại gần Đê, cất giọng ấm áp bảo anh:
+– Con đừng buồn, hãy mang bông hoa trắng này gài vào cửa nhà bố mẹ vợ, rồi đợi khi nào họ cần thì đưa bông hoa đỏ ra giúp. Lúc đó, con sẽ lấy lại được vợ và viên ngọc.
+Đê chưa kịp dứt lời cám ơn, cụ già đã phất tay áo biến mất.
+Sáng sớm hôm sau, vợ Đê thấy có bông hoa lạ cài ở cửa. Mùi thơm ngát tỏa ra từ bông hoa khiến cô ngây ngất. Cô mang bông hoa vào nhà ngắm nghía. Bông hoa thật đẹp, những cánh hoa trắng lung linh kỳ ảo.
+Căn nhà lập tức tràn ngập một mùi thơm kỳ lạ khiến ai nấy đều muốn cầm bông hoa để thưởng thức mùi thơm ấy. Mọi người ngủi hương hoa đều thấy cơ thể khỏe khoắn hơn, chỉ riêng vợ chồng lão chủ nhà giàu và cô con gái là bị đau đầu và ngứa mũi.
+Họ ra sức gãi, nhưng càng gãi mũi càng sưng và dần mọc dài ra. Ba người nhìn nhau vô cùng hoảng sợ, vì mũi của họ cứ không ngừng dài ra mãi, lòng thòng như những cái vòi voi con. Hai mẹ con cô vợ Đê vội trốn vào buồng, tránh mặt kẻ hầu người hạ, tránh sự nhòm ngó của hàng xóm láng giềng.
+Lão nhà giàu lo sợ, vội sai người đi mời thầy thuốc. Các thầy thuốc trong vùng lần lượt đến nhà, nhưng thấy căn bệnh lạ, ai nấy đều lắc đầu:
+– Cái mũi này của cụ chỉ còn có nước phải cắt đi, nhưng cắt chưa chắc đã khỏi, e rằng không triệt được tận gốc, chỉ kích thích để nó mọc dài nhanh hơn thì sẽ nguy hiểm đến tính mạng.
+Đê đợi cho bên nhà vợ rối ren, hoảng hốt, náo loạn cả lên mới lững thững bước vào. Vừa nhìn thấy cái mũi dài của bố mẹ vợ, anh không nhịn được, ngã lăn ra vì cười, hồi lâu mới nói được:
+– Chỉ tại cha sai con gái lấy trộm viên ngọc ước của con mới nên nông nỗi này. Nếu cha trả ngọc, trả vợ con về nhà con thì cái mũi sẽ lành lặn lại như cũ.
+Lão nhà giàu đành phải ưng thuận. Đê bèn đưa bông hoa đỏ ra cho họ ngửi, chỉ trong chốc lát, cái vòi dần dần co lại cho đến khi mũi trở lại nguyên hình như xưa.
+Đê đưa vợ về, người vợ có ý hổ thẹn, cúi mặt lầm lũi bước theo chồng. Từ đó cô ta ngoan ngoãn, nghe lời chồng, chăm chỉ làm ăn. Họ sống với nhau đầm ấm thuận hòa.
+Dân chúng trong vùng ai gặp khó khăn, lại tìm đến vợ chồng Đê nhờ viên ngọc ước của quạ cứu giúp.
+Thời gian cứ thế trôi đi, khi Đê đã là một cụ già râu tóc bạc phơ thì con quạ năm xưa tìm đến và kêu to:
+– Quạ đây, quạ đây! Mau trả ta viên ngọc! Trả ta viên ngọc!
+Cụ Đê vội lấy viên ngọc ước ra trao cho quạ. Quạ ngậm ngọc lao vút lên cao, rồi bay đi mất. Từ đó đến nay đã bao nhiêu người đi tìm, nhưng chưa ai tìm lại được viên ngọc ước của quạ ấy.
+
+--------------------------------------------------
+

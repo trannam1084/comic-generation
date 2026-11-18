@@ -1,0 +1,183 @@
+
+Bạn là người đánh giá Dataset cho dự án Vietnamese Comic Generation.
+
+Hãy đánh giá từng truyện để xác định mức độ phù hợp
+khi chuyển thành comic khoảng 4 cảnh.
+
+Đánh giá 4 tiêu chí, mỗi tiêu chí từ 0 đến 2:
+
+1. characters_clear
+0: Không rõ nhân vật
+1: Nhân vật tương đối rõ
+2: Nhân vật rõ ràng
+
+2. events_clear
+0: Sự kiện không có trình tự rõ
+1: Trình tự tương đối rõ
+2: Trình tự sự kiện rõ ràng
+
+3. scene_suitable
+0: Không phù hợp tạo comic
+1: Có thể tạo comic nhưng cần chỉnh sửa
+2: Rất phù hợp để chia khoảng 4 cảnh
+
+4. ending_clear
+0: Không có kết thúc rõ
+1: Kết thúc tương đối rõ
+2: Kết thúc rõ ràng
+
+Tổng điểm score = tổng 4 tiêu chí, tối đa 8.
+
+selected_candidate:
+- true: Nếu score >= 6 và phù hợp tạo comic
+- false: Nếu không phù hợp
+
+difficulty:
+- easy
+- medium
+- hard
+
+Không bịa thêm sự kiện.
+Không đánh giá chỉ dựa trên tên truyện.
+Đánh giá dựa trên nội dung được cung cấp.
+
+Trả về JSON array hợp lệ, không Markdown.
+
+Mỗi truyện:
+
+{
+  "id": "story_001",
+  "title": "...",
+  "characters_clear": 0,
+  "events_clear": 0,
+  "scene_suitable": 0,
+  "ending_clear": 0,
+  "score": 0,
+  "selected_candidate": false,
+  "difficulty": "easy",
+  "reason": "..."
+}
+
+
+==================================================
+STORIES TO EVALUATE
+==================================================
+
+
+ID: story_193
+TITLE: Thưa cô, tự nhiên nó như thế đấy ạ! [Truyện thiếu nhi]
+URL: https://truyendangian.com/thua-co-tu-nhien-no-nhu-the-day-a
+
+CONTENT:
+Khướu là một cậu học sinh lém lỉnh . Trong lớp, lẽ ra ngồi nghe cô giáo giảng bài và chăm chú theo dõi cô viết trên bảng thì cậu bé hết quay sang bên phải lại xoay sang trai ba hoa chuyện trò với bạn. Thực ra các bạn xung quanh bị cậu ta quấy rầy cũng chẳng thích thú gì, vì nhiều lần có bạn đã bị cô giáo phê bình “lây” .
+Hôm ấy, ngồi ở lớp, Khướu quen tính, lại tán chuyện với bạn khá ồn ào. Nhắc mãi không được, cô giáo buộc phải tạm dừng việc giảng bài chung cho cả lớp để dành riêng cho cậu bé một bài học thật là thú vị.
+Cô hỏi:
+– Khướu, em có mấy cái tai?
+– Thưa cô, em có hai cái tai.
+– Em có mấy con mắt?
+– Thưa cô, em có hai con mắt.
+– Thế em có mấy cái miệng?
+– Thưa cô, em chỉ có một cái miệng.
+Cô lại hỏi:
+– Thế tại sao em chỉ có một cái miệng mà lại có những hai cái tai và hai con mắt?
+Khướu lúng túng:
+– Thưa cô… em không biết ạ!… À, thưa cô, tại… tự nhiên nó như thế đấy ạ!
+Cả lớp bỗng cười rộn lên làm Khướu đỏ bừng cả mặt. Nhưng cô giáo vẫn ôn tồn:
+– Em cứ nghĩ kỹ xem!… Thế cô hỏi nhé! Người ta có mắt để làm gì nhỉ?
+– Thưa cô, để nhìn ạ!
+– Thế tai?
+– Thưa cô, tai để nghe ạ!
+– Còn miệng?
+– Thưa cô… để nói ạ!
+Cô giáo mỉm cười:
+– Thế đấy nhé! Nếu người ta có những hai cái tai để nghe, hai con mắt để nhìn, mà chỉ có một cái miệng để nói, như vậy có nghĩa là em phải dùng mắt hai lần dể nhìn, dùng tai hai lần để nghe, mà chỉ nên dùng cái miệng có một lần để nói thôi đấy nhé! Có đung không nào?
+Khướu bỗng thẹn thùng cúi đầu xuống, mặt càng đỏ nhừ lên. Cậu ta lúng túng :
+– Thưa cô… em xin hứu với cô… từ nay em không nói chuyện nữa ạ!
+
+--------------------------------------------------
+
+
+ID: story_195
+TITLE: Nhà vua và đứa trẻ trâu [Truyện cổ Campuchia]
+URL: https://truyendangian.com/nha-vua-va-dua-tre-trau
+
+CONTENT:
+Một ông vua cùng các quan đi chơi trong rừng, bị lạc nhau. Đường đi ngoắt ngoéo quanh co, vua cứ đi mãi, các quan theo không kịp. Do đó, vua bị lạc đường, không biết lối ra.
+Trời đã quá trưa mà vua vẫn chưa tìm được lối về. Đến một nơi, vua nghe thấy mõ trâu kêu lốc cốc, chen lẫn với tiếng trẻ đang nô đùa. Vua lại gần, hỏi lũ trẻ:
+– Các chú bé ơi! Các chú có biết gò Cốc Trăng ở đâu không?
+Bọn trẻ chăn châu chưa nhìn thấy vua bao giờ, nên trả lời rất cộc lốc:
+– Gò Cốc Trăng ở đăng kia kìa. Từ đây đến đấy không xa lắm đâu. Ông cứ theo hướng ấy mà đi.
+Nhưng nhà vua sợ đi lạc một lần nữa, nên phải thuê một chú bé đưa đường.
+Vừa đi, hai người vừa nói chuyện. Vua hỏi chú bé:
+– Chú đã biết vua bao giờ chưa?
+– Dạ thưa anh, em chưa biết. Nghe mẹ em nói có vua, kì thực em chưa hề thấy.
+– Ồ, thế thì chú có muốn biết vua không?
+– Dạ, muốn biết lắm. Nhưng làm sao gặp ông ấy?
+– À, chú muốn biết thì dễ thôi. Đợi tí nữa đến nơi có đông người, khi nào có vua thì mọi người sẽ ngả mũ chào. Ai đội nguyên mũ trên đầu thì người ấy là vua.
+Một hồi lâu, vua tìm thấy mọi người. Ai nấy đều mừng rỡ và vội chạy đến, ngả mũ chào. Vua cùng đi lại đám đông với đứa trẻ chăn trâu . Vua hỏi chú bé:
+– Sao? Chú thấy họ ngả mũ chào ai? Ai còn đội nguyên mũ trên đầu?
+Chú bé thản nhiên trả lời:
+– Dạ, thưa anh, em biết vua rồi.
+– Chú thử nói xem. Ai là vua ở đây?
+– Dạ thưa anh, vua đó nếu không phải là anh thì chính là em. Vì ai cũng cất mũ, chỉ có em và anh là không ngả mũ chào ai cả.
+
+--------------------------------------------------
+
+
+ID: story_197
+TITLE: Câu chuyện con lừa và bài học cuộc sống
+URL: https://truyendangian.com/cau-chuyen-con-lua
+
+CONTENT:
+Một ngày nọ, con lừa của một ông chủ trang trại sẩy chân rơi xuống một cái giếng. Lừa kêu la tội nghiệp hàng giờ liền.
+Người chủ trang trại cố nghĩ xem nên làm gì. Cuối cùng ông quyết định: con lừa đã già, dù sao thì cái giếng cũng cần được lấp lại và không ích lời gì trong việc cứu con lừa lên cả.
+Ông nhờ vài người hàng xóm sang giúp mình. Họ xúc đất và đổ vào giếng. Ngay từ đầu, lừa đã hiểu chuyện gì đang xảy ra và nó kêu la thảm thiết. Nhưng sau đó lừa trở nên im lặng.
+Sau một vài xẻng đất, ông chủ trang trại nhìn xuống giếng và vô cùng sửng sốt. Mỗi khi bị một xẻng đất đổ lên lưng, lừa lắc mình cho đất rơi xuống và bước chân lên trên. Cứ như vậy, đất đổ xuống, lừa lại bước lên cao hơn. Chỉ một lúc sau mọi người nhìn thấy chú lừa xuất hiện trên miệng giếng và lóc cóc chạy ra ngoài.
+
+--------------------------------------------------
+
+
+ID: story_198
+TITLE: Những hạt thóc giống [Truyện cổ tích Khmer]
+URL: https://truyendangian.com/nhung-hat-thoc-giong
+
+CONTENT:
+Những hạt thóc giống là câu chuyện cổ tích Khmer, ca ngợi tấm lòng trung thực và dũng cảm của một cậu bé trong thử thách tìm người nối ngôi của nhà vua.
+“Phải thành thật với mình, có thế mới không dối trá với người khác”. – Danh ngôn của Shakespeare –
+Ngày xưa có một ông vua cao tuổi muốn tìm người nối ngôi. Vua ra lệnh phát cho mỗi người dân một thúng thóc về gieo trồng và giao hẹn: ai thu được nhiều thóc nhất sẽ được truyền ngôi, ai không có thóc nộp sẽ bị trừng phạt.
+Có chú bé mồ côi tên là Chôm nhận thóc về, dốc công chăm sóc mà thóc vẫn chẳng nảy mầm.
+Đến vụ thu hoạch, mọi người nô nức chở thóc về kinh thành nộp cho nhà vua. Chôm lo lắng đến trước nhà vua, quỳ tâu:
+– Tâu Bệ hạ ! Con không làm sao cho thóc nảy mầm được.
+Mọi người đều sững sờ vì lời thú tội của Chôm. Nhưng nhà vua đã đỡ chú bé đứng dậy. Ngài hỏi còn ai để chết thóc giống không. Không ai trả lời. Lúc bấy giờ nhà vua mới ôn tồn nói:
+– Trước khi phát thóc giống, ta đã cho luộc kĩ rồi. Lẽ nào thóc ấy còn mọc được? Những xe thóc đầy ắp kia đâu phải thu được từ những hạt thóc giống của ta!
+Rồi vua dõng dạc nói tiếp:
+– Trung thực là đức tính quý nhất của con người . Ta sẽ truyền ngôi cho chú bé trung thực và dũng cảm này.
+Chôm được truyền ngôi và trở thành ông vua hiền minh .
+
+--------------------------------------------------
+
+
+ID: story_199
+TITLE: Các quan thi nói khoác [Truyện cười dân gian Việt Nam]
+URL: https://truyendangian.com/cac-quan-thi-noi-khoac
+
+CONTENT:
+Một hôm được nghỉ, bốn quan họp nhau đánh chén, nhân lúc cao hứng liền mở cuộc thi nói khoác . Quan thứ nhất nói:
+– Tôi còn nhớ, ngày tôi nhậm chức ở huyện nọ, tôi được trông thấy một con trâu to lắm, nó liếm một cái mất cả sào mạ!
+Quan thứ hai nói:
+– Thế đã lấy gì làm lạ. Tôi còn trông thấy một sợi dây thừng to gấp mười cái cột đình!
+Quan thứ nhất biết cái dây thừng ấy dùng để buộc con trâu mình vừa kể, bèn chịu thua, và giục quan thứ ba lên tiếng.
+Quan thứ ba nói:
+– Tôi đã từng thấy một chiếc cầu dài lắm, đứng ở đầu cầu bên này không thể nào trông thấy đầu cầu bên kia. Đến nỗi có hai bố con nhà nọ, kẻ ở bên này, người ở bên kia cầu, lúc ông bố chết, người con nghe tin, vội vã sang để làm ma. Nhưng đi qua cầu, sang đến nơi thì ông bố đã chết được ba năm rồi.
+Đến lượt quan thứ tư:
+– Thế kể cũng đã ghê đây! Nhưng tôi lại còn trông thấy một cây gạo cao khiếp lắm! Chim làm tổ trên ngọn cây gạo này đẻ trứng, không may trứng chim rớt xuống mới đến nửa chừng, trứng đã nở thành chim con đủ lông đủ cánh. Và khi xuống gần mặt đất thì chim đã biết chuyền, biết bay rồi.
+Quan thứ ba biết gỗ cây ấy dùng để đóng cái cầu mình nói, đành chịu thua.
+Bốn ông quan đắc chí, vỗ đùi cười ha hả.
+Bỗng có tiếng thét thật to làm các quan giật bắn người:
+– Đồ nói láo! Lính đâu? Trói cổ cả bốn tên này lại cho ta!
+Các quan sợ run cầm cập, ngơ ngác nhìn trước sau xem ai, thì té ra là người lính hầu. Lúc ấy, các quan mới hoàn hồn lền giọng:
+– Thằng kia, mày định trói ai thế?
+– Bẩm quan, con thấy các quan thi nói khoác , thì con cũng nói khoác theo đấy ạ!
+
+--------------------------------------------------
+

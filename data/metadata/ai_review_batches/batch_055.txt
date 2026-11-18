@@ -1,0 +1,225 @@
+
+Bạn là người đánh giá Dataset cho dự án Vietnamese Comic Generation.
+
+Hãy đánh giá từng truyện để xác định mức độ phù hợp
+khi chuyển thành comic khoảng 4 cảnh.
+
+Đánh giá 4 tiêu chí, mỗi tiêu chí từ 0 đến 2:
+
+1. characters_clear
+0: Không rõ nhân vật
+1: Nhân vật tương đối rõ
+2: Nhân vật rõ ràng
+
+2. events_clear
+0: Sự kiện không có trình tự rõ
+1: Trình tự tương đối rõ
+2: Trình tự sự kiện rõ ràng
+
+3. scene_suitable
+0: Không phù hợp tạo comic
+1: Có thể tạo comic nhưng cần chỉnh sửa
+2: Rất phù hợp để chia khoảng 4 cảnh
+
+4. ending_clear
+0: Không có kết thúc rõ
+1: Kết thúc tương đối rõ
+2: Kết thúc rõ ràng
+
+Tổng điểm score = tổng 4 tiêu chí, tối đa 8.
+
+selected_candidate:
+- true: Nếu score >= 6 và phù hợp tạo comic
+- false: Nếu không phù hợp
+
+difficulty:
+- easy
+- medium
+- hard
+
+Không bịa thêm sự kiện.
+Không đánh giá chỉ dựa trên tên truyện.
+Đánh giá dựa trên nội dung được cung cấp.
+
+Trả về JSON array hợp lệ, không Markdown.
+
+Mỗi truyện:
+
+{
+  "id": "story_001",
+  "title": "...",
+  "characters_clear": 0,
+  "events_clear": 0,
+  "scene_suitable": 0,
+  "ending_clear": 0,
+  "score": 0,
+  "selected_candidate": false,
+  "difficulty": "easy",
+  "reason": "..."
+}
+
+
+==================================================
+STORIES TO EVALUATE
+==================================================
+
+
+ID: story_303
+TITLE: Sự tích trầu cau [Truyện tranh cổ tích]
+URL: https://truyendangian.com/su-tich-trau-cau
+
+CONTENT:
+[alert style=”danger”]
+Sự tích trầu cau là một trong những truyện cổ tích có từ thời vua Hùng, giải thích tục ăn trầu của người Việt và đề cao tình vợ chồng và anh em thắm thiết.
+[/alert]
+Ngày xưa có hai anh em sinh đôi, giống nhau y đúc, người ngoài khó lòng có thể phân biệt được. Đến năm khoảng mười bảy, mười tám tuổi, cha mẹ không may qua đời, hai anh em phải nương tựa vào nhau để sống. Chính vì vậy, tình cảm của hai người càng trở nên thắm thiết, luôn hết mực yêu thương nhau.
+Trong vùng có một thầy đồ đức cao vọng trọng, hai anh em liền bàn với nhau muốn đến để xin tiếp tục học. Vì từ ngày cha mẹ ra đi, hai anh em đành tạm lỡ dở việc học hành để có thể lo toan cho cuộc sống.
+Thấy hai anh em mặt mũi khôi ngô, tuấn tú, tính tình lại hiền lành và ăn nói lễ phép nên thầy đồ đồng ý thu nhận. Sau một thời gian miệt mài học tập, thấy tố chất thông minh nên hai anh em được thầy yêu quý như con cái trong gia đình.
+Thầy đồ có một cô con gái đã đến tuổi cập kê, tính tình hiền lành thục nữ. Nếu xét cả vẻ ngoại hình lẫn đức hạnh thì khắp trong vùng khó có người bì kịp.
+Thấy hai anh em diện mạo anh tú, lại hiền lành và thương yêu nhau nên cô bắt đầu nảy sinh tình cảm. Cô muốn được kết duyên cùng người anh, nhưng khổ nỗi không phân biệt được ai là anh, ai là em.
+Thế rồi cô nghĩ ra một cách, đợi hai anh em đi lên nương về, cô nấu một nồi cháo để sẵn ở đó. Đợi hai chàng trai đi làm về, cô đứng trong rèm quan sát. Thấy người em bưng bát cháo lễ phép mời người anh ăn trước, cô mới phân biệt được đâu là người mình muốn được gả cho.
+Rồi cô bày tỏ tâm nguyện với cha mẹ. Vốn yêu quý hai anh em, nên thầy đồ cũng có ý tác hợp.
+Thầy đem chuyện nói với người anh xem ý định thế nào. Và tất nhiên người anh rất lấy làm sung sướng. Biết đi đâu tìm được người con gái đẹp người đẹp cả nết như cô ấy cơ chứ!
+Vài tuần sau, đám cưới diễn ra, đôi vợ chồng trẻ đắm chìm trong niềm hạnh phúc.
+Nhưng kể từ khi người anh lập gia đình thì tình cảm giữa hai anh em không còn được gắn bó như trước nữa. Vì mới cưới và còn đang đắm chìm trong niềm hạnh phúc, người anh đã vô tình không để ý đến tâm trạng của em mình.
+Một hôm, hai anh em đi làm nương, người em đi về trước một lúc. Về đến nhà trời cũng đã nhá nhem tối. Vốn dĩ hai anh em giống nhau đã khó phân biệt, cộng thêm với việc trời đã bắt đầu tối, người chị dâu nấu cơm ở trong nhà thấy em về, vội chạy ra ôm chầm lấy vì tưởng đấy là chồng mình.
+Người em kêu lên cô mới biết là mình nhầm. Cả hai ngượng ngùng nhìn nhau không nói câu nào.
+Nhưng đúng lúc này người anh cũng về tới nhà. Chứng kiến cảnh vợ mình ôm em trai, anh đâm ra nghi ngờ hai người có mối quan hệ nào đó với nhau. Tuy không nói ra, nhưng trong lòng cảm thấy vô cùng khó chịu.
+Kể từ ngày ấy, hai anh em càng trở nên xa cách nhau hơn.
+Người em cảm thấy ngày càng cô độc, không biết giãi bày cùng ai. Một buổi chiều ngồi thơ thẩn, cảm thấy buồn quá, người em liền bỏ nhà ra đi. Chàng đi mãi, đi mãi. Đến một dòng sông chảy xiết, không có cách nào sang được bờ bên kia, chàng đành ngồi bó gối bên bờ sông.
+Ngắm nhìn dòng sông đang chảy xiết, chàng càng cảm thấy buồn tủi. Và rồi chàng khóc. Tiếng khóc của chàng mang đầy niềm tâm sự trách móc, than thở.
+Sáng hôm sau, khi mặt trời chiếu rọi những tia sáng đầu tiên xuống, chàng đã biến thành tảng đá nằm cạnh bên bờ sông tự bao giờ.
+Người anh ở nhà, hay tin em bỏ nhà ra đi không về nữa thì trong lòng tỏ ra vô cùng hối hận. Một buổi sáng vợ đi vắng, anh cảm thấy trong lòng day dứt quá nên viết giấy để lại lời nhắn cho vợ, quyết định đi tìm em trở về. Anh cũng đi mãi, đi mãi, rồi đến đúng dòng sông nơi người em dừng bước.
+Tuyệt vọng, anh gục đầu vào tảng đá khóc mà không biết rằng tảng đá ấy chính là em trai của mình, vì buồn quá mà hoá thành.
+Người anh chết, biến thành một cây không có cành, mọc bên cạnh tảng đá.
+Chị vợ ở nhà, đợi mãi không thấy chồng về thấy rất lo lắng, cũng lặn lội đi tìm chồng. Duyên số xui khiến thế nào, chị dừng lại bên dòng sông nơi hai anh em đã chết. Chị mệt mỏi không còn đi được nữa, dựa lưng vào gốc cây chồng biến thành cạnh tảng đá vật mình than khóc.
+Chỉ chưa đầy có một đêm, nàng thân gầy xác ve, biến thành một cây leo, quấn chặt lấy cây không cành bên cạnh tảng đá.
+Câu chuyện về nghĩa vợ tình chồng thủy chung, tình cảm anh em thắm thiết đã lưu truyền được nhiều người biết tới.
+Một hôm, vua Hùng đi qua nơi ấy, nghe người dân kể lại, vua liền truyền lệnh lấy thử lá cây leo vào quả của cây không cành ăn thử với nhau thì thấy có mùi vị cay cay và thơm nồng. Nước của lá và quả quện với nhau, nhỏ xuống tảng đá thì dần dần chuyển dần sang sắc đỏ.
+Người ta gọi cây cây mọc thẳng không cành kia là cây cau, còn cây leo quanh thân cây là cây trầu. Về sau, mọi người lấy tảng đá ở bên đem về nung lên cho xốp, ăn kèm với lá trầu và quả cau để cho thơm miệng, môi đỏ.
+Để tưởng nhớ đến tình nghĩa gắn bó keo sơn của ba người, trong những cuộc gặp gỡ của người Việt Nam, “miếng trầu là đầu câu chuyện” trong những ngày lễ hội, đình đám, cưới xin… Và mỹ tục ăn trầu của người Việt Nam ta được bắt nguồn từ đó.
+
+--------------------------------------------------
+
+
+ID: story_304
+TITLE: Sự tích hồ Ba Bể [Truyện truyền thuyết Việt Nam]
+URL: https://truyendangian.com/su-tich-ho-ba-be
+
+CONTENT:
+Ngày xưa ở xã Nam Mẫu (thuộc tỉnh Bắc Kạn) vào những ngày đầu năm hay mở hội cầu Phật. Mọi người nô nức kéo nhau đi xem hội cũng như thắp hương cầu khấn những điều tốt lành và ăn chay niệm Phật.
+Giữa không khí náo nhiệt ấy, có một bà cụ ăn xin xuất hiện, ăn mặc rách rưới, quần áo hôi hám, bẩn thỉu. Bà cụ cầm chiếc nón mê giơ ra khắp bốn phía xin ăn bằng một giọng nói thều thào, yếu ớt:
+– Xin làm ơn làm phúc cho tôi mấy đồng, tôi đói lắm các ông các bà ơi!
+Nhưng mọi người còn đang bận chơi hội, hay làm những công việc thiện khác như phóng sinh chim, cá, v.v… và thắp hương khấn Phật, chả ai để ý đến bà cụ đói rách ấy cả.
+Bà đi đến đâu cũng bị xua đuổi, lảng tránh. Người ta ghê tởm vì thấy một bà già lở loét, hôi hám đến gần xin ăn. Bọn hương lý liền sai mấy anh tuần phu đuổi mụ ra khỏi lễ hội. Bà cụ van nài không được, còn bị bọn chúng dùng roi đánh đuổi ra khỏi hội.
+Bà cụ đáng thương lê bước ra khỏi đám hội. Đói quá, cụ lại đành phải cầm chiếc nón rách tả tơi đi vào xóm, đi từng nhà khất thực. Nhưng cũng giống như ở đám hội, chủ nhà khi nhìn thấy bà cụ đều đóng sầm cửa vào, xua đi. Một số kẻ còn nhẫn tâm thả chó ra đuổi bà cụ.
+Đang trong lúc tuyệt vọng, thì bà gặp được hai mẹ con nhà nọ đi làm về. Thấy bà cụ tội nghiệp, bà mẹ bèn dẫn về nhà, lấy tạm cơm nguội và làm chút thức ăn để bà ăn cho lại sức.
+Bà cụ cảm ơn hai mẹ con lắm, rồi lại tiếp tục đi lang thang ra ngoài đường, đến từng nhà hành khất.
+Người mẹ nhìn theo bà, nói với con:
+– Thật đáng thương cho bà cụ! Ngần này tuổi rồi vẫn phải vất vả mưu sinh kiếm sống!
+Đêm hôm ấy, bà cụ lại tiếp tục gõ cửa từng nhà trong xóm xin ngủ nhờ, nhưng nhà nào cũng cấm cửa không cho bà vào. Bà lão thở dài, lại trở về gõ cửa ngôi nhà của hai mẹ con xin ngủ. Người mẹ sai con đi dọn cơm cho bà cụ ăn, còn mình thì đi chuẩn bị chỗ ngủ cho bà.
+Đến giữa đêm khuya, hai mẹ con nhìn thấy chỗ bà cụ nằm sáng rực lên. Không thấy bà cụ lở lớt đâu nữa mà thay vào đó là một con giao long to lớn đang cuộn mình nằm ngủ, đầu gác lên xà nhà, đuôi thò xuống đất.
+Hai mẹ con kinh hãi, rụng rời chân tay không kêu lên được tiếng nào, đành trùm chăn kín mít, phó mặc cho số phận.
+Sáng hôm sau, không thấy con giao long đâu cả, bà cụ đã tỉnh dậy, chuẩn bị lên đường. Trước khi đi, bà nói:
+– Hai mẹ con nhà chị là người tốt, sẽ được trời phù hộ. Những kẻ mang tiếng thờ Phật mà lại không có tình người xứng đáng phải chịu cảnh trầm luân. Vùng này sắp có lụt lội, chị hãy cầm lấy gói tro này và rắc xung quanh nhà, chúng sẽ giúp chị thoát được kiếp nạn. Hãy nhớ nội trong đêm nay không được ra khỏi nhà, hoặc nếu có đi thì dẫn nhau lên đỉnh núi cao để tranh.
+Người mẹ biết đây không phải bà cụ bình thường, mà do con giao long hóa phép thành. Vốn bản chất lương thiện, bà liền hỏi bà cụ:
+– Vậy bà có cách nào để cứu được mọi người khỏi kiếp nạn này không?
+Bà cụ suy nghĩ một lát rồi nhặt lấy một hạt thóc, tách vỏ ra làm đôi, đưa cho hai mẹ con, rồi nói:
+– Hai vỏ trấu này sẽ giúp mẹ con nhà chị làm việc thiện.
+Nói xong bà cụ biến mất. Hai mẹ con lo lắng nhìn nhau, vội vàng rắc tro xung quanh nhà. Họ cũng không quên chạy đi báo cho những người quanh đấy, nhưng ai nghe xong câu chuyện không cười phá lên thì cũng bảo hai mẹ con đặt điều xằng bậy.
+Quả nhiên, tối hôm ấy, khi mỏi người còn đang mải làm lễ bái thần phật thì tự dưng có một cột nước lớn phun từ dưới đất lên. Nước phun xối xả càng lúc càng mạnh. Chỉ trong chớp mắt đã ngập đến đầu gối. Lúc này mọi người mới hốt hoảng chen nhau tìm đường thoát thân. Những đồ cúng lễ, hương khói bị vứt lại la liệt, chìm nổi trôi theo dòng nước.
+Rồi chẳng mấy chốc, nhà cửa và cây cối đều nghỉm. Duy chỉ có ngôi nhà của hai mẹ con được rắc tro xung quanh là vẫn luôn dâng cao hơn mặt nước.
+Cảm thấy xót xa trước cảnh người người bị nước lũ nhấn chìm, hai mẹ con nhớ đền lời bà cụ dặn, liền thả hai mảnh trấu bà cụ cho xuống nước. Ngay lập tức hai vỏ trấu biến thành hai chiếc thuyền. Hai mẹ con không suy nghĩ nhiều, đội mưa đội gió chèo đi cứu những người bị mắc nạn.
+Chỗ đất bị sụt xuống đấy ngày nay người ta gọi là hồ Ba Bể, còn nền nhà của hai mẹ con nổi lên trở thành một hòn đảo nhỏ trong hồ. Người dân gọi là gò Bà Gáo (đảo Bà Góa)
+
+--------------------------------------------------
+
+
+ID: story_305
+TITLE: Truyện cổ tích “Sự tích cây Vú Sữa”
+URL: https://truyendangian.com/truyen-co-tich-su-tich-cay-vu-sua
+
+CONTENT:
+Ngày xửa ngày xưa, có hai mẹ con nhà nọ sống đơn chiếc cùng nhau trong một căn nhà nhỏ. Thương con trai mồ côi bố từ khi còn bé, người mẹ hàng ngày tần tảo làm việc để có thể đủ sức trang trải cuộc sống hàng ngày. Bà dành hết tình yêu và sự hy sinh của mình cho cậu con trai.
+Được mẹ yêu chiều quá mức, cậu bé đâm ra hay vòi vĩnh, quấy khóc. Cậu thường hay tụ tập chơi bời với mấy đứa trẻ hư đi quấy phá làng xóm hoặc chơi những trò đùa tai quái khiến người khác bực tức. Có một lần nghịch dại, bị mẹ quát mắng mấy câu, cậu dỗi mẹ, vùng vằng bỏ nhà ra đi.
+Đợi mãi không thấy con về, người mẹ đi tìm con hết ngày này sang ngày khác vẫn không thấy tin tức. Còn cậu bé thì vẫn cứ lang thang nay đây mai đó,và chơi những trò chơi tai quái mà không còn bị ai quản lý nữa. Ai cho gì thì ăn, không cho thì cậu giở trò trộm cướp.
+Thấy cuộc sống tự do, đôi khi cậu bé nghĩ: “Giá như không có mẹ thì thích biết mấy! Mình sẽ tha hồ chơi bời mà không còn bị ai quản lý nữa!”
+Một hôm, đang thơ thẩn trên đường, chú thấy một đàn vịt đẻ trứng trong lều. Chú liền lấy gạch đã ném vỡ rất nhiều trứng, coi đấy như một trò tiêu khiển thú vị.
+Người chủ lều vịt đang ngủ, nghe tiếng vịt kêu hoảng sợ liền tỉnh giấc. Anh ta ngó nhìn ra ngoài qua khe cửa thì thấy cậu bé đang ném trứng. Điên tiết, anh vớ một cây gậy rất to chạy ra đuổi cậu bé. Cậu bé hốt hoảng chạy thục mạng, không dám ngoái đầu nhìn lại.
+Chạy được một quãng đường khá xa, khi chắc chắn rằng anh chủ lều vịt đã không còn đuổi nữa, cậu bé nằm gục bên vệ đường thở hổn hển. Vừa mệt vừa đói, lúc này cậu mới nhớ đến người mẹ ở nhà: “Về nhà thôi, chỉ có mẹ mới là người yêu thương và lo lắng và bảo vệ cho mình nhất.”
+Cuối cùng, sau bao ngày lặn lội, cậu bé cùng về được đến nhà mình. Cảnh vật vẫn còn đấy nhưng không thấy mẹ đâu, chỉ khác là có một cái cây lạ mọc ngay trước cửa nhà. Cậu bé cất tiếng gọi:
+– Mẹ ơi, mẹ đâu rồi. Con đã về rồi đây!
+Cậu gọi mãi, không thấy có tiếng đáp lại. Thất vọng, cậu ngồi xuống bên gốc cây bật khóc. Bỗng nhiên cây xanh run rẩy, đơm hoa kết trái một cách nhanh chóng. Trong phút chốc, đã cho ra những quả da căng mịn và xanh óng ánh.
+Cậu bé còn chưa hết ngạc nhiên, thì quả chín to nhất rụng xuống tay cậu. Đang cơn đói khát, cậu đưa quả lạ ấy lên miệng, cắn ngay một miếng rõ to. Nhưng cậu phải nhăn mặt lè ra ngay vì chát quá.
+Quả thứ hai lại rơi xuống xuống tay chú. Lần này, chú lột vỏ ra, rồi cắn ngay một miếng, nhưng cứng quá vì cắn phải hạt.
+Quả thứ ba tiếp tục rơi xuống tay chú. Chú vội vàng xoay quanh trái chín cho mềm ra, thì thấy trong trái nứt ra một kẽ nhỏ, một dòng sữa màu trắng trào. Chú ngửa mồm uống dòng sữa ấy, vị ngọt thơm y như dòng sữa của mẹ. Sau khi uống xong, cậu bé có cảm giác đó rất quen thuộc, khoan khoái đến lạ thường.
+Cậu bé đâu có biết, vì thương nhớ cậu, người mẹ đã ngồi trước hiên nhà khóc rất nhiều ngày. Đến khi kiệt sức, bà ngã xuống và hóa thành một cây xanh mọc lên trước cửa, vẫn hàng ngày đợi cậu về.
+Cậu bé ôm lấy cây. Vỏ cây xù xì như bàn tay tần tảo của mẹ, lá cây một mặt xanh bóng, một mặt đỏ hoe như mắt người mẹ khóc cạn nước chờ con. Cậu nghe vẳng vẳng bên tai tiếng lá rì rào:
+“Ăn trái ba lần mới biết trái ngon Con có lớn khôn mới hay lòng mẹ.”
+Đúng là tiếng của mẹ rồi! Chú bé òa lên khóc nức nở. Cây xanh lại run rẩy xòe những tán cây ra ôm lấy cậu bé, giống như người mẹ đang yêu thương, vỗ về con cái.
+Thời gian trôi đi, nỗi nhớ thương về mẹ cũng dần nguôi ngoai. Cậu bé giờ đã trưởng thành hơn, không còn làm những điều khiến người khác bực tức, căm ghét nữa. Cậu đã biết trân quý hơn về ý nghĩa và giá trị của cuộc sống.
+Cậu mang những trái cây thơm ngọt ấy chia sẻ cho những người bạn của mình và kể cho họ nghe câu chuyện về người mẹ tuyệt vời, về những sai lầm mình đã mắc phải. Mọi người đều ngậm ngùi và tự hứa với bản thân phải cố gắng chăm ngoan hơn để không khiến cho mẹ phải phiền lòng.
+Thấy cây ra trái thơm mát, ăn vào thấy khoan khoái, nên mọi người lấy hạt gieo trồng khắp nơi và đặt cho tên gọi là cây vú sữa.
+
+--------------------------------------------------
+
+
+ID: story_306
+TITLE: Cô bé quàng khăn đỏ [Truyện cổ tích cho bé]
+URL: https://truyendangian.com/co-be-quang-khan-do
+
+CONTENT:
+[alert style=”danger”]
+Cô bé quàng khăn đỏ là truyện cổ tích nổi tiếng trích trong tập Truyện thần tiên của nhà văn Pháp Charles Perrault (thế kỷ 17), nhắc các bé phải cảnh giác với những người lạ mặt cũng như luôn ghi nhớ lời mẹ dặn.
+Truyện có nhiều biến thể khác nhau, trong đó có hai bản phổ biến nhất được kể bởi Perrault và anh em nhà Grimm. Truyendangian.com giới thiệu đến phụ huynh và các bé câu chuyện của Perrault, vì nó đã gắn liền với tuổi thơ của nhiều thế hệ.
+[/alert]
+
+Ngày xưa, có một cô bé được bà tặng cho chiếc khăn quàng màu đỏ. Cô bé thích lắm, đi đến đâu cũng quàng chiếc khăn bên mình, dần dần mọi người quen với hình ảnh ấy nên gọi cô là cô bé quàng khăn đỏ.
+Một hôm, nghe tin bà bị ốm, mẹ liền vào bếp, chuẩn bị những chiếc bánh ngon nhất, rồi bảo Khăn đỏ mang sang biếu bà. Khăn đỏ háo hức sang nhà bà lắm, cô bé dậy từ sớm chuẩn bị đồ. Và như thường lệ, cô cũng quàng chiếc khăn màu đỏ lên cổ, cẩn thận đặt từng chiếc bánh nóng hổi vào giỏ mang đi.
+Khi ra đến cổng, mẹ Khăn đỏ không quên dặn dò:
+– Con nhớ đi nhanh rồi về sớm nhé. Khi đi qua rừng phải hết sức cẩn thận, vì có rất nhiều loài thú gian xảo và nguy hiểm.
+– Vâng, thưa mẹ. Con sẽ đi tới nơi, về đến chốn ạ! – Khăn đỏ trả lời mẹ.
+Mẹ Khăn đỏ nhắc nhở thêm:
+– Trên đường đi, nếu có gặp người lạ, con chớ có vội tin ngay những lời họ nói nhé! Phải luôn tỉnh táo và đề phòng mọi tình huống có thể xảy ra.
+– Vâng ạ! Con nhớ rồi! Mẹ cứ yên tâm!
+Thế rồi cô bé quàng khăn đỏ mang theo giỏ bánh tung tăng bước đi. Mẹ Khăn đỏ ra cửa tiễn con, đợi đến khi khuất bóng cô bé trên đường bà mới vào tiếp tục công việc của mình.
+Đây là lần đầu tiên Khăn đỏ sang nhà bà một mình. Mọi lần cô bé hay đi cùng mẹ, nhưng hôm nay mẹ có việc bận nên em đi một mình. Đường sang nhà bà khá xa, phải đi qua một cánh rừng ít người qua lại.
+Mỗi lần vào trong rừng, Khăn đỏ tỏ ra vô cùng thích thú. Cô thường ngắt những bông hoa đẹp nhất cài lên mái tóc óng mượt của mình, hay đuổi theo lũ bướm vàng bay dập dờn trước mặt, đôi khi lại thả hồn nghe những tiếng chim rừng đua nhau líu lo khoe giọng.
+Đang đắm chìm trong khung cảnh thiên nhiên thơ mộng, Khăn đỏ không hề biết có một con sói đã đi theo cô bé từ lâu. Đợi khi cô bé dừng lại ngắm những bông hoa rừng ở ven đường khoe sắc, con sói từ từ bước đến hỏi:
+– A, chào cô bé quàng khăn đỏ, cô đi đâu thế?!
+Khăn đỏ chưa gặp sói bao giờ nên không hề biết đây là loài vật gian ác, nguy hiểm trong rừng. Cô thản nhiên trả lời:
+– Mẹ tôi bảo tôi mang bánh cho bà, vì bà đang bị ốm.
+– Ôi, đúng thật là một cô bé ngoan và hiếu kính.
+Sói nhìn cô bé quàng khăn đỏ một lát, rồi chợt nghĩ ra một mưu kế hay, nó cất tiếng hỏi tiếp:
+– Thế nhà bà cô ở đâu? Có xa đây không?
+– Nhà bà tôi ở sau cánh rừng này. Ra khỏi rừng, đi thêm một đoạn nữa là đến. Cái nhà bằng gỗ, có ống khói đầu tiên ấy.
+– Thế cũng sắp đến rồi. Mà vẫn còn sớm, sao cô không ở trong rừng chơi thêm một lát nữa. Ở bên kia, tôi thấy có nhiều hoa đẹp lắm, bông nào cũng to và toả hương thơm ngào ngạt.
+Nghe nói đến hoa, Khăn đỏ bỗng nhiên quên hết lời mẹ dặn. Trong đầu Khăn đỏ lúc này chỉ muốn chạy ngay đến, ngắm những bông hoa rừng đang toả hương, khoe sắc.
+Thấy Khăn đỏ háo hức, sói chỉ đường cho cô bé đi sâu vào rừng. Còn nó hí hửng, chạy một mạch đến nhà bà của Khăn đỏ theo như những gì cô bé mô tả. Vừa chạy sói vừa nghĩ: “Ta sẽ đến ăn thịt bà cô bé trước, sau đó nằm đấy đợi Khăn đỏ đến, rồi ăn thịt tiếp cô bé.”
+Sói khoái chí, cười vang cả cánh rừng!
+Đến nơi, sói gõ cửa cửa:
+– Ai đấy?
+– Cháu là Khăn đỏ đây bà ơi. Bà mở cửa cho cháu với. Mẹ bảo cháu mang bánh sang biếu bà ạ!
+– A, Khăn đỏ đến thăm bà đấy à! Cháu vào nhà đi, bà không chốt cửa đâu, cháu cứ đẩy mà vào.
+Bà của Khăn đỏ thất kinh khi nhìn thấy sói. Còn chưa kịp kêu lên tiếng nào, sói đã lao đến, nuốt chửng bà cụ vào trong bụng.
+Sau đó, con sói kiếm mở tủ ra, kiếm lấy một bộ quần áo của bà cụ mặc vào rồi lên giường đắp chăn nằm ngủ.
+Lúc này, cô bé quàng khăn đỏ đã hái được rất nhiều hoa, cô bó lại thành một bó rất đẹp. Cô cầm lấy giỏ bánh định tung tăng đi tiếp thì nhớ ra việc cần làm. Khăn đỏ vội vã quay lại đi đến nhà bà.
+Thấy cửa mở, cô bé bước vào. Nhưng thấy nhà bà hôm nay sao cứ là lạ khác mọi ngày. Nhìn thấy bà đang trùm kín mặt nằm trên giường, cô bé cất tiếng hỏi:
+– Bà ơi, sao hôm nay tai bà to thế?
+– Khăn đỏ đấy à! Tai bà to để bà nghe cháu nói được rõ hơn,
+– Bà ơi, sao mắt bà to thế?
+– Mắt bà to để bà nhìn cháu rõ hơn.
+– Bà ơi, sao tay bà to thế?
+– Ta bà to để bà ôm cháy được chặt hơn.
+– Bà ơ, sao mồm bà to thế?
+– Mồm bà to để bà ăn thịt cháu!
+Nói chưa dứt lời, con sói gian ác đã chồm dậy, nhảy đến và nuốt chửng cô bé quàng khăn đỏ vào bụng. Khăn đỏ chỉ kịp hét lên một tiếng thất thanh rồi im bặt. Con sói leo trở lại giường, trùm kín chăn ngủ tiếp.
+Thật may mắn làm sao. Đúng lúc ấy có bác thợ săn đi qua, nghe thấy tiếng kêu của Khăn đỏ vội xông vào nhà. Nhìn thấy con sói đang nằm trên giường, bác lấy súng bắn vào đầu con sói gian ác. Bác nghĩ chắc sói vừa ăn thịt bà cụ, còn có thế cứu được, nên vội vàng lấy dao từ từ rạch bụng sói ra.
+Vừa rạch được một đoạn thì thấy bụng sói động đậy, cô bé quàng khăn đỏ chui ra, vừa nói vừa khóc:
+– Trời ơi! Cháu sợ quá! Huhu! Bên trong bụng sói tối đen như mực ấy!
+Bác thợ săn kéo bà cụ ra ngoài. Bà cụ cũng được một phen hoảng sợ.
+Sau đó, cả ba người rửa chân tay và thay quần áo sạch sẽ rồi ngồi quây quần cùng nhau ăn bánh. Bác thợ săn lột da sói và từ biệt hai bà cháu Khăn đỏ ra về.
+Khăn đỏ vẫn chưa hết run. Cô bé thầm nghĩ: “Từ nay nhất định mình sẽ không được quên lời mẹ dặn nữa!”
+
+--------------------------------------------------
+

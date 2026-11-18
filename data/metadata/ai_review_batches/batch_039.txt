@@ -1,0 +1,195 @@
+
+Bạn là người đánh giá Dataset cho dự án Vietnamese Comic Generation.
+
+Hãy đánh giá từng truyện để xác định mức độ phù hợp
+khi chuyển thành comic khoảng 4 cảnh.
+
+Đánh giá 4 tiêu chí, mỗi tiêu chí từ 0 đến 2:
+
+1. characters_clear
+0: Không rõ nhân vật
+1: Nhân vật tương đối rõ
+2: Nhân vật rõ ràng
+
+2. events_clear
+0: Sự kiện không có trình tự rõ
+1: Trình tự tương đối rõ
+2: Trình tự sự kiện rõ ràng
+
+3. scene_suitable
+0: Không phù hợp tạo comic
+1: Có thể tạo comic nhưng cần chỉnh sửa
+2: Rất phù hợp để chia khoảng 4 cảnh
+
+4. ending_clear
+0: Không có kết thúc rõ
+1: Kết thúc tương đối rõ
+2: Kết thúc rõ ràng
+
+Tổng điểm score = tổng 4 tiêu chí, tối đa 8.
+
+selected_candidate:
+- true: Nếu score >= 6 và phù hợp tạo comic
+- false: Nếu không phù hợp
+
+difficulty:
+- easy
+- medium
+- hard
+
+Không bịa thêm sự kiện.
+Không đánh giá chỉ dựa trên tên truyện.
+Đánh giá dựa trên nội dung được cung cấp.
+
+Trả về JSON array hợp lệ, không Markdown.
+
+Mỗi truyện:
+
+{
+  "id": "story_001",
+  "title": "...",
+  "characters_clear": 0,
+  "events_clear": 0,
+  "scene_suitable": 0,
+  "ending_clear": 0,
+  "score": 0,
+  "selected_candidate": false,
+  "difficulty": "easy",
+  "reason": "..."
+}
+
+
+==================================================
+STORIES TO EVALUATE
+==================================================
+
+
+ID: story_210
+TITLE: Treo biển [Truyện cười dân gian Việt Nam]
+URL: https://truyendangian.com/treo-bien
+
+CONTENT:
+1. Ở một cửa hàng bán cá làm cái biển, đề mấy chữ to tướng:
+” Ở đây có bán cá tươi” .
+Vừa treo biển lên, có người qua đường xem, cười bảo:
+– Nhà này xưa nay quen bá cá ươn hay sao mà bây giờ lại phải đề biển là “bán cá tươi”?
+Chủ cửa hàng nghe nói thế, xóa ngay chữ “tươi” đi.
+2. Hôm sau, có người khác đến mua cá, cũng nhìn lên biển, cười bảo:
+– Người ta chẳng nhẽ đến hàng hoa mua cá hay sao mà phải đề là “ở đây”!
+Chủ cửa hàng nghe nói, bỏ ngay hai chữ “ở đây” đi.
+3. Cách vài hôm lại có một người khác đến mua cá, cũng nhìn lên biển, cười bảo:
+– Ở đây chẳng bán cá thì bầy cá ra để khoe hay sao mà phải đề là “có bán”?
+Chủ cửa hàng nghe nói, lại bỏ ngay hai chữ “có bán” đi. Thành ra treo trên biển chỉ còn mỗi một chữ “cá”. Anh ta nghĩ bụng chắc từ bây giờ không còn ai bắt bẻ gì nữa.
+4. Vài hôm sau, người láng giềng sang chơi, nhìn lên biển, nói:
+– Ôi dào, chưa đi đến đầu phố đã ngửi thấy mùi tanh. Đến gần nhà thấy đầy những cá, ai chẳng biết là bán cá mà còn phải đề biển làm gì?
+Thế là nhà hàng cất luôn nốt cái biển đi.
+
+--------------------------------------------------
+
+
+ID: story_211
+TITLE: Há miệng chờ sung [Truyện cười dân gian Việt Nam]
+URL: https://truyendangian.com/ha-mieng-cho-sung
+
+CONTENT:
+Há miệng chờ sung [hay Đại Lãn chờ sung] là câu nói phê phán và đả kích những kẻ lười biếng không chịu làm ăn, chỉ luôn chực chờ hưởng lợi vào sự may mắn.
+Tay làm hàm nhai, tay quai miệng trễ – Tục ngữ Việt Nam –
+Xưa có một chàng mồ côi cha mẹ nhưng chẳng chịu học hành, làm lụng gì cả. Hàng ngày anh ta cứ nằm ngửa dưới gốc cây sung, há miệng thật to , chờ cho sung rụng vào thì ăn.
+Nhưng đợi mãi mà chẳng qua sung nào rơi trúng miệng. Bao nhiêu quả đều rơi chệch ra ngoài.
+Chợt có người đi qua đường, chàng lười gọi lại, nhờ nhặt sung bỏ hộ vào miệng. Không may, gặp phải một tay cũng lười. Hắn lấy hai ngón chân cặp quả sung, bỏ vào miệng cho chàng lười. Anh chàng bực lắm, gắt:
+– Ôi chao! Người đâu mà lười thế!
+
+--------------------------------------------------
+
+
+ID: story_212
+TITLE: Câu chuyện Gà Tơ đi học [Truyện mầm non]
+URL: https://truyendangian.com/ga-to-di-hoc
+
+CONTENT:
+Buổi sáng, Gà Mẹ gọi Gà Tơ:
+– Con trai bé bỏng ơi, mau dậy đi học nào!
+Nhưng Gà Tơ cứ nhắm tịt mắt, phụng phịu:
+– Ứ ừ, con buồn ngủ lắm ! Cho con ngủ thêm một lúc nữa!
+Gà Mẹ dỗ dành:
+– Phải dậy đi học chứ con!
+Gà Tơ đáp:
+– Con biết chữ rồi mà: O tròn như quả trứng gà, phải không ạ?
+Nói rồi, gà Tơ lại nhắm mắt ngủ tiếp.
+Ngày nào Gà Tơ cũng đi học muộn như thế. Lúc tỉnh dậy thì các bạn Cún Bông, Vịt Xám, Mèo Tam Thể đã đi học cả. Gà Mẹ đi kiếm mồi vắng, Gà Tơ lại lang thang đi chơi, không đến lớp học.
+Hôm ấy, cô Gà Mái Mơ tổ chức cho cả lớp đi cắm trại. Vì Gà Tơ không đi học nên cô đã nhờ Vịt Xám mang giấy thông báo đi cắm trại về nhà cho Gà Tơ. Gà Tơ cầm tờ giấy, xoay ngược, xoay xuôi nhưng chẳng hiểu gì, chỉ thấy có rất nhiều quả trứng: quả thì có râu, quả thì đội nón, quả thì lại có móc dài. Gà Tơ nghĩ: “Ôi dào, chữ thì cũng chỉ như những quả trứng thôi! Có gì đâu mà học!” và quẳng tờ giấy đó đi.
+Đến hôm đi cắm trại, cả lớp chờ mãi vẫn không thấy Gà Tơ tới. Đến khi ông Mặt Trời tỏa nắng vàng rực rỡ, cả lớp mới lên đường.
+Các bạn nhỏ dựng trại bên bờ hồ nước trong xanh và múa hát thật vui vẻ. Bỗng Cún Bông vểnh tai lắng nghe: hình như có tiếng ai khóc ở đâu đây… Cả lớp ùa đi tìm thì thấy Gà Tơ đang ngồi khóc thút thít bên bụi duối. Thì ra Gà Tơ đi chơi xa, bị lạc đường, không về nhà được.
+Mèo Tam Thể hỏi:
+– Tại sao bạn lại ở đây một mình?
+Cún Bông cũng hỏi:
+– Chúng tớ chờ mãi, sao cậu không đi cắm trại cùng cả lớp?
+Gà Tơ đáp:
+– Vì tớ… tớ không biết!
+Vịt Xám nói ngay:
+– Tớ đã đem giấy thông báo đi cắm trại của cô Gà Mái Mơ đến cho cậu mà!
+Lúc này, Gà Tơ mới nhớ ra tờ giấy ấy. Nhưng cậu ta không biết đọc nên chẳng biết đó là tờ giấy thông báo đi cắm trại.
+Gà Tơ nghĩ: “Tất cả chỉ tại mình không chịu đi học nên không biết chữ thôi!” và cảm thấy rất xấu hổ. Lúc đó, cô Gà Mái Mơ đến xoa đầu Gà Tơ, rồi nói:
+– Con chịu khó đi học, rồi cũng sẽ biết đọc, biết viết như các bạn mà!
+Gà Tơ ấp úng xin lỗi cô giáo và hứa sẽ đi học thật chăm.
+Từ đó trở đi, chẳng đợi mẹ phải gọi, hôm nào, Gà Tơ cũng dậy thật sớm để đi học. Cậu ta còn sợ có bạn nào ngủ quên không đến lớp nên sáng nào cũng gáy “ò ó o” để gọi các bạn cùng dậy nữa.
+
+--------------------------------------------------
+
+
+ID: story_213
+TITLE: Món quà của cô giáo [Truyện cho trẻ mầm non]
+URL: https://truyendangian.com/mon-qua-cua-co-giao
+
+CONTENT:
+Hôm thứ hai đầu tuần, cô giáo Hươu Sao nói với cả lớp mẫu giáo lớn:
+– Các con sắp được nghỉ hè rồi. Tuần này, ai được phiếu bé ngoan, cô sẽ tặng cho một món quà.
+Từ hôm ấy, bé nào cũng cố gắng hát hay hơn, múa dẻo hơn và trật tự hơn khi ngồi trong lớp. Đến ngày thứ bảy, cả lớp mẫu giáo lớn hồi hộp lắm, vì bé nào cũng thích được cô giáo cho quà mà!
+Hết giờ ra chơi, các bé xếp hàng vào lớp. Bỗng Cún Đốm bá vai Gấu Xù khiến cho Gấu Xù xô và Mèo Khoang làm Mèo Khoang ngã nhào, đầu gối bị trầy da thâm tím. Mèo Khoang đau quá liền khóc òa lên. Cô giáo Hươu Sao phải lấy dầu cao xoa bóp vào chỗ đau cho Mèo Khoang.
+Giờ sinh hoạt cuối tuần, cô khen cả lớp:
+– Tất cả các con đều xứng đang nhận phiếu bé ngoan và quà của cô.
+Rồi cô đi từng bàn phát quà và phiếu bé ngoan cho các bé. Nào là những con búp bê, thú nhồi bông… trông thật ngộ nghĩnh. Lại có bạn được cô tặng cho chiếc bút chì để tập viết hoặc kẹo sô-cô-la…
+Đến lượt Gấu Xù, cô tặng cho Gấu Xù một cái ô tô đỏ rất đẹp, nhưng cậu cứ cúi mặt xuống, không đưa tay ra nhận món quà của cô giáo . Cô giáo dịu dàng hỏi:
+– Gấu Xù làm sao thế?
+Gấu Xù nói lí nhí:
+– Thưa cô, con không ngoan ạ!
+– Con hãy nói cho cô nghe nào!
+– Thưa cô, con đã xô vào Mèo Khoang làm bạn ấy bị ngã ạ.
+Cô Hươu Sao nhìn Gấu Xù trìu mến, rồi nói:
+– Đó là lúc xếp hàng, con đi hơi nhanh nên lỡ xô vào bạn. Con không cố ý làm bạn ngã, phải không nào?
+Chợt Cún Đốm ngồi bên cạnh Gấu Xù, rụt rè giơ tay. Cô hỏi:
+– Cún Đốm muốn nói gì nào?
+– Thưa cô, lỗi tại con ạ. Chính con đã bá vai bạn Gấu Xù ạ!
+Cô Hươu Sao gật đầu:
+– Cô hiểu rồi. Lần sau, khi xếp hàng, các con đừng đùa nghịch, xô đẩy nhau. Còn hôm nay, Gấu Xù và Cún Đốm vẫn nhận được quà và phiếu bé ngoan, vì các con đã thật thà, dũng cảm nhận khuyết điểm của mình.
+Nói rồi, cô giáo tặng cho mỗi bạn một chiếc ô tô đồ chơi rất đẹp. Chắc hẳn đó là thứ đồ chơi mà cả hai bạn quý nhất trong năm học mẫu giáo này.
+
+--------------------------------------------------
+
+
+ID: story_214
+TITLE: Búp Măng non [Truyện hay ý nghĩa cho bé]
+URL: https://truyendangian.com/bup-mang-non
+
+CONTENT:
+Bé đã bao giờ mhìn thấy tre chưa? Cây tre mọc thẳng, dáng cao cao, lá nhòn nhọn, trông rất đẹp. Bất kể trời gió lớn mưa to, tre vẫn thẳng vút, không bao giờ ngả nghiêng.
+Từ dưới gốc, tre mẹ sinh ra rất nhiều tre con. Tre con ngủ say dưới lòng đất, người ta thường gọi chúng là măng.
+Một ngày kia, ông Thiên Lôi trên trời gõ chiếc trống lớn “Thì thùng! Thì thùng! Đì đùng! Đì đùng!” làm cho đám măng nhỏ tỉnh giấc.
+Những giọt mưa li ti lất phất thấm nhẹ xuống mặt đất. Khi làn nước mưa thấm đến thân mình, đám măng non uống nước mưa thật no. Sau đó, chúng cựa quậy, cựa quậy, rồi dùng sức đâm xuyên lên mặt đất.
+Có một chú Măng non sức lực khỏe mạnh, thân hình mập mạp, tròn trịa. Chú mặc rất nhiều lớp áo. Măng non lớn rất nhanh, nhưng khi chuẩn bị vươn lên khỏi mặt đất thì chú cảm thấy như có cái gì đó đang cản mình lại.
+Một bạn Giun Đất trườn qua, nói:
+– Măng non ơi! Có một hòn đá to phía trên đầu bạn đấy!
+– Thế à? Tớ biết làm thế nào bây giờ?
+Giun Đất đáp:
+– Bạn thử tìm một lối khác để vươn lên mặt đất xem sao.
+Măng non bắt đầu tìm đường bên cạnh hòn đá để đâm xuyên lên khỏi mặt đất. Nó lấy hết sức mình nhích lên phía trước, song càng nhích, nó càng mệt… Măng non nản quá.
+Tre mẹ biết vậy, liền động viên Măng non:
+– Con của mẹ! Hãy dũng cảm lên! Gặp khó khăn thì phải tìm cách vượt qua con ạ!
+Măng non cố suy nghĩ, cuối cùng, chú tìm ra được một cách. Chú chuyển mình men theo mạch nước mưa thấm xuống. Lối đó đất mềm và trơn hơn. Thế là chú cố sức nhích lên.
+A! Xuyên qua mặt đất rồi. Măng non hít thật sâu luồng không khí trong lành, lòng vui phơi phới.
+Một bạn Chim Sẻ bay tới nhảy trên mặt đất tìm mồi. Thấy Măng non vừa từ khe đất nhú lên, Chim Sẻ khâm phục nói:
+– Măng non ơi, bạn giỏi quá!
+Măng non cảm thấy thật vui và tự hào. Măng non cùng với các bạn khác được ông Mặt Trời chiếu sáng và lớn lên mạnh mẽ. Từ búp Măng non , chú đã trở thành cây tre nhỏ giống như mẹ. Những cây tre nhỏ sẽ hợp thành một rừng tre mới.
+
+--------------------------------------------------
+

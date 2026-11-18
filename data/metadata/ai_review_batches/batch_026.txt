@@ -1,0 +1,237 @@
+
+Bạn là người đánh giá Dataset cho dự án Vietnamese Comic Generation.
+
+Hãy đánh giá từng truyện để xác định mức độ phù hợp
+khi chuyển thành comic khoảng 4 cảnh.
+
+Đánh giá 4 tiêu chí, mỗi tiêu chí từ 0 đến 2:
+
+1. characters_clear
+0: Không rõ nhân vật
+1: Nhân vật tương đối rõ
+2: Nhân vật rõ ràng
+
+2. events_clear
+0: Sự kiện không có trình tự rõ
+1: Trình tự tương đối rõ
+2: Trình tự sự kiện rõ ràng
+
+3. scene_suitable
+0: Không phù hợp tạo comic
+1: Có thể tạo comic nhưng cần chỉnh sửa
+2: Rất phù hợp để chia khoảng 4 cảnh
+
+4. ending_clear
+0: Không có kết thúc rõ
+1: Kết thúc tương đối rõ
+2: Kết thúc rõ ràng
+
+Tổng điểm score = tổng 4 tiêu chí, tối đa 8.
+
+selected_candidate:
+- true: Nếu score >= 6 và phù hợp tạo comic
+- false: Nếu không phù hợp
+
+difficulty:
+- easy
+- medium
+- hard
+
+Không bịa thêm sự kiện.
+Không đánh giá chỉ dựa trên tên truyện.
+Đánh giá dựa trên nội dung được cung cấp.
+
+Trả về JSON array hợp lệ, không Markdown.
+
+Mỗi truyện:
+
+{
+  "id": "story_001",
+  "title": "...",
+  "characters_clear": 0,
+  "events_clear": 0,
+  "scene_suitable": 0,
+  "ending_clear": 0,
+  "score": 0,
+  "selected_candidate": false,
+  "difficulty": "easy",
+  "reason": "..."
+}
+
+
+==================================================
+STORIES TO EVALUATE
+==================================================
+
+
+ID: story_142
+TITLE: Chàng giúp việc và lão nhà giàu keo kiệt
+URL: https://truyendangian.com/chang-giup-viec-va-lao-nha-giau-keo-kiet
+
+CONTENT:
+Ngày xưa, có một lão chủ nông trại vô cùng tham lam, lão có một người giúp việc trung thành. Người giúp việc này sau suốt ba năm làm việc khổ cực cho lão, đã nói với lão rằng:
+– Tôi đã làm việc vô cùng chăm chỉ trong một thời gian rất lâu, mong ông hãy vì thế mà trả công xứng đáng cho tôi.
+Lão chủ nông trại biết người giúp việc này rất dễ tính nên đã đưa cho chàng ba đồng xu, nói đó là tiền công trong ba năm làm việc của chàng. Chàng giúp việc cho rằng đây là số tiền rất lớn, nghĩ mình có thể du khắp nơi, nên đã bỏ số tiền đó vào túi áo, rời xa nông trại và bắt đầu cuộc hành trình ngao du của mình.
+Một hôm, khi băng qua ngọn núi, vừa đi vừa hát trên cánh đồng, chàng gặp một chú lùn. Chú lùn hỏi chàng có chuyện gì mà lại vui mừng như thế, chàng trả lời:
+– Tôi rất khỏe mạnh, trong túi tôi có một khoản tiền công lớn mà tôi đã gom góp trong ba năm, còn có gì lo lắng nữa.
+Chú lùn thăm dò:
+– Tôi rất nghèo, họ vọng anh có thể cho tôi số tiền đó.
+Chàng giúp việc lương thiện nghĩ, người đó lùn như thế, hẳn anh ta rất nghèo khó, chàng liền đưa hết ba đồng xu cho chú lùn. Để báo đáp, chú lùn sẵn lòng ban cho chàng ba điều ước. Chàng giúp việc vô cùng vui mừng nói:
+– Thứ nhất, tôi cần một cung tên, có chiếc cung tên đó rồi, muốn bất cứ thứ gì tôi cũng có thể bắn trúng; thứ hai, tôi cần một cây vĩ cầm, khi tôi chơi nhạc , tất cả những người nghe thấy tiếng đàn của tôi đều sẽ nhảy múa; thứ ba, tôi muốn không ai từ chối mong muốn thứ hai của tôi,
+Nghe xong, chú lùn liền làm phép biến hóa ra một chiếc cung tên và một cây đàn rồi đưa cho chàng trai, sau đó chú biến mất.
+Chàng giúp việc thấy thật kỳ lạ, rồi chàng vui vẻ tiếp tục lên đường. Không lâu sau, chàng gặp lại lão keo kiệt, ở nơi họ gặp nhau có một chú chim đang hót líu lo trên cành cây. Lão keo kiệt nói ông nguyện đổi tất cả tiền để có được chú chim đó. Vì thế chàng giúp việc giương cung lên, ngắm trúng mục tiêu, chú chim bị bắn thương lập tức rơi vào bụi cây. Lão keo kiệt liền chui vào bụi cây tìm chú chim, nhưng lão không chịu đưa tiền cho chàng trai. Khi lão vừa chui vào trong đó, chàng giúp việc liền lấy cây vĩ cầm ra và say sưa với tiếng đàn. Lão keo kiệt bắt đầu nhảy múa. Càng nhảy càng cao. Những cây gai trong bụi cây làm cho quần áo lão rách tả tơi, cơ thể lão bị trầy xước, đau đớn và tứa máu.
+Lão keo kiệt khóc lóc van xin:
+– Chao ôi ! Hỡi Thượng đế! Xin ngài đừng chơi đàn nữa. Tôi đã làm gì mà phải chịu tội như thế?
+Chàng giúp việc nói:
+– Ông thật ích kỷ và gian manh, đây chính là quả bảo mà ông phải nhận.
+Nói xong, chàng lại chơi một bản nhạc khác. Lão keo kiệt cầu cứu chàng và đồng ý đưa hết số tiền trong túi cho chàng.
+Chàng giúp việc cầm lấy tiền, cất cây đàn đi, vui mừng nhảy nhót trên đường. Chàng vừa đi thì lão keo kiệt nhếch nhác chui ra khỏi bụi cây. Lão đến quan phủ tố cáo có một kẻ xấu đã lừa lấy hết tiền của mình, sau lưng của kẻ lừa đảo đó khoác một chiếc cung tên, trên cổ hắn đeo một cây vĩ cầm. Vị quan phái người đi tìm chàng trai, chẳng bao lâu sau họ đã bắt được và đưa chàng về phủ quan.
+Chàng giúp việc nói:
+– Không đúng như thế. Sự thật là sau khi tôi bắn trúng con chim ông ta đã trả tiền công cho tôi.
+Nhưng vị quan không tin, liền bác bỏ lời biện hộ của chàng và phán quyết chàng chịu hình phạt treo cổ.
+Khi đứng lên giá treo cổ, chàng nói:
+– Thưa đại quan, xin ngài hãy đáp ứng nguyện vọng cuối cùng của tôi.
+Viên quan trả lời:
+– Chỉ cần đó không phải là yêu cầu thả ngươi ra thì ta đều đồng ý
+– Tôi chỉ muốn biểu diễn một khúc nhạc ngắn.
+Lão keo kiệt nghe thấy chàng nói thế liền lớn tiếng:
+– Dù thế nào thì ngài cũng không được nghe hắn chơi đàn!
+Viên quan lại nói:
+– Hãy để anh ta biểu diễn!
+Thực ra, đây chính là món quà thứ ba mà người lùn đã tặng chàng, không ai có thể từ chối yêu cầu cuối cùng của chàng.
+Chàng giúp việc lấy đàn ra, bắt đầu chơi. Khi giai điệu đầu tiên vang lên, viên quan, tên chủ nông trại và tất cả mọi người đều bắt đầu nhảy múa. Giai điệu thứ hai vang lên, vị quan phủ liền thả chàng ra và cũng nhảy múa. Đến khi chàng bắt đầu biểu diễn, tất cả mọi người, kể cả người đứng xem hành hình cũng đều đổ ra, họ nhảy múa vô cùng vui vẻ và hăng hái, nhưng được một lúc họ đều rất mệt mỏi. Bản nhạc chưa kết thúc thì họ cũng không thể, nhảy múa được. Họ bắt đầu kêu gào, xin chàng giúp việc không chơi nhạc nữa, nhưng chàng không dừng lại ngay, mãi đến khi viên quan đồng ý không chỉ tha tội cho chàng, mà còn đưa cho chàng 100 đồng vàng thì chàng mới dừng lại.
+Sau đó, chàng gọi lão keo kiệt lại và nói:
+– Bây giờ ông hãy nói cho mọi người biết, số tiền này ông đã làm gì mà có được. Nếu không nói, tiếng nhạc phát ra chỉ mình ông nghe thấy.
+Nói xong, chàng lại đem cây đàn ra. Lão keo kiệt bị dọa một trận, đành thừa nhận trước mặt mọi người:
+– Số tiền đó là do tôi lừa gạt người khác mà có. Tôi thừa nhận là đã hứa trả công cho anh ta bằng tất cả tiền trong túi nếu anh ta có thể bắt chú chim kia cho tôi.
+Chàng giúp việc bỏ cây đàn xuống, đi khỏi giá treo cổ, còn lão keo kiệt bị lôi lên để thay thế cho vị trí của chàng trai.
+
+--------------------------------------------------
+
+
+ID: story_143
+TITLE: Chú Khỉ dũng cảm [Truyện ngụ ngôn ý nghĩa cho bé]
+URL: https://truyendangian.com/chu-khi-dung-cam
+
+CONTENT:
+Khỉ con tuy đáng yêu nhưng chú rất nhát gan, khi làm việc gì chú đều cần có Khỉ mẹ ở bên.
+Một hôm, Khỉ mẹ đang nấu ăn trong bếp, do không cẩn thận nên bị ngã xuống nền nhà. Khỉ mẹ đau đến nỗi toát cả mồ hôi, cố gắng thế nào cũng không thể đứng lên được. Khỉ con thấy thế sợ hãi khóc thét lên:
+– Mẹ, mẹ, mẹ làm sao thế?
+Khỉ mẹ nói:
+– Con ngoan của mẹ, đừng khóc nữa, mẹ có việc muốn nhờ con làm.
+– Làm việc gì thế mẹ?
+– Mẹ muốn con đi tìm ông Sóc, nói cho ông ấy biết là mẹ không cẩn thận nên bị ngã, rồi mời ông Sóc đến khám cho mẹ.
+Khỉ con nghe xong, vội nói:
+– Không đâu! Không đâu! Mẹ ơi con sợ. Con dìu mẹ đi tìm ông Sóc có được không?
+– Con ngốc ạ, hình như chân mẹ bị gãy rồi, không cử động được nữa.
+– Nhưng mẹ ơi, con sợ lắm!
+– Con đừng sợ, mẹ sẽ dạy con một cách, khi con thấy sợ hãi thì hãy nói to rằng: “Tôi là chú khỉ dũng cảm , tôi không sợ!”. Làm như thế con sẽ không sợ nữa. Hãy tin lời mẹ. Mau đi đi con!
+Nhìn mẹ đau đớn như thế, Khỉ con đành lùi lũi đi tìm ông Sóc.
+Nơi chữa bệnh của ông Sóc nằm trên một cây lớn ở bên cạnh nhà Khỉ con. Cây thật cao ! Khỉ con lấy hết dũng khí trèo lên cây. Bỗng nhiên nó nhìn thấy một con sâu nhỏ. Như thường ngày, nó rất sợ con sâu non đó. Nó run cầm cập và toát hết mồ hôi: “Mẹ ơi ! Con sợ”. Nhưng nghĩ đến mẹ đang đau đớn như thế khi con tự nói với chính mình: “Tôi là chú khỉ dũng cảm, tôi không sợ”. Nhưng tiếng nói vẫn còn quá nhỏ, nói xong nó vẫn cảm thấy có chút sợ hãi. Nó lại nói to hơn: “Tôi là chủ Khỉ dũng cảm, tôi không sợ!”. Sau đó nó tránh được con sâu nhỏ và leo lên cây.
+Lên đến ngọn cây, Khỉ con thở một hơi dài và nhẹ nhàng gõ cửa:
+– Ông Sóc ơi ! Mẹ cháu bị ngã gãy chân rồi. Nhờ ông đến khám cho mẹ cháu với ạ!
+Ông Sóc mở cửa và ngạc nhiên nhìn nó:
+– Khỉ con, cháu tự mình trèo lên đây à, thật là một đứa bé ngoan! Đi mau nào ! Ông sẽ cùng cháu về khám bệnh cho mẹ cháu!
+Ông Sóc đến nhà Khỉ con, mau chóng đắp thuốc cho khí mẹ. Chân của Khỉ mẹ rất nhanh khỏi. Khỉ me nhìn mọi người và nói:
+– Ai nói Khỉ con của chúng ta nhát gan, thực ra Khỉ con của mẹ dũng cảm nhất!
+
+--------------------------------------------------
+
+
+ID: story_144
+TITLE: Con ngựa gỗ biết bay [Truyện cổ tích công chúa và hoàng tử]
+URL: https://truyendangian.com/con-ngua-go-biet-bay
+
+CONTENT:
+Ngày xưa, ở nước Ấn Độ có một chàng trai rất thông minh, chàng đã làm ra một con ngựa gỗ biết bay. Chàng đem chú ngựa đó tặng cho quốc vương nước Ba Tư, yêu cầu quốc vương thưởng cho chàng một nghìn đồng vàng.
+Quốc vương không tin con ngựa gỗ đó có thể bay được, vì thế đã lệnh cho người Ấn Độ đến biểu diễn. Người Ấn Độ cưỡi lên con ngựa gỗ, buộc chặt dây vào bên trái cổ của chú ngựa, chú ngựa quả nhiên bay lên.
+Quốc vương và các vị quan văn, quan võ vô cùng kinh ngạc, hoàng tử dứng bên cạnh cũng muốn đích thân cưỡi nó.
+Hoàng tử cưỡi lên ngựa gỗ, chú ngựa liền đưa chàng bay vút lên trời, càng bay càng cao và dần dán không nhìn thấy mặt đất nữa. Chàng quan sát kỹ thân ngựa, phát hiện ở phía sau tai phải của con ngựa gỗ có một cái nút. Chàng ấn vào cái nút đó, quả nhiên chú ngựa dần dần hạ xuống, cuối cùng họ hạ xuống hiên của một cung điện nguy nga.
+Ở đó, qua khung cửa sổ, chàng nhìn thấy một nàng công chúa đang ngồi trên giường. Vẻ đẹp của nàng khiến chàng say đắm. Chàng lặng lẽ tiến vào trong phòng và đứng trước mặt công chúa.
+Công chúa ngẩng đầu bỗng nhìn thấy một chàng hoàng tử tuấn tú nên vô cùng kinh ngạc. Hoàng tử nói:
+– Ta là hoàng tử nước Ba Tư, ta đã cưỡi ngựa gỗ bay đến đây. Ta rất đói, nàng có thể giúp ta không?
+Nàng công chúa vui mừng trả lời:
+– Ta là công chúa nước Bangladesh, rất vui mừng vì đã gặp chàng.
+Nàng sai người hầu chuẩn bị một mâm cơm thịnh soạn.
+Trong một thời gian ngắn, giữa hoàng tử và công chúa đã nảy sinh tình cảm sâu sắc.
+Hoàng tử quyết định đến gặp quốc vương nước Bangladesh để cầu hôn nàng công chúa. Cchàng nói:
+Thần là hoàng tử nước Ba Tư. Xin ngài hãy đồng ý lời cầu hôn của thần, hãy gả công chúa cho thần.
+Quốc vương không đồng ý, lập tức gọi một đội quân trang bị vũ khí đến. Hoàng tử hiểu rằng quốc vương muốn giết chàng, vì thế, chàng yêu cầu cho chàng cưỡi lên con ngựa gỗ và cùng đấu võ. Quốc vương đồng ý, ngài phải người đem con ngựa gỗ đến. Hoàng tử trèo lên ngựa, bay vút lên cao và trở về đất nước của mình. Quốc vương nước Ba Tư nhìn thấy hoàng tử trở về an toàn thì vô cùng mừng rỡ và lập tức thả người Ấn Độ đã bị bắt ra. Nhưng người Ấn Độ vì thế mà đem mối hận trong lòng.
+Hoàng tử sau khi trở về, ngày đêm nhớ nhung công chúa, vì thế đã lén trộm con ngựa gỗ rồi lại bay đến nước Bangladesh. Tìm thấy công chúa, hai người mừng vui thắm thiết và thề sẽ không bao giờ rời xa nhau nữa. Hoàng tử vui mừng đưa công chúa về đất nước Ba Tư. Chàng để công chúa và ngựa gỗ ở lại trong hoa viên bên ngoài thành rồi trở về bàn với quốc vương chuẩn bị nghi thức đón chào long trọng.
+Nhưng khi hoàng tử đến đón công chúa, chàng không thấy nàng và con ngựa gỗ đâu nữa. Hóa ra sau khi hoàng tử đưa công chúa đến ngự hoa viên không lâu, người Ấn Độ nọ đã đến đó, nhìn thấy con ngựa gỗ biết bay của mình và nàng công chúa vô cùng xinh đẹp. Anh ta nhanh chóng chạy đến trước mặt công chúa và nói:
+– Công chúa, tôi là người hầu trung thành của hoàng tử, phụng mệnh ngài đến đón nàng.
+Công chúa tin đó là sự thật và không do dự cùng anh ta cưỡi lên con ngựa gỗ.
+Người Ấn Độ điều khiển chú ngựa bay thẳng đến Hy Lạp. Công chúa phát hiện ra thì đã quá muộn. Đúng ngày hôm đó, quốc vương Hy Lạp lệnh cho binh lính ra ngoài săn bắn, nhìn thấy con ngựa gỗ rất kỳ lạ, liền truyền lệnh bắt lại. Công chúa khóc lóc kể lại sự tình. Quốc vương Hy Lạp vô cùng tức giận, ngài lệnh đánh phạt người Ấn Độ, sau đó đuổi anh ta ra khỏi nước mình và có lòng tốt giữ công chúa ở lại.
+Nhưng công chúa ngày đêm nhung nhớ hoàng tử và nàng lâm bệnh nặng.
+Hoàng tử lặn lội đến Hy Lạp, nghe nói công chúa đang ở trong cung và mắc bệnh nặng, liền hóa trang thành một thầy thuốc và đến hoàng cung. Chàng nói với quốc vương Hy Lạp là chàng có thể chữa khỏi bệnh cho công chúa, nhưng phải để công chúa đứng ở trên mảnh đất trống ở bên ngoài.
+Hoàng tử đưa công chúa đến một nơi đất trống điều khiển ngựa gỗ và cùng nàng bay thẳng về Ba Tư. Quốc vương và hoàng hậu biết tin hoàng tử đã trở về, thì vô cùng mừng rỡ.
+Một tháng sau, hoàng tử và công chúa đã cử hành hôn lễ long trọng, khắp nơi trên đất nước đều hân hoan vui mừng. Hai người luôn yêu thương nhau và họ có cuộc sống vô cùng vui vẻ, hạnh phúc.
+
+--------------------------------------------------
+
+
+ID: story_145
+TITLE: Công chúa Thủy tề và chàng Xát-cô [Truyện cổ tích cho bé]
+URL: https://truyendangian.com/cong-chua-thuy-te-va-chang-xat-co
+
+CONTENT:
+Chuyện xảy ra vào thời mà Nô-vô-gô-rốt đã là một thương cảnh sầm uất, có tiếng tăm. Những bức tường được xây bằng đá hoa cương với gác vọng lâu cao vút. Trong thành, vô số các cửa hàng đầy ăm ắp hàng hóa. Xát-cô là một chàng trai sinh ra trong thành Nô-vô-gô-rốt. Chàng là một người tài hoa, chỉ với cây đàn và đôi tay điêu luyện cùng một giọng hát tuyệt vời, chàng thường đi khắp đó đây vui chơi cùng bè bạn, đàn hát cho mọi người nghe.
+Một lần, Xát-cô dự một bữa tiệc cực kỳ xa hoa, sang trọng. Khách tới dự tiệc toàn là những kẻ vô cùng giàu có, hợm hĩnh, ngạo mạn. Họ thi nhau khoe khoang, phô trương sự giàu có của mình một cách thô thiển. Trước cảnh tượng đó, Xát-cô đã hát một bài hát cổ châm biếm chúng. Bọn khách tức giận la ó, đòi vị chủ nhà đuổi Xát-cô ra khỏi phòng tiệc.
+Từ đó không một gia đình có tiếng tăm nào trong thành phố cho Xát-cô đến đàn hát mua vui nữa. Chàng lang thang khắp đường phố, hát cho người nghèo nghe.
+Những lúc mệt mỏi, buồn bã, chàng thường đến ngồi trên kè đá của bến tàu. Xát-cô vừa đánh đàn vừa cất lên những tiếng ca ai oán, kế về sự bất công, về thân phận tủi nhục của những người như mình. Mỗi khi tiếng đàn và tiếng hát của chàng vang lên, mặt nước đang phẳng lặng lại nổi sóng lao xao, gần chỗ chàng ngồi cuộn lên những con sóng lớn. Nhiều lần như vậy khiến Xát-cô vô cùng ngạc nhiên.
+Một đêm kia, chàng sửng sốt khi thấy nước bỗng sôi lên sùng sục, cuồn cuộn đục ngầu, rồi một thiếu nữ đẹp như tiên nữ từ từ nhô lên. Nàng cất tiếng nói với Xát-cô:
+– Ta rất thích tiếng hát của chàng. Ta cũng hiểu tâm tư nguyện vọng của chàng. Ta muốn giúp chàng. Ngày mai chàng hãy quay vào thành phố, đánh cuộc với bọn nhà giàu quyền quý rằng chàng sẽ bắt được một con cá có những chiếc vảy bằng vàng ở nơi này. Chàng hãy dùng chiếc đầu của mình mà đặt giá, bọn người thù ghét chàng sẽ không tiếc tiền, ngọc ngà châu báu của chúng đâu.
+Xát-cô quay về làm đúng như lời cô gái dặn. Quả nhiên bọn thương gia, bọn quý tộc, hi vọng sẽ lấy được mạng sống của Xát-cô nên chúng đã đặt cuộc vô vàn vàng ngọc, châu báu, lụa là và cả nhà cửa của chúng.
+Bình minh ngày hôm sau, dân chúng hò reo, kéo nhau đến bến cảng, đông chật như nêm, có cả một đội vệ binh, trống giong cờ mở. Tiếng la ó, quát mắng, nói cười vang động cả một vùng. Một con thuyền nhỏ đưa Xát-cô ra ngoài xa. Chàng vung tay quăng tấm lưới xuống mặt nước lăn tăn xanh ngắt.
+Lần thứ nhất kéo lên nhẹ bẫng, chỉ có những giọt nước lóng lánh rơi từ tấm lưới xuống biển.
+Lần thứ hai khi Xát-cô quăng lưới, mặt nước đã cuộn sóng. Kéo lên thấy nặng tay, chàng đã mừng, song đó chỉ là một cái bình gốm vỡ đầy đất cát.
+Xát-cô thất vọng, chàng lẩm bẩm: “Nàng lừa ta sao, hỡi người con gái xinh đẹp”. Chợt tay chàng nhói lên đau buốt như bị châm bằng những chiếc gai cá. Chàng vung tay quăng lưới lần thứ ba xuống mặt nước, lúc này nước đã sôi lên sùng sục.
+Trên bờ, sau hai lần Xát-cô thất bại, không khí của bến cảng như căng ra. Những ánh mắt đầy lo lắng của dân chúng hướng về phía chàng, trong khi niềm hân hoan lại hiện rõ trên những khuôn mặt mỡ màng của bọn thương gia quý tộc.
+Ngoài khơi xa, lưới đã được kéo lên khỏi mặt nước, một vùng quanh con thuyền lấp lánh ánh vàng. Thuyền rẽ nước vào bờ. Trên thuyền, Xát-cô giơ cao tay, một con cá với những vảy vàng lấp lánh chưa từng thấy bao giờ. Tiếng hò reo vỡ ra.
+Xát-cô thắng cuộc, chàng trở thành một người vô cùng giàu có, vàng bạc châu báu không sao đếm xuể. Chàng mở nhiều cửa hiệu buôn bán trong thành phố. Thần may mắn luôn đến với chàng, của cải không ngừng chảy về nhà chàng như nước. Chàng dùng một phân của cải của mình để xây dựng thành phố và giúp đỡ người nghèo.
+Mặc dù sống cuộc đời nhung lụa, nhưng Xát-cô vốn là một người ưa tự do, khoáng đạt nên một ngày kia, chàng giao lại việc điều hành buôn bán cho một số bạn của mình, rồi quyết định vượt biển để tìm kiếm các miền đất lạ.
+Xát-cô cho đóng ba mươi con tàu cực lớn, trang trí lộng lẫy. Mũi tàu chỉ huy là hình nữ thủy thần đã giúp đỡ chàng. Cả ba mươi con tàu đều chất đẩy hàng hóa, sản vật quý giá.
+Sau bảy ngày trời yên lặng, bỗng nhiên bão tố nổi lên, sóng biển cuồn cuộn dâng cao rồi đổ ập xuống những con tàu đang chở nặng hàng hóa. Cột buồm nghiêng ngả, nhiều cánh buồm bị gió xé rách tả tơi, một vài cột buồm còn bị xoắn gãy, bẻ gập xuống.
+Mọi người hoảng loạn, nhốn nháo. Xát-cô ra lệnh thả một thùng bạc trắng xuống biển để tế thủy thần. Biển vẫn sục sôi điên cuồng, chàng lại thả tiếp một thùng vàng ròng, biển vẫn không hề giảm cơn cuồng nộ. Xát-cô đau đớn nhận ra rằng: Thủy tề muốn một người trong số thủy thủ trên tàu phải làm vật hiến tế. Chàng loan báo cho các bạn và đoàn thủy thủ tiếp tục cuộc hành trình, dù không có chàng. Rồi trong tay với cây đàn thân thuộc, chàng nhảy xuống biển khơi. Lạ kỳ thay, biển đang như một chảo nước sôi bỗng yên ả, trong xanh trở lại, gió ngừng thổi, mưa ngừng rơi, chỉ còn tiếng rì rào bất tận.
+Theo lệnh chàng, đoàn thủy thủ vội vã sửa chữa một số con tàu bị hư hại rồi tiếp tục cuộc hành trình.
+Lại nói về Xát cô, khi rơi xuống nước, chàng thấy mình như chìm vào một giấc mơ êm dịu. Khi mở mắt ra, chàng đã thấy mình đứng trước một cung điện bằng đá hoa cương, trang hoàng vô cùng uy nghi, tráng lệ. Chàng ngước mắt nhìn lên: trên đầu là sóng biển mênh mông, ánh nắng mặt trời chiếu qua biển nước, rọi xuống những tòa lâu đài, càng làm cảnh vật trở nên lung linh, huyền ảo, kỳ thú vô cùng.
+Chàng tiến vào phía trong lâu đài. Trên ngai vàng là vua Thủy tề với chiếc đinh ba quyền trượng trong tay. Đứng cạnh là nữ thủy thần mà Xát-cô đã gặp. Hai bên là các tướng lĩnh: cá, tôm, cua, thuồng luồng, rùa, rắn…
+Xát-cô cúi đầu thi lễ. Thủy tề giơ tay nói:
+– Ta đã được nghe tiếng đàn của ngươi. Ta đòi người xuống đây là để hát cho ta nghe.
+Xát-cô nâng đàn lên, vừa đàn vừa hát.
+Nhà vua ngây ngất thả hồn theo âm điệu. Khi tiếng đàn đến chỗ sôi nổi, cuồng nhiệt nhà vua hứng khởi đứng lên nhảy múa theo tiếng đàn. Tiếng đàn của Xát-cô vút lên cao, bước nhảy của vua cũng mạnh mẽ theo. Tiếng đàn dồn dập, bước nhảy cũng quay nhanh như lốc cuốn.
+Bỗng có bàn tay con gái mát dịu giữ lấy tay Xát-cô, chàng quay lại nhìn, thì ra là nữ thủy thần. Nàng nhẹ nhàng bảo Xát-cô:
+– Xin chàng hãy dừng lại ! Chàng hãy nhìn lên trên kia.
+Xát-cô ngẩng đầu lên, chàng thấy mặt biển đang nổi cơn bão tố. Trên đó, đoàn tàu của chàng đang ngả nghiêng chống đỡ một cách tuyệt vọng. Chàng vội ngừng đàn. Vua Thủy tề cũng đột ngột dừng lại. Và khi đó, trên kia gió yên bể lặng trở lại.
+Vua Thủy tề rất đỗi sung sướng, mở tiệc thiết đãi Xát-cô và hứa hôm sau sẽ để chàng trở lại quê nhà.
+Người hỏi trước khi ra đi, Xát-cô có muốn người ban cho tặng vật gì không?
+Xát-cô cầm tay nữ thủy thần:
+– Xin nhà vua ban cho thần báu vật này.
+Vua Thủy tể nheo mắt:
+– Ngươi cũng khá ranh đấy. Đây là con gái yêu nhất của ta. Nhưng thôi, ta cầu chúc cho các con được hạnh phúc.
+Đêm ấy, hôn lễ của công chúa Thủy tề và chàng Xát-cô được tổ chức thật là linh đình.
+Hôm sau, thủy cung lại một lần nữa náo nhiệt và lưu luyến tiễn đưa đôi vợ chồng trẻ về lại thương cảng Nô-vô-gô-rốt.
+Khi hai vợ chồng Xát-cô đặt chân lên bờ cảng cũng là lúc đoàn tàu của chàng trải qua một cuộc hành trình gian khổ về đến quê hương. Với ba mươi con tàu khi ra đi, nay chỉ còn không đến mười chiếc trở về. Một số thủy thủ cũng đã vĩnh viễn nằm lại trên những mảnh đất xa lạ hoặc trong đại dương sâu thẳm. Mấy người bạn của chàng đã thành những ông già, khiến Xát-cô không làm sao hiểu được. Vợ chàng giải thích: tuy thời gian chàng sống dưới thủy cung chỉ có mấy ngày nhưng trên trần thế đã là nhiều năm rồi.
+Số hàng hóa mà đoàn tàu của Xát-cô mang về sinh lợi rất lớn. Xát-cô dùng số tiền đó và cả số tiền chàng còn lại trong thành phố chia hết cho các bạn mình, những người thủy thủ trung thành của chàng và những người nghèo khổ trong thành phố. Phần chàng chỉ giữ lại một ngôi nhà gỗ nhỏ ở ven thành phố để sống với người vợ hiền và cây đàn thân thuộc của mình.
+
+--------------------------------------------------
+
+
+ID: story_146
+TITLE: Lát nữa tao sang [Truyện cười dân gian Việt Nam]
+URL: https://truyendangian.com/lat-nua-tao-sang
+
+CONTENT:
+Có một lão phú ông giàu nứt đố đổ vách, nhưng một chữ bẻ đôi cũng không hay. Tuy vậy, lão rất thích lên mặt ta đây giỏi giang chữ nghĩa trước đám người hầu hạ.
+Một hôm lão đang dùng bữa. Bữa ăn của lão có đủ món ăn ngon đã đành. Xung quanh chiếu rượu lão ngồi là cả một dãy người hầu: kẻ rót rượu, kẻ nâng quạt, kẻ dâng những món ăn lạ, kẻ ra vào nhộn nhịp mang tiếp những món ăn còn lạ hơn món lão đang nếm…
+Đúng lúc ấy, một tên hầu của viên quan trong vùng tới. Tên hầu dâng lên lão phú ông một lá thư của chủ gửi lão. Phú ông vờ liếc qua thư, rồi bảo tên hầu:
+– Ta biết rồi, mày cứ về, lát nữa tao sang.
+Tên hầu xoa hai tay, ngập ngừng lát, rồi mới rón rén thưa:
+– Dạ, trong thư có nói…
+Lão phú ông gạt đi:
+– Biết rồi. Tao đọc rồi. Tao sẽ đáp lại lời mời. Lát nữa tao sang .
+Tên hầu lúc này đành nói thật:
+– Dạ, quan nhà con vội đi, mà ngựa thì ốm, quan con sai con sang mượn ngài con ngựa… Trong thư đã viết là con phải dắt ngựa về ngay ạ…
+
+--------------------------------------------------
+

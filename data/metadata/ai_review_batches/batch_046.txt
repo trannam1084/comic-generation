@@ -1,0 +1,237 @@
+
+Bạn là người đánh giá Dataset cho dự án Vietnamese Comic Generation.
+
+Hãy đánh giá từng truyện để xác định mức độ phù hợp
+khi chuyển thành comic khoảng 4 cảnh.
+
+Đánh giá 4 tiêu chí, mỗi tiêu chí từ 0 đến 2:
+
+1. characters_clear
+0: Không rõ nhân vật
+1: Nhân vật tương đối rõ
+2: Nhân vật rõ ràng
+
+2. events_clear
+0: Sự kiện không có trình tự rõ
+1: Trình tự tương đối rõ
+2: Trình tự sự kiện rõ ràng
+
+3. scene_suitable
+0: Không phù hợp tạo comic
+1: Có thể tạo comic nhưng cần chỉnh sửa
+2: Rất phù hợp để chia khoảng 4 cảnh
+
+4. ending_clear
+0: Không có kết thúc rõ
+1: Kết thúc tương đối rõ
+2: Kết thúc rõ ràng
+
+Tổng điểm score = tổng 4 tiêu chí, tối đa 8.
+
+selected_candidate:
+- true: Nếu score >= 6 và phù hợp tạo comic
+- false: Nếu không phù hợp
+
+difficulty:
+- easy
+- medium
+- hard
+
+Không bịa thêm sự kiện.
+Không đánh giá chỉ dựa trên tên truyện.
+Đánh giá dựa trên nội dung được cung cấp.
+
+Trả về JSON array hợp lệ, không Markdown.
+
+Mỗi truyện:
+
+{
+  "id": "story_001",
+  "title": "...",
+  "characters_clear": 0,
+  "events_clear": 0,
+  "scene_suitable": 0,
+  "ending_clear": 0,
+  "score": 0,
+  "selected_candidate": false,
+  "difficulty": "easy",
+  "reason": "..."
+}
+
+
+==================================================
+STORIES TO EVALUATE
+==================================================
+
+
+ID: story_249
+TITLE: Chích chè! Chích chè che! [Câu chuyện về lòng tham không đáy]
+URL: https://truyendangian.com/chich-che-chich-che-che-cau-chuyen-ve-long-tham-khong-day
+
+CONTENT:
+[alert style=”danger”]
+Chích chè! Chích chè che! – Câu chuyện về lòng tham không đáy từng được kể trong SGK Tập đọc 4 (1959), nội dung giống truyện Ông lão đánh cá và con cá vàng.
+[/alert]
+Xưa ở nước Nga xa xôi, có một đôi vợ chồng già nghèo khổ lắm. Nghèo đến nỗi có lúc củi cũng không có đủ tiền mua.
+Vợ bảo chồng:
+– Ông đóng xe rồi vào rừng mà kiếm củi!
+Ông lão sửa soạn, đánh xe vào rừng. Lão chọn một cây rồi giơ búa lên định chặt.
+Bỗng một con chim nhỏ từ trong cây bay ra, bảo lão:
+– Chích chè! Chích chè che! Ông ơi! Tại sao ông lại chặt cây này?
+– Nhà ta đang cần củi sưởi.
+– Thế thì ông cứ về đi. Ông sẽ thấy ở nhà ông có vô số là củi.
+Lão nghe lời, không chặt cây nữa. Lão về nhà, quả nhiên thấy sân đầy củi.
+Lão thuật cho vợ biết chuyện gặp con chim trong rừng. Mụ vợ bảo lão:
+– Nhà chúng ta sắp đổ đến nơi. Chi bằng ông lại vào rừng bảo con chim ấy ra sửa sang nhà cho chúng ta đi!
+Lão nghe lời vợ đánh xe vào rừng. lão đến cái cây, lại giơ búa ra định chặt.
+Quả nhiên con chim nhỏ bay ra:
+– Chích chè! Chích chè che! Tại sao ông lại chặt cây này?
+– Ngươi không biết à, chú chim con? Nhà ta sắp đổ rồi. Ngươi có thể giúp tao sửa sang lại không?
+– Ông cứ về đi. Ông sẽ thấy là ông có một tòa nhà mới và rất nhiều đồ đạc.
+Lão về nhà. Hình như lão không dám tin mắt mình nữa. Ở trong sân, trên nền cũ, một tòa nhà lộng lẫy đã được dựng lên. Trong nhà, không thiếu vật gì, rất nhiều thóc lúa, vô số trâu, ngựa và có cả đàn dê đang ăn cỏ quanh đấy.
+Hai vợ chồng lão ở được ít lâu. Một hôm, mụ vợ thấy sống mãi cái cảnh đời sống dễ chịu như thế này cũng chán. Mụ bảo với chồng:
+– Chúng ta đã có nhiều của. Nhưng xét ra chúng ta vẫn chỉ là nông dân. Chúng ta không được người ta kính trọng. Ông thử đi hỏi con chim xem nó có thể cho chúng ta làm quan của vua Nga được không? Ông sẽ là một vị hầu tước, tôi là hầu tước phu nhân.
+Lão vác búa và xe vào rừng. Đến cái cây quen thuộc, lão lại xăm xăm chực chặt. Như mấy lần trước, con chim lại bay ra:
+– Chích chè! Chích chè chè! Sao ông lại muốn chặt cây này?
+– Này chim nhỏ thân mến ơi! Ngươi có thể tìm cách biến ta thành hầu tước, vợ ta thành hầu tước phu nhân không?
+– Ông cứ về đi. Ông sẽ thành hầu tước, còn bà sẽ biến thành hầu tước phu nhân.
+Lão ra về. Khi về đến làng, người làng thấy lão đều bỏ mũ ra chào. Ai ai cũng sợ lão. Trước cửa nhà lão đầy những gia nhân, đầy tớ. Vợ lão ăn mặc y như một bà quý phái.
+Sống như thế không được bao lâu, vợ lão lại chán và bảo lão:
+– Làm quan cũng tốt. Nhưng phỏng có hôm vua Nga không vừa ý, Ngài vẫn có thể bắt giam tôi và ông được. Ông thử đi gặp con chim, xin nó biến ông thành vua nước Nga, và tôi ra bà hoàng hậu, xem có được không?
+Bất đắc dĩ lão lại phải vác búa, đánh xe vào rừng, lại chực chặt cây. Con chim lại bay ra:
+– Chích chè! Chích chè che! Ông, sao ông lại muốn chặt cây này?
+– Đầu đuôi thế này, chim ạ, ngươi có thể biến tao làm vua nước Nga và vợ ta làm hoàng hậu được không?
+– Ông cứ về đi. Ông sẽ thành Nga hoàng, và bà ấy sẽ thành hoàng hậu.
+Lão vừa về đến nhà, thì sứ giả đã đánh xe đến cổng nhà lão.
+– Nga hoàng chết rồi. Ngài được tôn lên làm Nga hoàng.
+Ông lão trở thành vua và vợ lão làm hoàng hậu, nhưng chưa được bao lâu thì vợ lão lại chán và nói:
+– Làm Nga hoàng cũng thích. Nhưng nếu trời muốn, Trời vẫn có thể sai thần chết xuống bắt, thì tôi và ông cũng lại bị chôn vùi xuống đất. Chi bằng ông đi tìm con chim con xin nó biến chúng ta thành ông Trời đi!
+Lão lại vác búa đi đến cái cây. Lão vừa toan chặt thì co chim lại nhảy ra:
+– Chích chè! Chích chè che! Ông, tại sao ông lại muốn chặt cây này?
+– Chim ơi! Chim hãy giúp ta. Xin cho ta làm ông Trời!
+Thấy lòng tham của lão và vợ lão quá quắt quá, lần này con chim tức giận lắm. Nó phạt vợ chồng lão. Nó bảo:
+– Được, lão cứ về đi. Lão sẽ thành con trâu đực, còn vợ lão sẽ thành con lợn sề.
+Thế là lão biến thành con trâu đực. Ngượng nghịu, lão đi bốn cẳng về nhà. Tới nơi lão thấy vợ lão đã hóa thành con lợn sề, đương rúc mõm vào đống phân, nước mắt giàn giụa.
+
+--------------------------------------------------
+
+
+ID: story_250
+TITLE: Truyện phú ông tham lam và ông lão chăn bò
+URL: https://truyendangian.com/truyen-phu-ong-tham-lam-va-ong-lao-chan-bo
+
+CONTENT:
+[alert style=”danger”]
+Truyện phú ông tham lam và ông lão chăn bò cho thấy nếu ăn ở hiền lành sẽ luôn được người khác giúp đỡ, còn những kẻ gian tham sẽ bị trừng phạt thích đáng.
+[/alert]
+Ngày xửa ngày xưa, cách đây đã lâu lắm, ở ven khu rừng rậm rạp thuộc tỉnh Hòa Bình, có một ngôi làng nhỏ, trong làng lơ thơ vài chục nóc nhà. Người già nhất và cũng nghèo khổ nhất là cố Căng. Nghèo đến nỗi không có quần áo mặc, quanh năm cố chỉ đóng có một cái khố nhuộm chàm. Cố Căng rất tốt bụng, ai có khó khăn gì là vui vẻ giúp ngay.
+Cố đi ở cho nhà một tên phú ông tham lam từ khi còn trẻ. Ông lão hiền lành bao nhiêu thì tên phú ông này gian ác, xảo quyệt bấy nhiêu. Lúc trẻ, ông lão phải đi cày suốt ngày cho hắn, tối về hắn bắt xay xong hai cối gạo mới được ăn cơm và đi ngủ. Ngày tháng đi càng nhanh, tuổi lão càng già, sức lão càng yếu. Một hôm, biết lão không còn sức mà cày nữa, tên phú ông gọi lão ra bảo:
+– Này! Bây giờ ông già yếu rồi, không cày được nữa thì chăn đàn bò cho ta. Nếu mất một con phải đền một con, không đền được thì ta giết chết.
+Từ đó, ông lão lại càng khổ sở hơn. Hàng ngày phải dậy sớm đi chăn bò, tối mịt lại lùa đàn bò về. Thế rồi, có một hôm ông lão để lạc mất một con bò, suốt cả buổi chiều tìm kiếm mà chẳng thấy. Nửa đêm, ông lão mò về thú tội với tên phú ông. Tên phú ông tham lam giận dữ, đánh ông lão một trận.
+– Này! Nếu không tìm được ngay con bò về thì ông đừng hòng sống!
+Trời đang mưa to, gió lớn, nước chảy ầm ầm, ông lão vừa ôm mặt, vừa cắp nón ra đi…
+Nhưng lạ thay, khi vào đến cửa rừng thì mây mưa lùi cả lại phía sau. Trước mặt ông lão hiện ra một quang cảnh cực kỳ tươi đẹp. Những gốc cây thông xù xì tỏa ánh hào quang rực rỡ, khắp nơi chim hót vang lừng. Ông lão còn đang ngơ ngác chưa hiểu ra sao thì bỗng có một con công trên cây lim trước mặt cất tiếng dịu hiền:
+– Ông lão kia ơi, con bò của ông nó đi vào phía rừng bên trái. Muốn tìm, cứ đi thẳng đường này, khi đến một ngôi nhà cao lớn, ông hãy quỳ xuống trước cổng mà khấn: “Lạy Bụt! Lạy Bụt, giúp cho thân lão hiền lành…” Bụt sẽ hiện lên và đưa bò cho lão.
+Cố Căng mừng rỡ cảm ơn, rồi chạy thẳng về hướng đường chim kể. Một lúc sau, ông lão đến cổng tòa nhà lớn, quỳ xuống, và khấn theo lời công dặn. Quả nhiên Bụt hiện ra và bảo:
+– Ông lão nghèo khổ lại hiền lành, ở với tên phú ông gian ngoan, độc ác tận tụy mà chẳng sống được. Bây giờ ta cho ông lão căn nhà này…
+Nói xong, Bụt biến mất. Ông lão nửa tỉnh, nửa mê nhìn thấy trước mắt một căn nhà xinh đẹp. Đằng sau nhà là môt vườn rau xanh tươi. Bên vườn là một cái ao trong vắt. Trên bãi cỏ xanh, con bò đang ung dung ăn cỏ.
+Từ đó, ông lão sống một cuộc đời sung sướng. Nhưng vốn yêu làng, yêu xóm, yêu đồng ruộng nên ông lão muốn về. Bụt giữ cũng không được, sau bằng lòng và đưa cho ông lão một cái búa vàng. Cái búa này tự nó có sức rất mạnh, khi chặt củi ông lão chỉ cần tung búa vào bụi là cây cối đứt gãy ngổn ngang, tha hồ thu lại mà gánh về.
+Về đến nhà, ông lão trả bò cho tên phú ông và làm nghề kiếm củi nuôi thân. Họ hàng làng nước thấy ông lại về, lành lặn, béo tốt, ai cũng mừng rỡ, duy chỉ có phú ông thì ghen ghét và sinh lòng nham hiểm. Hắn lân la hỏi dò ông lão tại sao lại có búa vàng. Cố Căng ngay thẳng, thật thà kể lại đầu đuôi câu chuyện.
+Tên phú ông tham lam khấp khởi mừng thầm.
+Và cũng một hôm mưa to, gió lớn, hắn trát nhọ vào mặt, mặc quần áo rách rưới, ra vẻ vất vả, rồi thất thểu đi vào rừng.
+Đến cửa rừng, trời cũng sáng bừng lên, con công cũng hiện ra. Chưa kịp để công lên tiếng hát, hắn đã mếu máo:
+– Công ơi! Tôi khổ lắm… Tôi để lạc mất một con bò…
+– Thế à! Thế ông cứ theo đường bên trái mà đi sẽ thấy.
+Hắn mừng rỡ, nhằm phía bên trái ù té chạy thục mạng, trong lòng phấn khởi.
+– A! A! Phen này ta được giàu to!
+Nhưng lạ thay, càng chạy sâu vào rừng, trời càng tối sầm lại, cây cối càng rậm rạp và đường càng ngoằn nghèo, khó đi. Đến một cái suối sâu thẳm, hắn ôm đầu bước lên cây gỗ bắc làm cầu. Đến giữa cây gỗ thì trời nổi mưa to, gió lớn. Một tiếng sét kinh thiên động đánh gãy cầu. Tên phú ông tham lam và gian ác ngã lộn nhào xuống dòng nước lũ.
+Lúc ấy, Bụt hiện lại mỉm cười mà rằng:
+– Nhà ngươi giàu có mà lại gian tham, hành hạ từ cụ già đến con trẻ, thấy người nghèo sung sướng thì ghen ghét. Ta phạt ngươi tội này thật đáng…
+Nói xong, Bụt biến mất. Mất cơn sóng từ xa cuộn lại, cuốn chìm tên phú ông và sự gian tham của hắn xuống đáy vực thẳm.
+
+--------------------------------------------------
+
+
+ID: story_251
+TITLE: Chàng trai tốt bụng [Truyện cổ tích cho bé]
+URL: https://truyendangian.com/chang-trai-tot-bung
+
+CONTENT:
+[alert style=”danger”]
+Chàng trai tốt bụng là câu truyện cổ tích hay, khuyên các bạn nhỏ phải biết sống có ích và giúp đỡ mọi người xung quanh, để thấy cuộc sống có ý nghĩa hơn.
+[/alert]
+Ngày xưa có một chàng trai rất tốt bụng , có sức mạnh khỏe lạ thường. Chàng ở gần nhà vợ chồng một cụ già có cô con gái rất xinh đẹp. Nhà ông bà cụ nuôi một đàn ong tinh khôn đặc biệt: nếu khách đến nhà là người nhân hậu, biết chăm lo đến cuộc sống của người khác thì chúng kéo ra, vo ve mừng rỡ, còn nếu là người chỉ hay đi làm hại người khác, thì chúng xúm lại đốt và xua đuổi.
+Một hôm, chàng đến thăm nhà ông bà cụ già và tỏ ý muốn hỏi cô con gái làm vợ. Thấy chàng vào, đàn ong bay ra, nhưng chúng chẳng mừng rỡ mà cũng không xua đuổi. Ông cụ liền bảo: “Anh chưa có thành quả gì nổi bật cả. Anh hãy cố gắng làm nhiều việc có ích, tôi sẽ gả con gái cho anh”.
+Chàng ra đi và nói với mọi người rằng mình là người khỏe nhất thiên hạ. Một bữa, qua một khu rừng, chàng giật mình vì tiếng vang động ầm ầm. Cành cây gẫy răng rắc, lá rơi ngập cả lối đi. Một đàn thú dữ đang thi nhau vật lộn. Tiếng kêu, tiếng thét vang trời. Cuối cùng con gấu thắng cuộc. Gấu đi về phía chàng trai tốt bụng và giơ chân ra trước mặt nói:
+– Anh có giỏi thì thử húc cái cây đa kia xem sao?
+Chàng trai nghe nói liền mắm môi lấy sức, sầm sầm chạy lại lao đầu vào giữa thân cây đa khổng lồ. Cây long gốc, lung lay rồi lăn ình xuống đất.
+Thử sức xong, chàng lại tiếp tục đi.
+Chợt chàng trông thấy một thanh niên đang phùng má trợn mắt thổi quay tít cánh quạt một chiếc cối xay gió.
+Chàng trai tốt bụng bèn lại gần bảo:
+– Anh cho tôi thử một tí.
+Chàng liền ghé miệng vào cánh quạt thổi thật mạnh. Lúc đầu cánh quạt còn quay từ từ, sau mỗi lúc một nhanh rồi cứ quay vù như gió bão, đến nỗi cái cối xay rung chuyển rồi đổ sập.
+Chàng trai trở về nhà cô con gái, vừa mới bước qua ngưỡng cửa thì đàn ong vù vù bay đến và sà xuống đốt. Chàng hồi tưởng lại hai việc mình đã làm: húc đổ cây đa khiến cho mọi người mất nơi bóng mát và thổi đổ cả cối xay khiến cho dân làng không có chỗ xay lúa. Như thế thử hỏi việc tốt ở chỗ nào?
+Chàng trai tốt bụng buồn quá, lại bỏ ra đi. Đi mãi đến một vùng quang cảnh thật là tiêu điều. Đã lâu lắm ở đây bị đại hạn. Ruộng đồng nứt nẻ, lúa vàng úa. Dân làng đào giếng, thả gầu xuống tận đáy mà chỉ được có lưng gầu nước. Người ta cho chàng biết rằng trước kia ở đây có con suối rất nhiều nước, nhờ đó việc làm ruộng thật là tiện lợi, nhưng nay suối bị ngọn núi đá đổ chặn lấp mất dòng nên không có nước nữa.
+Chàng trai nghe nói liền leo lên dốc núi, vác từng tảng đá vứt mãi ra xa. Cuối cùng còn một tảng đá thật to nằm chắn ngang lòng suối. Chàng chạy lại bẩy tảng đá và vừa vác lên vai thì dòng nước trắng xóa chảy ồ ồ, cuốn luôn chàng theo làn nước trong vắt. Chàng bơi xuôi một đoạn rồi rẽ lên bờ.
+Trên đường về, chàng trai tốt bụng đi đến đâu đồng lúa xanh tươi đến đấy. Vừa tới cửa nhà, ông bà cụ đã chạy ra mừng rỡ đón chàng. Cô gái xinh đẹp nhìn chàng và mỉm cười tươi tắn. Đàn ong bay đến, nhào lộn trên đầu chàng như chào mừng người dũng sĩ. Chàng trai ngẩng nhìn, lòng sung sướng vì đã làm được một công việc có ích cho xóm làng.
+Sau đó, lễ cưới của chàng được cử hành giữa tiếng ca nhảy múa vang rộn cả xóm làng.
+
+--------------------------------------------------
+
+
+ID: story_252
+TITLE: Truyện cổ tích Trung Quốc Con cò vàng
+URL: https://truyendangian.com/truyen-co-tich-trung-quoc-con-co-vang
+
+CONTENT:
+[alert style=”danger”]
+Truyện cổ tích Trung Quốc Con cò vàng thể hiện khát vọng về cuộc sống tự do của nhân dân lao động và là tiếng nói đanh thép đả kích giai cấp bóc lột.
+[/alert]
+Ngày xưa, ở một vùng nọ bên Trung Quốc, có một lãnh chúa phong kiến quyền thế rất lớn. Hắn rất hách dịch và tàn ác. Mỗi lần đi ra đường, người dân đang làm gì mà thấy hắn, cũng phải cúi xuống sát đất để chào.
+Một hôm, có một chàng trai trẻ từ miền xa tới. Tên chàng là Mi. Vẻ mặt hiền hậu, vui vẻ, giản dị và rất đáng yêu. Chàng vừa đi vừa thổi sáo. Bước chân của chàng uyển chuyên theo từng nhịp điệu. Tiếng sáo của chàng trong êm như tiếng chim hót buổi sớm mai khiến mọi người ai nghe cũng thấy thích.
+Bỗng tên lãnh chúa qua. Mọi người sợ hãi, đều sụp người xuống chào hắn. Riêng chàng Mi vẫn hiên ngang bước đi, nhưng không thổi sáo nữa. Tên lãnh chúa bực mình, sai lính gọi chàng đến hỏi:
+– Nhà ngươi là ai? Ở đâu đến? Sao không vái chào ta? Cả dân vùng này đều phải sợ ta cả.
+Chàng trai bình tĩnh hỏi lại hắn:
+– Thế nhà ngươi là ai mà lại bắt ta phải chào? Ta chỉ chào những người lao động thôi.
+Hắn nhíu mày, ra oai bảo chàng:
+– Sao ngươi không thổi sáo nữa? Nếu nhà ngươi thổi sáo, ta thấy hay, ta sẽ cho đi.
+Chàng trai khinh bỉ trả lời lại:
+– Ta chỉ thổi sáo cho những người lao động nghe thôi. Còn ngươi là thứ gì mà lớn tiếng bắt được ta thổi?.
+Tên lãnh chúa tức giận, hầm hầm thét lính:
+– Các ngươi đâu! Bắt tên này lại, chém đầu cho ta.
+Mấy tên lính xông đến, chàng Mi bình tĩnh bảo chúng:
+– Hãy khoan. Các ngươi trông kìa.
+Vừa nói chàng vừa chỉ lên nóc nhà có con chim đậu. Bọn lính ngước lên nhìn theo phía tay chàng chỉ. Ngay lập tức, chàng nhanh chân chạy biến vào nhà một người dân gần đấy. Bọn lính liền đuổi theo. Chúng vào cửa này, chàng luồn ra cửa khác, miệng lại thổi lên một tiếng sáo. Đuổi mãi không bắt được chàng, bọn lính đành hậm hực bỏ đi.
+Những ngày sau đó, chàng Mi vẫn tiếp tục thổi sáo cho nhân dân lao động nghe. Mọi người quyến luyến, muốn giữ chàng ở lại. Chàng ngẫm nghĩ một lúc, rồi nói:
+– Được rồi, tôi có việc phải đi, nhưng tôi sẽ để lại cho bà con một con cò vàng. Hàng ngày, nó sẽ múa cho bà con xem.
+Rồi chàng vẽ luôn lên vách hai nét thành một con cò vàng rất đẹp. Mọi người trầm tồ khen. Chàng thổi một khúc sáo từ biệt. Con cò trên vách như nghe rõ tiếng sáo gọi. Nó ngó ngoáy cái cổ dài, rung rung đôi cánh, rồi bỗng nhảy xuống trước sự ngạc nhiên và phấn khởi của mọi người.
+Mọi người tự nhiên cũng lắc lư theo đôi cánh thần tiên của cò vàng và tiếng sáo trầm bổng của chàng trai. Mải vui nên không ai hay biết có hai gã tay sai của tên lãnh chúa đang len lét đứng trước cửa sổ nhìn vào.
+Tất cả đang say mê ngắm nhìn cò múa thì tên chúa phong kiến nhận được tin báo. Hắn xông thẳng vào. Cò vàng thấy vậy bèn nhảy lên vách tường, trở lại hình vẽ. Tên lãnh chúa đuổi mọi người ra ngoài, rồi ra lệnh cho cò múa. Không thấy cò không động đậy, hắn liền sai lính cắt ngay bức vách đó mang về, định chiếm cò làm của riêng.
+Tên lãnh chúa làm một mâm cỗ rất sang và dỗ cò:
+– Ăn đi rồi múa hát cho ta xem.
+Nhưng bức hình cò vẫn không động đậy. Tức giận, hắn liền lấy sơn quét lên để xóa hình vẽ. Thật kỳ lạ, sơn chưa ráo thì hình cò lại nổi lên, trông còn tươi đẹp hơn trước.
+Thấy thế, hắn lại dịu giọng dỗ dành.
+Lần này con cò vàng bước ra, nhưng không phải ăn cỗ, mà mổ thẳng vào mắt tên lãnh chúa độc ác. Hắn đau đớn, ngã gục xuống. Cò liền bước qua lưng hắn, ung dung bay ra khỏi chốn áp bức ấy, trở về với nhân dân lao động.
+Còn về phần chàng Mi, từ dạo xa bà con vùng ấy đã đi rất nhiều nơi, mang tiếng sáo véo von của mình góp vui cho những người lao động. Chiều nay, chàng đang ngồi ở đầu thuyền thổi sáo cho những người chân sào nghe. Từ chân trời xa tắp, cò vàng nghe tiếng sáo, bay lại lượn trên đoàn thuyền. Chàng Mi giơ tay vẫy, cò là là bay xuống từ từ. Mọi người chân sào đều lắng nghe tiếng sáo trầm bổng và dõi theo điệu múa nhịp nhàng.
+Tiếng sáo và điệu múa ấy các bạn nhỏ có nghe thấy không? Đó là tiếng sáo và điệu múa của hòa bình và tự do đấy!
+
+--------------------------------------------------
+
+
+ID: story_253
+TITLE: Sự tích Tết Trung thu – Truyện cổ tích Trung Quốc
+URL: https://truyendangian.com/su-tich-tet-trung-thu
+
+CONTENT:
+Ngày xưa, ở bên Trung Quốc, có một bà lão tuổi đã cao mà con cái không có, họ hàng thì xa. Bà ta sống một mình ở một khu rừng hẻo lánh, quanh năm làm nghề khâu vá để kiếm ăn. Một hôm vào Rằm tháng Tám, bà đến một làng xa để nhận quần áo về khâu. Khi trở về, bà mua một ít bánh và hoa quả định để bày cỗ và ăn uống như thường lệ.
+Khi đi qua khu rừng gần chỗ ở, bà gặp một con sư tử. Con vật này sống ở đây lâu năm đã thành tinh. Hàng năm nó ăn thịt không biết bao nhiêu người, nhân dân đã tìm hết cách để trừ đi mà không được. Sư tử thấy người vào rừng lúc đêm thanh vắng vẻ, liền xông ra để bắt ăn thịt.
+Bà lão thấy vậy, lấy làm lo sợ vô cùng, lại tiếc công đã đi sắm cỗ về mà không được ăn. Bà liền vội vàng quỳ xuống đất, van lơn sư tử cho về nhà bày cỗ trông trăng và ăn uống đã, rồi đến đêm sẽ xin hiến thân cho chúa rừng ăn thịt.
+Sư tử liền quay đi để cho bà lão về. Khi đã ăn uống no nê, thỏa thích rồi, bà lão thấy đã đến ngày giờ tận số thì lấy làm sợ hãi và khổ não quá. Bà kêu khóc thảm thiết, tiếng kêu gào khiến cả các loài vật và các đồ vật trong nhà cũng phải thương tâm.
+Bỗng nhiên một con rết dưới gầm giường bò lên và ra hiệu an ủi, bảo bà lão đừng lo sợ, đã có nó cứu. Cái cối xay ở gần giường nằm cũng quay tít. Bà ta thấy vậy, chắc thế nào cũng được cứu thoát chết, bây giờ mới tạm yên tâm, lên giường nằm ngủ.
+Quả nhiên, đến giờ hẹn, sư tử ta mò đến giường bà lão nằm, vừa định giơ hai chân trước lên quặp lấy bà lão đem đi thì con rết luồn ra đốt vào đùi con ác thú. Sư tử thấy đau buốt quá, giật mình ngã vật xuống đất, chẳng may chạm phải cái cối xay để gần đấy. Cái chàng cối bằng gỗ có đầu nhọn bẩy ngay vào giữa đầu, sư tử giập óc chết ngay.
+Thấy con ác thú định giết mình đã chết rồi, bà lão mừng quá, vội đi báo cho dân làng biết. Được tin lạ ấy, mọi người kéo đến xem, và họ cắt nhau làm đèn đóm thắp cho sáng để đem diễu khắp các nơi cho thiên hạ biết chúa rừng ác hại đã chết.
+Vua thấy chưa ai được biết con thú đã làm hại nhân dân trong bao lâu nay, liền hạ lệnh cho quân lính đem gươm đao, giáo mác và thắp đèn đóm khiêng quanh thành cho đình thần và nhân dân xem.
+Từ đấy, bên Trung Quốc hễ đến tối hôm Rằm tháng Tám thì nhân dân lại rước sư tử giả để làm kỷ niệm ngày bắt được chúa rừng làm hại nước. Bên ta cũng theo lệ đó: cứ đến tối hôm ấy, nhà nào cũng bày cỗ bằng các thứ bánh mặt trăng, các thứ hoa quả cho trẻ con chơi, lại làm các thứ đèn xếp và sư tử bằng giấy để chúng rước đi.
+
+--------------------------------------------------
+

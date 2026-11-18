@@ -1,0 +1,186 @@
+
+Bạn là người đánh giá Dataset cho dự án Vietnamese Comic Generation.
+
+Hãy đánh giá từng truyện để xác định mức độ phù hợp
+khi chuyển thành comic khoảng 4 cảnh.
+
+Đánh giá 4 tiêu chí, mỗi tiêu chí từ 0 đến 2:
+
+1. characters_clear
+0: Không rõ nhân vật
+1: Nhân vật tương đối rõ
+2: Nhân vật rõ ràng
+
+2. events_clear
+0: Sự kiện không có trình tự rõ
+1: Trình tự tương đối rõ
+2: Trình tự sự kiện rõ ràng
+
+3. scene_suitable
+0: Không phù hợp tạo comic
+1: Có thể tạo comic nhưng cần chỉnh sửa
+2: Rất phù hợp để chia khoảng 4 cảnh
+
+4. ending_clear
+0: Không có kết thúc rõ
+1: Kết thúc tương đối rõ
+2: Kết thúc rõ ràng
+
+Tổng điểm score = tổng 4 tiêu chí, tối đa 8.
+
+selected_candidate:
+- true: Nếu score >= 6 và phù hợp tạo comic
+- false: Nếu không phù hợp
+
+difficulty:
+- easy
+- medium
+- hard
+
+Không bịa thêm sự kiện.
+Không đánh giá chỉ dựa trên tên truyện.
+Đánh giá dựa trên nội dung được cung cấp.
+
+Trả về JSON array hợp lệ, không Markdown.
+
+Mỗi truyện:
+
+{
+  "id": "story_001",
+  "title": "...",
+  "characters_clear": 0,
+  "events_clear": 0,
+  "scene_suitable": 0,
+  "ending_clear": 0,
+  "score": 0,
+  "selected_candidate": false,
+  "difficulty": "easy",
+  "reason": "..."
+}
+
+
+==================================================
+STORIES TO EVALUATE
+==================================================
+
+
+ID: story_137
+TITLE: Nơi trở về [Quà tặng cuộc sống và hạt giống tâm hồn]
+URL: https://truyendangian.com/noi-tro-ve
+
+CONTENT:
+Một cô bé mồ côi cha mẹ, sống cùng bà ngoại trong một căn phòng nhỏ trên gác.
+Một đêm, căn nhà bốc cháy và người bà đã thiệt mạng trong khi cố gắng cứu cháu gái của mình. Ngọn lửa lan nhanh và cả tầng trệt của căn nhà nhanh chóng chìm vào biển lửa.
+Những người hàng xóm gọi điện cho đội cứu hỏa, rồi đứng đó nhìn trong vô vọng mà không thể xông vào nhà bởi ngọn lửa đã chắn kín mọi lối vào. Cô bé tuyệt vọng kêu khóc cầu cứu bên cửa sổ trên gác. Lúc ấy trong đám đông lại có tin đồn rằng lực lượng cứu hỏa sẽ đến chậm vài phút, vì họ đang bận chữa cháy ở nơi khác.
+Đột nhiên, một người đàn ông xuất hiện cùng với một chiếc thang. Ông dựng chiếc thang tựa vào bức tường của ngôi nhà, rồi nhanh chóng tiến vào bên trong. Và ông trở ra với cô bé trên tay mình. Ông trao cô bé cho những người đang dang tay chờ bên dưới, rồi mất hút vào màn đêm.
+Mọi người điều tra và thấy rằng cô bé chẳng còn người thân nào cả. Vài tuần sau một cuộc họp được tổ chức để quyết định ai là người sẽ chăm sóc và nuôi nấng cô bé.
+Một cô giáo muốn nhận nuôi cô bé. Cô đưa ra lý do rằng mình có thể bảo đảm cho em một nền giáo dục tốt. Một người nông dân nhận chăm sóc cô bé vì ông cho rằng cô bé sẽ khoẻ mạnh và thoải mái khi được sống ở nông trại. Nhiều người khác cũng đưa ra những lý do thuận lợi để được nuôi cô bé. Cuối cùng, một người giàu có nhất thị trấn đứng dậy và nói:
+– Tôi có thể mang đến cho cô bé này tất cả những điều kiện thuận lợi mà mọi người vừa đề cập, cộng với tiền bạc và tất cả những gì mà tiền có thể mua được.
+Trong suốt buổi thảo luận, cô bé vẫn im lặng, mắt nhìn xuống sàn nhà.
+– Còn ai có ý kiến khác nữa không? – Ông chủ tịch lên tiếng.
+Một người đàn ông từ cuối phòng bước lên phía trước. Bước đi của ông chậm chạp và có vẻ đau đớn. Khi đã đến trước mặt mọi người, ông bước thẳng đến chỗ cô bé và đưa đôi tay ra. Mọi người vô cùng kinh ngạc: Bàn tay và cả hai cánh tay của ông đều bị phỏng trầm trọng.
+Cô bé òa khóc:
+– Đây chính là người đã cứu cháu!
+Rồi cô bé quàng tay quanh cổ người đàn ông, như đang lấy cuộc sống thân thương, như cô bé đã làm trong cái đêm định mệnh ấy. Rồi cô bé gục đầu vào vai người đàn ông và khóc nức nở trong giây lát. Sau đó em ngước nhìn lên và mỉm cười với ông.
+Ông chủ tịch tuyên bố:
+– Cuộc họp đến đây là kết thúc.
+
+--------------------------------------------------
+
+
+ID: story_138
+TITLE: Cô đào hát và anh học trò nghèo [Truyện cổ tích Việt Nam]
+URL: https://truyendangian.com/co-dao-hat-va-anh-hoc-tro-ngheo
+
+CONTENT:
+Ngày xưa, có một đứa bé thông minh tên là Nguyễn Kỳ, mẹ mất sớm, cha lấy vợ khác. Kỳ bị dì ghẻ hành hạ ác nghiệt nên phải bỏ nhà mà đi. Lang thang khắp nơi, Kỳ gặp một cụ cử cho ở lại nhà và cho học chữ. Sẵn khiếu thông minh, Kỳ không những theo kịp các bạn, mà còn nổi tiếng giỏi văn thơ .
+Một hôm Kỳ, theo bạn học đi xem ca múa, thấy mình nghèo nên đứng trong góc nhà, chợt cô đào hát trông thấy, và hôm sau, khi Kỳ đang ngồi đọc sách thì cô đào đem 10 nén bạc đến làm quen. Kỳ nhất định không lấy, nhưng cô ta nài ép, để bạc đấy rồi bỏ đi. Cách ít lâu, nàng trở lại, rồi trở lại nữa. Hai bên dần dần quen nhau. Một hôm, không còn tự chủ được trước người con gái đẹp, giọng thướt tha, Kỳ làm một cử chỉ suồng sã, rồi hối hận ngay. Nhưng cô đào nghiêm nghị trách:
+– Chàng chớ vội tưởng lầm, tôi tìm đến chàng vì trọng người đứng đắn, vì nghĩ đến tương lai, muốn tìm nơi nương tựa lâu dài, chàng đừng nghĩ tôi là phường bậy bạ.
+Từ đó Kỳ càng trọng kính cô đào hơn, và cô vẫn giúp Kỳ qua cơn túng thiếu.
+Trước ngày lên đường đi thi, Kỳ muốn biết tông tích cô đào, muốn liên lạc với cô sau này, nhưng cô chỉ nói:
+– Sau này nếu chàng không quên tôi, thì tôi sẽ tìm đến với chàng; nếu chàng quên tôi, thì hỏi tông tích tôi cũng vô ích. Phần thiếp, thiếp không đòi chàng hứa gì cả, chỉ có Trời biết lòng thiếp.
+Khi Kỳ thi đỗ trở về quê, cha chàng bắt kết hôn với người “môn đăng hộ đối”. Kỳ hết sức từ chối, nhất quyết thà chết hơn phụ bạc người đã một lần yêu thương giúp đỡ, nhưng cha chàng cũng nhất quyết không chịu cho Kỳ kết duyên với cô ả đào, không nhận ả đào làm con dâu. Nguyễn Kỳ đau khổ, nhưng lễ giáo bắt buộc, bổn phận làm con bắt buộc, nên chàng đành phải lấy vợ theo ý cha.
+Năm sau, chàng ra kinh đô thi tiến sĩ, cô đào mang đủ thứ đến thăm. Thấy Kỳ có vẻ ngượng ngùng, cô hiểu ngay, và từ biệt hẳn.
+Nguyễn Kỳ thi đỗ, làm quan trong triều, đi sứ bên Tàu, dẹp loạn ở Hải Dương, được vua ban thưởng tước “quận công”.
+Danh vọng cao, tiền bạc sẵn, con cái đông, nhưng Kỳ luôn nhớ tới tình cô đào hát xưa, cho người dò hỏi khắp nơi, nhưng không gặp.
+Một hôm, trong bữa tiệc tại nhà người quan bạn, Kỳ đã tình cờ gặp lại cô đào, bấy giờ nàng đã có chồng làm lính, nhưng nay chồng đã chết, chỉ còn có mẹ già yếu bệnh, nàng phải trở lại nghiệp hát để nuôi mình và nuôi mẹ.
+Nguyễn Kỳ cố mời hai mẹ con về ở trong dinh, nàng đành chấp nhận. Kỳ dành cho mẹ con ngôi nhà riêng, và không để cho thiếu thốn vật gì. Một năm sau bà cụ mất, Nguyễn Kỳ cho chôn cất trọng thể. Xong rồi nàng cảm ơn và xin phép từ biệt. Nguyễn kỳ không giữ lại được, nài nỉ nàng nhận lấy vài nén bạc, nàng cũng từ chối mà ra đi.
+Qua câu chuyện, chúng ta có thể thấy Nguyễn Kỳ và cô đào hát đều đáng khen, họ đều có nhân cách cao đẹp và thật trọng tình, trọng nghĩa.
+Truyện cho thấy sự hà khắc của lễ giáo phong kiến thủa xưa, con cái bị ép duyên, hoàn toàn không có quyền tự quyết. Rõ ràng rằng, trong cuộc sống của chúng ta không hề có nghề gì là xấu cả, bởi nghề nào cũng phải bỏ công sức lao động ra thì mới thu được kết quả, còn sự vinh nhục là phụ thuộc vào nhân phẩm trong con người .
+
+--------------------------------------------------
+
+
+ID: story_139
+TITLE: Chú hươu chín màu [Truyện cổ tích cho bé]
+URL: https://truyendangian.com/chu-huou-chin-mau
+
+CONTENT:
+Ngày xửa ngày xưa, có một chú Hươu chín màu rất đẹp, lông của chú có chín loại màu sắc, sừng của chú trắng như tuyết, hàng ngày chú sống bên dòng sông.
+Một hôm, khi đang kiếm ăn bên bờ sông, bỗng nhiên chú nhìn thấy có một người sắp chết đuối. Chú Hươu vội vàng nhảy xuống dòng sông và cứu sống người đó.
+Người kia không biết làm cách nào để trả ơn cứu mạng của chú Hươu. Anh ta liền quỳ xuống khấu đầu lạy tạ chú Hươu chín màu và nói:
+– Tính mạng của tôi bây giờ là do Hươu ban cho, tôi nguyện suốt đời làm nô bộc hầu hạ Hươu, nghe theo sự sai bảo của Hươu.
+Chú Hươu trả lời rằng:
+– Nếu anh thật sự muốn đền ơn tôi thì không nên nói với bất kỳ người nào là anh đã gặp tôi. Có một số người sẽ vì bộ lông này mà dùng mọi cách để giết hại tôi.
+Người đó nghe xong thề rằng:
+– Hươu là ân nhân cứu mạng tôi. Chú cứ yên tâm, tôi thể sẽ không bao giờ nói cho người khác biết rằng tôi đã gặp Hươu.
+Vào buổi tối hôm đó, hoàng hậu ở một vương quốc nọ có một giấc mơ lạ. Trong mơ, hoàng hậu nhìn thấy một chú Hươu rất đẹp, lông có chín loại màu sắc, lại còn có chiếc sừng trắng như tuyết. Sau khi hoàng hậu tỉnh dậy, bà liền nói với quốc vương:
+– Trong giấc mơ, thiếp có gặp một chú Hươu chín màu. Cặp sừng của nó chính là một vị thần dược có thể cải tử hoàn sinh. Còn bộ lông của Hươu chín màu, nếu dùng để may y phục sẽ chống được bách bệnh trên thế gian.
+Để chiều lòng hoàng hậu, quốc vương đã dán cáo thị khắp nơi: “Nếu ai cung cấp thông tin để bắt được chú Hươu chín màu, người đó sẽ ban thưởng chức tước cùng rất nhiều vàng bạc, châu báu”.
+Người được chú Hươu chín màu cứu mạng sau khi nghe được tin này đã quên ngay ơn cứu mạng của chú Hươu và lời thề của mình. Anh ta lập tức đến gặp quốc vương và nói về nơi ở của chú Hươu chín màu.
+Sau khi biết được thông tin này, quốc vương liền tập hợp những người đi săn giỏi nhất tiến về phía dòng sông. Khi đó, chú Hươu chín màu đang nằm ngủ bên bờ sông. Khi chú tỉnh dậy thì đã bị những thợ săn của quốc vương bao vây. Chú Hươu chín màu không hề hoang mang, mà chạy đến phía trước quốc vương và nói:
+– Quốc vương, xin ngài đừng bắn vội, tôi có lời muốn nói.
+Quốc vương trả lời:
+– Đằng nào thì ngươi cũng sắp chết rồi, ngươi còn gì muốn nói?
+Chú Hươu chín màu liền hỏi:
+– Tại sao các ngài biết tôi đang ở đây?
+Quốc vương chỉ vào người bị rơi xuống nước đã được Hươu cứu và nói:
+– Chính anh ta đã báo cho ta biết.
+Chú Hươu chín màu ngẩng đầu nhìn, tức giận nói với quốc vương:
+– Thưa quốc vương, hôm qua người đó gặp nạn sắp chết đuối dưới sông, tôi đã cứu mạng anh ta. Vậy mà hôm nay anh ta lại dẫn người đến bắt tôi. Tôi không ngờ loài người lại có kẻ không còn chút lương tâm nào, không hề coi trọng chữ tín như thế!
+Quốc vương nghe xong, cảm thấy vô cùng băn khoăn, bèn lớn tiếng hỏi người bị rơi xuống nước đó:
+– Nhà ngươi đã nhận được ân huệ của chú Hươu này, tại sao lại lấy oán báo ơn?
+Người rơi xuống nước xấu hổ cúi rạp đầu. Sau đó quốc vương đã ban chiếu lệnh đến khắp nơi:
+– Từ nay về sau, không ai được giết hại Hươu chín màu.
+Sau khi tin tức được lan truyền, những chú Hươu ở khắp nơi đều đến kết bạn với chú Hươu chín màu, chúng sống bên nhau vui vẻ ở ven sông. Đất nước nọ cũng mưa thuận gió hòa, mùa vụ bội thu, muôn dân không gặp thiên tai bệnh tật, cuộc sống vô cùng mãn nguyện.
+
+--------------------------------------------------
+
+
+ID: story_140
+TITLE: Chim Non không ngoan [Truyện đọc lớp 1]
+URL: https://truyendangian.com/chim-non-khong-ngoan
+
+CONTENT:
+Có một chú Chim Non sống cùng với mẹ trong một cái tổ nho nhỏ nằm ven rừng. Thật ra thì chú cũng đã lớn rồi. Hai bên cánh đã có những chiếc lông to, dài xen lẫn với đám lông tơ mọc lún phún . Các bạn của chú đã bắt đầu ra tập bay, tập theo mẹ kiếm mồi. Chỉ có mỗi mình chú nhất định cho mình còn rất bé bỏng và đòi mẹ mớm cho ăn.
+Năm ấy trời hạn, cây cối khô héo nên lũ sâu cũng trốn mất biệt. Chim mẹ vất vả cả ngày, bay mỏi cánh cũng chỉ mang về được vài con sâu nho nhỏ với dăm hạt lúa cuối vụ. Thương con, Chim mẹ nhịn đói, nhường hết cho con. Vậy mà chú Chim Non chẳng biết, chú la toáng lên rằng chú bị bỏ đói cả ngày và mẹ đã ăn hết phần của chú. Chú còn bảo mẹ ra ngoài ngủ vì chú không muốn ngủ chung với một người mẹ không thương con. Chim mẹ buồn lắm, nhưng vẫn cố đi tìm thêm vài miếng ăn cho đứa con háu đói. Trời tối, Chim mẹ lả đi vì mệt và đói bên ngoài tổ, còn chú Chim Non nằm ngủ ngon lành, chẳng lo cho mẹ tí nào.
+Nửa đêm, một đám cháy bỗng bùng lên, lan ra cả khu rừng. Chim mẹ hoảng hốt lao vào tổ cứu con. Chú Chim Non đúng ra đã có thể tự bay được nhưng vì không tập luyện nên phải để mẹ cõng. Chim mẹ gắng hết mình, nhưng đến bìa rừng thì kiệt sức , đôi cánh chao đảo rồi bị đám cháy bén vào.
+Khi thoát ra được, hơn nửa bộ lông Chim mẹ đã cháy trụi. Chim mẹ chỉ còn thoi thóp, chú Chim Non cuống quýt gọi mẹ, gọi mọi người đến cứu nhưng chẳng có ai…
+Một lát sau thì Chim mẹ không còn nữa…
+Chú Chim Non khóc thương thảm thiết bên xác mẹ. Nỗi hối hận vì những lỗi lầm của mình đối với mẹ làm cho chú càng đau khổ thêm. Từng giọt nước mắt muộn màng nóng hổi chạm vào cơ thể gầy guộc của mẹ chú. Và phép lạ đã xuất hiện, Chim mẹ dần dần hồi tỉnh , mở đôi mắt mệt nhọc nhìn đứa con bé bỏng của mình đầy trìu mến. Chú Chim Non ôm chặt lấy mẹ, thổn thức:
+– Mẹ ơi, con xin lỗi mẹ! Từ hôm nay, con hứa sẽ ngoan hơn và không buồn lòng nữa đâu. Con thương mẹ nhất trên đời.
+Từ đó, mọi người trong khu rừng mỗi khi nhìn thấy chú Chim Non lại tấm tắc khen sự chăm chỉ và hiếu thảo của chú ta đối với mẹ.
+
+--------------------------------------------------
+
+
+ID: story_141
+TITLE: Những người bạn [Truyện đọc lớp 1]
+URL: https://truyendangian.com/nhung-nguoi-ban
+
+CONTENT:
+Ngày xửa ngày xưa, trong một vương quốc nọ có một nàng công chúa nhỏ bé và xinh đẹp. Công chúa nhỏ sống trong một tòa lâu đài lộng lẫy với những bộ váy thật đẹp, những món đồ chơi rất quý và một căn phòng ngập tràn ánh nắng nhìn ra khu vườn nhiều hoa. Có tất cả những gì mà mọi trẻ em mơ ước, nhưng cô vẫn buồn. Cuối cùng, công chúa nhỏ biết là mình không có bạn và quyết định lên đường đi tìm một người bạn – tất nhiên bạn của công chúa cũng phải là công chúa rồi.
+Vậy là công chúa nhỏ lên đường. Cô đi mãi, đi mãi, đến một cánh đồng và gặp một cậu bé nông dân ở trần, đen nhẻm đang ngồi vắt vẻo trên lưng trâu thả diều. Công chúa đứng xem một cách thích thú và bật cười khi cánh diều chao nghiêng. Cậu bé chăn trâu nhoẻn miệng cười:
+– Xin chào, chúng ta làm bạn với nhau nhé!
+– Ồ, không được đâu, mình cần một người bạn là công chúa cơ, mình đi đây !
+Thế là cô tiếp tục chặng đường đi tìm bạn. Đi mãi, đi mãi, băng qua bao nhiêu là con đường, bao nhiêu là ngọn đồi, cô đến một khu rừng. Một cô bé nhặt củi lấm lem tro bếp đang ngồi trò chuyện với một chú vẹt trông rất ngộ nghĩnh. Cô bé nhìn thấy công chúa, ngạc nhiên vì chiếc áo lộng lẫy và chiếc vương miện nạm ngọc. Thế nhưng công chúa đã nhanh chóng lên tiếng:
+– Chúng ta không thể làm bạn được đâu, Mình chỉ muốn kết bạn với một công chúa thôi!
+Và cô lại tiếp tục đi. Trên đường công chúa còn gặp một cậu bé đang ngồi đan rổ bằng lạt nữa. Nhưng cô vội vã chối từ lời đề nghị làm bạn vì đó cũng không phải là công chúa như cô.
+Cuối cùng, công chúa gặp một con sông. Bên kia bờ, các bạn nhỏ đang chơi đùa thật vui. Cậu bé chăn trâu và cậu bé đan rổ đang chơi kéo co, mồ hôi nhễ nhại trong tiếng reo hò cổ vũ của cô bé nhặt củi.
+Công chúa tủi thân ngồi tựa vào một gốc cây ôm mặt khóc nức nở: “Tại sao chứ, mình chỉ cần một người bạn thôi mà… Bây giờ mình chẳng cần công chúa hay hoàng tử gì nữa, miễn là có ai chịu làm bạn với mình… – Cô nghĩ, những giọt nước mắt lăn đều xuống má.
+Một bàn tay bỗng nhẹ nhàng đặt lên vai công chúa. Cô ngẩng lên, cậu bé chăn trâu, cô bé nhặt củi và cậu bé đan rổ đứng đấy. Cô bé chìa cho công chúa một bó hoa lục bình tím biếc, cười thật tươi và nói:
+– Công chúa ơi, chúng ta là bạn nhé!
+Từ đó, họ là những người bạn tốt nhất của nhau. Nếu các bạn nhỏ muốn kết bạn với nhóm ấy, hãy gửi thư về cho công chúa nhé, chờ đấy!
+
+--------------------------------------------------
+

@@ -1,0 +1,249 @@
+
+Bạn là người đánh giá Dataset cho dự án Vietnamese Comic Generation.
+
+Hãy đánh giá từng truyện để xác định mức độ phù hợp
+khi chuyển thành comic khoảng 4 cảnh.
+
+Đánh giá 4 tiêu chí, mỗi tiêu chí từ 0 đến 2:
+
+1. characters_clear
+0: Không rõ nhân vật
+1: Nhân vật tương đối rõ
+2: Nhân vật rõ ràng
+
+2. events_clear
+0: Sự kiện không có trình tự rõ
+1: Trình tự tương đối rõ
+2: Trình tự sự kiện rõ ràng
+
+3. scene_suitable
+0: Không phù hợp tạo comic
+1: Có thể tạo comic nhưng cần chỉnh sửa
+2: Rất phù hợp để chia khoảng 4 cảnh
+
+4. ending_clear
+0: Không có kết thúc rõ
+1: Kết thúc tương đối rõ
+2: Kết thúc rõ ràng
+
+Tổng điểm score = tổng 4 tiêu chí, tối đa 8.
+
+selected_candidate:
+- true: Nếu score >= 6 và phù hợp tạo comic
+- false: Nếu không phù hợp
+
+difficulty:
+- easy
+- medium
+- hard
+
+Không bịa thêm sự kiện.
+Không đánh giá chỉ dựa trên tên truyện.
+Đánh giá dựa trên nội dung được cung cấp.
+
+Trả về JSON array hợp lệ, không Markdown.
+
+Mỗi truyện:
+
+{
+  "id": "story_001",
+  "title": "...",
+  "characters_clear": 0,
+  "events_clear": 0,
+  "scene_suitable": 0,
+  "ending_clear": 0,
+  "score": 0,
+  "selected_candidate": false,
+  "difficulty": "easy",
+  "reason": "..."
+}
+
+
+==================================================
+STORIES TO EVALUATE
+==================================================
+
+
+ID: story_167
+TITLE: Mẹ con nhà Chuối [Truyện đọc lớp 1]
+URL: https://truyendangian.com/me-con-nha-chuoi
+
+CONTENT:
+Mẹ con nhà Chuối là câu chuyện cảm động về tình mẹ con giữa Chuối mẹ và Chuối con, qua đó giáo dục các bạn nhỏ phải biết sống tự lập và ý nghĩa với đời.
+Nếu như Chuối mẹ là một “người mẹ” tận tuy, yêu thương con hết mực, muốn sống có ích, có ý thức đền ơn đáp nghĩa… thì Chuối con là một “cậu bé” đáng yêu, cũng hết lòng yêu thương mẹ và sớm có ý thức sống tự lập.
+Gió ào qua khu vườn. Chuối con run rẩy nép sát vào mẹ. Lớn tướng rồi mà nó vẫn chưa hết sợ cái lão Gió bấc có ngọn roi giá buốt này. Tấm áo mỏng tang trên mình nó chưa đủ che kín thân. Thấy vậy, Chuối mẹ lật ngả vội những tàu lá xuống che chở. Từ hồi Chuối con còn là cái mầm nhỏ xíu mới trồi lên khỏi mặt đất, nó đã nhận được sự chăm chút , chiều chuộng của mẹ. Dạo ấy là mùa hạ. Nắng gay gắt. Cây cối thu mình, héo quắt dưới sự hun đốt giận dữ của mặt trời. Thế mà Chuối con vẫn xanh mơn mởn nhờ bầu sữa ngọt lành của mẹ. Chẳng mấy chốc, nó đã to lớn phổng phao. Một bữa, Chuối mẹ lắng giọng bảo con:
+– Con ơi, giờ đây đã lớn khôn, con hãy tự tập đi kiếm ăn để mẹ còn lo tạo quả nhé!
+Chuối con ngạc nhiên hỏi lại:
+– Sống thế này là thích lắm rồi, còn phải tạo quả làm gì hả mẹ?
+Chuối mẹ giải thích:
+– Mẹ không muốn giống chuối nhà ta là đồ vô dụng . Con không để ý đến ánh mắt mong mỏi chờ trông của ông lão thường vun gốc nhổ cỏ cho chúng ta hay sao? Mẹ phải tạo quả nhanh để còn kịp đền ơn cụ .
+Chuối con lúc lắc cuộn lá xanh nõn trên đầu, phụng phịu:
+– Ứ ừ! Không có mẹ, con kiếm ăn một mình sao được?
+Chuối mẹ vẫn dịu dàng:
+– Mẹ muốn nuôi con đến trọn đời nhưng rồi mai đây vừa phải nuôi con lại vừa lo tạo quả, sức mẹ thì yếu lắm rồi, giá như con có thể đỡ đần thêm chút ít…
+Chuối con bối rối ngước mắt lên nhìn mẹ và bỗng giật mình. Chao ôi! Mẹ đã khác xưa nhiều quá. Những tàu lá vốn xanh tươi, to dày đến thế mà nay rách nát tả tơi. Những bẹ vỏ khô vàng đổ đầy quanh gốc. Hổ thẹn, chuối con tự trách mình bấy lâu nay quá vô tư. Nó thầm hứa là từ nay sẽ không bao giờ quấy mẹ nữa. Nhất định thế!
+Chờ đêm xuống, khi mặt đất được hơi sương làm cho dịu lại, Chuối con khẽ cựa mình rụt rè thò những ngón tay nhỏ bé trắng muốt vào lòng đất tối om. Nó nhấm nháp một cách e dè vị nồng nồng của đất – bữa ăn đầu tiên không phải từ vú mẹ. Cứ thế, những ngón tay của Chuối con bạo dạn lần tìm ra xa, vươn tới những vùng đất tươi xốp, mịn màng.
+Chỉ ít lâu sau, trến đầu Chuối mẹ bỗng xuất hiện một búp nhọn màu nâu chọc thẳng lên trời. Mẹ đang tạo quả chăng? Chuối con trộm nghĩ và thầm chờ đợi. Cái bắp chuối ngày một lớn dần và từ từ chúc đầu xuống đất. Hoa chuối nở, lũ quả bé tí đội những chiếc mũ trắng xinh xinh ngơ ngác thò đầu ra ngoài. Để nuôi chúng, hình như Chuối mẹ phải gắng sức nhiều lắm. Cùng với sự lớn lên của quả, vóc dáng Chuối mẹ ngày càng vàng vọt, những cành lá gầy guộc khẳng khiu. Buồng quả trĩu nặng vít cong đầu Chuối mẹ .
+Một hôm, đang mải mê nô đùa trong ánh chiều đã nhạt, Chuối con chợt nghe có tiếng động mạnh. Nó ngước mắt nhìn lên thì, ôi thôi! Buồng quả đã biến mất. Trến đầu Chuối mẹ, những giọt nhựa máu rỉ ra từ vết cắt sắc ngọt.
+Thương mẹ, Chuối con nói qua nước mắt:
+– Con đã bảo rồi, mẹ tạo quả làm gì để người ta hành hạ đến nổi khổ sở như vầy?
+Người run lên vì đau đớn, Chuối mẹ vẫn sung sướng nói lại với con:
+– Sinh con và tạo quả, thế là đời mẹ trở nên có ích. Buồng quả chín, người ta phải thu hoạch, không thì lũ chim chóc, dơi chuột sẽ làm hỏng đi. Nhìn ông lão làm vườn mừng vui, mẹ cũng thấy lòng mình thanh thản.
+Chẳng bao lâu nữa thì mẹ cũng sẽ… Con đừng buồn, đó là quy luật khắt khe của tạo hóa .
+– Mẹ đừng nói nữa! Chuối con thốt lên đau đớn. Lần đầu tiên nó “hỗn” vì không muốn nghe, không muốn hiểu những điều mẹ nói. Chuối con sợ cô đơn. Nó thèm được nghe lời ru, những câu chuyện cổ mà mẹ nó vẫn thầm thì kể dưới bầu trời đầy sao.
+Mệt mỏi, Chuối con gục đầu vào lòng mẹ. Lời ru dịu dàng của mẹ cất lên đưa Chuối con vào giấc ngủ. Nó ngủ không ngon giấc, thỉnh thoảng lại vật vã các tàu lá. Hình như nó đang ú ớ thét lên trong giấc mơ:
+– Đừng bỏ con, mẹ ơi!
+
+--------------------------------------------------
+
+
+ID: story_168
+TITLE: Người viết sử và quan tề tướng
+URL: https://truyendangian.com/nguoi-viet-su-va-quan-te-tuong
+
+CONTENT:
+Ngày xưa ở bên Trung Quốc, vua nước Tấn là Tấn Linh Công định giết tề tướng Triệu Thuẫn. Thuẫn hay tin định trốn ra nước ngoài thì người cháu là Triệu Xuyên khuyên đừng đi vội, hãy tạm lánh ra ngoại thành để chờ xem tình hình thế nào đã.
+Triệu Xuyên vào triều khôn khéo làm cho vua phái tên nịnh thần Đồ Ngạn Cổ lúc nào cũng kè kè bên vua phải đi công cán xa. Sau đó xin tặng vua hơn trăm dũng sĩ để bổ sung vào số quân thị vệ của vua vẫn còn rất ít. Linh Công cả mừng, khen Triệu Xuyên là trung thần. Không ngờ, Xuyên về, đem lính đến, đi thẳng lên đài, bắt Linh Công, kể tội tàn dân hại nước, ăn chơi xa xỉ, tin dùng bọn a dua, xiểm nịnh… rồi giết chết.
+Xong việc, Triệu Xuyên đi rước tể tướng Triệu Thuẫn về để giúp lập vua mới là Tấn Thành Công.
+Triệu Thuẫn trong bụng không hài lòng cho lắm về hành động của Triệu Xuyên nên một bữa ra thăm sử quán , bảo quan thái sử là Đổng Hồ đưa bản thảo cho xem Đổng Hồ chép về sự việc trên như thế nào. Đổng Hồ đưa trình. Triệu Thuẫn mở ra thấy ghi: “Mùa thu tháng bảy năm Ất Sửu, thừa tướng Triệu Thuẫn giết vua Tấn Linh Công ở vườn đào”.
+Thuẫn giật mình bảo:                            •   .
+– Quan thái sử lầm rồi. Ta đã lánh ra ngoại thành cách kinh thành những hai trăm dặm có hay biết gì đến chuyện ở vườn đào đâu! Quan thái sử chép thế, chẳng phải oan cho Thuẫn này lắm ư?
+Đổng Hồ thưa:
+– Ngài làm tể tướng, trốn chưa khỏi nước đã xảy ra việc ấy. Rồi ngài về, lại không trị tội kẻ giết vua, thử hỏi đầu mối không tự ngài thì còn ai vào đó?
+Triệu Thuẫn có ý bắt ép, nói:
+– Bây giờ có thể sửa được không?
+Đổng Hồ thẳng thắn đáp:
+– Thưa ngài, đã là sử thì chuyện có thế nào phải chép như thế ấy. Đầu tôi có thể cắt được, chứ đoạn sử này thì không thể sửa được.
+Thuẫn than rằng:
+– Thế mới biết cái quyền cầm bút của quan thái sử còn trọng hơn cái quyền làm thừa tướng của ta!
+
+--------------------------------------------------
+
+
+ID: story_169
+TITLE: Ông lão ăn mày [Truyện quà tặng cuộc sống ý nghĩa]
+URL: https://truyendangian.com/ong-lao-an-may
+
+CONTENT:
+Ông lão ăn mày ! Người ta gọi ông như thế vì ông nghèo và không nhà cửa. Thực ra, ông chưa hề chìa tay xin ai một đồng xu.
+Có lẽ ông chưa ngoài 70 tuổi nhưng mưa gió, công việc khó nhọc, sự đói rét đã làm ông già hơn ngày tháng. Lưng ông hơi còng, tóc ông mới bạc quá nửa, nhưng đôi má hóp, chân tay khô đét và đen xạm. Riêng mắt ông còn tinh sáng.
+Ở trường về, từ đằng xa, tôi đã thấy ông ngồi co ro trước cửa nhà tôi. Nghe tiếng gót giày tôi đi trên thềm gạch, ông ngẩng lên chào, giọng nhỏ và run:
+– Bẩm ông… Chỗ này nắng, cháu ngồi nhờ ông một lúc cho ấm.
+– Được, cụ cứ ngồi.
+– Cháu sẽ quét cẩn thận, không dám để rác bẩn đâu.
+– Thế thì hay lắm.
+Rồi ông lại cắm cúi xuống chiếc rổ tre đang đan dở.
+Tôi vào nhà ăn cơm. Ông đi lúc nào, tôi không để ý, chắc ông đi lúc mặt trời lên cao đã xế ánh nắng ra khỏi cửa nhà tôi. Chỗ ông ngồi đan, đố ai tìm thấy một nút lạt, một tơ tre, một sợi mây nhỏ.
+Hôm ấy là chủ nhật. Giời hoe nắng từ sáng sớm. Tuy vậy, ngồi trong nhà tôi mặc áo len còn thấy lạnh. Lúc ra tựa cửa, tôi đã thấy ông lão đang ngồi đan ở chỗ cũ. Tôi gợi chuyện:
+– Cụ dậy sớm nhỉ?
+Ông ngẩng lên:
+– Bẩm ông, cháu lại nhờ ông buổi nữa…
+– Vâng, nào tôi có thiệt gì!
+– Ông xem! Hôm qua, cháu có để bẩn tí nào đâu. Cháu nghèo đói thật, nhưng không muốn để ai chê trách mình.
+– Cụ nghĩ thế phải lắm.
+Ông cụ vừa rút chặt sợi mây, vừa thủng thẳng:
+– Cháu xa làng từ khi còn bé. Cháu đã đi ở, kéo xe, làm bếp, bán hàng rong, nhưng không bao giờ được mát mặt . Bây giờ có tuổi, không làm nổi việc nặng nhọc, cháu làm việc nhẹ.
+– Đan thế này, mỗi ngày cụ kiếm được bao nhiêu?
+– Dăm bảy xu, có khi một hai xu.
+– Đủ ăn sao được?
+– Cháu già rồi, ăn hết mấy, vả lại, sức chỉ có thế thì làm thế nào?
+Tôi đang lấy làm lạ về lời nói của ông thì nghe đằng xa có tiếng rên rỉ não nuột. Tiếng ấy to dần. Đó là tiếng kêu xin thê thảm của một người mù, già, gầy đen. Anh ta lê qua trước mặt chúng tôi, tay trái chống xuống đất, tay phải cầm mảnh rá mất cạp. Ai thấy anh ta mà không động lòng thương, tôi chịu là người can đảm.
+Thấy tôi cho anh ta tiền, ông lão cũng sờ vào vành quần, lấy ra một hào, ném vào rá người ăn mày. Ông ngậm ngùi bảo tôi:
+– Sao thiên hạ lắm người khổ thế, ông nhỉ?
+Tôi còn biết trả lời ông ra sao. Tôi gọi thằng cháu đem rổ rá cũ ra để ông cạp lại hộ. Ông làm cẩn thận và đẹp lắm. Những nút mây nhỏ gần sát nhau, đầu nút lẩn vào bên trong.
+Tôi đưa ông một hào. Ông bảo:
+– Cháu không có xu giả lại.
+– Biếu cụ cả đấy.
+– Ông cho, cháu xin vâng, chứ ông giả tiền công thì đắt quá, cháu không dám nhận.
+Sau đó hai hôm, giời đang ấm bỗng nổi rét. Lá vàng lác đác rụng. Tầng mây nặng trĩu và xám ngắt, cảnh vật âm u. Tôi kéo cổ áo lên khỏi gáy nhưng vẫn run hoài. Hai tay trong túi áo còn thấy buốt. Một người đi bên cạnh tôi, hai hàm răng chạm nhau lập cập.
+Trước cửa trường học, học trò đứng tụ lại khác mọi hôm. Tôi hỏi họ:
+– Chuyện gì thế?
+– Thưa thầy, trong hiên trường có người chết. Có lẽ bệnh dịch. Mời thầy xuống xem.
+Tôi hồi hộp nghĩ: “Hay là ông lão…”.
+Đến nơi, nhìn vào trong hiên, trước cửa lớp tư, tôi thấy một chiếc chiếu cuốn tròn, gồ lên. Thầy giáo cùng trường bảo tôi:
+– Ông cụ này vẫn ngủ ở đây. Ông cụ sạch sẽ và cẩn thận lắm, sáng nào dậy cũng quét dọn tinh tươm.
+– Có phải ông cụ vẫn đan rổ rá?
+– Phải đấy. Ông cụ khái đáo để! Tuy già yếu, nghèo đói, ông cụ vẫn kiếm lấy ăn, không thèm đi xin.
+– Ông còn làm phúc cho kẻ nghèo hơn!
+Một tiếng còi ô tô. Chúng tôi giãn sang hai bên đường. Chiếc xe đen, bóng loáng, lịch sự từ từ tiến đến, ông y sĩ bước xuống, vào khám tử thi.
+Xem xong, ông bảo chúng tôi:
+– Người ăn mày này chết vì rét thôi. Các ông cho học trò nghỉ buổi sáng. Chiều có thể học được.
+Ba tiếng trống vang lên. Học trò lớp trên vào lớp. Ngoài đường, vòm trời ảm đạm, cây cối xờ xạc, ủ rũ. Một chiếc lá vàng khô rời cành, lặng lẽ rơi xuốhg đất. Hình ảnh của một đời người đã qua.
+Buổi chiều hôm sau, khi tan học, tôi gặp một cậu bé độ sáu, bảy tuổi gầy gò, bẩn thỉu, bận một chiếc áo cánh nâu rách dài chấm đầu gốì. Cậu bé vừa đi vừa khóc, tay chùi nước mắt rỏ giọt hai bên má. Rồi cậu bé vào hiên trường, ngồi bưng mặt khóc ở đúng chỗ ông lão vừa mất đêm kia.
+Tôi ngạc nhiên. Chắc thằng bé là con cháu người đã khuất. Tôi hỏi:
+– Sao cháu ngồi khóc ở đây?
+– Bố mẹ cháu chết cả. Cháu đi ăn mày, vẫn được ông cụ ở đây cho ăn, cho ngủ. Cháu bị lạc mất mấy hôm, bây giờ về không thấy ông đâu…
+Cậu bé thổn thức mãi mới nói được mấy câu. Hai má đẫm lệ. Tôi muốn bảo nó: “Ông cụ chết rồi” nhưng sự thương cảm làm tôi nghẹn lời.
+
+--------------------------------------------------
+
+
+ID: story_170
+TITLE: Hãy tha thứ cho chúng cháu! [Quà tặng cuộc sống]
+URL: https://truyendangian.com/hay-tha-thu-cho-chung-chau
+
+CONTENT:
+Mỗi buổi trưa, bọn trẻ chúng tôi lại rủ nhau tụ tập dưới tán những cây bàng giữa làng. Thằng Bá, một thằng mập ú, khôn ngoan và lanh lợi nhất trong bọn, cầm đầu chúng tôi. Nó khinh khỉnh đưa mắt nhẩm đếm rồi phân chúng tôi thành hai nhóm. Xong đâu đấy, nó đưa hai ngón tay vào mồm huýt lên một hồi còi. Lập tức, chúng tôi xông vào quần nhau chí tử với quả bóng được bện bằng giẻ rách. Khi thấy chúng tôi đã mệt lử, Bá lại đưa hai ngón tay vào mồm huýt lên một hồi còi nữa: ấy là hiệu lệnh cho nghỉ. Chúng tôi, đứa nào đứa nấy ngồi bệt xuống gốc cây bàng thở hổn hển. Một lúc sau, Bá lại đưa hai ngón tay vào mồm huýt lên một hồi còi nữa. Đó là hiệu lệnh đến quán bà Bảy Nhiêu mua kẹo “bồi dưỡng”. Lập tức đứa nào đứa nấy thò tay vào túi lôi ra những tờ bạc nát nhàu rồi chạy ù đi…
+Quán bà Bảy Nhiêu là một cái chòi tranh rách nát được dựng lên trước một ngôi nhà tranh vách đất cũng rách nát như vậy. Trong chòi có đặt một cái bàn gỗ đã cũ, hai cái ghế băng cũng già nua như vậy, một cái đã hỏng mất một chân. Trên chiếc bàn gỗ có xếp mấy lọ kẹo.
+Bà Bẩy Nhiêu sống một mình. Người trong làng không rõ chồng con bà mất tự lúc nào, mà cũng có thể bà chưa hề có chồng con gì cả. Trước đây, mắt bà còn tinh nhưng độ hai năm nay bà bị loà. Người ta bảo nhà bà ở gần động cát quá, gió thổi cát vào mắt, lâu ngày đâm ra vậy.
+Chúng tôi nhao nhao:
+– Bán cho con hai viên kẹo bi, bà.
+– Bán cho con một thanh kẹo lạc, một viên kẹo bi, bà.
+Bà Bảy Nhiêu run run đưa bàn tay trái lên cầm tiền của chúng tôi, bỏ ngay vào cái cơi trầu đặt dưới bàn, tay phải quờ quờ vào cái lọ lấy kẹo cho từng đứa. Hầu như bà không bao giờ đếm tiền. Bà tin chúng tôi.
+Trưa hôm đó, sau hiệu lệnh của thằng Bá, tôi cho tay vào túi. Những tờ bạc lẻ mà mẹ tôi cho đã biến đâu mất. Tôi ngần ngừ một lúc nhưng nỗi thèm ngọt khiến tôi lủi thủi theo sau các bạn mong được ăn ghẹ của đứa nào đây. Giữa đường, nghĩ xấu hổ, tôi quay lại.
+– Sao cậu không đi mua kẹo? – Thằng Bá đi sau hỏi tôi.
+– Tớ không có tiền.
+Bá cười sằng sặc:
+– Chớ hồi giờ tớ đâu có tiền mà vẫn mua được kẹo.
+Tôi ngạc nhiên:
+– Chớ lâu nay cậu mua bằng thứ gì ?
+Bá không trả lời ngay. Nó kéo tôi sát lại gần, rút trong túi ra mấy tờ giấy đã viết, được cắt gọn ghẽ như những tờ giấy bạc, thì thầm:
+– Tớ chuyên đưa bà Bảy những tờ giấy này. Bả mù, bả đâu có thấy. – Nó ngừng một lát rồi tiếp – Tớ có ba tờ, cho cậu một. Đợi tụi nó mua xong, cuối cùng mình mới mua.
+Tôi ngần ngại một lúc rồi cuối cùng cũng cầm tờ giây lộn. Tôi có cảm giác khi cầm tờ bạc giả của tôi, mắt bà Bảy Nhiêu như có tia sáng loé lên. Nhưng bà không nói gì, vẫn bỏ nó vào cơi trầu và đưa viên kẹo cho tôi…
+Hôm sau, chúng tôi định lặp lại sự việc y như hôm trước. Nhưng khi tôi và Bá đến quán thì không thấy có chuyện mua bán. Các bạn đến trước đều đứng túm lại giữa quán nhìn sững vào trong nhà bà Bảy. Trong nhà có tiếng người lao xao. Một bác nông dân quen biết trong làng đang ngồi trước cửa vừa giở cơi trầu của bà Bảy ra đếm, vừa nói vọng ra:
+– Tụi bay về đi. Bà Bảy trúng gió chết hồi hôm rồi.
+Chúng tôi sững sờ, đứng im không nhúc nhích. Bác nông dân lẩm bẩm điều gì rồi quay vô nhà nói với ai đó:
+– Số tiền này đủ làm một mâm cúng bả đấy. – Im lặng một lúc rồi bác tiếp – Bả mù mà tình thật. Bọn nào đưa giấy lộn cho bả, bả cũng nhận rồi gói riêng ra…
+Tôi và Bá đứng như chôn chân xuống đất. Sống lưng lạnh buốt…
+Từ đó đến nay đã bốn mươi năm trôi qua. Bạn bè của tôi không còn đông đủ như trước. Mấy chục năm chiến tranh đã xáo trộn chúng tôi mỗi người một ngả. Thằng Bá ngày xưa giờ trở thành một nông dân, người gầy, rắn rỏi, ngày ngày đánh trâu cày kiếm khoai lúa nuôi bầy con cháu đông đúc. Riêng tôi may mắn được học hành để trở thành một nhà văn. Cứ mỗi lần về quê, tôi đều rủ Bá ra thăm mộ bà Bảy Nhiêu, cả hai đứa đều đứng lặng, miệng lầm rầm cầu mong bà tha thứ …
+
+--------------------------------------------------
+
+
+ID: story_171
+TITLE: Suất cơm phần bà [Quà tặng cuộc sống về tình cảm gia đình]
+URL: https://truyendangian.com/suat-com-phan-ba
+
+CONTENT:
+Một tối cuối năm, trời rất rét, đi họp về qua phố Hàng Giấy, thấy một bà cụ đang ngồi quạt ngô nướng trên cái chậu than nhỏ, thơm quá, ấm quá, tôi liền dựng xe ngồi thụp xuống mua một bắp. Bắp ngô non, nướng vừa than, vỏ bọc ngoài thì giòn, ruột trong mềm như xôi nếp, nóng muốn rụng hai hàm răng, ăn thế mới ngon, lại phải ăn vào trời rét, ăn lúc khuya khi bụng đã hơi đói.
+Tôi đã ăn gần hết một bắp dài, chợt thấy hai cậu bé lên tám với lên mười. Cậu lớn xách liễn cơm lồng trong cái quang nhỏ, một tay cầm cái bát với đôi đũa, chạy ào tới, hỏi:
+– Bà ơi, bà đói lắm phải không?
+Bà cụ cười:
+– Bà quạt ngô thì đói làm sao được! Hai đứa ăn cả chưa?
+Đứa nhỏ đáp:
+– Chúng cháu ăn rồi.
+Bà cụ nhòm vào liễn cơm, hỏi:
+– Các cháu có được ăn thịt không?
+Đứa nhỏ nói:
+– Ăn nhiều lắm. Mẹ cho chúng cháu ăn chán thì thôi.
+Bà cụ quát yêu:
+– Giấu đầu hở đuôi. Mấy mẹ con ăn rau để bà ăn thịt. Bà làm sao mà nuốt nổi.
+Đứa nhỏ nói:
+– Mẹ cháu bảo bà không ăn thịt thì sẽ bị ốm.
+Bà cụ xới cơm ra bát, nhai nuốt nhệu nhạo với mấy cọng rau muống xào, ăn một lưng bát, ăn thêm một lưng nữa thì thôi. Tôi đã ăn cái bắp thứ hai, không phải vì muốn ăn mà muốn ngồi nghe thêm mấy bà cháu trò chuyện với nhau. Bà cụ xới một bát cơm đầy, đặt lên một miếng thịt nạc to, cầm đôi đũa đưa cho đứa nhỏ:
+– Bà ăn ngô no rồi, con ăn với bà một bát cho bà vui.
+Đứa em lấm lét nhìn anh rồi lại nhìn bát cơm đã đưa lên tận tay. Đứa anh lườm em nhưng vẫn nói:
+– Xin bà đi. Lần sau thì ở nhà nhé!
+Bà cụ đưa cái liễn vẫn còn ít cơm cho đứa anh, bảo:
+– Con lấy thìa vét nốt mà ăn, đừng bỏ phí.
+Đứa lớn hai tay bưng lấy cái liễn, nhìn bà rồi khóc.
+Bà cụ nói:
+– Khóc cái gì, bà đã chết đâu mà khóc!
+Đứa lớn vừa khóc vừa nói mếu máo:
+– Sao bà ăn ít thế? Bà ốm hả bà?
+Bà cụ vẫn cười, cười như khóc:
+– Bà bán hàng quà thì bà lại đi ăn quà chứ bà chịu đói à?
+Tôi lấy thêm hai cái bắp đã nướng sẵn, trả tiền rồi đứng vụt lên. Lúc đạp xe thấy mặt buốt lạnh mới hay là mình cũng đã khóc, nước mắt ướt nhoè hai gò má.
+
+--------------------------------------------------
+

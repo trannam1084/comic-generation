@@ -1,0 +1,165 @@
+
+Bạn là người đánh giá Dataset cho dự án Vietnamese Comic Generation.
+
+Hãy đánh giá từng truyện để xác định mức độ phù hợp
+khi chuyển thành comic khoảng 4 cảnh.
+
+Đánh giá 4 tiêu chí, mỗi tiêu chí từ 0 đến 2:
+
+1. characters_clear
+0: Không rõ nhân vật
+1: Nhân vật tương đối rõ
+2: Nhân vật rõ ràng
+
+2. events_clear
+0: Sự kiện không có trình tự rõ
+1: Trình tự tương đối rõ
+2: Trình tự sự kiện rõ ràng
+
+3. scene_suitable
+0: Không phù hợp tạo comic
+1: Có thể tạo comic nhưng cần chỉnh sửa
+2: Rất phù hợp để chia khoảng 4 cảnh
+
+4. ending_clear
+0: Không có kết thúc rõ
+1: Kết thúc tương đối rõ
+2: Kết thúc rõ ràng
+
+Tổng điểm score = tổng 4 tiêu chí, tối đa 8.
+
+selected_candidate:
+- true: Nếu score >= 6 và phù hợp tạo comic
+- false: Nếu không phù hợp
+
+difficulty:
+- easy
+- medium
+- hard
+
+Không bịa thêm sự kiện.
+Không đánh giá chỉ dựa trên tên truyện.
+Đánh giá dựa trên nội dung được cung cấp.
+
+Trả về JSON array hợp lệ, không Markdown.
+
+Mỗi truyện:
+
+{
+  "id": "story_001",
+  "title": "...",
+  "characters_clear": 0,
+  "events_clear": 0,
+  "scene_suitable": 0,
+  "ending_clear": 0,
+  "score": 0,
+  "selected_candidate": false,
+  "difficulty": "easy",
+  "reason": "..."
+}
+
+
+==================================================
+STORIES TO EVALUATE
+==================================================
+
+
+ID: story_011
+TITLE: Học nghề (Tiếng Việt lớp 3, bài 14, Kết nối tri thức với cuộc sống)
+URL: https://truyendangian.com/hoc-nghe
+
+CONTENT:
+Hè năm ấy, Va-li-a theo bố mẹ đi xem xiếc. Em thích nhất tiết mục “Cô gái phi ngựa đánh đàn”. Va-li-a nghĩ: “Cô ấy thật xinh đẹp và dũng cảm!”. Và em mơ ước trở thành diễn viên phi ngựa.
+Dịp may đã đến. Rạp xiếc cần tuyển diễn viên, Va-li-a xin bố mẹ ghi tên học. Em gặp ông giám đốc và nói:
+– Xin bác nhận cháu vào học tiết mục “Phi ngựa đánh đàn” .
+– Được!
+Ông giám đốc nhìn em cười:
+– Thế cháu biết phi ngựa chưa?
+– Dạ, chưa. Nhưng cháu rất thích và sẽ học được ạ.
+– Tốt! Bây giờ, cháu cầm cái chổi kia theo bác.
+Va-li-a theo ông Giám đốc ra chuồng ngựa. Ông Giám đốc nói:
+– Việc trước tiên của cháu là quét chuống ngựa và làm quen với con ngựa này, bạn biểu diễn của cháu đấy.
+Va-li-a rất ngạc nhiên. Em suy nghĩ rồi cầm chổi quét phân và rác bẩn trên sân chuồng ngựa.
+Va-li-a đã giữ chuồng ngựa sạch sẽ và làm quen với chú ngựa trong suốt thời gian học.
+Ông Giám đốc gật đầu và bảo Va-li-a:
+– Công việc của diễn viên phi ngựa đánh đàn bắt đầu thế đấy, cháu ạ. Cái tháp cao nào cũng phải bắt đầu xây từ mặt đất lên….
+Về sau, Va-li-a trở thành một diễn viên như em hằng mong ước.
+
+--------------------------------------------------
+
+
+ID: story_012
+TITLE: Câu chuyện về ông Bùi Cầm Hổ (Truyện cổ tích Việt Nam)
+URL: https://truyendangian.com/cau-chuyen-ve-ong-bui-cam-ho
+
+CONTENT:
+Câu chuyện về ông Bùi Cầm Hổ cho thấy những kiến thức có được ở đời sống thực tế cũng quý giá không kém gì các kiến thức học trong sách vở.
+“Học đi đôi với hành” – Tục ngữ Việt Nam –
+Thời Lê, dưới chân núi Hồng Lĩnh, có một người nghèo khổ, hồi nhỏ cũng học được dăm ba chữ đủ kí tên vào tờ khế vay nợ, bán ruộng bán nhà. Lớn lên, anh ta chăn bò cho xóm làng, sáng đánh bò vào núi, chiều lại đánh bò về, bò nhà ai trả nhà nấy. Cứ thế qua ngày này tháng khác. Lúc bò gặm cỏ, anh ta lội xuống suối bắt lươn về ăn.
+Trong làng nhiều người chữ nghĩa chẳng bằng anh ta, nhưng ra lính ít lâu, trở về được suất cai, suất đội, ăn trên ngồi trốc. Thấy thế, anh ta bỏ đàn bò, trẩy kinh, tìm nơi nương tựa.
+Bấy giờ ở kinh đô người ta đang bàn tán về một vụ án giết chồng, người đàn bà sắp bị đem ra pháo trường chịu tội vôi giày ngựa xe. Số là chồng chị ta đi lính lâu ngày về thăm nhà, chị ta ra chợ mua mấy con lươn nấu cháo tẩm bổ cho chồng. Không ngờ, ăn xong, chồng lăn đùng ra chết. Làng nước trói chị ta lại, giải quan. Quan tra hỏi, chị ta kêu oan. Quan không nghe, nghi chị ta có ngoại tình, lập tâm giết chồng để lấy người khác. Thế là cứ luật gia hình .
+Nghe chuyện, anh kia vội vã tìm đến cửa quan xin vào, nói rằng mình có thể giải oan cho người đàn bà vô tội. Lính thấy anh ta quê mùa, đuổi ra. Anh ta nằn nì mãi. Chúng vào bẩm quan. Quan cho vào. Anh ta thưa:
+– Chuyện chị ta giết chồng thì đã rành rành, không còn chối cãi được nữa. Nhưng chị ta có định bụng giết chồng hay không, thì xin quan xét lại. Bây giờ xin quan tạm hoãn thì hành án cho tôi một hôm. Nội ngày mai, tôi sẽ xin vào trình bày mọi lẽ.
+Quan rất đỗi ngạc nhiên, hỏi mãi anh ta vẫn nói thế. Cuối cùng không muốn giết oan một mạng người, quan đành phải bằng lòng. Anh ta về, ra chợ mua một rổ lươn, bỏ vào giỏ, hôm sau xách vào cửa quan. Trước mặt quan, anh ta đổ giỏ ra, lươn bò khắp nhà rồi chọn một con, bắt lấy, làm thịt nấu cháo đưa cho chó ăn. Chó chết lăn quay. Bấy giờ anh ta mới nói:
+– Lúc ở quê nhà, con thường bắt lươn kiếm ăn nên con biết, lươn bò bao giờ cũng chúi đầu xuống, chỉ con hoàng xà , hình thù giống lươn, nhưng là rắn độc, khò bò mới ngóc đầu lên, mắt nhìn thao láo. Chị kia không biết, mua nhầm.
+Quan sáng mắt, liền tâu vua xin cải án , tha bổng người đàn bà kia. Buổi ấy, mới bắt đầu dựng nước, nhà vua đang cầu người hiền, không những giỏi nghãi lí văn chương mà còn từng trải việc đời, sát thực tế, bèn cho anh ta giữ chức ngự sử . Đó là ông Bùi Cầm Hổ .
+
+--------------------------------------------------
+
+
+ID: story_013
+TITLE: Ngọn đèn lớn (Chuyện kể về Ngô Thì Sĩ)
+URL: https://truyendangian.com/ngon-den-lon
+
+CONTENT:
+“Ngọn đèn lớn” là câu chuyện kể về tấm gương hiếu học của Ngô Thì Sĩ, qua đó nhắc nhở chúng ta hãy chăm đọc sách để có thể hiểu biết hơn.
+“Sách là người bạn tốt nhất của tuổi già đồng thời là người chỉ dẫn tốt nhất của tuổi trẻ.” – X. Xmai-cơ –
+Hồi nhỏ, Ngô Thì Sĩ rất ham học. Vì nhà nghèo, không được đi học, Sĩ thường đến đứng bên cửa sổ phòng giảng của thầy đồ để nghe lỏm. Càng nghe, càng thích thú, Sĩ liền mượn sách của các bạn quen đến đến đêm ngồi đọc và chép lại.
+Không có tiền mua dầu, Sĩ bắt chước người xưa quét lá khô đốt lên lấy ánh sáng mà học. Những đêm rằm, mười sáu trăng sáng vằng vặc như ban ngày, Sĩ thường đọc sách dưới ánh trăng. Những buổi trăng khuyết, Sĩ mang sách ra bờ ao, nghiêng sách theo ánh sáng từ mặt nước chiếu lên để đọc.
+Biết Sĩ nhà nghèo mà lại hay mượn sách vào ban đêm, có người hỏi Sĩ lấy đèn đâu mà đọc, Sĩ liền chỉ lên mặt trăng và đáp:
+– Đã có ngọn đèn lớn trên trời kia!
+Cứ như vậy, chẳng bao lâu Sĩ đã đọc và thông hiểu nhiều sách. Thấy Sĩ ham học, mọi người giúp đỡ để sĩ đến trường học.
+Ông thi đậu đến tiến sĩ, làm chứ quan to nhưng rất liêm khiết. Ông viết nhiều sách, đến nay nhiều quyển vẫn còn giá trị.
+
+--------------------------------------------------
+
+
+ID: story_014
+TITLE: Trạng Sách đi học (Hạt giống tâm hồn)
+URL: https://truyendangian.com/trang-sach-di-hoc
+
+CONTENT:
+“Trạng Sách đi học” là chuyện kể về tinh thần kiên trì, hiếu học từ nhỏ của Mạc Đĩnh Chi – vị Trạng nguyên nổi tiếng đời vua Trần Anh Tông.
+“Có chí thì nên” – Tục ngữ Việt Nam –
+Ở làng Long Động, huyện Nam Sách , tỉnh Hải Dương, ai cũng gọi Mạc Đĩnh Chi là Trạng Sách . Chi được dân gọi là trạng từ trước khi đỗ Trạng nguyên. Tiếng tăm của Chi lan truyền khắp vùng từ khi chưa đi học. Lúc ấy, thấy các bạn cùng tuổi đến trường, Chi thường lén theo. Thầy giảng sách ở trong nhà, Chi đứng nép ngoài hiên, nghe đâu thuộc đấy. Tất nhiên Chi thuộc lời, còn mặt chữ thì chịu. Chi tìm cách đổi lấy chữ của bạn.
+Làng Long Động nằm bên sông Kinh Thầy. Sông có lắm cá. Chi thường lặn lội bắt cá. Chi mang cá đến đổi cho bạn, mỗi con cá Chi đổi lấy một chữ. Đổi vài hôm các bạn đã hết cả chữ. Chi làm được thơ , thơ về vạn chài ven sông Kinh. Các thầy đồ từ đấy nhận Chi vào học. Chi rất sung sướng. Chi đi học rất đều. Đi chăn trâu, Chi rủ bạn chơi trò đố chữ. Nằm duỗi thẳng tay chân là chữ gì? Chữ “đại” đấy. Ngồi gác chân lên đầu gối là chữ gì? Chữ “ngũ”, bắt chân chữ ngũ mà? Trâu no cỏ, bài cũng ôn xong. Chi sáng trí, sử kinh đều thuộc. Lúc đầu Chi viết chữ xấu quá, nghe các bạn chê “người sao, chữ vậy” Chi khổ tâm lắm. Chi quyết tâm tập viết để đạt cả văn hay, chữ tốt.
+Lớn lên Mạc Đĩnh Chi đỗ cao, nổi tiếng về tài ứng đối. Nhiều câu rất hay của Mạc Đĩnh Chi còn được lưu truyền đến tận ngày nay.
+
+--------------------------------------------------
+
+
+ID: story_015
+TITLE: Câu chuyện “Qua đường” (Trần Hoài Dương)
+URL: https://truyendangian.com/cau-chuyen-qua-duong
+
+CONTENT:
+Một lần, Ngọc cùng các bạn đi chơi. Qua ngã tư, có một em bé đang ngơ ngác nhìn trước, nhìn sau. Em tìm cách qua đường mà chưa qua được vì xe cộ đi lại đông quá. Xe này chưa qua, xe khác đã lại lao tới. Ngọc để các bạn đi trước. Em dừng lại, đến bên em nhỏ. Các bạn gọi:
+– Ngọc ơi! Đứng lại làm gì thế?
+– Ngọc ơi, mau lên chứ!
+Ngọc trả lời:
+– Các bạn cứ đi trước đi, mình đưa em bé này qua đường rồi chạy theo ngay.
+Sau đó ít lâu, một hôm đang cùng các bạn đi chơi phố, chợt Ngọc nghe tiếng ai gọi:
+– Chị Ngọc! Chị Ngọc ơi!
+Nhìn quanh quẩn mãi, Ngọc cũng chưa nhận ra ai gọi tên mình. Tiếng gọi vẫn lảnh lót.
+– Em ở đây cơ mà! Chị Ngọc ơi, em ở đây cơ mà!
+Giữa đám đông, một cô bé mặc váy đỏ, tươi như bông hoa râm bụt đang cố kiễng chân, đưa tay lên vẫy Ngọc. Ngớ ra một lúc, Ngọc mới nhận ra đó là cô bé mà em dẫn qua đường hôm trước. Các bạn hỏi:
+– Ai thế hở Ngọc?
+– Em bé mà chúng mình gặp ở ngã tư hôm nọ đấy thôi!
+– Ngọc chơi với em ấy à?
+– Không!
+– Thế tại sao em ấy biết tên Ngọc?
+– Mình cũng không biết nữa.
+– Lạ nhỉ! Hôm ấy cả bọn cùng đi mà em bé chỉ nhớ có mỗi tên Ngọc, lạ thật nhỉ!
+
+--------------------------------------------------
+

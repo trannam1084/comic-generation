@@ -1,0 +1,163 @@
+
+Bạn là người đánh giá Dataset cho dự án Vietnamese Comic Generation.
+
+Hãy đánh giá từng truyện để xác định mức độ phù hợp
+khi chuyển thành comic khoảng 4 cảnh.
+
+Đánh giá 4 tiêu chí, mỗi tiêu chí từ 0 đến 2:
+
+1. characters_clear
+0: Không rõ nhân vật
+1: Nhân vật tương đối rõ
+2: Nhân vật rõ ràng
+
+2. events_clear
+0: Sự kiện không có trình tự rõ
+1: Trình tự tương đối rõ
+2: Trình tự sự kiện rõ ràng
+
+3. scene_suitable
+0: Không phù hợp tạo comic
+1: Có thể tạo comic nhưng cần chỉnh sửa
+2: Rất phù hợp để chia khoảng 4 cảnh
+
+4. ending_clear
+0: Không có kết thúc rõ
+1: Kết thúc tương đối rõ
+2: Kết thúc rõ ràng
+
+Tổng điểm score = tổng 4 tiêu chí, tối đa 8.
+
+selected_candidate:
+- true: Nếu score >= 6 và phù hợp tạo comic
+- false: Nếu không phù hợp
+
+difficulty:
+- easy
+- medium
+- hard
+
+Không bịa thêm sự kiện.
+Không đánh giá chỉ dựa trên tên truyện.
+Đánh giá dựa trên nội dung được cung cấp.
+
+Trả về JSON array hợp lệ, không Markdown.
+
+Mỗi truyện:
+
+{
+  "id": "story_001",
+  "title": "...",
+  "characters_clear": 0,
+  "events_clear": 0,
+  "scene_suitable": 0,
+  "ending_clear": 0,
+  "score": 0,
+  "selected_candidate": false,
+  "difficulty": "easy",
+  "reason": "..."
+}
+
+
+==================================================
+STORIES TO EVALUATE
+==================================================
+
+
+ID: story_152
+TITLE: Cậu bé Will và chiếc gậy [Hạt giống tâm hồn]
+URL: https://truyendangian.com/cau-be-will-va-chiec-gay
+
+CONTENT:
+Will là một cậu bé da đen nhút nhát. Cậu bé đã 7 tuổi rồi mà rất ít khi dám ra ngoài một mình.
+Một hôm, mẹ nói với Will:
+– Bắt đầu từ hôm nay, con phải đến cửa hàng mua thức ăn một mình.
+Sau đó, mẹ đưa Will đến cửa hàng thực phẩm để cho cậu bé nhớ đường.
+Chiều hôm sau, Will xách làn và tiền đi mua đồ. Cậu bé đang đi trên đường thì mấy đứa trẻ lớn hơn đột nhiên xông ra chặn đường. Bọn chúng thấy Will cầm tiền trên tay, liền xông lên cướp hết của Will. Will vừa khóc vừa đi về nhà. Khi nghe Will kể xong đầu đuôi câu chuyện, mẹ không hề an ủi Will mà đưa cho Will tiền mua thức ăn tiếp.
+Vừa nhìn thấy Will, bọn trẻ lúc nãy lại gọi nhau vây quanh cậu bé. Bọn chúng không thèm quan tâm đến những lời van xin của của cậu, mà còn động chân động tay đánh Will, rồi lại cướp sạch tiền của cậu.
+Mẹ nói với Will:
+– Tối nay con phải học được cách tự bảo vệ mình.
+Hôm sau, mẹ lại đưa cho Will một cây gậy. Mẹ nói:
+– Con trai hãy cầm lấy cây gậy này và đi mua thức ăn cho mẹ.
+Trên đường đi, bọn trẻ hôm trước lại trêu chọc và vây lấy Will.
+Will bực mình thét lên:
+– Tao không sợ chúng mày đâu!
+Nói xong, Will nắm chặt cây gậy và xông lên phía trước.
+Thấy Will lần này không còn sợ sệt như mọi lần, bọn trẻ sợ hãi quá liền bỏ chạy tán loạn.
+Cuối cùng, Will đến cửa hàng và mua được thức ăn cho mẹ.
+Từ đó về sau, lũ trẻ lớn hơn không dám bắt nạt Will nữa.
+
+--------------------------------------------------
+
+
+ID: story_153
+TITLE: Sợi dây giữ voi [Truyện ngụ ngôn ý nghĩa cho bé]
+URL: https://truyendangian.com/soi-day-giu-voi
+
+CONTENT:
+Một người đàn ông đi qua chỗ đàn voi đang đứng. Bất chợt ông dừng lại, ngạc nhiên khi thấy lũ vật to lớn này chỉ bị cầm giữ bởi một sợi dây thừng rất nhỏ buộc phía chân trước. Không hề có xích sắt, cũng chẳng có chuồng giam.
+Có thể thấy rõ, hiển nhiên, lũ voi có đủ khả năng để dứt đứt dây, chạy đi bất cứ lúc nào. Nhưng không hiểu vì sao, lũ voi vẫn chưa làm vậy.
+Người đàn ông trông thấy người quản tượng đứng gần đó. Ông hỏi anh ta tại sao lũ voi cứ đứng yên vậy mà không hề có vẻ muốn tháo chạy.
+– Ồ, – người quản tượng đáp – khi chúng còn nhỏ, chúng bé hơn thế này rất nhiều. Chúng tôi vẫn dùng loại dây thừng cỡ đó để buộc chúng lại. Ở độ tuổi đó, dây như vậy là đủ giữ chúng rồi. Nhưng khi đã lớn hơn, chúng vẫn tin mình không thể dứt nổi những sợi dây thừng này. Chúng cho rằng, sợi dây thừng ngày xưa vẫn có thể giữ chúng được, thế là chẳng bao giờ chúng có ý nghĩ dứt bỏ dây và chạy đi.
+Người đàn ông vô cùng kinh ngạc. Những con thú đó hoàn toàn có khả năng chạy thoát khỏi sợi dây giữ voi đang ràng buộc chúng, nhưng chỉ vì không tin mình có thể, nên chúng vẫn cứ chấp nhận một tình cảnh như hiện tạo và chấp nhận bị giam cầm.
+
+--------------------------------------------------
+
+
+ID: story_154
+TITLE: Quốc vương và chim ưng [Truyện cổ tích ý nghĩa cho bé]
+URL: https://truyendangian.com/quoc-vuong-va-chim-ung
+
+CONTENT:
+Theo truyền thuyết, quốc vương Xinboda của đế quốc Ba Tư cổ đại thích đi ngao du và săn bắn. Ngàu đã nuôi một chú chim ưng săn mồi vô cùng dũng mãnh. Quốc vương sai người đúc một chiếc bát vàng để đeo vào cổ chú chim, tiện cho chú ăn uống.
+Một hôm, đại thần đảm nhiệm công việc săn bắn đến bái kiến quốc vương và tâu rằng:
+– Tâu bệ hạ, hôm nay bầu trời quang đãng, xin bệ hạ cho lên núi săn bắn.
+Quốc vương đồng ý, sau đó ngài đem theo chim ưng và đội lính săn đi về phía núi. Sau khi xác định được khu vực săn bắn, quốc vương phân chia binh lính canh giữ. Khi đó có một con linh dương chạy ra từ trong rừng. Quốc vương vô cùng vui mừng, quyết tâm bắt được nó.
+Quốc vương leo lên ngựa và đuổi theo, chạy một mạch lên sườn núi. Chú chim ưng kịp đuổi theo và bắt được con linh dương. Quốc vương phi đến, lột da linh dương và treo trên đầu yên ngựa, chuẩn bị trở về cung.
+Lúc đó trời rất nóng, những nơi họ đến không thể tìm thấy nguồn nước, người và ngựa đều khát đến khô cổ. Đúng lúc đó, quốc vương nhìn thấy một gốc cây nọ có dòng nước đang chảy xuống. Quốc vương liền lấy chiếc bát vàng trên cổ chim ưng xuống và hứng nước ở dưới cây. Hứng đầy bát, ngài toan uống cho đỡ khát. Chim ưng bỗng nhiên xòe cánh và vỗ vỗ, lập tức bát nước bị đổ xuống đất.
+Quốc vương Xinboda lại hứng tiếp một bát nước, cho rằng chú chim ưng cũng đang khát nên đem bát nước hứng được đặt trước mặt nó. Con chim ưng lại đánh đổ bát nước. Quốc vương bực mình, đành tiếp tục hứng đầy bát nước nữa và đặt trước con ngựa để nó uống cho hết khát. Chim ưng lại xòe cánh hất đổ bát nước.
+Quốc vương nhìn chim ưng , trừng mắt quát lớn:
+– Đồ vô lễ! Nhà ngươi không uống nước, cũng không cho ta và ngựa uống sao?
+Ngài tức giận rút thanh bảo kiếm ra, chặt cụt hai cánh chim ưng, chim ưng đau đớn ngẩng đầu nhìn lên cây giống như muốn chỉ cho quốc vương vật gì.
+Quốc vương ngẩng đầu nhìn thì thấy một con rắn nằm trên cành cây và đang phun nọc độc xuống. Vì đã trách nhầm và chặt oan đôi cánh của chim ưng nên quốc vương cảm thấy vô cùng hối hận, ngài buồn bã đem con linh dương vừa săn được và chú chim ưng tàn tật trở về khu trại. Ngài đi vào lều ngồi xuống ôm lấy chú chim ưng, mắt nhìn chăm chăm vào chú chim ưng đã chết.
+Quốc vương Xinboda vô cùng buồn rầu vì đã tự tay giết chết chú chim ưng yêu quý và ngài khóc lóc đau đớn. Ngài thở dài nói:
+– Chim ưng đã cứu mạng ta, ta lại hại chết nó, thật là trái với lẽ đời!
+
+--------------------------------------------------
+
+
+ID: story_155
+TITLE: Đánh nhau với người khổng lồ [Truyện cổ tích cho bé]
+URL: https://truyendangian.com/danh-nhau-voi-nguoi-khong-lo
+
+CONTENT:
+Ngày xưa có một bác nông dân nghèo, nhà bác nợ nần rất nhiều, không có cách nào, bác đành đưa ba người con trai của mình vào rừng đốn củi để trả nợ.
+Ngày thứ nhất, người con lớn đi vào rừng. Khi cậu ta đa giơ rìu lên chuẩn bị chặt cây thì có tiếng nói lớn bên tai cậu:
+– Ai cho phép ngươi chặt rừng cây của ta, ta sẽ đánh chết ngươi.
+Người con cả nhìn thấy một người khổng lồ cao to, cậu liền quay đầu chạy mất.
+Về đến nhà, cậu kể lại sự tình cho cha mình nghe. Người cha trách móc cậu ta là đồ nhát gan.
+Ngày thứ hai, đến lượt người con thứ hai đi vào rừng, cậu ta cũng như người anh cả, không dám nhìn người khổng lồ, liền ba chân bốn cẳng chạy về nhà.
+Ngày thứ ba, đến lượt người con út là Tanzania đi. Cậu bé khoác ba lô trên lưng và lên đường. Tanzania vào trong khu rừng, vừa chặt được mấy nhát rìu, cậu liền nghe thấy tiếng của người khổng lồ:
+– Nhà ngươi dám chặt rừng cây của ta, ta sẽ giết chết ngươi.
+Tanzania không hề sợ hãi, cậu bé liền nói với người khổng lồ:
+– Ngươi hãy im miệng lại. Ngươi có tin là ta sẽ bóp chết ngươi giống như bóp hòn đá ra nước không?
+Nói rồi, cậu bé lấy ra một miếng pho mát, dùng hai tay bóp chặt, miếng pho mát chảy ra. Người khổng lồ sợ hãi liền xin cậu bé tha thứ, hon nữa lại còn đồng ý đưa vàng bạc, châu báu cho cậu.
+Tanzania cầm vàng bạc châu báu của người khổng lồ về nhà, số vàng bạc đó đã giúp cha cậu trả hết nợ nần.
+
+--------------------------------------------------
+
+
+ID: story_156
+TITLE: Tôm Hùm và Ốc Anh Vũ [Truyện ngụ ngôn ý nghĩa]
+URL: https://truyendangian.com/tom-hum-va-oc-anh-vu
+
+CONTENT:
+Một hôm, Tôm Hùm và Ốc Anh Vũ gặp nhau nơi biển sâu. Ốc Anh Vũ nhìn thấy Tôm Hùm đang lột lớp vỏ cứng trên người, để lộ ra cơ thể non nớt.
+Ốc Anh Vũ vội vàng hỏi:
+– Tôm Hùm, sao bạn có thể vứt bỏ lớp vỏ cứng duy nhất bảo vệ cơ thể chứ? Lẽ nào bạn không sợ có một con cá lớn sẽ nuốt bạn vào bụng sao? Dòng nước mạnh sẽ tạt bạn vào khe đá, khi đó bạn sao tránh khỏi thương tích?
+Tôm Hùm bình tĩnh trả lời:
+– Cám ơn bạn đã quan tâm. Nhưng bạn không biết, loài Tôm Hùm chúng tôi mỗi lần lớn lên đều phải lột chiếc vỏ cũ của mình mới có thể có lớp vỏ mới chắc khỏe hơn.
+Ốc Anh Vũ cảm nhận sâu sắc lời nói của Tôm Hùm. Nó nhìn lại bản thân mình suốt ngày chỉ tìm nơi để lẩn trốn, lại không hề nghĩ đến cách làm cho mình khỏe mạnh hơn, nó cảm thấy hổ thẹn. Nếu sống dưới sự che chở của người khác, lại không có chí vươn lên sẽ mãi không thể phát triển được.
+
+--------------------------------------------------
+

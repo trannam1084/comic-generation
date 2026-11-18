@@ -1,0 +1,211 @@
+
+Bạn là người đánh giá Dataset cho dự án Vietnamese Comic Generation.
+
+Hãy đánh giá từng truyện để xác định mức độ phù hợp
+khi chuyển thành comic khoảng 4 cảnh.
+
+Đánh giá 4 tiêu chí, mỗi tiêu chí từ 0 đến 2:
+
+1. characters_clear
+0: Không rõ nhân vật
+1: Nhân vật tương đối rõ
+2: Nhân vật rõ ràng
+
+2. events_clear
+0: Sự kiện không có trình tự rõ
+1: Trình tự tương đối rõ
+2: Trình tự sự kiện rõ ràng
+
+3. scene_suitable
+0: Không phù hợp tạo comic
+1: Có thể tạo comic nhưng cần chỉnh sửa
+2: Rất phù hợp để chia khoảng 4 cảnh
+
+4. ending_clear
+0: Không có kết thúc rõ
+1: Kết thúc tương đối rõ
+2: Kết thúc rõ ràng
+
+Tổng điểm score = tổng 4 tiêu chí, tối đa 8.
+
+selected_candidate:
+- true: Nếu score >= 6 và phù hợp tạo comic
+- false: Nếu không phù hợp
+
+difficulty:
+- easy
+- medium
+- hard
+
+Không bịa thêm sự kiện.
+Không đánh giá chỉ dựa trên tên truyện.
+Đánh giá dựa trên nội dung được cung cấp.
+
+Trả về JSON array hợp lệ, không Markdown.
+
+Mỗi truyện:
+
+{
+  "id": "story_001",
+  "title": "...",
+  "characters_clear": 0,
+  "events_clear": 0,
+  "scene_suitable": 0,
+  "ending_clear": 0,
+  "score": 0,
+  "selected_candidate": false,
+  "difficulty": "easy",
+  "reason": "..."
+}
+
+
+==================================================
+STORIES TO EVALUATE
+==================================================
+
+
+ID: story_280
+TITLE: Kiến và Ve Sầu [Truyện ngụ ngôn La Phông ten]
+URL: https://truyendangian.com/kien-va-ve-sau-truyen-ngu-ngon-la-phong-ten
+
+CONTENT:
+[alert style=”danger”]
+Kiến và Ve Sầu là truyện ngụ ngôn La Phông ten, ca ngợi sự lao động chăm chỉ và giải thích đặc điểm của Ve Sầu: mắt lồi, mũi sưng và bụng lại rỗng tuếch.
+[/alert]
+Ngày xưa, Kiến và Ve Sầu là đôi bạ n rất thân. Chúng cùng ở với nhau trên một cành cây khô. Thời ấy, thức ăn trên mặt đất còn thừa thãi nên ngày ngày chúng ăn xong lại rong chơi, tối lại cùng nhau ngủ trên cành cây.
+Một đêm, trời bỗng dưng nổi cơn mưa bão, cây cối ngả nghiêng. Nước chút xuống như thác. Cành cây khô bị gãy, văng đi rất xa, văng cả đôi bạn thân xuống đất. Chúng phải cố sống cố chết bám lấy rễ cây để khỏi bị nước mưa cuốn đi.
+Sáng hôm sau, trời lại quang đãng. Kiến và ve đều ướt lướt thướt, mình mẩy đau như dần. Kiến bỗng nảy ra một ý nghĩ: “Phải làm tổ để tránh mưa gió”. Kiến bàn bạc với Ve Sầu, Ve Sầu mỉm cười:
+– Chúng ta từ trước tới giờ vẫn sống trên cành cây. Gió bão năm thì mười họa mới có một lần, hơi đâu mà làm tổ cho mệt xác.
+Nhưng Kiến vẫn lo gió bão. Nó tìm môt gốc cây khá chắc để làm nhà, ngày ngày nó đi tìm mùn lá, đem lên xây đắp một kiểu nhà mới. Dưới ánh nắng hè gay gắt, công việc làm rất vất vả, nhưng Kiến không nản lòng. Còn Ve Sầu đã không làm với bạn thì chớ, lại còn chế nhạo bạn.
+Mặc cho bạn chế giễu, Kiến cứ hì hục ngày này sang ngày khác và một tháng sau thì ngôi nhà xinh xắn đã hoàn thành. Nó nghĩ thương Ve Sầu, ngày nắng đêm sương, nên tha thiết mời Ve Sầu về cùng ở. Lúc đầu, vì không bỏ sức lao động ra, Ve Sầu cũng thấy ngượng ngùng thế nào ấy. Nhưng thấy Kiến khẩn khoản, mà ngôi nhà thì xinh xắn quá, nên nó cũng đồng ý.
+Ve ở cùng Kiến, Ve Sầu chẳng chịu làm gì. Đến bữa thì đi kiếm ăn, ăn xong lại nằm hát nghêu ngao, mặc cho Kiến một mình hì hục quét dọn, xếp đặt nhà cửa cho ngăn nắp.
+Kiến thường lo lắng đến mùa đông tháng giá, thức ăn khó kiếm, nên bàn với Ve Sầu: “Chúng ta đã có nhà ở rồi, nhưng chúng ta còn phải kiếm thức ăn để dành, khi mưa rét khỏi phải nhịn đói”.
+Ve Sầu nói: “Thức ăn khối ra đấy, tích trữ làm gì cho mệt xác”. Kiến bực mình, để mặc Ve Sầu ở nhà ca hát, ngày ngày xuống đất kiếm mồi. Chẳng bao lâu, nhà Kiến đầy ăm ắp thức ăn dùng trong cả mùa đông chưa chắc đã hết. Nhưng trong khi Kiến đi tìm mồi, Ve Sầu ở nhà một mình thấy buồn, đi múa hát với đàn bướm, tối lại về nhà ngủ.
+Một hôm, trời tối đã lâu, Kiến nóng lòng chờ bạn mà không thấy bạn về. Sáng sớm hôm sau, Kiến đi tìm Ve Sầu, nghe thấy Ve Sầu đang nghêu ngao trên cành lá, Kiến bò tới:
+– Anh đi đâu mà cả đêm hôm qua không về nhà? Về đi thôi. Về mà xem, nhà rất nhiều thức ăn. Ta không lo gì mùa đông tháng giá nữa.
+Ve Sầu đã không về thì thôi, lại còn mắng bạn:
+– Anh ngu lắm. Thức ăn đầy rẫy thế này tội gì mà hì hục cho mệt xác. Anh xem tôi có chết đâu. Thôi từ nay anh mặc tôi. Ai lo phận nấy.
+Kiến buồn bã ra về.
+Ít lâu sau, lá rừng dần dần ngả màu vàng, chỉ hơi có gió nhẹ là thi nhau rụng tới tấp. Trời trở rét. Mưa tầm tã suốt ngày, gió bấc thổi từng cơn. Rét thấu xương. Ve Sầu không có chỗ trú, ướt như chuột lột, run như cầy sấy. Ve Sầu ngượng quá, không dám lại nhà Kiến nên lần mò đến nhà Ong xin ăn.
+Nó vừa lò dò đến cửa thì Ong tưởng ve vào ăn cướp vội xông ra đốt. Ve Sầu đau quá, vừa chạy, vừa kêu khóc ầm ĩ. Bị Ong đốt nên mắt Ve Sầu lồi ra, mũi sưng vù lên và vì quá đói bụng nên bụng ve tuy to nhưng rỗng tuếch.
+
+--------------------------------------------------
+
+
+ID: story_281
+TITLE: Miệng nói ra hoa ra ngọc – Truyện cổ tích của Perrault
+URL: https://truyendangian.com/mieng-noi-ra-hoa-ra-ngoc
+
+CONTENT:
+Ngày xưa có đôi vợ chồng sinh được một người con gái, tính nết siêng năng, hiền hậu. Người vợ chẳng may mang bệnh mất sớm. Người chồng đành lấy vợ khác để trông nom nhà cửa. Người vợ sau này tính nết chua ngoa, ác nghiệt. Mụ sinh được một ả con gái cũng chua ngoa, ác nghiệt như mụ. Cả ngày hai mẹ con chẳng làm gì, bao nhiêu công việc nặng nhọc đều đổ vào đầu cô chị hết: thôi thì thổi cơm, gánh nước , quét nhà, chẻ củi… không sót việc gì.
+Vất vả như vậy mà cô còn bị mẹ ghẻ mắng mỏ và cô em nhiếc móc thậm tệ. Tuy vậy, cô vẫn dịu dàng, vui vẻ, nên mọi người trong thôn xóm đều yêu mến cô. Buổi sáng ra vườn, mặt trời mọc chiếu ánh hồng trên má cô; đàn gà đến quấn quít bên cạnh chân cô, chim bồ câu đến ăn trong lòng bàn tay cô.
+Một hôm, cô vào rừng gánh nước. Lúc đi về, cô bỗng gặp một bà lão mù lòa, rách rưới đứng bên đường. Thấy cô, bà lão thều thào xin một ngụm nước uống cho đỡ khát. Cô bé vội dừng lại, lễ phép nói:
+– Thưa bà, nước ở đây không được trong lắm. Để cháu đi gánh một gánh khác thật trong bà hãy uống. Bà chịu khó chờ cháu một lát nhé.
+Nói xong, cô đổ nước đi, thoăn thoắt quay vào rừng lấy nước khác để bà lão uống. Khi uống xong, bà mỉm cười nói:
+– Già cảm ơn cháu, cháu ngoan lắm. Già không phải là người bình thường, già là tiên hiện xuống trần. Thấy cháu hiền hậu, già thử lòng cháu đấy. Già thưởng cho cháu miệng nói ra hoa ra ngọc mỗi khi mở lời.
+Nói xong, bà lão biến mất. Cô bé quay lại gánh nước về nhà. Chưa về tới cửa đã nghe tiếng mẹ ghẻ quát mắng ầm ĩ:
+– Con ranh kia, sao mày về chậm thế? Tao tưởng mày ngủ quên trong rừng rồi!
+Cô bé nói:
+– Thưa dì…
+Cô vừa cất tiếng nói thì vàng bạc, châu báu rơi ra óng ánh trên mặt đất. Mụ dì ghẻ và cô em ác nghiệt rất đỗi ngạc nhiên, hỏi đầu đuôi câu chuyện lạ lùng. Cô bé cũng vui vẻ thuật lại, không giấu diếm. Mà nói đến đâu thì vàng bạc, châu báu tuồn ra đến đấy.
+Sáng hôm sau, dì ghẻ sai con gái đi vào rừng lấy nước. Mụ mong con gái cũng gặp bà tiên như cô chị. Cô em ưỡn ẹo ra đi, hai tay xách hai chiếc lọ sứ thật đẹp.
+Lúc về, cô ả mệt toát mồ hôi, thở hổn hển. Thì kia, một bà lão già đứng bên đường xin nước uống. Thấy bà già rách rưới, bẩn thỉu quá, cô ả gắt gỏng:
+– Khát thì ra hồ mà uống! uống đây cho bẩn bình ta à?
+Tức thì bà lão nói:
+– Ta là tiên đây! Nhà ngươi ăn ở thật là bạc ác. Ta truyền cho ngươi biết rằng mỗi khi ngươi mở mồm thì rắn rết sẽ tuôn ra theo.
+Nói xong, bà lão biến mất. Cô ả xách bình nước về. Về đến cửa, mẹ chạy ra, đon đả hỏi:
+– Sao con về chậm thế?
+Cô ả đáp:
+– Thưa mẹ…
+Vừa mở miệng ra thì rắn rết bò ra đầy nhà, làm mọi người sợ xanh mắt. Về sau hai mẹ con xấu hổ quá, phải đưa nhau vào sống ở trong rừng.
+
+--------------------------------------------------
+
+
+ID: story_282
+TITLE: Câu chuyện Con lừa và cái áo
+URL: https://truyendangian.com/cau-chuyen-con-lua-va-cai-ao
+
+CONTENT:
+Lão nhà giàu nọ ra chợ mua được một con Lừa rất khỏe. Lão liền chất lên lưng nó bao nhiêu hàng hóa và trở về làng. Dọc đường thấy sẵn củi, lão lại chặt luôn mấy vác buộc vào hai bên sườn nó.
+Con Lừa nặng quá, vẹo cả lưng, nhưng cũng cố gắng đi. Đi được một quãng thấy mấy tảng đá vuông vắn nằm chắn ngang đường. Lão liền nghĩ bụng: “Hãy thồ nốt mấy hòn đá này về, ít hôm nữa dựng nhà làm móng”.
+Lão lại xếp nốt mấy tảng đá lên lưng Lừa. Lừa mệt quá ì ạch lê từng bước một.
+Trời nắng to, lão nhà giàu thấy bức quá, liền cởi nốt chiếc áo bên mình vắt lên lưng lừa. Nhưng lừa đã kiệt sức rồi, nên khi áo vắt lên lưng thì lừa ngã quỵ xuống không không đứng lên được.
+Lão nhà giàu cáu kỉnh quát:
+– Thật là đồ ăn hại! Có cái áo mà cũng không chở nổi.
+
+--------------------------------------------------
+
+
+ID: story_283
+TITLE: Truyện công chúa La Habana [Nàng dũng sĩ Cuba]
+URL: https://truyendangian.com/truyen-cong-chua-la-habana
+
+CONTENT:
+[alert style=”danger”]
+Truyện công chúa La Habana kể về nàng công chúa dúng cảm chống giặc ngoại xâm đã hy sinh vì đất nước. Tên của nàng được đặt cho thủ đô của Cuba ngày nay.
+[/alert]
+Cổng thành vừa mở thì một thanh niên tuấn tú, mặt hoa da phấn, cưỡi ngựa mang cung phóng vút ra. Đó là công chúa Habana, nàng dũng sĩ!
+Đúng vậy, người phóng ngựa qua đây chính là công chúa Habana , người con gái độc nhất của nhà vua Cu-ba. Mới nhìn tưởng như nàng là một hoàng tử, vì nàng thường ăn mặc như nam giới, cưỡi ngựa vào rừng săn bắn. Từ năm 10 tuổi, Habana đã thích nghề cung kiếm. Nàng là người có tài có sắc, đã bao hoàng tử các nước, bao chàng trai quyền quý đến cầu hôn. Vua cho hỏi ý nàng, nàng đều thưa:
+– Thưa phụ vương! Xin phụ vương cho phép con được tự chọn lấy người xứng đáng. Phụ vương cho mở hội thi võ, nếu ai địch nổi con, con sẽ xin nhận người đó làm chồng.
+Những cuộc thi võ được mở ra hàng năm để kén phò mã. Nhưng vẫn chưa ai địch nổi tài nghệ của Habana.
+Cuộc sống đang yên vui thì giặc ngoại xâm kéo đến.
+Nhà vua lo sợ, cử các tướng sĩ đi dẹp giặc. nhưng bao nhiêu người ra đi đều chết hoặc bại trận trở về. Nhà vua đem tình hình giặc ngoại xâm uy hiếp kể lại cho Ha-ba-na nghe. Nàng liền quỳ xuống tâu:
+– Thưa phụ vương! Xin cho phép con được đem tài sức nhỏ mọn ra cứu nước, cứu dân.
+Nhà vua từ chối:
+– Con là con gái thì địch sao nổi giặc. Mà cha cũng chỉ có mình con!
+– Thưa phụ vương! – Habana ngắt lời vua – Cứu nước cứu dân thì đâu có kể tới chuyện gái và trai. Xin phụ vương cứ cho con đi.
+Trước thái độ kiên quyết của con, nhà vua đành phải nhận lời.
+Ngay hôm đó, công chúa Habana cùng một số tướng sĩ lên thành xem xét thế giặc. Tối đến, nàng ra lệnh cho một số quân đốt đuốc rực trời ở cổng phía đông để nghi binh, còn quân tinh nhuệ thì vòng theo cổng phía tây để đánh tập hậu.
+Quân địch thấy cổng thành đồng sáng rực, tưởng quân nhà vua kéo ra ứng chiến, bèn tập trung quân vào đấy đối phó. Trong lúc ấy, Habana đã dẫn đoàn quân tinh nhuệ đánh sau lưng. Quân địch mắc lừa, trở tay không kịp, một số lớn bị giết, số còn lại cắm cổ bỏ chạy.
+Habana thừa thắng thúc quân sĩ đuổi theo, nhưng một mũi tên độc từ phía quân thù bay lại cắm lên người nàng. Habana ngã gục xuống chân ngựa. Đoàn quân của nàng như vũ bão vẫn hò hét lao về phía trước.
+Khi đoàn quân thắng trận quay lại thì thấy Habana đã tắt thở bên con ngựa trung thành. Nàng đã hy sinh anh dũng, thanh kiếm vẫn cầm trong tay.
+Quân nhà vua thắng trận trở về, bên niềm vui phấn khởi, còn mang theo lòng thương tiếc người nữ tướng dũng cảm. Nhà vua chạy ra ôm xác công chúa:
+– Habana! Habana! – nhà vua nức nở.
+Giặc tan, nhân dân mở hội ăn mừng, nhưng không thể không thương nhớ công chúa Habana dũng cảm. Họ lập bia kỷ niệm và đặt tên thành phố đó là thành phố Habana để ghi công nàng. Tới nay, đất nước Cu Ba đã bao lần thay đổi, nhưng tên Habana, thủ đô Habana, tên nàng công chúa dũng cảm vẫn sống mãi trong lòng nhân dân Cu Ba.
+
+--------------------------------------------------
+
+
+ID: story_284
+TITLE: Sự tích câu ca dao công anh bắt tép nuôi cò
+URL: https://truyendangian.com/cong-anh-bat-tep-nuoi-co
+
+CONTENT:
+[alert style=”danger”]
+Công anh bắt tép nuôi cò Cò ăn, cò béo, cò dò lên cây.
+Đây là câu ca dao rất nổi tiếng của Việt Nam, ngụ ý ám chỉ một việc làm vô ích, nhưng chưa hẳn ai trong chúng ta cũng biết sự tích của câu ca dao này.
+[/alert]
+Xưa có một anh nông dân nghèo lắm. Ruộng có ít, anh cày cấy không đủ ăn. Hàng ngày anh phải vào rừng kiếm thêm củi về bán. Anh không có búa chặt những cây gỗ to, chỉ biết lượm những cành khô bó lại mang về.
+Một buổi chiều gần tối, anh đang mải miết bó củi khô, bỗng có tiếng xào xạc trên đầu. Ngẩng lên anh thấy một đàn quạ đang phá tổ chim. Một con chim con rơi xuống bên cạnh. Nó không đứng lên được, giơ hai cánh ra chới với như cầu cứu. Anh nông dân thương hại con chim nhỏ, lấy lá khô quây thành cái tổ trên bó củi của mình, bỏ chim vào đó mang về.
+Đến nhà, xếp củi xong, anh vội vàng đặt chim vào ổ rơm. Thấy chim cứ run lên, anh chắc nó đói lắm. Nếu không xảy ra tai nạn thì bây giờ mẹ nó đã cho nó ăn rồi. Anh lấy cái niêu nhỏ nấu cơm chiều. Nấu xong, anh xới vài hạt cho chim.
+Nhưng con chim con chưa biết há miệng. Anh phải gỡ mỏ nó ra để cho cơm vào. Chim không muốn ăn. Nó sẽ lắc cái mỏ, hạt cơm văng ra ngoài. Cứ như vậy, nó lắc đầu từ chối. Lâu lắm nó mới chịu nuốt mấy hạt. Anh nông dân đã yên lòng, lấy ít rơm nhẹ phủ lên mình cho nó ấm. Ăn cơm xong, anh ngủ cạnh con chim.
+Chim con là một con cò, được anh nông dân chăm chút, chim càng ngày càng lớn. Chiều chiều khi anh nông dân gánh củi về, nó đứng lên vẫy cánh đón mừng. Anh lại cho nó ăn cơm và nằm ngủ bên cạnh.
+Một hôm, con cò không chịu ăn cơm, nó nói với anh:
+– Anh nông dân ơi! Nhà anh nghèo thế, nuôi tôi mãi thì lấy gạo đâu?
+Anh nông dân đáp:
+– Nhà nghèo thật, nhưng cò ăn hết là bao!
+– Nhưng rồi lớn lên, tôi ăn nhiều nữa chứ? Từ giờ tôi không ăn cơm của anh nữa đâu. Tôi biết đi rồi, tôi sẽ kiếm lấy cái ăn.
+Và con cò dạo quanh nhà bắt ruồi ăn. Nó không muốn phiền anh nông dân nữa.
+Tuy thế, anh nông dân vẫn không yên lòng. Anh sợ nó ăn ruồi mãi sẽ gầy và chết mất. Nghe người ta bảo cò thích ăn tép, mỗi ngày ở đồng về, anh lại bắt một nhúm tép cho cò. Cò con ngày càng lớn lên, cánh lông đầy đủ.
+Một buổi sáng, cò ra cửa bắt ruồi. Có một đàn cò trắng bay qua. Cò con nghển cổ nhìn theo mãi. Anh nông dân thấy vậy bảo cò:
+– Nếu cò đủ lông cánh rồi thì bay đi với chúng bạn. Tôi không giữ đâu.
+Cò con nói:
+– Tôi muốn đi lắm, nhưng sợ anh ở một mình buồn, tôi không nỡ.
+Nhưng rồi sáng nào đàn cò cũng bay qua. Cò con cứ đứng trông theo. Một hôm, cò định bay đi thật. Trước khi đi, cò nói với anh nông dân:
+– Tôi không biết lấy gì đền ơn anh. Nhưng tôi không quên anh đâu.
+Từ hôm cò con bay vào rừng, anh nông dân buồn lắm. Chiều chiều gánh củi về, anh thấy văng vắng trong nhà. Nhiều lúc anh nhớ cò, đứng ngẩn người ra. Làng xóm đặt câu hát giễu anh:
+Công anh bắt tép nuôi cò Cò ăn, cò béo, cò dò lên cây.
+Thực ra, anh nông dân không tiếc công nuôi cò. Anh chỉ nhớ nó. Anh nhớ con vật bé nhỏ, hiền lành đã làm bạn với anh trong bao nhiêu ngày.
+Và cò con cũng không quên anh. Nó giữ lời hứa. Ngày ngày nó rủ bạn bay về cánh đồng thăm anh, thăm đồng lúa anh cày cấy. Cò lội xuống nước, mò tôm tép ăn, nhưng không hề ăn của anh nông dân một bông lúa nào.
+Cho đến nay loài cò vẫn là loài chim có ích. Nó là người bạn của đồng quê. Anh nông dân không buồn nữa. Buổi chiều, sau một ngày lao động mệt nhọc, nhìn cánh đồng bát ngát, anh vui vẻ hát một mình:
+Yêu quê, yêu nhất cành đồng Yêu đàn cò trắng sang sông chiều chiều.
+
+➤ Xem thêm truyện cái cò đi đón cơn mưa
+
+[alert style=”danger”]
+[button url=”https://truyendangian.com/truyen-co-tich/” style=”danger” target=_blank]➤ Khám phá thế giới cổ tích[/button]
+[/alert]
+
+--------------------------------------------------
+

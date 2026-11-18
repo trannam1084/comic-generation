@@ -1,0 +1,238 @@
+
+Bạn là người đánh giá Dataset cho dự án Vietnamese Comic Generation.
+
+Hãy đánh giá từng truyện để xác định mức độ phù hợp
+khi chuyển thành comic khoảng 4 cảnh.
+
+Đánh giá 4 tiêu chí, mỗi tiêu chí từ 0 đến 2:
+
+1. characters_clear
+0: Không rõ nhân vật
+1: Nhân vật tương đối rõ
+2: Nhân vật rõ ràng
+
+2. events_clear
+0: Sự kiện không có trình tự rõ
+1: Trình tự tương đối rõ
+2: Trình tự sự kiện rõ ràng
+
+3. scene_suitable
+0: Không phù hợp tạo comic
+1: Có thể tạo comic nhưng cần chỉnh sửa
+2: Rất phù hợp để chia khoảng 4 cảnh
+
+4. ending_clear
+0: Không có kết thúc rõ
+1: Kết thúc tương đối rõ
+2: Kết thúc rõ ràng
+
+Tổng điểm score = tổng 4 tiêu chí, tối đa 8.
+
+selected_candidate:
+- true: Nếu score >= 6 và phù hợp tạo comic
+- false: Nếu không phù hợp
+
+difficulty:
+- easy
+- medium
+- hard
+
+Không bịa thêm sự kiện.
+Không đánh giá chỉ dựa trên tên truyện.
+Đánh giá dựa trên nội dung được cung cấp.
+
+Trả về JSON array hợp lệ, không Markdown.
+
+Mỗi truyện:
+
+{
+  "id": "story_001",
+  "title": "...",
+  "characters_clear": 0,
+  "events_clear": 0,
+  "scene_suitable": 0,
+  "ending_clear": 0,
+  "score": 0,
+  "selected_candidate": false,
+  "difficulty": "easy",
+  "reason": "..."
+}
+
+
+==================================================
+STORIES TO EVALUATE
+==================================================
+
+
+ID: story_221
+TITLE: Câu chuyện Kiến giết Voi [Truyện ngụ ngôn hay cho bé]
+URL: https://truyendangian.com/kien-giet-voi
+
+CONTENT:
+[alert style=”danger”]
+Câu chuyện Kiến giết Voi là truyện ngụ ngôn Việt Nam, giáo dục các bạn nhỏ không nên có tính kiêu ngạo, coi thường người khác và hiếp đáp kẻ yếu hơn mình.
+[/alert]
+Trong một khu rừng rậm có một con voi rất hung dữ. Gặp bất kì loài vật nào, Voi cũng dùng đôi ngà ghê gớm của mình húc chết. Voi chưa chịu thua một loài vật nào. Vì vậy, càng ngày Voi càng kiêu ngạo .
+Một hôm, Voi đang nghênh ngang đi dạo thì gặp một đàn kiến vàng bò qua đường. Cho rằng đàn Kiến bé nhỏ láo xược, Voi quát:
+– Đàn Kiến ranh con kia! Chúng bay không biết tao là ai hay sao mà chúng bay dám bò ngang qua đường tao đi? Tao chỉ khẽ dẫm lên lên một cái là chúng mày chết cả nút . Chúng mày không biết thân biết phận tí nào cả.
+Trái với Voi nghĩ, đàn kiến bé nhỏ đã cứng cỏi đáp lại:
+– Này bác Voi, chúng tôi là những người biết mình biết người. Chúng tôi không bao giờ kiêu ngạo với ai cả. Nhưng nếu bác cậy sức muốn đánh nhau với chúng tôi thì chúng tôi cũng không sợ. Chúng tôi cũng không chịu lùi bước trước một sức mạnh nào đâu.
+Nghe đàn Kiến trả lời như vậy, Voi nổi giận điên người. Voi lồng lên, định dẫm đàn kiến chết tan xác dưới bàn chân to lớn của mình. Đàn kiến nhỏ bé đã nhanh nhẹn tản ra, bám ngay lấy chân Voi mà leo lên lưng Voi.
+Đàn kiến bảo nhau xúm cả vào hai mắt Voi mà cắn, khiến Voi không sao mở được mắt nữa. Trong khi hai mắt Voi còn cay xè thì đàn kiến lại bảo nhau chui vào hai tai Voi mà đục thủng màng nhĩ . Voi đau buốt đến tận óc.
+Voi cố lấy vòi để thổi và quét đàn kiến xuống đất nhưng không xuể vì đàn kiến đông quá. Đàn Kiến lại chui vào vòi Voi mà đốt, mà cắn. Voi không tài nào chịu nổi, ngã lăn ra, kêu khóc, giãy giụa ầm trời. Đàn Kiến đã đi báo thêm cho nhau biết và kéo tới mỗi lúc một nhiều, xúm vào đốt Voi cho tới chết mới chịu buông tha.
+Từ đấy, họ hàng nhà voi bảo nhau phải tránh xa giống kiến nhỏ bé nhưng ghê gớm. Trước khi ăn gì, họ hàng nhà voi đều cuốn thức ăn vào vòi, giũ thật sạch để không còn Kiến nữa rồi mới dám ăn. Và voi cũng hết sức để ý, không bao giờ để cho kiến leo được lên trên người mình.
+
+--------------------------------------------------
+
+
+ID: story_222
+TITLE: Đồ dùng để ở đâu? [Truyện vui SGK Tiếng Việt 2 cũ]
+URL: https://truyendangian.com/do-dung-de-o-dau
+
+CONTENT:
+[alert style=”danger”]
+Đồ dùng để ở đâu? là câu chuyện ngắn vui của Nhị Hà, từng được dạy trong SGK Tiếng Việt 2 (cũ), mang tính giáo dục các bạn nhỏ về ý thức gọn gàng rất cao.
+[/alert]
+Minh nhìn lên đồng hồ. Đã đến giờ đi học. Minh cuống cuồng tìm quần áo để mặc. Nhưng chú bé không thấy quần dài, không thấy áo, không thấy dép đâu cả.
+Minh gắt lên:
+– Quần ta đâu rồi?
+Quần lên tiếng:
+– Tôi đây! Tôi đây! Tôi ở trong xó tủ. Tối qua anh nhét tôi vào đây cơ mà!
+– Áo ta đâu?
+– Tôi ở đây! Trên đình màn này. Tối qua anh vứt tôi lên đây cơ mà! – Chiếc áo nhăn nhúm, kêu lên như vậy.
+– Dép của ta ở đâu?
+– Tôi đây! Dưới gầm tủ ấy! – Chiếc dép bên phải trả lời. Chiếc bên trái im thin thít. Nó không nghe thấy tiếng Minh hỏi. Nó nằm ngoài cửa.
+Cuối cùng, Minh cũng mặc xong quần áo và tìm thấy dép. Nhưng trống vào học đã đánh rồi. Minh chạy bở hơi tai mà vẫn chậm.
+
+--------------------------------------------------
+
+
+ID: story_223
+TITLE: Câu chuyện bé Chăm [Tiếng Việt 2 – năm 1985]
+URL: https://truyendangian.com/cau-chuyen-be-cham
+
+CONTENT:
+[alert style=”danger”]
+Câu chuyện bé Chăm của tác giả Trúc Mai giống như lời nhắc nhở nhẹ nhàng các bạn nhỏ làm việc gì cũng phải đến nơi đến chốn, mới không phí công vô ích.
+Đây là câu chuyện rất hay, mang ý nghĩa giáo dục cao, được đưa vào giảng dạy trong SGK Tiếng Việt lớp 2 (năm 1985) nên gắn liền với kỷ niệm của tuổi thơ thế hệ 8X.
+[/alert]
+Bé Chăm rất chăm làm nhưng cũng mau chán việc. Làm việc này chưa xong, em lại bỏ dở để làm việc khác.
+Mới quét xong nửa cái sân, em lại lấy sách ra đọc. Bài học thuộc lòng mới thuộc nửa chừng, em lại lấy vở ra để tập chép.
+Bố em thường khuyên răn em, nhưng bé Chăm vẫn chưa sửa chữa được.
+Một hôm, bố dẫn Chăm đến bác thợ may ở trong làng để may một bộ quần áo mới. Chăm thích quá vì sắp có bộ quần áo đẹp để mặc Tết. Một ngày, hai ngày và ngày thứ ba, Chăm đến lấy quần áo mới. Nhưng bác thợ may chỉ may xong nửa cái áo và nửa cái quần. Bác bảo Chăm cứ thế mặc vào xem sao.
+Chăm mặc thử bộ quần áo làm cho mọi người bò lăn ra cười. Chăm bực tức nói:
+– Thế bác hãy may xong cái áo cho cháu đã có được không? Bác làm thế thành ra chẳng cái nào xong hẳn cả!
+Bác thợ nghiêm trang bảo: “Cháu nói đúng, làm việc gì cũng phải làm đến nơi đến chốn mới khỏi phí công vô ích”.
+
+--------------------------------------------------
+
+
+ID: story_224
+TITLE: Ba cô tiên [Truyện tranh cổ tích cho bé]
+URL: https://truyendangian.com/ba-co-tien
+
+CONTENT:
+[alert style=”danger”]
+Ba cô tiên là câu chuyện cổ tích kể về gia đình cậu bé Tí Hon được ba cô tiên giúp đỡ.
+Với cốt truyện đơn giản và tranh vẽ minh họa bắt mắt, chắc chắn sẽ khiến cho các bạn nhỏ mê tít.
+[/alert]
+
+Ngày xửa ngày xưa, có một cậu bé lên 6 tuổi rồi mà vẫn còn bé tí ti, trông chỉ bằng ngón tay cái của người lớn. Mọi người gọi cậu là Tí Hon.
+
+Nhà Tí Hon nghèo lắm. Bố mẹ cậu phải đi chăn trâu mướn. Tí Hon thương bố mẹ nên xin năn nỉ xin đi chăn trâu giúp bố mẹ:
+– Bố mẹ cho con đi chăn trâu với.
+
+Thấy con bé quá, lúc đầu bố mẹ cậu không đồng ý, nhưng Tí Hon cứ năn nỉ mãi nên bố mẹ đành phải để cậu đi chăn trâu.
+
+Tí Hon chăn trâu rất giỏi. Trâu không phá lúa, hoa màu. Lúc nào trâu cũng ăn no, bụng căng tròn. Cả làng thấy thế, ai cũng khen Tí Hon tài giỏi.
+
+Một hôm, vì đồng làng hết cỏ ngon, Tí Hon phải đưa trâu lên núi. Tí Hon trông thấy một bông hồng to bằng cái nón. Cậu bé thích thú, cho trâu tới gần xem. Rồi từ lỗ tai trâu nhảy qua đóa hồng.
+
+– Ôi! Thích quá!
+Tí Hon gặp ba cô tiên bé tí tẹo ở giữa bông hoa. Một cô áo xanh, một cô áo đỏ, một cô áo vàng. Ba cô vui vẻ lấy bánh mời Tí Hon ăn.
+
+Tí Hon cất bánh vào túi để dành cho bố mẹ. Ba cô tiên thấy vậy liền bảo cậu cứ ăn bánh, các cô sẽ giúp cho nhà cậu hết nghèo.
+
+Đến chiều, ba cô tiên cùng leo lên sừng trâu, theo Tí Hon về nhà.
+
+Về đến nhà, ba cô tiên bảo Tí Hon đi tìm bố mẹ về. Cậu bé vừa đi khỏi, cô tiên áo đỏ liền vẽ một ngôi nhà thật to và đẹp, cô tiên áo vàng vẽ một ruộng lúa chín, còn cô tiên áo xanh vẽ ra rất nhiều quần áo mới.
+
+Các cô tiên vẽ xong, tất cả đều hóa thành thật.
+Bố mẹ Tí Hon về tới nơi, sững sờ khi thấy ngôi nhà đẹp, ruộng lúa tươi tốt và thật nhiều quần áo mới.
+
+Các cô chào hai ông bà và thưa:
+– Chúng cháu tới giúp hai bác và Tí Hon. Từ nay, nhà ta sẽ hết nghèo.
+
+Một cô tiên cho Tí Hon quần áo. Tí Hon vừa mặc vào bỗng chốc hóa thành một cậu bé cao lớn và tuấn tú.
+
+Bố mẹ Tí Hon mừng quá, quay lại chưa kịp cảm ơn, thì ba cô tiên đã biến thành ba con chim bồ câu trắng bay đi.
+
+Từ đó không ai gặp ba cô tiên nữa. Còn Tí Hon lúc này đã trở thành một chàng trai to lớn, khỏe mạnh, chăm chỉ làm việc, được ai cũng yêu quý.
+
+--------------------------------------------------
+
+
+ID: story_225
+TITLE: Cây tre trăm đốt [Truyện tranh cổ tích]
+URL: https://truyendangian.com/cay-tre-tram-dot
+
+CONTENT:
+[alert style=”danger”]
+Cây tre trăm đốt là câu chuyện cổ tích mang đậm tính luân lý của người xưa: những người hiền lành, thật thà, chất phác sẽ luôn gặp may mắn và được giúp đỡ.
+[/alert]
+Ngày xửa ngày xưa có một lão phú ông có một cô con gái đẹp lắm. Trong nhà lão có thuê một anh nông dân nghèo, khỏe mạnh để giúp việc và cày ruộng cho lão. Phú ông muốn lợi dụng chàng trai, mới nói với anh ta rằng:
+– Mày hãy cứ cố gắng làm việc, nếu như chăm chỉ, sau này tao sẽ gả cô cho mày!
+Chàng trai nghèo nghe vậy mừng lắm, vì trong lòng anh ta cũng rất thích cô chủ mà không dám với, nên đã ra sức làm việc cho phú ông mà không quản nắng sương, không nài mệt nhọc sớm khuya gì cả.
+
+Thời gian thấm thoát trôi đi cũng đã được ba năm, thấy trong nhà làm ăn mỗi ngày một khấm khá, phú ông bấy giờ mới nghĩ bụng rằng:
+– Nhà mình giàu có thế này mà gả con gái cho đứa ở thì chẳng là uổng con, mà người ta lại cười cho vào mặt!
+Nghĩ thế rồi, phú ông âm thầm đem gả con gái cho một nhà khác giàu sang nhất nhì trong làng.
+Sáng hôm sắp đưa dâu, phú ông gọi chàng trai ra, giở trò bảo rằng:
+– Lát nữa mày chịu khó lên rừng tìm lấy một cây tre trăm đốt , đem về đây làm đũa ăn cưới, thì tao cho mày lấy cô ngay!
+Chàng trai thật thà, nghe thấy thế, lập tức vác rìu vào rừng tìm.
+
+Nhưng suốt buổi kiếm hết khu này, khu khác, chẳng đâu thấy có cây tre có đủ được trăm đốt. Chàng trai buồn quá ngồi khóc.
+Bỗng có một ông lão đầu tóc bạc phơ, từ đâu bước đến hỏi rằng:
+– Làm sao con khóc? Nói cho ta nghe xem!
+
+Chàng trai thưa đầu đuôi câu chuyện, ông lão nghe xong rồi bảo:
+– Con hãy đi chặt tre, đếm đủ trăm đốt rồi đem lại đây ta sẽ giúp con.
+Chàng trai làm theo lời ông lão, chặt đủ một trăm đốt tre mang về.
+Ông lão bảo anh đọc: “Khắc nhập! Khắc nhập!”
+
+Chàng trai vừa đọc ba lần như thế, thì một trăm đoạn tre tự nhiên liền lại với nhau mà thành một cây tre trăm đốt.
+Anh ta mừng quýnh, ghé vai định vác về. Nhưng cây tre dài quá, nhấc lên vừa vướng, vừa nặng, không thể nào đi được.
+Chàng lại ngồi khóc hu hu.
+Ông lão lại hỏi:
+– Làm sao con khóc?
+– Thưa ông, cây tre dài quá, con không thể vác về nhà được ạ! – chàng trai nói.
+
+Ông lão cười, bảo anh đọc: “Khắc xuất! Khắc xuất!”
+Chàng trai vừa đọc xong ba lần thì cây tre lại tức khắc rời ra từng đoạn.
+Anh cám ơn ông lão, rồi lấy dây rừng bó những đốt tre lại, gánh về nhà.
+Lúc về tới nơi, thấy hai họ đang ăn uống tưng bừng, sắp đến giờ rước dâu, anh mới biết là đã bị phú ông lừa, nhân lúc anh đi vắng, đã gả con gái cho người khác.
+
+Không nói gì cả, anh ta cứ lẳng lặng đem trăm đoạn tre xếp thành hàng dưới đất, rồi lẩm bẩm đọc:
+– Khắc nhập! Khắc nhập!
+Tự nhiên một trăm đoạn tre kia chắp liền lại thành một cây tre dài cả trăm đốt.
+Phú ông thấy chuyện lạ lùng, chạy lại gần xem.
+Anh ta cũng đọc luôn:
+– Khắc nhập! Khắc nhập!
+Tức thì cả phú ông cũng bị dính liền vào cây tre, không tài nào thoát ra được.
+
+Ông thông gia thấy vậy chạy ra, định gỡ cho phú ông.
+Chàng trai đợi lúc ông ta tới gần, cũng lại đọc:
+– Khắc nhập! Khắc nhập!
+Thế là cả ông ta cũng dính chập luôn với cây tre, cố sức vùng vẫy mãi cũng không sao lìa ra được.
+Hai họ thấy vậy không còn ai dám mon men đến gần.
+Còn hai ông kia thì van van lạy lạy mong anh thả ra cho. Ông thông gia thì xin về nhà ngay, còn phú ông cũng xin hứa gả con cho anh ta ngay lập tức.
+
+Lúc bấy giờ, chàng trai mới đọc:
+– Khắc xuất! Khắc xuất!
+Lập tức lão phú ông  và ông thông gia tách ngay ra khỏi cây tre, và cây tre cũng rời ra làm trăm đoạn.
+Chàng trai cưới cô con gái phú ông làm vợ và hai người sống bên nhau rất hạnh phúc.
+Vì truyện này, mà sau thành câu ví rằng:
+Chê ta rồi lại lấy ta, Tuy là đứa ở, song mà có công.
+
+--------------------------------------------------
+

@@ -1,0 +1,192 @@
+
+Bạn là người đánh giá Dataset cho dự án Vietnamese Comic Generation.
+
+Hãy đánh giá từng truyện để xác định mức độ phù hợp
+khi chuyển thành comic khoảng 4 cảnh.
+
+Đánh giá 4 tiêu chí, mỗi tiêu chí từ 0 đến 2:
+
+1. characters_clear
+0: Không rõ nhân vật
+1: Nhân vật tương đối rõ
+2: Nhân vật rõ ràng
+
+2. events_clear
+0: Sự kiện không có trình tự rõ
+1: Trình tự tương đối rõ
+2: Trình tự sự kiện rõ ràng
+
+3. scene_suitable
+0: Không phù hợp tạo comic
+1: Có thể tạo comic nhưng cần chỉnh sửa
+2: Rất phù hợp để chia khoảng 4 cảnh
+
+4. ending_clear
+0: Không có kết thúc rõ
+1: Kết thúc tương đối rõ
+2: Kết thúc rõ ràng
+
+Tổng điểm score = tổng 4 tiêu chí, tối đa 8.
+
+selected_candidate:
+- true: Nếu score >= 6 và phù hợp tạo comic
+- false: Nếu không phù hợp
+
+difficulty:
+- easy
+- medium
+- hard
+
+Không bịa thêm sự kiện.
+Không đánh giá chỉ dựa trên tên truyện.
+Đánh giá dựa trên nội dung được cung cấp.
+
+Trả về JSON array hợp lệ, không Markdown.
+
+Mỗi truyện:
+
+{
+  "id": "story_001",
+  "title": "...",
+  "characters_clear": 0,
+  "events_clear": 0,
+  "scene_suitable": 0,
+  "ending_clear": 0,
+  "score": 0,
+  "selected_candidate": false,
+  "difficulty": "easy",
+  "reason": "..."
+}
+
+
+==================================================
+STORIES TO EVALUATE
+==================================================
+
+
+ID: story_093
+TITLE: Cá vượt đẻ [Truyện đọc cho bé lớp 1]
+URL: https://truyendangian.com/ca-vuot-de
+
+CONTENT:
+Trời mưa như trút nước. Gió uốn cong những thân cau, túm mọi tàu lá thành một búi, vật lên vật xuống. Bà Ba bảo các con:
+– Bão nước đấy.
+Anh em Thịnh, Thìn chẳng hiểu bão nước là gì, nhưng chúng sợ những cơn gió mạnh cứ bốc từng vốc hạt mưa lớn, ném rào rào vào các phên chắn cửa. Hai anh em nép sâu vào trong nhà, chỉ hé mắt nhìn ra. Nước mưa rơi xuống trắng nhoà hết mọi cảnh vật ngoài vườn.
+Bà Ba cẩn thận xem lại đôi quang thúng, buộc chặt thùng dầu hoả, thùng nước mắm vào để quang, lắc lắc xem có bị xô nghiêng hay không. Mưa gió là việc của trời, nhưng việc kiếm cơm của các gia đình nghèo thì không ngừng được. Khoác áo tơi , đội nón xong, bà dặn hai đứa:
+– Các con ở nhà, mẹ đi bán hàng đây. Ngày mưa này bán dầu, bán mắm mới dễ. Đành chịu khó vậy.
+Mẹ đi rồi. Hai anh em cảm thấy nhà vắng quá, chúng sợ mọi thứ. Vùng quê này các xóm đều vắng người. Tuy là học sinh lớp Ba nhưng Thịnh chỉ hơn em có vài tuổi, nó chưa làm được gì nếu mẹ vắng nhà.
+Hai anh em không dám ngủ vì trời còn sáng, vả lại chúng sợ, đành rủ nhau đứng nép ở cửa nhìn ra. Nước mưa đã ngập vườn rau, chỉ thấy mấy luống nhô cao, đen đen nhập nhoà. Mà hình như nước ngoài ao nước cũng đầy, nên trông thấy cả mặt nước sáng lấp lánh.
+Cái Thìn bảo:
+– Nước ngập cả vườn rồi, anh ạ.
+– Ừ, có mấy cái bèo trôi trong vườn đây.
+Thìn chăm chú nhìn trên cánh bèo. Đột nhiên nó reo lên:
+– Có con gì đang quẫy anh ơi!
+Hai anh em nhìn ra góc vườn. Đúng là có con cá to đang trườn theo rạch luống, ngày càng vào gần nhà.
+– Bắt cá đi anh! – Con bé reo lên thích thú. Thịnh cũng hét toáng lên: “Bắt cá đi!”. Hai đứa chụp vội cái mũ rách, cầm rổ chạy ra. Thằng anh nhanh nhẹn chắn rổ, đứa em lùa tới. Con cá nhảy mạnh để vượt qua nhưng không thoát được cái rổ. “Bắt được rồi”. Tuy không có ai hay biết, nhưng anh em nó cứ reo to, như là lập công lớn lắm. Chúng mang cá vào nhà, cấn thận thả vào chậu, chận cái rổ lên, chốc chốc lại hé nhìn. Bấy giờ mới thấy con cá to thật. Đó là một con cá quả, bụng chửa to kềnh càng. Nó bơi đi bơi lại trong chậu, chốc chốc lại xoè vây, vẫy đuôi tìm cách thoát thân. Đôi mắt nó lồi ra, đờ đẫn như là khóc, bất lực trước hoàn cảnh.
+Mẹ về chưa kịp hạ quang gánh, hai đứa đã tranh nhau khoe:
+– Chúng con bắt được con cá to, mẹ ạ. Mẹ xem đi.
+– Để yên cho mẹ thay áo đã. Ướt hết cả người rồi. Thế mà mẹ cũng bán được hàng cho mươi nhà đấy, các con ạ.
+Khi bếp lửa đã được đốt ấm hồng lên, bấy giờ bà mới nhìn con cá: Thì ra “cô nàng” vượt đẻ . Tính của loài này là thế. Khi mưa to gió lớn, gặp quãng nước mạnh, thường nhảy vượt lên để tìm chỗ đẻ trứng. Con cá to, trời mưa gió này mà làm thịt kho mắm ăn dè cũng được mấy ngày! Nhưng bà lại thấy tội nghiệp. Nó là con vật, nhưng cũng là ” thân gái dặm trường ” đang lúc bụng mang, dạ chửa thế này! Bà bảo các con:
+– Thả nó làm phúc, các con ạ, ăn thịt nó thì tội lắm. Các cụ bảo “chim sa, cá nhảy” nên phóng sinh .
+Hai đứa không dám cãi. Chúng biết rằng mẹ đã nói là đúng, nên im lặng theo mẹ bưng cá ra đổ xuống mặt ao. Trời vẫn mưa, thế mà con cá còn đảo một vòng rồi mới chịu lặn.
+Cơn mưa đã dứt. Hai anh em tiếp tục đi học, câu chuyện con cá cũng quên nhanh. Chợt một buổi sáng, Thịnh nghe có tiếng cá rào rào đớp bóng. Nó nhận ra hàng trăm con cá nhỏ đang lao lên xuống tìm mồi.
+– Mẹ ơi. Có đàn cá con đông lắm. Mẹ ra mà xem.
+Cả nhà thằng Thịnh đứng bên bờ ao ngắm cảnh. Ao nước bắt ánh nắng soi lọc màu thuỷ tinh. Đàn cá nhỏ tới tấp, đua nhau ăn mồi theo bờ. Thấp thoáng dưới bóng nước, là con cá mẹ đang bơi quanh để chăn con. Tiếng reo của bầy trẻ có lẽ làm động nước. Nhận ra người quen, cá mẹ nổi hẳn mình lên, quay đầu vào bờ, ngáp ngáp như muốn nói lời cảm ơn.
+Mẹ bảo:
+– Đúng là con cá hôm nọ rồi. Nó đã đẻ con và đang đưa con đi kiếm ăn đấy. Suýt nữa thì ra mình đã hại cả mẹ con nhà nó.
+
+--------------------------------------------------
+
+
+ID: story_094
+TITLE: Ngày vui của Bé [Truyện đọc lớp 1]
+URL: https://truyendangian.com/ngay-vui-cua-be
+
+CONTENT:
+Cúc cúc cúc… úc… Bé vừa tròn môi gọi vừa rải nắm gạo ra sân cho bầy gà con quây tụ lại. Chỉ loáng một cái là gà mẹ đã tập hợp đàn con một cách đông đủ. Bé lấy làm hài lòng lắm. Mà sao không có gà cha nhỉ? Cha nó chết sớm hay bỏ mẹ con nó rồi? Nhưng dù sao thì lũ gà con cũng chẳng buồn như Bé đầu vì chúng còn có chị có em để mà vui chơi. Còn Bé, Bé chỉ có mỗi một mình thôi.
+Mấy hôm nay bố mẹ Bé lại giận nhau. Người lớn thật lạ! Mỗi khi họ giận nhau thì có chuyện gì cũng phải nhờ trẻ con truyền đạt lại . Chẳng hạn như: “Bảo bố mày chở đi học. Mẹ mệt lắm”, hoặc “Mày bảo có ai ăn cơm thì tự giác mà ăn, khỏi phải mời nhiều”, “Sẩy cha ăn cơm với cá. Sẩy mẹ liếm lá gặm xương con ạ!”… Thậm chí Bé đưa giấy mời họp phụ huynh thì nghe mẹ nói như nói với người lớn ấy, rất là khó hiểu: “Mời ai thì người đó đi, sao mày lại đưa cho tao”. Bé hoàn toàn chẳng thích mình là nhân vật quan trọng kiểu như thế!
+Sáng nay cô giáo lại đưa cho Bé một cái giấy mời họp phụ huynh, cô còn nói thêm: “Hạnh Ly được phần thưởng xuất sắc nhất toàn khối Hai, về bảo bố mẹ thưởng nhiều vào nhé”. Lúc ấy, Bé sướng rơn trong bụng, trên đường về Bé vừa đi vừa hát. Nhưng khi bước vào căn nhà vắng ngắt thì Bé bỗng sực nhớ bố mẹ đang giận nhau. Bé liền im lặng ngay.
+Bây giờ nhìn đàn gà con tung tăng nhặt gạo, Bé cảm thấy yên tâm hơn trong lòng. Lẽ ra Bé phải vui hơn vì Bé có mẹ, lại có cả bố nữa. Làm thế nào để bố mẹ làm lành với nhau nhỉ?
+Lấy trong cặp ra tờ giấy mời đọc lại, mọi nỗi buồn trong lòng Bé bỗng chốc như tan biến cả. Cả bố và mẹ đều giống nhau ở chỗ rất thích Bé đạt điểm mười hoặc được nhận giấy khen, phần thưởng. Vậy thì Bé phải làm thế nào để cả hai người đến trường dự lễ phát thưởng. Bố mẹ sẽ có cơ hội làm lành với nhau thôi mà. Có điều trong tờ giấy mời, cô giáo lại chỉ ghi “Mời ông…” chứ không có “Mời bà…”. Làm thế nào, làm thế nào bây giờ nhỉ?
+A, Bé nghĩ ra một cách rồi đây. Bé khoá vội cửa lại chạy đến nhà cô giáo. Trời rất nắng, mồ hôi mồ kê chảy ròng ròng mà Bé chẳng cảm thấy gì cả. Cô giáo đang nấu cơm ở trong nhà. Nếu như mọi bận thì Bé rụt rè đứng ngoài chứ chẳng dám bước vào nhà cô, còn hôm nay Bé quên cả sợ hãi, vừa đi vào bên trong vừa nói như không kịp thở:
+– Thưa cô, con xin cô mời cả mẹ nữa ạ.
+Cô vẫn chưa hết ngạc nhiên và chưa hiểu ra ý Bé. Cô liếc tờ giấy mời trên tay Bé:
+– Có chuyện gì vậy em? Giấy mời ghi lộn tên à?
+– Thưa cô không ạ, là vì… cô chỉ mời bố đi họp mà không mời mẹ. Con muốn cả hai người cùng đi ạ!
+Cô giáo bỗng phì cười:
+– Cô mời bố thì có nghĩa là cả mẹ nữa đấy, ai đi cũng được, có cả hai càng tốt chứ sao nào?
+Bé thở phào và mạnh dạn hẳn lên:
+– Con muốn cô ghi thêm cả chữ “Bà” nữa vì bố mẹ con đang giận nhau.
+– À, ra thế, để cô ghi ngay bây giờ đây. Tội nghiệp, nắng như thế này! Để cô về nhà cùng với em cho vui nhé!
+Ngày hôm ấy với Bé đúng là một ngày vui nhất đời . Vì bố mẹ đã làm lành với nhau, lại còn có vẻ rất hạnh phúc nữa khi cô giáo cho họ biết tin Bé được khen thưởng là học sinh xuất sắc nhất của khối lớp Hai.
+
+--------------------------------------------------
+
+
+ID: story_096
+TITLE: Tin tốt lành [Quà tặng cuộc sống và hạt giống tâm hồn]
+URL: https://truyendangian.com/tin-tot-lanh
+
+CONTENT:
+Tin tốt lành là món quà tặng cuộc sống ý nghĩa, nuôi dưỡng tâm hồn các bạn nhỏ trở nên giàu lòng vị tha, biết yêu thương con người trong khó khăn hoạn nạn.
+Đây là một câu chuyện có thật, kể về vận động viên đánh gôn Robert De Vincenzo người Argentina. Chính tình yêu thương, lòng vị tha, không chấp nhất với kẻ lọc lừa đã nâng Vincenzo lên tầm cao của lòng cao thượng.
+Robert De Vincenzo là một vận động viên đánh gôn xuất sắc người Argentina. Lần nọ, anh đăng quang trong một giải đấu. Khi nhận chi phiếu tiền thưởng xong và chụp hình lưu niệm với báo chí, anh trở lại tòa nhà câu lạc bộ để chuẩn bị ra về.
+Lát sau, khi anh đang một mình đi ra bãi đậu xe thì một phụ nữ trẻ tiến đến gần anh. Cô ta chúc mừng chiến thắng của anh, rồi kể cho anh nghe về đứa con đang bệnh nặng và khó qua khỏi của mình. Hiện thời, cô không biết phải làm sao để thanh toán tiền khám chữa bệnh và viện phí cho đứa bé.
+De Vincenzo xúc động trước câu chuyện của người phụ nữ, liền lấy bút ký vào tấm chi phiếu tiền thưởng của mình và đưa cho người phụ nữ.
+– Xin cô nhận để lo cho cháu bé. – Anh vừa nói vừa dúi tấm chi phiếu vào tay cô.
+Tuần sau, trong bữa ăn trưa ở câu lạc bộ, một viên chức của Hiệp hội đánh gôn chuyên nghiệp đến bàn của anh và nói:
+– Mấy đứa trẻ ở bãi đậu xe vào tuần trước nói với tôi rằng anh có gặp một phụ nữ ở đấy sau giải.
+De Vincenzo gật đầu. Ông ta nói tiếp:
+– À, tôi có tin này cho anh hay. Cô ta là một tay lửa đảo. Cô ta chẳng có đứa con nào bị bệnh cả. Ả còn chưa lập gia đình nữa là. Cậu đã bị gạt rồi, anh bạn ạ.
+Vincenzo hỏi lại:
+– Ý của ông là chẳng hề có đứa bé nào sắp chết cả phải không?
+– Đúng vậy! – Ông ta đáp.
+– Ôi! Đó là tin tốt lành nhất trong tuần này mà tôi nghe được đấy! – De Vincenzo nói.
+
+--------------------------------------------------
+
+
+ID: story_097
+TITLE: Chiếc miện vàng của vua rắn [Truyện cổ tích cho bé]
+URL: https://truyendangian.com/chiec-mien-vang-cua-vua-ran
+
+CONTENT:
+Ngày xưa, thời mà con người và súc vật còn gần gũi nhau chứ không như bây giờ, có một cô gái thường ngày dẫn đàn cừu của mình ăn cỏ trên núi cao. Cô gái tươi vui như một quả phúc bồn tử, nhanh nhẹn trong công việc và trong khiêu vũ. Cô luôn luôn được lòng tất cả các chàng trai chăn cừu và trại viên quanh vùng.
+Nhưng bố của cô gái vốn là một nông dân kiêu hãnh vì ông có đàn bò và đàn cừu lớn nhất trong làng. Ông muốn kén chồng cho con là một chủ điền trang. Một trong những người xin cầu hôn với cô là một chàng trai giản dị mà tất cả tài sản chỉ vẻn vẹn có vài con cừu trắng nên ông già không thèm tiếp chuyện. Không phải chỉ có một lần cô con gái đã phải đổ bao nhiêu nước mắt về chuyện này, rồi cô phải tự an ủi mà nói rằng: “Thời gian sẽ thu xếp mọi việc đâu vào đấy! Rồi có ngày bố sẽ nhận ra là ta đã chọn được một tấm chồng xứng đáng”.
+Những lúc chăn giữ đàn cừu trong đồng cỏ, cô gái thường có thói quen ca hát và thêu thùa, trong khi con chó khôn ngoan của cô dẫn dắt những con cừu tản đi nơi khác. Bằng một sợi chỉ tơ, cô đã tỉ mỉ thêu từng mũi kim khéo léo đến nỗi những bông hoa tựa như nở ra dưới những ngón tay thon thả của cô.
+Để cổ vũ thêm lòng can đảm, cô nghĩ: “Đến lúc ta thêu xong chiếc áo này thì những nỗi buồn phiền của ta sẽ biến mất thôi”.
+Một chiều, cô thong thả bước vào ngôi lán trú chân thì thấy một con rắn bị thương gần một tảng đá. Cô cảm động, thấy nó đau đớn mà thương.
+– Ta còn bình sữa đây, biết đâu lại giúp được ngươi hồi phục.
+Nói xong, cô đổ sữa vào cái mỏm đá. Con rắn trườn đến nhúng đầu vào mà uống. Nó lại sức và bò đi.
+– Chúc ngươi mau khoẻ nhé!
+Ngày lại ngày qua, mùa thu lại kéo dài những ngày ảm đạm và người nông dân lại từ những bãi chăn thả trên núi cao trở về làng cùng với đàn gia súc của mình. Trên kia, những bông tuyết đầu mùa đã rơi xuống. Thời gian ông đi vắng, tiếng đồn về việc kén chồng cho con gái độc nhất của ông đã lan truyền đi khắp và đã có nhiều người ngấp nghé đến dạm hỏi. Gần đến mùa đông, chàng thanh niên nhà nghèo lại đánh bạo đến cầu hôn. Anh đã bán số lông cừu và pho mát được giá. Đàn cừu của anh đã phát triển thêm lên. Nhà cửa, bề ngoài đã khang trang. Anh chỉ còn thiếu một người vợ.
+Người nông dân liếc nhìn anh có ý không ưa, rồi nói với anh bằng lời thân thiện giả tạo:
+– Tôi sẽ gả con gái của tôi cho anh, chỉ đòi hỏi anh một điều kiện thôi. Anh biết đấy, ngay trong ngày lễ sinh nhật của nó tôi đã thề là tôi chọn một chàng rể giàu có. Còn đối với anh, anh có thể tự hào là có nhiều pho mát, nhiều lông cừu trắng, với đôi bàn tay khéo léo và cái đầu biết làm ăn của anh thì kệ anh. Nhưng tôi chỉ ung thuận nhận anh là rể của tôi khi nào anh có số cừu nhiều bằng số cừu của tôi. Thế thôi.
+Chàng thanh niên lấy làm buồn về những lời nói đó. Cô gái thì cúi gầm đầu xuống. Những lời nói gay gắt của bố cô đã lấy đi sự hồn nhiên ca hát và nhảy múa của cô. Nhưng cô không thay đổi tình cảm, không hề dòm ngó cũng như không nghe những lời đường mật của ai, mà chỉ một lòng một dạ đối với người có yêu dấu.
+Chàng thanh niên lo lắng nói với cô:
+– Đến mùa, anh sẽ vào làm trong một xưởng chế biến bơ sữa và anh sẽ kiếm đủ. Nhưng em chờ anh đến khi đó chứ? Bố của em có thể ép buộc em lấy một điền chủ giàu có…
+– Thế nào em cũng chờ anh! – Cô gái thở dài.
+Chẳng bao lâu sau, cái trang trại lớn nhất trong làng đã gặp tai biến lớn. Quả vậy, một con rồng khạc lửa, tối nào cũng đến. Nó thiêu cháy những kho thóc, làm giảm nhanh chóng số lượng gia súc trên những bãi chăn thả quanh làng. Một đàn gia súc nguyên vẹn không đủ cho nó ăn một bữa. Rút cục, ông chủ trại giàu có nhất đành phải bán bò và cừu của mình ở chợ tỉnh, và trong khi vội vàng tống khứ hết gia súc để con rồng khỏi cuỗm mất thì ông bán không được giá.
+Mùa đông về sớm hơn thường lệ. Năm đó tuyết xuống như núi lở. Các trận bão nối tiếp nhau đổ về và rét lại mặc sức hoành hành. Cỏ khô cho súc vật đã bắt đầu thiếu.
+Khi những ngày đẹp trời trở lại và nắng đã làm tan tuyết mùa đông, chàng thanh niên nghèo lại đánh liều xin kết hôn với người mà anh yêu dấu. Bây giờ anh đã có đàn gia súc nhiều hơn đàn gia súc của bố vợ tương lai.
+Người vợ chưa cưới đã chuẩn bị bữa tiệc với tâm trạng nhẹ nhõm. Cô không còn phải lo cô là người con gái giàu nhất làng nữa. Còn về chàng trai, anh gấp rút chuẩn bị lễ cưới mà sung sướng, nhẹ nhõm như đang bước lên mây.
+Một hôm, cô gái vừa tết xong tóc thì một con rắn mang chiếc miện vàng óng vào phòng cô mà nói rằng:
+– Tôi đến để cám ơn cô đã không để tôi phải chết trên mỏm đá trong rừng, và tôi mang đến cho cô chiếc miện cưới để nói lên tấm lòng của tôi. Tôi mong rằng nó sẽ đem lại hạnh phúc cho cô.
+Rồi con rắn biến mất cũng huyền bí như khi nó đến. Cô gái ngơ ngác đặt chiếc miện lên đầu và suốt trong tiệc cưới không ai là không nhận thấy rằng cô là một cô dâu đẹp nhất ít ai bì được. Cô rực sáng trên thềm nhà mình.
+Về sau, vận may và hạnh phúc không bao giờ bỏ rơi đôi vợ chồng trẻ mà trái lại chúng còn đi theo họ suốt mãi cuộc đời. Chắc rằng cái miện của con rắn đã đưa điều tốt lành đến với họ.
+
+--------------------------------------------------
+
+
+ID: story_098
+TITLE: Ông lão mù [Quà tặng cuộc sống và hạt giống tâm hồn]
+URL: https://truyendangian.com/ong-lao-mu
+
+CONTENT:
+Có một người sưu tập tranh già nua sống tại một thị trấn nhỏ nghèo nàn ở một đất nước bị nhiều năm chiến tranh. Ông xem những bức tranh trong bộ sưu tập của mình còn hơn cả sinh mệnh và hàng ngày vẫn thưởng thức chúng bằng tâm tưởng, ký ức.
+Ông lão tội nghiệp đâu hay biết rằng chiến tranh đã đem đến cảnh khốn cùng và vợ con ông đã buộc phải bán dần bán mòn những bức tranh để giúp gia đình sống qua những ngày đói rét. Ông sẽ tuyệt vọng đến mức nào nếu biết được điều kinh khủng này, khi sự thật phũ phàng có thể bị tiết lộ bởi một nhà buôn tranh tìm đến hỏi mua những bức cuối cùng trong bộ sưu tập của ông.
+Nhưng nhà buôn tranh đã hết sức xúc động trước những lời khẩn cầu của gia đình ông lão mù và đồng ý nhập vai trong một màn kịch. Con người nhân hậu này đã làm tất cả để che giấu sự thật và ông đã thành công.
+Ông lão yêu tranh đã tiễn người khách bất ngờ của mình ra về với niềm tin nguyên vẹn trong trí óc và niềm vui vẫn lấp lánh trong đôi mắt mù lòa. Còn người buôn tranh – người diễn viên bất đắc dĩ – điều ông mang về sau cuộc viếng thăm không phải là một bức tranh cổ có thể giúp ông kiếm bộn tiền, mà là một bài học đáng giá về tình yêu thương của những con người khốn khổ.
+
+--------------------------------------------------
+

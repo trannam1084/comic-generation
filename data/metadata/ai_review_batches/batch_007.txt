@@ -1,0 +1,142 @@
+
+Bạn là người đánh giá Dataset cho dự án Vietnamese Comic Generation.
+
+Hãy đánh giá từng truyện để xác định mức độ phù hợp
+khi chuyển thành comic khoảng 4 cảnh.
+
+Đánh giá 4 tiêu chí, mỗi tiêu chí từ 0 đến 2:
+
+1. characters_clear
+0: Không rõ nhân vật
+1: Nhân vật tương đối rõ
+2: Nhân vật rõ ràng
+
+2. events_clear
+0: Sự kiện không có trình tự rõ
+1: Trình tự tương đối rõ
+2: Trình tự sự kiện rõ ràng
+
+3. scene_suitable
+0: Không phù hợp tạo comic
+1: Có thể tạo comic nhưng cần chỉnh sửa
+2: Rất phù hợp để chia khoảng 4 cảnh
+
+4. ending_clear
+0: Không có kết thúc rõ
+1: Kết thúc tương đối rõ
+2: Kết thúc rõ ràng
+
+Tổng điểm score = tổng 4 tiêu chí, tối đa 8.
+
+selected_candidate:
+- true: Nếu score >= 6 và phù hợp tạo comic
+- false: Nếu không phù hợp
+
+difficulty:
+- easy
+- medium
+- hard
+
+Không bịa thêm sự kiện.
+Không đánh giá chỉ dựa trên tên truyện.
+Đánh giá dựa trên nội dung được cung cấp.
+
+Trả về JSON array hợp lệ, không Markdown.
+
+Mỗi truyện:
+
+{
+  "id": "story_001",
+  "title": "...",
+  "characters_clear": 0,
+  "events_clear": 0,
+  "scene_suitable": 0,
+  "ending_clear": 0,
+  "score": 0,
+  "selected_candidate": false,
+  "difficulty": "easy",
+  "reason": "..."
+}
+
+
+==================================================
+STORIES TO EVALUATE
+==================================================
+
+
+ID: story_033
+TITLE: Mua kính [Truyện cười dân gian Việt Nam]
+URL: https://truyendangian.com/mua-kinh
+
+CONTENT:
+Mua kính là truyện cười dân gian kể về một anh chàng không biết chữ đi mua kính để đọc, qua đó có ý châm biếm những kẻ dốt nát nhưng thích tỏ ra tri thức.
+Truyện còn cho thấy cần phải có kiến thức để sử dụng một công cụ hoặc dụng cụ nào đó đúng cách và hiệu quả.
+Anh nọ dốt đặc cán mai, thấy các ông già bà cả mang kính xem sách, bắt chước ra chợ hỏi mua một đôi. Vào hiệu, bảo chủ hiệu lấy ra cho anh ta chọn. Anh ta đeo kính vào, lấy cuốn lịch đem theo ra xem, xem xong lại bảo chủ hiệu cho chọn đôi khác. Chủ hiệu chiều ý, chọn cho anh ta năm sáu đôi, nhưng đôi nào anh ta cũng không ưng ý. Chủ hiệu bèn chọn một đôi tốt nhất trong hiệu đưa ra. Anh ta đeo vào, lại lấy cuốn lịch ra xem, vẫn lắc đầu chê xấu. Chủ hiệu lấy làm lạ, liếc thấy anh ta cầm cuốn lịch ngược mà xem, sinh nghi, liền hỏi:
+– Sao đôi nào ông cũng chê xấu cả?
+Anh ta đáp:
+– Xấu thì bảo xấu chứ sao! Kính tốt thì tôi đã xem chữ được rồi!
+Chủ hiệu nói:
+– Hay là ông không biết chữ?
+Anh ta đáp:
+– Biết chữ thì đã không cần mua kính !
+
+--------------------------------------------------
+
+
+ID: story_034
+TITLE: Diệu kế [Truyện cười dân gian Việt Nam]
+URL: https://truyendangian.com/dieu-ke
+
+CONTENT:
+Một quan võ có tính sợ vợ. Một hôm, đang cầm cự với giặc ở biên thùy, bỗng nghe tin mật báo là phu nhân đang ở sau lưng xốc tới để hỏi tội quan về việc quan đem nàng hầu đi theo, quan bèn triệu ban tham mưu lại vấn kế.
+Kẻ đưa kế này, người bày mưu nọ, quan đều thấy không ổn. Bỗng một viên quân sư, vốn dòng râu quặp, tiến lại tâu rằng:
+– Trước mặt, địch quân như gió bão, sau lưng phu quân như nước lũ. Song lọt vào tay giặc không nguy bằng lọt vào tay phu nhân. Chỉ có nước tướng quân hàng giặc, để thoát khỏi tay phu nhân là hay hơn cả.
+Quan vỗ đùi khen:
+– Diệu kế! Tuyệt diệu kế!”
+
+--------------------------------------------------
+
+
+ID: story_035
+TITLE: Rắm của con [Truyện cười dân gian Việt Nam]
+URL: https://truyendangian.com/ram-cua-con
+
+CONTENT:
+Một bà huyện đến chơi nhà chị em, cùng đi có anh đầy tớ theo hầu. Đương ngồi trò chuyện đông đủ, bà huyện bỗng vãi rắm ra. Anh đầy tớ đứng hầu sau lưng, vội bưng miệng cười. Lúc bấy giờ, bà lớn tẽn lắm, nhưng cũng không dám nói gì.
+Về đến dinh, bà mới gọi anh đầy tớ vào buồng, mắng cho một thôi một hồi:
+-Đồ ăn hại! Không ra thể thống gì cả! Như người ta thì mày nhận là của mày, có được không! Đằng này mày lại nhe răng cười như con khỉ! Bà lại đánh tuốt xác ra bây giờ!
+Anh đầy tớ sợ mất vía, vội lui ra chạy một mạch đến nhà kia, thanh minh với mọi người :
+– Bẩm các bà! Cái rắm bà con đánh lúc nãy là rắm của con đấy ạ!
+
+--------------------------------------------------
+
+
+ID: story_036
+TITLE: Đắm thuyền [Truyện ngụ ngôn ngắn ý nghĩa cho bé]
+URL: https://truyendangian.com/dam-thuyen
+
+CONTENT:
+Đắm thuyền là câu chuyện ngụ ngôn ngắn nhưng ý nghĩa, nhắc nhở chúng ta phải gắng sức vượt qua khó khăn hơn là trông đợi vào sự cứu giúp của người khác.
+Sẽ chẳng có phép màu nào xảy ra nếu chúng ta không tự mình thay đổi.
+Những người đánh cá đi trên một con thuyền . Bỗng trời nổi dông bão. Những người đánh cá sợ hãi. Họ gác cả chèo lại và bắt đầu cầu khấn Thượng đế để Thượng đế cứu giúp họ. Con thuyền bị trôi dạt trên sông mỗi lúc một xa bờ. Bấy giờ một bác đánh cá già mới bảo:
+– Sao ta lại gác cả mái chèo thế nhỉ? Cứ việc cầu khẩn Thượng đế, nhưng cũng phải chèo vào bờ chứ!
+
+--------------------------------------------------
+
+
+ID: story_037
+TITLE: Dân dần quan [Truyện cười dân gian Việt Nam]
+URL: https://truyendangian.com/dan-dan-quan
+
+CONTENT:
+Có hai anh lính hầu hạ quan lâu ngày, thấy quan đã ác lại hay ăn tiền, ai có việc vào cửa quan là y như bị đánh đập tàn tệ, đến lúc xì tiền ra mới thôi.
+Một hôm, rỗi rãi, hai anh ngồi kháo chuyện với nhau nói xấc quan. Một anh bảo:
+– Ác thế thì có ngày dân nó quật lại cho mà xem.
+Quan quán quạn chi quàn quan Dân dấn dận chi dần dân. Quan là quan, quan quàn quan Dân là dân, dân dần quan .
+Chẳng ngờ, quan đi qua nghe được, trợn mắt hỏi:
+– Bay nói gì thế?
+Anh kia nói chữa:
+– Bẩm quan, con bảo: Quan quản dân, dân… cần quan. Không có quan thì ai cai trị dân.
+
+--------------------------------------------------
+

@@ -1,0 +1,193 @@
+
+Bạn là người đánh giá Dataset cho dự án Vietnamese Comic Generation.
+
+Hãy đánh giá từng truyện để xác định mức độ phù hợp
+khi chuyển thành comic khoảng 4 cảnh.
+
+Đánh giá 4 tiêu chí, mỗi tiêu chí từ 0 đến 2:
+
+1. characters_clear
+0: Không rõ nhân vật
+1: Nhân vật tương đối rõ
+2: Nhân vật rõ ràng
+
+2. events_clear
+0: Sự kiện không có trình tự rõ
+1: Trình tự tương đối rõ
+2: Trình tự sự kiện rõ ràng
+
+3. scene_suitable
+0: Không phù hợp tạo comic
+1: Có thể tạo comic nhưng cần chỉnh sửa
+2: Rất phù hợp để chia khoảng 4 cảnh
+
+4. ending_clear
+0: Không có kết thúc rõ
+1: Kết thúc tương đối rõ
+2: Kết thúc rõ ràng
+
+Tổng điểm score = tổng 4 tiêu chí, tối đa 8.
+
+selected_candidate:
+- true: Nếu score >= 6 và phù hợp tạo comic
+- false: Nếu không phù hợp
+
+difficulty:
+- easy
+- medium
+- hard
+
+Không bịa thêm sự kiện.
+Không đánh giá chỉ dựa trên tên truyện.
+Đánh giá dựa trên nội dung được cung cấp.
+
+Trả về JSON array hợp lệ, không Markdown.
+
+Mỗi truyện:
+
+{
+  "id": "story_001",
+  "title": "...",
+  "characters_clear": 0,
+  "events_clear": 0,
+  "scene_suitable": 0,
+  "ending_clear": 0,
+  "score": 0,
+  "selected_candidate": false,
+  "difficulty": "easy",
+  "reason": "..."
+}
+
+
+==================================================
+STORIES TO EVALUATE
+==================================================
+
+
+ID: story_072
+TITLE: Thờn Bơn đón trăng [Truyện thiếu nhi hay cho bé]
+URL: https://truyendangian.com/thon-bon-don-trang
+
+CONTENT:
+Gần cửa một con sông nhỏ, nơi bầy cá nước lợ trú ngụ có một khu đầm lầy rậm rạp. Nơi đây, bọn rắn độc vẫn lui tới, sinh con đẻ cái, còn mòng muỗi thì mỗi buổi chiều tới lại bay ra tối sầm mặt bùn.
+Bỗng một hôm, khu đầm lầy tối tăm ấy rung chuyển. Đầu tiên là lửa. Lửa vừa chạy vừa huýt sáo. Từ một đóm bé tí, nó phình bụng ra rất nhanh, râu tóc như đám mây đen kịt, bù xù. Nó vươn lưỡi dài đỏ lừ ra xung quanh, túm lấy những bụi lau sậy khô nở trên mặt đầm, nuốt ngốn ngấu và để lại phía sau từng đám bụi màu đen. Lửa làm cho mặt đầm um tùm thành trống huếch , rong rêu chín nhừ từng đám. Bầy rắn hung ác kéo nhau chạy trốn, con nào chậm chạp đều bị chết, xác nổi lềnh bềnh.
+Liền sau đó, mặt đất rung lên từng hồi. Có tiếng ầm ì như tiếng sấm. Giờ đang giữa mùa thu, làm gì có sấm, mà sấm cũng không dài và ghê đến thế. Hay là biển giận? Sao biển lại vào trong đầm mà gào thét được cơ chứ?
+Tiếng ầm ì kéo dài hàng mấy tuần trăng, làm cho bầy cua, cá rất lo lắng! Chúng nháo nhác tìm nhau nhưng chẳng con nào biết cái gì đang xảy ra. Những chú cá đồi bạo dạn có tiếng liền liều mạng mon men đến gần khu đầm, nhô đầu lên khỏi mặt nước, nhìn vào. Thì ra đó là tiếng của những con vật khổng lồ, màu da đỏ chói như mặt trời, phun mây đen phì phì ra đằng mũi. Những con vật ấy bò ì ạch giống rùa biển, lưỡi sáng lóe, to hơn cả thân người, xốc ăn từng mảng bùn lớn lẫn cả gốc cây dại. Cứ thế này, mấy lúc nó ăn đến cửa sông. Cá Đồi buồn bã bơi về, báo tin cho họ hàng. Nó còn định hỏi đường, tìm sang cửa sông khác sinh sống.
+Mùa thu sắp hết, những lá tràm , lá đước vàng tươi bồng bềnh trên mặt sông. Rồi mùa đông mưa gió cũng đi qua, lũ tôm cá cứ chần chừ, chưa muốn rời đi. Rồi mùa xuân đến…
+Thế rồi, tiếng ầm ì trong đầm lầy chợt im bặt. Chắc những con vật màu đỏ đã bỏ đi rồi. Nhưng thật lạ lùng. Hình như có tiếng nước reo dào dạt. Tiếng nước chảy ào ào suốt đêm ngày. Cá Đồi vội tìm Thờn Bơn. Thờn Bơn nhút nhát càng vùi mình sâu hơn xuống cát, lắc vây quầy quậy. Cá Đồi tìm Cua Càng, Cua Càng cũng trố mắt, tỏ ý không hiểu, bò đi tìm cá Loi Choi. Cá Loi Choi nhảy tưng tưng một hồi bằng hai vây trước, nhưng rồi nó cũng chẳng biết gì hơn, đành lảng ra, chui tọt xuống hang. Phải biết cái gì đang xảy ra chứ nhỉ? Bầy cá, tôm, cua, ốc, liền họp nhau, bàn cách đến tận nơi xem sao.
+Một hôm tối trời, chúng rủ nhau đến đầm lầy. Đi đầu là Cá Đồi khỏe nhất đám, hàng đều chằn chặn, xin mở đường. Tiếp đến là Cá Thiếu, Cá Mòi, Cá Vược mảnh dẻ, Cá Cháy lưng đen trũi, bụng khệ nệ toàn trứng. Sau đàn cá là lũ tôm. Tôm Giảo, Tôm Đất, Tôm Nghệ bơi kín nước. Dưới đáy sông là Cua, Cáy, Trai, Ốc. Riêng Thờn Bơn lén xuống hàng cuối cùng, vừa bơi vừa ngó nghiêng, hễ có tiếng động là nó lùi ngay xuống đáy sông, miệng méo xệch đi vì lo sợ.
+Đúng là một con sông mới thật. Càng gần khu đầm, nước càng chảy xiết, bọt sủi ùng ục. Bầy tôm, cá bám sát đuôi nhau, quạt mạnh vây ra phía sau để cố giảm bớt sức đẩy của dòng nước.
+Đang mò mẫm, chợt bầy Cá Đồi hốt hoảng giương hết vây, vùng trở lại. Chậm mất rồi. “Vút!”. Chúng biến mất.
+Lũ Cá Vược, Cá Mòi, Cá Thiều cuống cuồng cả lên. Nhưng sức chúng làm sao chống nổi xoáy nước. Thế là “vút”, chúng cũng mất tăm như có phép tàng hình. Nhiều con bị va đầu vào bức tường đá bí mật, vọt liệng lên, phơi bụng trắng lóa rồi cũng vèo đi, không kịp kêu cứu.
+Bọn tôm gọi nhau í ới, nhảy tung khỏi mặt nước. Vừa rơi xuống, chúng chìm ngay dưới lớp sóng lấp lánh lân tinh.
+Chỉ có Thờn Bơn đi sau nên chạy thoát. Nó lao mình xuống bùn rồi nhào ra khỏi dòng nước chảy.
+Thờn Bơn trở về khúc sông cũ. Bạn bè chẳng còn ai, nó đành lủi thủi kiếm ăn một mình, mắt lúc nào cũng mở thao láo, sợ hãi.
+Nhưng có một lần, Thờn Bơn nghe như có tiếng hát của bầy Cá Đồi. Phải rồi, một đàn Cá Đồi ở khúc sông bên cạnh bơi qua, vừa bơi vừa hát vui vẻ:
+“Trời xanh xanh Nước xanh xanh Đầm lầy xưa nay thành quê chúng mình.
+Không rắn độc Không cá kình Sẵn mồi ngon xin mời anh, mời chị. Hồ mênh mông Trăng lung linh…”.
+– Các bạn đi đâu đấy? – Thờn Bơn hỏi.
+– Chúng tôi đến hồ mới đón trăng đây.
+– Hôm nay làm gì có trăng?
+– Trong hồ mới nhiều trăng lắm.
+– Hồ mới ở đâu?
+– Chỗ đầm lầy ấy mà!
+– Đầm lầy à? Lần trước bao nhiêu đứa chết ở chỗ ấy đấy. Tôi chẳng đi đâu.
+Bạn nhầm rồi. Dòng sông ấy chính là đường nước chảy qua cống để vào hồ đây. Các chú công nhân đã nạo vét đầm lầy, làm thành hồ cho chúng ta. Trong ấy bây giờ đông lắm rồi. Bạn cùng đi với chúng mình nhé!
+Chúng rủ mãi làm Thờn Bơn đâm mê cái hồ mới, liền nhập bọn nhưng vẫn còn nghi ngại. Nó liền lách vào giữa đàn Cá Đồi, ấy thế mà khi đến khúc sông ngầm còn nhớn nhác định chuồn .
+“Nào, nhào lộn nào!”. Thờn Bơn chỉ nghe đến thế đã vội khép chặt vây lại, rồi “vút”, nó tối tăm mặt mũi, người lật nhào như chiếc lá trong cống nước.
+Chợt thấy người nổi bềnh lên. Thờn Bơn vội nhô đầu, hớp mấy ngụm gió mát. Chao ôi, bao nhiêu là mặt trăng. Trăng đứng thành dãy dài quanh hồ. Trăng treo trên những cây không có cành lá, đang reo “u, u… u, u…” trong gió. Chưa bao giờ nó thấy cảnh đẹp đến thế. Tôm, cá thì đông vô kể. Toàn các bạn quen cũ đây mà. Thấy Thờn Bơn, bọn chúng liền vây quanh, kể chuyện tíu tít.
+Thờn Bơn dạo một vòng quanh hồ. Nước ở đây ấm quá, đáy hồ phẳng lì, tha hồ bơi lượn, chẳng phải luồn lách như ở ngoài sông. Thức ăn rất nhiều, đâu cũng có. Thờn Bơn liền tớp vội mấy chú rận nước, nuốt chửng.
+Ở giữa hồ, các con vật đang tụ tập ca hát quanh một cụm rong xanh biếc, rập rờn như dải lụa. Cá Vược, Cá Mòi áo lụa trắng, dát bạc tha thướt đan vào nhau bơi lượn. Cá Cháy xòe vây đen như gỗ mun pha ánh vàng lóng lánh dưới trăng. Bầy tôm Giảo lưng xanh mờ như đá ngọc, không có càng, đành múa bằng tám chân vụng về. Các bạn Cua chậm chạp lấy chân vẽ từng đường ngoằn nghèo trên cát, thỉnh thoảng hứng lên, cũng nhao mình lên mặt nước. Trai, Sò, Hến, Mỏ Quạ… mở hết cỡ, xả cừ tỏa óng ánh…. Thờn Bơn bới tung tăng, thỉnh thoảng lại nhô đầu đón ánh trăng , cất tiếng hát cùng các bạn:
+“Hồ mênh mông Trăng lung linh Sóng êm đềm điện thay ánh trăng. Cùng đua bơi Xuân đến rồi Nào bạn ơi, ta cùng nhau lớn nhanh…”.
+
+--------------------------------------------------
+
+
+ID: story_074
+TITLE: Chết nhầm [Truyện cười dân gian Việt Nam]
+URL: https://truyendangian.com/chet-nham
+
+CONTENT:
+Chết nhầm là câu chuyện cười dân gian Việt Nam, châm biếm những kẻ lười biếng, dốt nát, không dám nhận trách nhiệm trước những lỗi lầm mà mình đã gây ra.
+Truyện sẽ chẳng có gì đáng cười ở đây nếu như ông đồ không giấu dốt, cãi cố trước tình huống nhầm lẫn khi đưa bài văn tế là cho chủ nhà, đổ cho người nhà “chết nhầm”.
+Xưa có một ông thầy đồ dạy học ở một gia đình nọ. Chẳng may bà chủ nhà ốm chết, ông chồng bèn nhờ thầy làm cho bài văn tế. Vốn lười, thầy liền lấy bài văn tế ông thân sinh ra chép lại đưa cho chủ nhà.
+Lúc vào lễ, bài văn tế được đọc lên, khách khứa ai cũng bụm miệng cười. Bực mình, ông chủ nhà gọi thầy đồ đến trách:
+– Sao thầy lại có thể nhầm đến thế?
+Thầy đổ trợn mắt lên cãi:
+– Văn tế của tôi chẳng bao giờ nhầm, họa chăng người nhà ông chết nhầm thì có.
+
+--------------------------------------------------
+
+
+ID: story_075
+TITLE: Cuộc họp của chữ viết [Tiếng Việt lớp 3]
+URL: https://truyendangian.com/cuoc-hop-cua-chu-viet
+
+CONTENT:
+Cuộc họp của chữ viết là câu chuyện được trích trong sách Tiếng Việt lớp 3 của Trần Ninh Hồ, cho chúng ta thấy được tầm quan trọng của dấu chấm trong câu.
+Nếu đánh dấu chấm sai vị trí, sẽ khiến cho người đọc hiểu lầm ý nghĩa của câu văn cần diễn đạt.
+Vừa tan học, các chữ cái và dấu câu đã ngồi lại họp. Bác Chữ A dõng dạc mở đầu.
+Thưa các bạn ! Hôm nay, chúng ta họp để tìm cách giúp đỡ em Hoàng. Hoàng hoàn toàn không biết chấm câu. Có đoạn văn bạn viết thế này: “Chú lính bước vào đầu chú. Đội chiếc mũ sắt dưới chân. Đi đôi giày da trên trán lấm tấm mồ hôi.”
+Có tiếng xì xào:
+– Thế nghĩa là gì nhỉ?
+– Nghĩa là thế này: “Chú lính bước vào. Đầu chú đội chiếc mũ. Dưới chân đi đôi giày da. Trên chán lấm tấm mồ hôi.”
+Tiếng cười rộ lên. Dấu Chấm nói :
+– Theo tôi, tất cả là do cậu này chẳng bao giờ để ý đến dấu câu. Mỏi tay chỗ nào, cậu ta chấm chỗ ấy.
+Cả mấy dấu câu đều lắc đầu :
+– Ẩu thế nhỉ!
+Bác Chữ A đề nghị :
+– Từ nay, mỗi khi em Hoàng định chấm câu, anh Dấu Chấm cần yêu cầu Hoàng đọc lại câu văn một lần nữa đã. Được không nào?
+
+--------------------------------------------------
+
+
+ID: story_076
+TITLE: Người mẹ và Thần Chết [Tiếng Việt lớp 3]
+URL: https://truyendangian.com/nguoi-me
+
+CONTENT:
+1. Bà mẹ chạy ra ngoài, hớt hải gọi con. Suốt mấy đêm ròng thức trông con ốm, bà vừa thiếp đi một lúc, Thần Chết đã bắt nó đi.
+Thần Đêm Tối đóng giả một bà cụ mặc áo choàng đen, bảo bà:
+– Thần Chết chạy nhanh hơn gió và chẳng bao giờ trả lại những người đã cướp đi đâu.
+Bà mẹ khẩn khoản cầu xin Thần chỉ đường cho mình đuổi theo Thần Chết. Thần Đêm Tối chỉ đường cho bà.
+2. Đến một ngã ba đường, bà mẹ không biết phải đi lối nào. Nơi đó có một bụi gai băng tuyết bám đầy. Bụi gai bảo :
+– Tôi sẽ chỉ đường cho bà, nếu bà ủ ấm tôi.
+Bà mẹ ôm ghì bụi gai vào lòng để sưởi ấm nó. Gai đâm vào da thịt bà, máu nhỏ xuống từng giọt đậm. Bụi gai đâm chồi, nảy lộc và nở hoa ngay giữa mùa đông buốt giá. Bụi gai chỉ đường cho bà.
+3. Bà đến một hồ lớn. Không có một bóng thuyền. Nước hồ quá sâu. Nhưng bà nhất định vượt qua hồ để tìm con. Hồ bảo:
+– Tôi sẽ giúp bà, nhưng bà phải cho tôi đôi mắt. Hãy khóc đi, cho đến khi đôi mắt rơi xuống!
+Bà mẹ khóc, nước mắt tuôn rơi lã chã , đến nỗi đôi mắt theo dòng lệ xuống hồ, hóa thành hai hòn ngọc. Thế là bà được đưa đến nơi ở lạnh lẽo của Thần Chết.
+4. Thấy bà, Thần Chết ngạc nhiên, hỏi:
+– Làm sao ngươi có thể tìm đến tận nơi đây?
+Bà mẹ trả lời:
+– Vì tôi là mẹ. Hãy trả con cho tôi!
+
+--------------------------------------------------
+
+
+ID: story_077
+TITLE: Bảy con quạ [Truyện cổ tích Grimm hay cho bé]
+URL: https://truyendangian.com/bay-con-qua
+
+CONTENT:
+Ngày xưa, có một người sinh được bảy con trai, nhưng không có con gái, cầu mãi cũng chẳng được. Mãi về sau, vợ có mang, bác ta chứa chan hy vọng. Quả nhiên đứa con ra đời là con gái. Hai vợ chồng mừng lắm.
+Một hôm, bố vội sai một đứa con trai chạy ra suối lấy nước về tắm cho em. Sáu đứa kia cũng đi theo. Bảy đứa tranh nhau múc trước chẳng may cái bình lắm xuống nước trôi đi mất. Chúng sợ bố đánh, không đứa nào dám về nhà. Thấy con mãi không về, bố ở nhà chờ lâu quá, tức giận, nguyền rủa con:
+– Mấy thằng lại mải chơi quên múc nước rồi. Ước gì cả bảy thằng hóa ra qua tất cho xong!
+Vừa nói dứt lời thì có bảy con quạ đen như than vỗ cánh bay qua. Người bố biết là các con trai mình đã bị biến thành quạ nhưng hối lại không kịp nữa. Hai vợ chồng buồn vì mất con, nhưng cũng được an ủi đôi phần vì thấy đứa con gái quí mỗi ngày một khỏe và đẹp ra. Bố mẹ giữ kín, không cho cô biết chuyện. Mãi sau cô nghe thấy láng giềng xì xào thuật chuyện lại cô mới biết rằng cô có bảy anh.
+Cô thương các anh lắm nên quyết tâm đi tìm. Cô trốn nhà ra đi, mong tìm ra tung tích các anh. Cô chỉ mang theo một chiếc nhẫn nhỏ làm vật kỷ niệm của bố mẹ, một chiếc bánh mì, một bình nước nhỏ và một cái ghế con để ngồi cho đỡ mỏi.
+Cô đi mãi, đi mãi. Cô đi tới mặt trời, mặt trời nóng như hòn lửa, nhưng cũng chẳng thấy các anh. Cô vội rời khỏi mặt trời và đi lên mặt trăng, mặt trăng lạnh như băng giá mà cũng chẳng thấy các anh. Cô bé vội quay gót, đi tới các vì sao. Các vì sao tiếp cô niềm nở, vì nào cũng ngồi trên một cái ghế con. Sao Mai đứng dậy, cho cô một cái xương nhỏ và bảo cô:
+– Không có cái xương nhỏ này thì con không thể mở được cửa núi Thủy tinh là chỗ của các anh con đang ở.
+Cô bé cầm lấy cái xương, lấy khăn bọc cẩn thận, rồi đi mãi, đến núi Thủy tinh. Cửa núi đóng, cô cởi khăn tay ra để lấy cái xương, nhưng không thấy đâu. Cô đã đánh mất món quà quý của vì sao tốt bụng rồi! Làm thế nào bây giờ? Cô muốn cứu các anh mà thìa khóa núi thì mất! Cô bè rút dao ra, chặt một đốt xương tay, đút vào lỗ khóa thì mở được ngay cửa núi. Cô bước vào, thấy một người lùn đi ra hỏi:
+– Con đến tìm gì ở đây?
+– Con tìm các anh con là bảy con quạ .
+– Bây giờ các ông quạ đi vắng, nhưng nếu con muốn chờ các ông về thì con vào đây.
+Người lùn sắp món ăn tối cho bảy ông quạ vào bảy cái đĩa nhỏ. Cô bé ăn ở mỗi đĩa một miếng và uống ở mỗi cốc một hớp. Cô thả cái nhẫn mang theo vào cốc cuối cùng.
+Chợt cô nghe thấy ở trên không có tiếng vỗ cánh. Người lùn liền nói:
+– Các ông quạ đã về đó.
+Lũ quạ về thật. Mỗi con đi tìm cố đĩa của mình để ăn uống. Chúng ngạc nhiên hỏi nhau:
+– Ai đã ăn ở đĩa của tôi? Ai đã uống ở cốc của tôi? Nhất định có người đụng đến cốc đĩa này!
+Khi con quạ thứ bảy uống, thì nó thấy chiếc nhẫn ở đấy cốc. Nó nhìn chằm chằm và nhận ra là cái nhẫn của bố mẹ. Quạ nói:
+– Ước gì có em chúng ta ở đây thì chúng ta được trở lại thành người.
+Quạ vừa nói xong, cô bé đứng sau cửa liền bước vào. Tức thì đàn quạ lại hóa ra người. Anh em ôm chặt lấy nhau, rồi vui vẻ cùng nhau lên đường về nhà.
+
+--------------------------------------------------
+

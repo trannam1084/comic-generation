@@ -1,0 +1,141 @@
+
+Bạn là người đánh giá Dataset cho dự án Vietnamese Comic Generation.
+
+Hãy đánh giá từng truyện để xác định mức độ phù hợp
+khi chuyển thành comic khoảng 4 cảnh.
+
+Đánh giá 4 tiêu chí, mỗi tiêu chí từ 0 đến 2:
+
+1. characters_clear
+0: Không rõ nhân vật
+1: Nhân vật tương đối rõ
+2: Nhân vật rõ ràng
+
+2. events_clear
+0: Sự kiện không có trình tự rõ
+1: Trình tự tương đối rõ
+2: Trình tự sự kiện rõ ràng
+
+3. scene_suitable
+0: Không phù hợp tạo comic
+1: Có thể tạo comic nhưng cần chỉnh sửa
+2: Rất phù hợp để chia khoảng 4 cảnh
+
+4. ending_clear
+0: Không có kết thúc rõ
+1: Kết thúc tương đối rõ
+2: Kết thúc rõ ràng
+
+Tổng điểm score = tổng 4 tiêu chí, tối đa 8.
+
+selected_candidate:
+- true: Nếu score >= 6 và phù hợp tạo comic
+- false: Nếu không phù hợp
+
+difficulty:
+- easy
+- medium
+- hard
+
+Không bịa thêm sự kiện.
+Không đánh giá chỉ dựa trên tên truyện.
+Đánh giá dựa trên nội dung được cung cấp.
+
+Trả về JSON array hợp lệ, không Markdown.
+
+Mỗi truyện:
+
+{
+  "id": "story_001",
+  "title": "...",
+  "characters_clear": 0,
+  "events_clear": 0,
+  "scene_suitable": 0,
+  "ending_clear": 0,
+  "score": 0,
+  "selected_candidate": false,
+  "difficulty": "easy",
+  "reason": "..."
+}
+
+
+==================================================
+STORIES TO EVALUATE
+==================================================
+
+
+ID: story_006
+TITLE: Khi mẹ vắng nhà (Tiếng Việt lớp 1)
+URL: https://truyendangian.com/khi-me-vang-nha
+
+CONTENT:
+Trong khu rừng nọ có một đàn dê con sống cùng mẹ. Một hôm, trước khi đi kiếm cỏ, dê mẹ dặn con:
+– Ai đến gọi cửa, các con đừng mở nhé! Chỉ mở cửa khi nghe tiếng mẹ.
+Một con sói nấp gần đó. Đợi dê mẹ đi xa, nó gõ cửa và giả giọng dê mẹ.
+Nhớ lời mẹ, đàn dê con nói:
+– Không phải giọng mẹ. Không mở.
+Sói đành bỏ đi.
+Một lúc sau, dê mẹ về. Nghe đúng tiếng mẹ, đàn dê con ra mở cửa và tíu tít khoe:
+– Lúc mẹ đi vắng , có tiếng gọi cửa, nhưng không phải giọng của mẹ nên chúng con không mở.
+Dê mẹ xoa đầu đàn con:
+– Các con ngoan lắm!
+
+--------------------------------------------------
+
+
+ID: story_007
+TITLE: Cảm ơn họa mi (Tiếng Việt lớp 2)
+URL: https://truyendangian.com/cam-on-hoa-mi
+
+CONTENT:
+Ở vương quốc nọ có một vị vua rất giàu có. Nhưng điều khiến nhà vua tự hào nhất là ngài có con họa mi có tiếng hót trong như pha lê.
+Một hôm, có người tặng nhà vua một con họa mi máy, mình dát kim cương lấp lánh. Hễ vặn dây cót là chim hót, cái đuôi vẫy vẫy óng ánh sợi vàng sợi bạc. Nó có thể hót ba mươi lần liên tục. Mọi người đều thích nghe họa mi máy hót, không ai còn để ý đến họa mi thật nữa. Họa mi thật buồn bã bay về chốn rừng xanh.
+Một ngày nọ, chim máy đang hót bỗng có tiếng kêu đánh “cạch” trong bụng, rồi chim ngừng hót. Người thợ sửa chữa tháo tung chim máy ra để sửa. Tiếng chim máy bây giờ nghe rèn rẹt, rèn rẹt…
+Vài năm sau, nhà vua lâm bệnh, khó qua khỏi. Một hôm, nhà vua bỗng thấy có bóng họa mi ở khung cửa sổ lâu đài. Con chim bé nhỏ nghe tin nhà vua ốm nặng đã bay về… Tiếng họa mi hót đầy xúc cảm khiến nhà vua tỉnh lại:
+– Cảm ơn họa mi yêu quý! Ta vô tình để chim ra khỏi hoàng cung, vậy mà chim vẫn quay về, cứu ta khỏi tay Thần Chết. – Nhà vua khẽ nói.
+– Tôi không bao giờ quên giọt nước mắt của nhà vua đã nhỏ trong lần đầu tiên nghe tôi hót. – Họa mi đáp.
+
+--------------------------------------------------
+
+
+ID: story_008
+TITLE: Câu chuyện “Tìm ngọc” (Truyện cổ tích Việt Nam)
+URL: https://truyendangian.com/cau-chuyen-tim-ngoc
+
+CONTENT:
+Xưa có chàng trai thấy một bọn trẻ đinh giết con rắn nước liền bỏ tiền ra mua, rồi thả rắn đi. Không ngờ con rắn ấy là con của Long Vương. Đền ơn chàng trai, Long Vương tặng chàng một viên ngọc quý.
+Có người thợ kim hoàn biết đó là viên ngọc hiếm, bèn đánh tráo. Chàng trai rất buồn. Thấy vậy, Chó và Mèo xin chủ đi tìm ngọc.
+Đến nhà người thợ kim hoàn, Mèo bắt một con chuột đi tìm ngọc . Quả nhiên, con chuột tìm được.
+Ra về, Chó tranh ngậm ngọc, lúc ra sông, nó làm rơi viên ngọc xuống nước. Một con cá lớn thấy viên ngọc, đớp ngay. Chó nghĩ ra cách rình ở bên sông, chờ ai câu được con cá thì lấy lại.
+Mấy hôm sau, có người đánh được con cá lớn, mổ ruột ra có viên ngọc. Mèo liền nhảy tới ngoạm ngọc chạy biến.
+Lần này, mèo đội ngọc trên đầu. Nào ngờ, vừa đi được một quãng thì có con quạ sà xuống đớp ngọc rồi bay lên cây cao. Mèo nghĩa ra một mẹo. Nó nằm phơi bụng vờ chết. Quạ trúng kế, sà xuống, toan rỉa thịt mèo. Mèo nhảy xổ lên vồ. Quạ van lạy, xin trả lại ngọc.
+Lần này, Chó và Mèo mang ngọc về được đến nhà. Chàng trai vô cùng mừng rỡ, càng thêm yêu quý hai con vật thông minh, tình nghĩa.
+
+--------------------------------------------------
+
+
+ID: story_009
+TITLE: Thư của ông Trái Đất gửi các bạn nhỏ
+URL: https://truyendangian.com/thu-cua-ong-trai-dat-gui-cac-ban-nho
+
+CONTENT:
+Các bạn nhỏ yêu quý!
+Ta viết thư này cho các bạn trong lúc ta đang bị sốt rất cao. Các bạn có nghe thấy hằng ngày trên báo đài nói rằng “Trái Đất đang nóng lên” không? Có thể các bạn sẽ không hài lòng về ta, bởi ta bây giờ có rất nhiều tính xấu. Nào là ta thất thường, làm nơi này hạn hán, nơi kia lũ lụt. Nào là ta nóng tính, làm nhiệt độ tăng cao, núi lửa phun trào. Nào là ta lười chăm sóc bản thân, làm môi trường ô nhiễm,… Có lẽ ta đã gây quá nhiều phiền toái cho cuộc sống của mọi người.
+Ta thực sự không muốn như vậy. Nhưng chính con người đã mang lại những rắc rối cho ta. Con người xả rác bừa bãi, chặt cây phá rừng, lãng phí nguồn nước, săn bắn động vật hoang dã,… Mỗi ngày một chút, những hành động đó của con người làm ta yếu dần.
+Các bạn nhỏ thân mến của ta ơi! Ta biết tất cả các bạn đều mong ta sống thật lâu và vui vẻ. Bởi ai cũng muốn được sống trên một Trái Đất khỏe mạnh và xanh tươi. Hãy giúp ta nhé, bắt đầu từ những việc nhỏ thôi, như khóa một vòi nước không dùng đến hay tắt bớt một bóng đèn,… Các bạn có thể làm được, đúng không?
+
+--------------------------------------------------
+
+
+ID: story_010
+TITLE: Sự tích ông Đùng, bà Đùng (Truyện cổ dân tộc Mường)
+URL: https://truyendangian.com/su-tich-ong-dung-ba-dung
+
+CONTENT:
+Ngày xửa ngày xưa, ở xứ Mường Bi xuất hiện một đôi vợ chồng cao lớn khác thường. Họ đứng cao hơn năm lần đỉnh núi cao nhất. Người Mường hay gọi họ là ông Đùng, bà Đùng , nghĩa là ông bà khổng lổ.
+Hồi ấy, đất thì cao thấp, lồi lõm. Cây cối hoang dại mọc chằng chịt . Nước thì chảy từ lòng đất, ngập lênh láng khắp nơi. Thấy vậy, ông Đùng, bà Đùng liền ra tay . Chỉ một ngày, ông bà đã nhổ cây, san đất, làm thành cánh đồng bằng phẳng, rộng rãi, lấy chỗ cho dân ở và cày cấy.
+Ông Đùng bàn với vợ làm một con đường dẫn nước đi, tránh để nước tràn lênh láng. Ông Đùng lom khom dùng tay bới đất đằng trước, bà Đùng hì hụi vét đất đằng sau. Họ làm việc suốt ngày đêm, cùng trò chuyện vui vẻ. Thế rồi, theo con đường ông bà Đùng đào bới, nước đã chảy thành dòng, vượt qua đồi núi, đổ về xuôi. Đó chính là sông Đà ngày nay.
+Xong mọi việc, ông bà Đùng ngẩng đầu nhìn lại mới biết: Do vét đất ban đêm, không nhìn rõ, dòng sông đã không thẳng. Nơi chưa được vét, đất đá cản trở dòng chảy và tạo thành thác ghềnh . Vì thế, sông Đà mới ngoằn ngoèo, có tới “trăm bảy mươi thác, trăm ba mươi ghềnh” như bây giờ.
+
+--------------------------------------------------
+

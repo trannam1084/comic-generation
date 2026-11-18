@@ -1,0 +1,215 @@
+
+Bạn là người đánh giá Dataset cho dự án Vietnamese Comic Generation.
+
+Hãy đánh giá từng truyện để xác định mức độ phù hợp
+khi chuyển thành comic khoảng 4 cảnh.
+
+Đánh giá 4 tiêu chí, mỗi tiêu chí từ 0 đến 2:
+
+1. characters_clear
+0: Không rõ nhân vật
+1: Nhân vật tương đối rõ
+2: Nhân vật rõ ràng
+
+2. events_clear
+0: Sự kiện không có trình tự rõ
+1: Trình tự tương đối rõ
+2: Trình tự sự kiện rõ ràng
+
+3. scene_suitable
+0: Không phù hợp tạo comic
+1: Có thể tạo comic nhưng cần chỉnh sửa
+2: Rất phù hợp để chia khoảng 4 cảnh
+
+4. ending_clear
+0: Không có kết thúc rõ
+1: Kết thúc tương đối rõ
+2: Kết thúc rõ ràng
+
+Tổng điểm score = tổng 4 tiêu chí, tối đa 8.
+
+selected_candidate:
+- true: Nếu score >= 6 và phù hợp tạo comic
+- false: Nếu không phù hợp
+
+difficulty:
+- easy
+- medium
+- hard
+
+Không bịa thêm sự kiện.
+Không đánh giá chỉ dựa trên tên truyện.
+Đánh giá dựa trên nội dung được cung cấp.
+
+Trả về JSON array hợp lệ, không Markdown.
+
+Mỗi truyện:
+
+{
+  "id": "story_001",
+  "title": "...",
+  "characters_clear": 0,
+  "events_clear": 0,
+  "scene_suitable": 0,
+  "ending_clear": 0,
+  "score": 0,
+  "selected_candidate": false,
+  "difficulty": "easy",
+  "reason": "..."
+}
+
+
+==================================================
+STORIES TO EVALUATE
+==================================================
+
+
+ID: story_215
+TITLE: Truyện cây táo thần [Câu chuyện ý nghĩa cho bé]
+URL: https://truyendangian.com/truyen-cay-tao-than
+
+CONTENT:
+Truyện cây táo thần kỳ là bài học ý nghĩa, khuyên các bé không nên sống ích kỉ, hãy biết chia sẻ niềm vui với mọi người để hạnh phúc được nhân lên gấp bội.
+Ngày xửa ngày xưa, đã lâu lắm rồi, có một cây táo thần mọc trong vườn ở ngoại ô thành phố.
+Hàng ngày, bọn trẻ thường đến chơi ở đó, nô đùa xuy quanh cây táo và bứt những quả táo thơm ngon trên cành cùng chia nhau ăn.
+Một hôm, có một cậu bé xuất hiện. Cậu bé cau mày nói với bọn trẻ:
+– Khu vườn này là của tôi. Cây táo này cũng là của tôi. Các bạn đi chỗ khác mà chơi, và không bao giờ được đến đây nữa!
+Nghe vậy, bọn trẻ rất buồn bã. Tất cả cúi đầu lặng lẽ ra về, chỉ còn cậu bé hống hách ở lại.
+Cây táo biết tất cả mọi chuyện. Cây táo hóa phép cho cậu bé ngủ thiếp đi dưới gốc cây và làm cho cậu chìm dần vào giấc mơ.
+Trong giấc mơ, cậu bé thấy trên thân cây táo có một cái hốc rất lớn. Cậu bé cảm thấy bụng đói cồn cào. Cậu trèo lên cây và định bứt táo để ăn. Nhưng mỗi khi tay cậu bé sắp chạm vào một quả táo thì cây táo lại quay đi chỗ khác và quả táo lại rơi vào trong cái hốc to tướng ở thân cây.
+Cứ như vậy cho đến khi tất cả táo trên cành rơi hết vào hốc cây, chỉ còn lại một quả trên cành.
+Cậu bé ngồi dưới gốc cây và khóc. Đến lúc đó cây táo mới cất tiếng hỏi:
+– Tại sao cháu khóc?
+Cậu bé mếu máo trả lời:
+– Ông ích kỉ quá. Ông ăn hết táo, ông không cho cháu một quả nào. Cháu đói lắm rồi, ông ạ!
+Cây táo cười và nói:
+– Cháu có nhớ là cháu đã đuổi hết tất cả các bạn không? Các bạn cũng muốn ăn táo, nhưng cháu không cho các bạn một quả nào. Như vậy cháu có ích kỉ không?
+Cậu bé nhớ lại lúc các bạn buồn rầu ra về. Cậu thấy ân hận vô cùng. Cậu bé ngước nhìn cây táo và nói:
+– Vâng ạ, cháu biết lỗi rồi!
+Cây táo cất tiếng cười vang, rung cả cây, làm cho quả táo còn lại rơi trúng đầu cậu bé. Cậu bé giật mình tỉnh giấc và ngơ ngác nhìn xung quanh. Cậu thấy mình vẫn nằm dưới gốc cây. Cái hốc to tướng trên cây táo biến mất. Cây táo vẫn đứng yên lặng và trên cây vẫn sai trĩu quả.
+Cậu bé ngồi dậy, nhớ đến giấc mơ, cậu vội chạy đi gọi các bạn:
+– Các bạn ơi! Quay lại đây chơi đi. Mình xin lỗi vì đã đuổi các bạn đi!
+Thế là tất cả cùng nhau chạy ra vườn. Cậu bé tự mình trèo lên bứt những quả chín ném xuống cho các bạn. Các bạn lại cười đùa vui vẻ. Cậu bé chợt hiểu ra rằng: Điều hạnh phúc nhất là cùng chia sẻ niềm vui với mọi người.
+
+--------------------------------------------------
+
+
+ID: story_216
+TITLE: Đeo chuông cho mèo [Truyện tranh ngụ ngôn]
+URL: https://truyendangian.com/deo-chuong-cho-meo
+
+CONTENT:
+Tác giả dân gian đã chọn tình huống hay, tiêu biểu. Miêu tả sinh động, sâu sắc cảnh họp làng chuột và tường loại chuột (ám chỉ từng loại người trong xã hội cũ). Nhờ đó, bài học tron câu chuyện được rút ra một cách tự nhiên mà thấm thía.
+Thành ngữ: Đeo nhạc cho mèo , Đeo chuông cho mèo hay Treo chuông cổ mèo có nguồn gốc từ câu chuyện ngụ ngôn này ra.
+
+Tự bao giờ đến giờ, mèo cứ xơi chuột luôn mãi, nên chuột mới đẻ ra là đã sợ mèo rồi.
+Nhung, con giun xéo lắm cũng quằn , chuột ta lấy thế làm giận. Một hôm, mới hội nhau lại làm một làng chuột, để chống giữ với mèo. Thôi thật đủ khắp mặt: mào anh Chù, mùi hôi đến nỗi thành câu cai , nào chú Nhắt, có tính nhí nhắt đã nêu câu ví , nào ông Cống, rung rinh béo tốt, quan trường lại chấm cho ở trên ông Đồ …
+Khi làng dài răng đã tề tựu đông đủ cả rồi, ông Cống mới lên giọng rằng:
+– Cái giống quái kia sở dĩ nó chụp được anh em mình chỉ vì trời phú cho nó cái tài rình mò và khéo bắt lén mà thôi. Bây giờ ta nên mua một cái chuông buộc vào cổ nó, để khi nào nó đến, nghe tiếng chuông kêu, ta biết đường chạy trước, thì nó còn làm gì nổi ta nữa.
+Cả làng chuột nghe nói, dẩu mõm, quật đuôi, đều lấy làm phục cái câu chí lí của ông Cống và đồng thanh ưng thuận.
+Khi chuông đã kiếm được rồi, hội đồng chuột lại họp. Con nào con nấy lao xao hớn hở, bảo nhau đã sắp tới ngày thoát được cái ách ông Miu ranh mãnh rồi.
+
+Nhưng kịp lúc hội đồng hỏi ai dám đeo chuông cho mèo , thì thấy cả hội đồng im phăng phắc, không một cái tai nào nhích, một cái răng nào nhe cả.
+Không biết cử ai vào việc đại sự ấy, bất đắc dĩ làng cắt ông Cống phải đi, vì chính ông Cống đã xướng lên cái thuyết đeo chuông cho mèo vậy.
+Ấy mới khốn! Nhưng Cống ta trong lòng tuy nao , mà ngoài mặt làm ra bộ bệ vệ kẻ cả, nói rằng:
+– Tôi đây, chẳng gì nhờ tổ ấm cũng được vào bậc ông Cống, ông Nghè, ăn trên ngồi trước trong làng, có đâu làng lại cắt tôi đi làm cái việc tầm thường ấy được! Trong làng ta nào có thiếu chi người! Tôi xin cử anh Nhắt, anh ấy nhanh nhảu chắc làm được việc.
+Ấy mới hay! Nhưng Nhắt ta trở mặt láu, cãi lí rằng:
+– Làng cắt tôi đi, tôi cũng xin vâng, không dám chối từ. Nhưng tôi, dù bé vậy, mà cũng còn ở chiếu trên, chưa đến nỗi nào. Ông Cống không đi, phải; tôi đây không đi, cũng phải. Để xin cắt anh Chù, anh ấy tuy chậm, nhưng chắc chắn, làng không lo hỏng việc.
+Ấy mới không có gì lạ! Chù ta thật thà, không biết cãi sao, ụt ịt nói rằng :
+– Tôi là đầy tớ làng, làng sai tôi đi là phải lắm. Nhưng tôi chỉ sợ, nếu tôi đến gần mèo mà mèo thịt tôi đi, thì rồi lấy ai thay tôi mà đeo chuông cho mèo được nữa.
+Chuột Cống nhanh miệng bảo:
+– Mèo nó có vờn là vờn chúng tao, vờn cái anh Nhắt kia, chớ chú mày hôi hám như thế, thì nó bắt mà thèm vào. Thôi cứ nhận đi ngay đi, không được nói lôi thôi gì nữa.
+
+Chuột Chù ì ạch phải nhận, mang chuông ra đi tìm mèo thật. Khốn chưa trông thấy mèo, mới nghe thấy tiếng, Chù đã sợ run cả mình, không dám tiến. Nhưng sợ lệ làng, sau đánh bạo, phải lại gần, thì thấy mèo quả nhiên không thèm vờn đến thật . Song mèo cũng nhe nanh, giương vuốt, làm cho Chù cắm đầu, vác cái thân ì ạch chạy khốn chạy khổ về báo cho làng hay.
+Cả làng nghe báo cũng sợ, bỏ chạy tán loạn, chẳng ai hỏi đến cái chuông, nó bon đi đâu, và bon tự bao giờ không biết.
+Thành ra từ đó, chuột vốn sợ mèo, vẫn hoàn sợ mèo mãi.
+
+--------------------------------------------------
+
+
+ID: story_217
+TITLE: Nữ Oa nương nương đội đá vá trời
+URL: https://truyendangian.com/nu-oa-nuong-nuong-doi-da-va-troi
+
+CONTENT:
+Tương truyền khi Nữ Oa nương nương sáng tạo ra loài người, trong một thời kỳ khá lâu, thế gian sống bình yên, đầy hạnh phúc.
+Một năm, chẳng hiểu duyên cớ vì đâu, Thủy thần Cung Công và Hỏa thần Chúc Dung gây sự đánh nhau. Cuộc chiến đấu của hai vị thần này vô cùng dữ dội. Họ đánh nhau từ trên trời xuống tận dưới đất. Cuối cùng, Chúc Dung đã chiến thắng được thủy thần tối tăm.
+Đại bại, Thủy thần Cung Công vừa thẹn vừa tức, tự nghĩ mình không còn mặt mũi nào sống ở thế gian nữa, liền đập đầu vào núi Bất Chu tự tử. Nhưng vì đập không mạnh, nên không chết. Khi tỉnh dậy, lại tiếp tục đi quấy rối ông Đại Vũ đang làm việc trị thủy. Ngoài ra, do việc đập đầu của Cung Công, nên thế gian lại phải chịu một tai họa lớn.
+Nguyên núi Bất Chu là cây cột chống trời ở phía Tây Bắc, bị Cung Công đập đầu vào, gẫy gập xuống, nên một góc trời đã bị sụp đổ.
+Nửa vòm trời bị sụt xuống, trên không trung hiện ra những lỗ thủng to tướng. Mặt đất nút nang nứt dọc thành nhiều hố sâu thẳm, núi rừng rực cháy, nước lúc tràn ra, nổi sóng cuồn cuộn. Trái đất trong phút chốc đã biến thành biển cả mênh mông, các loài chum muông hung dữ tràn ra phá hoại khắp nơi. Loài người đang đứng trước hiểm họa diệt vong.
+Trước cảnh con người phải chịu tai họa khủng khiếp, Nữ Oa nương nương thấy lòng xót xa. Không có cách gì để trừng phạt Cung Công, Nữ Oa đội đá vá trời , ngày đêm đêm vất vả bắt tay vào việc vá lại trời đất.
+Đây là công việc thật vĩ đại và khó khăn. Nhưng Nữ Oa nương nương luôn lo lắng đến hạnh phúc của loài người nên gian nan vất vả không hề làm bà sờn lòng. Bà vẫn cương quyết một mình gáy lấy gánh nặng đó.
+Trước tiên, bà nhặt ở các sông lớn nhiều loại đá ngũ sắc đem về, nhóm lửa nung đá thành một chất deo như keo, dùng đá đó để vá hết các lỗ thủng trên vòm trời xanh.
+Sợ vòm trời có thể sụt xuống lần nữa, bà bèn giết một con rùa lớn, chặt lấy bốn chân đem dựng ở bốn phương trên trái đất làm cột chống trời. Từ đấy, vờm trời được chống lên, trông như một mái lều. Các cột chống lần này đều vững chãi, không lo vòm trời sụp xuống nữa.
+Khi ấy, ở vùng đồng bằng có một con rồng đen hung dữ đang hoành hành giết hại cư dân, Nữ Oa nương nương liền giết chết con rồng, đuổi hết các loài chim muông hung dữ đi, từ đó loài người không còn sợ bị chúng tàn hại nữa. Việc cuối cùng còn phải chặn nạn nước lũ gây hại cho con người, bà đã lấy lau lách ở các bờ sông đốt thành tro, chất đống lại để ngăn dòng nước.
+Tai họa do thủy thần Cung Công gây ra đã được Nữ Oa ra tay quét sạch, loại người thoát khỏi cảnh diệt vong.
+Từ đấy, sự phồn vinh đã trở lại trên trái đất. Bốn mùa xuân, hạ, thu, đông nối tiếp nhau, hết nóng sang lạnh theo đúng tiết. Các loài chim muôn hung dữ, cũng dần dần thuần thục, cùng làm bạn với loài người. Khắp nơi, thức ăn thiên nhiên đầy rẫy, chỉ chịu khó hái về là no đủ. Loài người từ đấy sinh sống vui tươi, hồn nhiên, không còn lo sợ gì nữa.
+Tương truyền Nữ Oa nương nương còn sáng chế ra một loại nhạc khí làm bằng ống sậy, ghép mười ba ống lại với nhau, trông giống như đuôi chim phượng, thổi lên nghe rất réo rắt, vui tai, đem tặng cho con người. Từ đấy, loài người sinh sống trên trái đất lại càng thêm vui vẻ, hạnh phúc.
+Nếu muốn, bạn có thể lắng nghe câu chuyện Nữ Oa nương nương đội đá vá trời qua kênh YouTube chính thức của TruyenDanGian.com.
+Thủy thần Cung Công còn gọi là Cộng Công hoặc có tên khác là Khang Hồi. Đây là một một trong thập đại ma thần thời thượng cổ Trung Quốc. Cũng có tài liệu cho rằng Cung Công là một bộ lạc thường gây loạn trong Tứ tội.
+Tương truyền, Cung Công vốn bị lưu đày. Đời Thuấn, Cung Công trở lại, gây ra những trận hồng thủy liên miên, khiến cho mặt đất phủ một một mảnh trắng xóa. Lúc nay Hạ Vũ – một vị vua huyền thoại của Trung Quốc thời cổ đại nhận trách nhiệm trị thủy. Hạ Vũ đã cùng Cung Công đánh một trận ác chiến, quyết trừ hại cho nhân dân. Cung Công chiến bại, bị trục xuất ra Cung Thành thuộc U Châu, được xếp vào một trong Tứ tội (Tứ tội bao gồm: Hoan Đâu, Tam Miêu, Cổn và Cung Công).
+Sau khi Cung Công chết, người dân thờ làm Thủy sư. Con của Cung Công là Câu Long được tôn làm xã thần (tức thổ địa). Dù Cung Công làm nhiều việc ác, nhưng vì thần lực mà khiến dân chúng kính sợ.
+Hỏa thần Chúc Dung, bản danh là Trọng Lê, là một nhân vật huyền sử sống vào thời đế Cốc Cao Tân thị, là chắt của đế Chuyên Húc và là con trai của Quyển Chương. Theo thần thoại, thì hỏa thần Chúc Dung là một trong những hậu duệ của Thần Nông thị.
+Xưa kia vua Toại Nhân (người sáng tạo ra lửa trong Thần thoại Trung Quốc cổ đại) đã dạy người dân dùi cây lấy lửa đã mở màn cho nền văn minh Trung Quốc, nhưng suốt mấy ngàn năm sau đó dân gian chỉ dừng lại ở việc dùng lửa để nướng thịt động vật ăn chứ ngoài ra không còn tiết mục gì khác.
+Trọng Lê sau đó đã sáng tạo ra cách nấu qua vật cách nhiệt như: nồi đất, ấm đất, niêu đất, … khiến cho món ăn có mùi vị và thơm ngon hơn. Ông lại nghiên cứu ra các chất để khi cần có lửa ngay mà khỏi phải dùi cây hay mài đá nữa. Ví như ông ép dầu lạc tích trữ làm chất cháy, hoặc chế ra ngọn đuốc để có thể giữ lửa và di chuyển được cơ động trong bóng tối.
+Nhờ những phát minh trên mà Trọng Lê được đế Cốc biết đến, mời vào trong triều đình phong làm quan to, giữ chức Hỏa Chính cai quản về việc chế tạo và sản xuất lửa trong thiên hạ với danh hiệu là Hỏa thần Chúc Dung. Từ đây nền văn minh Trung Hoa bước sang một kỷ nguyên mới sắc nét hơn và tinh tế hơn.
+Nữ Oa nương nương là một thủ lĩnh thị tộc của Trung Quốc cổ đại, dần được tôn xưng là một vị nữ thần thủy tổ trong thần thoại Trung Quốc, thường được mô tả là đầu người thân rắn. Do ảnh hưởng của nghìn năm Bắc thuộc, nên ít nhiều, vai trò của bà cũng có ảnh hưởng đối với thần thoại Việt Nam.
+Truyền thuyết về Nữ Oa được truyền tụng nhiều nhất qua câu chuyện Nữ Oa nương nương đội đá vá trời.
+Đương thời, bà là nữ thần thượng cổ vĩ đại nhất trong thần thoại Trung Hoa, được liệt vào trở thành một trong Tam Hoàng Ngũ Đế. Bà là em gái đồng thời cũng là vợ của Phục Hy, đứng đầu danh sách Tam Hoàng. Theo thần thoại, Nữ Oa và Phục Hy là hai anh em, hiện ra khi núi Côn Lôn thành hình. Họ đã dâng đồ tế để xin đấng tạo hóa cho phép họ là hai anh em được lấy nhau thành chồng vợ. Sự phối hợp này được chấp nhận khi khói đốt từ lễ vật vẫn giữ nguyên dạng quện vào nhau.
+
+--------------------------------------------------
+
+
+ID: story_218
+TITLE: Sự tích con Bọ Hung [Truyện cổ tích Việt Nam]
+URL: https://truyendangian.com/su-tich-con-bo-hung
+
+CONTENT:
+Ngày xưa trời ở thấp lắm, thấp đến mức người trần gian giơ chày lên giã gạo cũng chạm vào bụng.
+Người trần gian lại ngày một ngày đông, sáng tinh mơ đã thi nhau giã gạo, có khi đâm vào bụng trời ngay cả lúc trời còn đang say sưa trong giấc ngủ. Vào những ngày Tết nhất, đến khuya người ta vẫn còn giã gạo, trời buồn ngủ lắm mà bụng vẫn cứ bị những nhát chày thúc vào đau điếng.
+Nhà trời tức lắm, nhưng không biết nên làm thế nào, bèn ra lệnh cho trần gian bớt ăn đi, may ra mới có thể yên thân được. Thế là nhà trời gọi Bọ Hung đến để truyền đi xuống trần gian.
+– Ngươi hãy xuống truyền lệnh cho người trần gian rằng: Từ nay trở đi, ba ngày mới được ăn một bữa, mỗi bữa chỉ được ăn ba lưng.
+Bọ Hung vốn đãng trí, nói trước quên sau. Đi bao nhiêu lần mà vẫn truyền sai lệnh, bị nhà trời quở phạt. Nhưng được cái tính ngoan ngoãn, hễ nhà trời sai thì làm ngay. Lần này Bọ Hung nhất quyết không truyền sai lệnh nữa. Nên vừa ra khỏi cửa, luôn mồm lẩm bẩm:
+– Ba ngày ăn một bữa, mỗi bữa ba lưng…
+Bọ Hung cứ thế mà đi từ trên trời xuống trần gian. Một chàng nông dân đi cấy, thấy Bọ Hung lẩm bẩm cái gì đấy liền lắng tai nghe. Rồi anh ta nấp vào sau một bụi cây, khi Bọ Hung đi qua liền hét lên một tiếng để trêu. Bọ Hung giật bắn người lên và quên khuấy những lời mình đang nói. Tức mình, Bọ Hung quay lại, định cãi nhau với anh kia, nhưng…trước hết, phải nhớ xem mình đang nói gì đã. Nghĩ mãi không ra, anh kia bèn nhắc:
+– Có gì đâu, mày đang nói : “Một ngày ăn ba bữa, còn ăn vặt không kể”.
+Bọ Hung mừng rối rít, quên cả việc định đôi co với anh chàng kia và cứ tiếp tục đi. Vừa đi miệng lại vừa lẩm bẩm:
+– Ngày ăn ba bữa, còn ăn vặt không kể …
+Nghe nói có Bọ Hung mang lệnh nhà trời xuống, vua tôi trần gian và cả một đám đông cận thần ra nghênh đón để nhận chiếu chỉ. Khi nghe Bọ Hung nói:
+– Ngày ăn ba bữa …
+Vua tôi trần gian nghe hoảng quá, ăn nhiều như vậy thì làm bao nhiêu cho đủ. Trước ăn mỗi ngày có hai bữa đã phải giã gạo làm trời mất ngủ, kỳ này chắc nhà trời càng quở trách ta đây.
+Bọ Hung truyền lệnh xong liền trở lại về trời. Nhà trời thấy từ ngày truyền lệnh cho người trần gian ăn ít đi, mà sao lại giã gạo nhiều hơn trước. Lấy làm lạ, trời bèn triệu vua trần gian lên hỏi nguyên do.
+Vua trần gian kể lại khi nhận lệnh các quần thần đều đến đông đủ để nghe chiếu chỉ của nhà trời do Bọ Hung truyền xuống là phải ăn nhiều hơn trước. Bấy giờ nhà trời mới vỡ lẽ việc Bọ Hung truyền sai lệnh.
+Trời tức quá, gọi Bọ Hung đến và đánh cho một trận. Sau đó, cắm cái xẻng vào đầu, đẩy đi làm nghề xúc phân. Từ đó, Bọ Hung phải đi hót phân không kể đêm ngày. Và câu chuyện sự tích con Bọ Hung được bắt nguồn từ đấy.
+Lệnh đã truyền đi, không thu lại được nữa, dân chúng hạ giới ngày đêm giã gạo không ngơi tay. Nhà trời mất ăn mất ngủ liên miên, đành phải chuyển lên thật cao, để con người không còn có thể chạm tới được nữa.
+
+--------------------------------------------------
+
+
+ID: story_219
+TITLE: Chân, Tay, Tai, Mắt, Miệng [Truyện ngụ ngôn]
+URL: https://truyendangian.com/chan-tay-tai-mat-mieng
+
+CONTENT:
+1. Cô Mắt, cậu Chân, cậu Tay, bác Tai, lão Miệng từ xưa vẫn sống với nhau rất thân thiết. Bỗng một hôm, cô Mắt đến than thở với cậu Chân, cậu Tay rằng:
+– Bác Tai, hai anh và tôi làm việc mệt nhọc quanh năm, còn lão Miệng chẳng làm gì cả, chỉ ngồi ăn không. Nay chúng ta đừng làm gì nữa, thử xem lão Miệng có sống được hay không?
+Cậu Chân, cậu Tay cũng nói:
+– Phải đấy, chúng ta phải đi nói cho lão Miệng biết để lão tự lo lấy. Chúng ta vất vả nhiều rồi. Nay đã đến lúc lão phải tự mình tìm lấy thức ăn, xem lão có làm nổi không.
+Cô Mắt, cậu Chân, cậu Tay cùng kéo nhau đến lão Miệng. Đi qua nhà bác Tai, họ thấy bác ta đang ngồi im lặng như nghe ngóng điều gì. Cả ba cùng chạy vào cùng nói:
+– Bác tai ơi, bác có đi với chúng cháu đến nhà lão Miệng không? Chúng cháu đến nói cho lão biết từ nay chúng cháu không làm cho lão ăn nữa. Chúng cháu cũng như bác, lâu nay vất vả nhiều rồi, nay phải nghỉ ngơi mới được.
+Bác Tai gật đầu lia lịa:
+– Phải, phải… Bác sẽ đi với các cháu!
+Bốn người hăm hở đến nhà lão Miệng. Ðến nơi, họ không chào hỏi gì cả. Cậu Chân, cậu Tay nói thẳng luôn với lão:
+– Chúng tôi hôm nay đến không phải để thăm hỏi, trò chuyện gì với ông, mà để nói cho ông biết: từ nay chúng tôi không làm để nuôi ông nữa. Lâu nay, chúng tôi đã cực khổ, vất vả vì ông nhiều rồi.
+Lão Miệng nghe nói, rất lấy làm ngạc nhiên. Lão nói:
+– Có chuyện gì muốn bàn với nhau thì hãy vào nhà đã. Làm gì mà nóng nảy thế?
+Bác Tai, cô Mắt, cậu Chân, cậu Tay đều lắc đầu mà rằng:
+– Không, không phải bàn bạc gì nữa. Từ nay trở đi, ông phải lo lấy mà sống. Còn chúng tôi, chúng tôi sẽ không làm gì cả. Xưa nay, chúng tôi có biết cái gì ngọt bùi ngon lành mà làm cho cực!
+Nói rồi cả bọn kéo nhau về.
+2. Từ hôm đó, bác Tai, cô Mắt, cậu Chân, cậu Tay không làm gì nữa. Một ngày, hai ngày, rồi ba ngày, cả bọn thấy mệt mỏi, rã rời. Cậu Chân, cậu Tay không còn muốn cất mình lên để chạy nhảy vui đùa như trước nữa; cô Mắt thì ngày cũng như đêm lúc nào cũng lờ đờ, thấy hai mi nặng trĩu như buồn ngủ mà ngủ không được. Bác Tai trước kia hay đi nghe hò nghe hát, nghe tiếng gì cũng rõ, nay bỗng thấy lúc nào cũng ù như xay lúa ở trong. Cả bọn lừ đừ mệt mỏi như thế, cho đến ngày thứ bảy thì không chịu được nữa, đành họp nhau lại để bàn.
+3. Bác Tai nói với cô Mắt, cậu Chân, cậu Tay:
+– Chúng ta lầm rồi các cháu ạ. Chúng ta nếu không làm cho lão Miệng có cái ăn thì chúng ta sẽ bị tê liệt tất cả. Lão Miệng không đi làm, nhưng lão có công việc là nhai. Như vậy cũng là làm việc chứ không phải ăn không ngồi rồi. Trước kia sống với nhau thân thiết như thế, nay tự dưng chúng ta gây nên chuyện. Lão Miệng có ăn thì chúng ta mới khỏe khoắn được. Chúng ta nên đến nói lại với lão, các cháu có đi không?
+Cô Mắt, cậu Chân, cậu Tay cố gượng dậy đi theo bác Tai đến nhà lão Miệng. Ðến nơi, họ thấy lão Miệng cũng nhợt nhạt cả hai môi, hàm răng thì khô như rang, không buồn nhếch mép. Bác Tai, cô Mắt vực lão Miệng dậy. Còn cậu Chân, cậu Tay thì đi tìm thức ăn. Lão Miệng ăn xong dần dần tỉnh lại. Bác Tai, cô Mắt, cậu Chân, cậu Tay tự nhiên thấy đỡ mệt nhọc, rồi thấy trong mình khoan khoái như trước. Từ đó lão Miệng, bác Tai, cô Mắt, cậu Chân, cậu Tay lại thân mật sống với nhau, mỗi người một việc, không ai tị ai cả.
+
+--------------------------------------------------
+

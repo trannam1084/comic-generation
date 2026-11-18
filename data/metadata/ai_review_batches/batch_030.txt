@@ -1,0 +1,256 @@
+
+Bạn là người đánh giá Dataset cho dự án Vietnamese Comic Generation.
+
+Hãy đánh giá từng truyện để xác định mức độ phù hợp
+khi chuyển thành comic khoảng 4 cảnh.
+
+Đánh giá 4 tiêu chí, mỗi tiêu chí từ 0 đến 2:
+
+1. characters_clear
+0: Không rõ nhân vật
+1: Nhân vật tương đối rõ
+2: Nhân vật rõ ràng
+
+2. events_clear
+0: Sự kiện không có trình tự rõ
+1: Trình tự tương đối rõ
+2: Trình tự sự kiện rõ ràng
+
+3. scene_suitable
+0: Không phù hợp tạo comic
+1: Có thể tạo comic nhưng cần chỉnh sửa
+2: Rất phù hợp để chia khoảng 4 cảnh
+
+4. ending_clear
+0: Không có kết thúc rõ
+1: Kết thúc tương đối rõ
+2: Kết thúc rõ ràng
+
+Tổng điểm score = tổng 4 tiêu chí, tối đa 8.
+
+selected_candidate:
+- true: Nếu score >= 6 và phù hợp tạo comic
+- false: Nếu không phù hợp
+
+difficulty:
+- easy
+- medium
+- hard
+
+Không bịa thêm sự kiện.
+Không đánh giá chỉ dựa trên tên truyện.
+Đánh giá dựa trên nội dung được cung cấp.
+
+Trả về JSON array hợp lệ, không Markdown.
+
+Mỗi truyện:
+
+{
+  "id": "story_001",
+  "title": "...",
+  "characters_clear": 0,
+  "events_clear": 0,
+  "scene_suitable": 0,
+  "ending_clear": 0,
+  "score": 0,
+  "selected_candidate": false,
+  "difficulty": "easy",
+  "reason": "..."
+}
+
+
+==================================================
+STORIES TO EVALUATE
+==================================================
+
+
+ID: story_162
+TITLE: Chiếc Lá Non [Truyện đọc lớp 1]
+URL: https://truyendangian.com/chiec-la-non
+
+CONTENT:
+Buổi sáng cuối xuân, ánh nắng tơ hồng óng ánh trải xuống khắp khu vườn. Những cô Ong áo chẽn vàng đang mải miết lấy phấn hoa. Các cô vừa làm vừa hát:
+– Chiếc đòn gánh cong cong Nào ta đi lấy mật Hương xuân bay bên đồng…
+Đàn Bướm áo quần rực rỡ cũng đang say sưa:
+– Hãy lại đây bạn ơi Chúng ta cùng vui chơi.
+Chiếc Lá Non ra đời vào buổi sáng như thế.
+Nó kêu lên ngạc nhiên thích thú:
+– Ô đẹp quá! Bầu trời sáng quá!
+Mẹ cây âu yếm:
+– Lá Non của mẹ, hát cùng các chị con nào!
+Các chị của Lá Non ân cần:
+– Em Lá Nôn ơi. Khu vườn vui lắm! Hát cùng các chị nào, hát bài ca “Mặt trời xanh”.
+Bắt chước các chị, Lá Non vẫy vẫy bàn tay bé nhỏ của mình hát theo:
+– Một bàn tay xinh xinh Trăm bàn tay xinh xinh Bàn tay đón nắng xanh Bàn tay làm việc tốt Những ngày mới thật vui.
+Vài hôm Lá Non quen dần với cuộc sống trong khu vườn. Đây là nhà chị Mái Mơ có đàn con đông đúc, kia là nhà anh nhạc sĩ Dế Mèn thường kéo đàn trong đêm. Nó bắt đầu để ý xung quanh rồi băn khoăn hỏi mẹ:
+– Mẹ ơi! Sao những chiếc lá dưới gốc cây lại nghịch đất bẩn thế? Sao vàng khô thế? Sao không lên đây hát với chúng con?
+Có đêm thấy Mặt Trăng tròn đang từ từ nhô lên, Lá Non gọi rối rít:
+– A, ông Mặt Trời dậy rồi. Ngày mới bắt đầu rồi. Các chị ơi, dậy hát bài “Mặt trời xanh” đi!
+Các chị của Lá Non bật cười:
+– Không phải ông Mặt Trời đâu! Trăng đấy! Trăng đem sương ngọt cho chị em chúng mình đấy!
+Đối với Lá Non điều gì cũng mới mẻ.
+Nó ngạc nhiên thấy các chị Ong chăm chỉ gánh những vò mật nặng trĩu, lưng áo ướt đẫm mồ hôi mà các chị Bướm chẳng giúp đỡ gì cả. Cứ diện ngất. Cứ la cà chơi đùa. Dần dần Lá Non chẳng thích nghe bài “Hãy lại đây bạn ơi” của các chị Bướm nữa – “Kẻ nào ham rong chơi vô ích sẽ không tốt đâu!”. Mẹ nó bảo thế.
+Thời tiết từ từ chuyển sang mùa hè. Những chùm hoa nhãn đã lấm tấm quả non. Một buổi chiều, bà Tu Hú bay ngang qua khu vườn, kêu váng:
+– Mùa hè đến rồi đấy!
+Bây giờ Lá Non đã cứng cáp. Nó đã xào xạc hát được một mình theo chị Gió những bài hát thật dài. Nó cũng đã hiểu tại sao những chiếc lá nằm dưới đất kia lại vàng vọt như thế. Nghĩ tới điều đó, Lá Non vương vương buồn.
+Một đêm về sáng, Lá Non chợt giật mình tỉnh giấc. Tiếng các chị nó lào xào sợ hãi:
+– Bọn Sâu Róm kìa. Chúng đang lao về phía chúng ta.
+Nó rùng mình nhìn lũ Sâu Róm lông lá gớm ghiếc, những chiếc răng nanh chìa nhọn hoắc đang hùng hổ trèo lên. Mẹ Lá Non cuống quýt vặn người, rung cành cố tung lũ Sâu Róm xuống đất. Nhưng chúng vẫn lì lợm, hô hố cười man rợ:
+– Làm thịt chúng nó thôi! Hố… Hố…
+Tiếng rên rỉ đau đớn của các chị Lá. Tiếng nhai rau ráu của lũ Sâu Róm. Thương các chị quá, Lá Non bật khóc nức nở.
+Buổi sáng, mẹ Cây cùng những chị Lá âm thầm ủ rũ. Mẹ Cây nhắc đến anh Chim Sâu:
+– Chẳng hiểu vì sao mấy năm nay chim chóc ít hẳn. Anh Chim Sâu không biết trôi dạt làm ăn nơi đâu. Đêm nay lũ Sâu Róm lại đến. Mẹ lo lắm…
+Các chị Lá mặt xanh xám khóc tức tưởi:
+– Anh Chim Sâu ơi nhanh về với chúng em đi.
+Lá Non nước mắt cũng lưng tròng. Nó động viên các chị:
+– Đừng khóc nữa các chị. Đừng làm mẹ buồn.
+Tối nay Lá Non không ngủ. Người nó căng lên nghe ngóng mọi động tĩnh. Tiếng đàn khuya của anh sĩ Dế Mèn cũng đã im bặt. Dăm vì sao nhợt nhạt thiêm thiếp ngủ trên nền trời đêm. Hình như đêm nay lũ Sâu Róm không đến. Hay bữa ăn đêm qua chúng vẫn còn no nê? Lá Non mừng thầm. Từ chập tối các chị nó phập phồng lo sợ bàn tán bây giờ đã ngủ thiếp vì mệt mỏi. Các chị ơi cứ ngủ ngon. Đêm nay… Đúng lúc đó, nghe tiếng thở hồng hộc kéo theo mùi tanh tưởi xộc vào mũi. Tay run run, Lá Non trấn tĩnh nhìn xuống. Lũ Sâu Róm vẫn những chiếc răng nanh nhọn hoắt khua loạn xạ. Vẫn những thân hình lởm chởm lông lá. Chúng đang rập rình uốn lên võng xuống thoăn thoắt bò tới. Lấy hết can đảm, Lá Non hét to:
+– Lũ Sâu Róm độc ác. Chúng mày không được đụng vào các chị của tao! Hãy ăn thịt tao đây này!
+Tên Sâu Róm đi đâu, mắt lồi long sòng sọc cười gằn:
+– A, con nhóc Lá Non. To gan thật! Chúng mày đâu, lại đây thịt con nhóc này đã!
+Lá Non rùng mình khi những chiếc lông gớm ghiếc của lũ Sâu Róm đụng vào da thịt. Nó cố vùng vẫy trong những hàm răng nhọn hoắt. “Á, đau quá! Chúng cắn con đau quá!”. Lá Non nghiến chặt răng cố không để tiếng kêu bật ra. Toàn thân nó đau rát. Trong cơn đau, nó nghe thấy tiếng vọng của ai đó xa lơ xa lắc:
+– Ái chà, lũ Sâu Róm phá hoại cây này…
+Đó là tiếng của cô chủ.
+Sáng nay, trước giờ tới lớp, cô chủ đảo qua thăm vườn. Phát hiện thấy lũ Sâu Róm đang bâu đen đặc trên Lá Non, cô đã gẩy ngay hết xuống đất. Thế là số phận của lũ Sâu Róm độc ác đã được định đoạt.
+Lá Non mở mắt trong tiếng gọi lao xao của các chị nó. Mẹ nó đang đưa vào miệng nó từng giọt sương mai ngọt lịm. Nó muốn nói với mẹ nó và các chị của nó rằng:
+– Anh Chim Sâu chưa về nhưng đã có cô chủ. Cô chủ sẽ bắt hết loài sâu độc ác. Chúng ta không còn lo lũ Sâu Róm nữa.
+Hình như mẹ và các chị nó đều hiểu điều nó muốn nói. Lúc cô chủ vào nhà, mẹ nó gật đầu tỏ ý cảm ơn còn các chị nó giơ tay vẫy vẫy mãi.
+
+--------------------------------------------------
+
+
+ID: story_163
+TITLE: Hòa thượng và người thợ giày [Truyện cười dân gian Việt Nam]
+URL: https://truyendangian.com/hoa-thuong-va-nguoi-tho-giay
+
+CONTENT:
+Có một nhà sư tên là Diệu Kế trụ trì ở một ngôi chùa lớn làng Bích Khê. Sư ta vốn ít chữ nhưng được cái sáng dạ, trải qua những ngày cạo đầu cắp níp đi theo các bậc tu hành cũng võ vẽ được ít nhiều kinh kệ. Sống lâu lên lão làng, nhờ chuyên cần gõ mõ tụng kinh, nên chẳng mấy chốc được leo lên hàng sư bác. Từ đó Diệu Kế đã được dân làng vùng này vùng khác đón về thờ Phật cai quản chúng tăng. Qua nhiều lần ăn mày lộc Phật ở rất nhiều chùa, Diệu Kế đã nắm được cái chân lý: cuộc đời tu hành của mình chẳng qua cũng là một cách mưu sinh. Vậy thì tội gì mình theo “năm điều răn” cho mệt xác. Vì vậy, về mặt đức hạnh, Diệu Kế tuy không phải là hạng hổ mang, nhưng cũng chẳng phải thuộc hàng chân tu. Thỉnh thoảng sư ta cũng biết lén lút tìm cách làm vợi bớt những món tiền quyên cúng của thập phương đang ngộn lên ở tráp.
+Ở gần chùa có một người thợ giày cũng trạc tuổi và cùng khổ người khổ mặt với Diệu Kế. Hai người dần dần quen nhau rồi trở nên một đôi bạn nối khố. Khi đã tương đắc, người thợ giày thường mang rượu thịt vào tăng phòng những lúc vắng vẻ, rồi cả hai đóng cửa lại, chén tạc chén thù. Họ tỉ tê kể cho nhau nghe những câu chuyện vượt ra ngoài mảnh vườn và mái chùa nhà Phật. Được cái người thợ giày am hiểu việc đời nên Diệu Kế ta rất thích. Mỗi khi thấy ông bạn túng thiếu, Diệu Kế thường phóng tay chu cấp khi năm quan ba quan không biết tiếc. Tuy nhà sư không bao giờ xao nhãng việc tụng kinh gõ mõ nhưng bọn hào lý trong làng cũng chẳng phải không có kẻ ghét ghen. Họ ngờ rằng về mặt kinh kệ, vốn liếng của sư ông hình như không có bao nhiêu. Hơn thế, mỗi lần nghe sư ông tụng kinh, thấy chỉ ê a suốt buổi, điểm vào những câu lạc lõng, tựa hồ không phải là kinh Phật. Mặc dầu vậy, họ cũng chả biết gì nhiều về tiếng kinh câu kệ vốn rất khó hiểu, nên chưa có cách nào để tìm cho ra sự thật.
+Hồi bấy giờ ở một ngôi chùa phương Nam có một vị hòa thượng nổi tiếng đạo học và đức hạnh. Vị hòa thượng này đã từng tu luyện rất nhiều năm và từng sang đất thánh. Vào lúc này bậc đại đức ấy dược vua ban tước quốc sư, cho phép đi chơi khắp mọi cảnh chùa trong nước. Tuy tuổi già, hòa thượng chuyên ăn chay nằm đất: lại có điều đặc biệt là do thuộc phái “vô ngôn”, nên người nhất thiết không nói năng gì với ai, chỉ khi cần lắm mới làm dấu hiệu, hoặc viết ý nghĩ của mình lên mặt giấy.
+Nghe tin bậc đại đức này sắp quá làng mình, bọn hào lý Bích Khê bèn sửa soạn một cuộc đón rước trọng thể tại chùa và nhân thể nhờ hòa thượng kiểm tra hộ sư ông Diệu Kế về mặt đạo học. Nếu quả đúng như mối ngờ bấy lâu thì họ sẽ mời sư đi chỗ khác.
+Nghe tin này, Diệu Kế rất lo. Cuộc khảo hạch này chắc chắn sẽ làm lòi cái dốt của mình và có thể nếu không bị đuổi thì cũng mất mặt trước thiện nam tín nữ. Than ôi? Còn đâu là những ngày ngồi ung dung hưởng hàng chục mẫu hoa lợi và bao nhiêu tiền của thập phương. Nghĩ vậy, Diệu Kế quyết vắt óc tìm cách để ra khỏi cảnh khó khăn. Sực nhớ tới ông bạn nối khố thường tự xưng là người túc trí đa mưu. Diệu Kế bèn nhắn bạn đến chùa để cùng mình bàn tính. Sau khi nghe thủng câu chuyện, người thợ giày liền an ủi:
+– Tưởng gì chứ việc ấy thì để mặc tôi lo liệu. Tôi sẽ thay bạn trả lời tất cả những câu khảo hạch của lão già ấy.
+– Nhưng làm sao mà thay được, Diệu Kế hỏi.
+– Khó gì. Vì cùng trạc người như bạn, tôi sẽ kín đáo lẻn đến đây đúng vào hôm lão già ấy tới chùa. Chỉ cần bạn đòi bọn hào lý cho được một mình đối diện với lão ấy ở tăng phòng đóng kín cửa, không một người thứ ba nào cùng dự là ổn. Tôi sẽ từ chỗ nấp bước ra sắm vai của bạn. Tôi cam đoan sẽ chu toàn mọi việc. Bạn đừng lo gì cả!
+Nghe người thợ giày hiến kế, sư ông Diệu Kế có phần vững tâm. Mấy ngày sau, vị hòa thượng quả nhiên ghé vào chùa theo lời mời của bọn hào lý, và gật đầu nhận lời họ về việc khảo hạch sư ông. Khi cửa tăng phòng đã cài then, dưới ánh đèn le lói người thợ giày đầu mới cạo bóng nhoáng, mình mặc áo cà sa từ bệ bước ra trước mặt hòa thượng để chịu sự thử thách.
+Cuộc khảo hạch bắt đầu. Vị đại đức không hề hé răng, chỉ thong thả đưa bàn tay phải sờ lên đầu mình. Thấy vậy, ngươi thợ giày thình lình co cẳng trái đạp mạnh xuống nền tăng phòng một cái “thịch”. Tiếp đó vị đại đức ngửa mặt lên trời hồi lâu rồi sờ tay vào nách. Để trả lời, người thợ giày lại quờ cánh tay mình ra đằng sau và đấm vào lưng mấy cái. Tiếp đó, vị đại đức mỉm cười và giơ ba ngón tay ra trước mặt. Người thợ giày liền trợn mắt cũng giơ bàn tay giăng đủ năm ngón lên trời.
+Sau đó, vị đại đức gật gù, không làm dấu hiệu gì nữa bước ra khỏi tăng phòng, trong khi người thọ giày lại trở về chỗ nấp cũ.
+Trước khi từ giã làng Bích Khê, vị hòa thượng mà tên tuổi được mọi người tôn kính, không quên viết mấy câu vào mảnh giấy trao cho bọn hào lý, nói rõ kết quả cuộc khảo hạch vừa rồi. Đại ý trong giấy viết:
+“Từ thôn quê đến thị thành, ta chưa từng thấy có người nào thông hiểu nghĩa lý đạo Phật thâm thúy nhà sư ông Diệu Kế. Không những sư ông hiểu rõ những dấu hiệu ta đưa ra hỏi, mà còn dùng dấu hiệu để đối đáp với ta, y như những vế biến ngẫu tài tình. Thoạt đầu ta muốn nói: “Luôn luôn trong đầu phải tâm niệm lời dạy của đức Thích Ca” thì sư ông đã trả lời: “Cần phải giẫm xuống dưới chân những cám dỗ của Ma vương”. Ta lại muốn nói: “Con hạc cắp dưới cánh lời cầu nguyện mang lên thượng giới”. Sư ông trả lời: “Con rùa ghé tấm lưng đội bia đứng trước chùa”. Cuối cùng ta giơ ba ngón tay để nói “Tam quy”. Sư ông giơ cả bàn tay để đối lại là “Ngũ giới”. Đó là điều không phải những kẻ đạo học tầm thường có thể trả lời một cách nhanh gọn được. Sư ông Diệu Kế quả là một ngôi sao trong rừng thiền chúng ta”.
+Đọc xong, bọn hào lý làng Bích Khê cúi chào vị hòa thượng già, rồi sau đó trở về chùa xin ra mắt sư Diệu Kế. Bọn họ hết lời xin lỗi:
+– Chúng tôi quả thật người trần mắt thịt, không biết được đạo học của hòa thượng sâu rộng như biển. Chẳng qua chỉ vì có một vài người xấu thói thêu dệt điều này tiếng nọ vu cho hòa thượng nên buộc làng chúng tôi phải rước bậc đại đức đến chùa để bày cuộc thử thách. Giờ đây tất cả mọi nghi ngờ đều đã tiêu tan. Xin hòa thượng miễn chấp cho lũ ngu độn này.
+Sau khi bọn hào lý đã ra về hết, người thợ giày bèn ra khỏi chỗ nấp. Diệu Kế hỏi:
+– Bạn hãy mau mau cho biết bạn đã trả lời như thế nào về những câu hỏi của ông già ấy làm cho danh tiếng của tôi bỗng nổi lên như cồn trước bọn hào lý vậy?
+Người thợ giày đáp:
+– Có gì đâu. Thoạt đầu lão già ấy chỉ tay lên đầu ý hỏi tôi có biết làm mũ ni hay không? Tôi đạp chân xuống đất để trả lời rằng tôi chỉ biết đóng giày mà thôi. Thế rồi lão lại chỉ vào nách để hỏi tôi có thứ da nào mềm như da nách để thửa một đôi. Tôi chỉ vào lưng để nói rằng dạo này chỉ còn thứ da dày như da ở lưng, nhưng dùng để đóng giày cũng khá bền tốt. Thế rồi ông lão quyết định thửa một đôi nhưng lại mà cả có ba quan. Tôi nhất định không chịu, đòi phải có đủ năm quan mới làm. Thế là ông lão bỏ đi ra, chắc ông lão bủn xỉn chê đắt không thửa.
+
+--------------------------------------------------
+
+
+ID: story_164
+TITLE: Bông hoa kỳ diệu [Truyện đọc lớp 1]
+URL: https://truyendangian.com/bong-hoa-ky-dieu
+
+CONTENT:
+Ngày xửa ngày xưa, ở đất nước kia có một ông vua cực kì giàu sang. Vua lại có một nàng công chúa rất xinh đẹp. Chẳng may lúc về già vua mắc một chứng bệnh hiểm nghèo , liệt mất nửa người, ngày đêm bị cơn đau hành hạ. Lệnh truyền tới dân chúng cả nước: nếu ai chữa được cho nhà vua khỏi bệnh, vua sẽ gả công chúa và chia cho nửa giang sơn.
+Có tin đồn ở đâu đó xa xôi lắm, mãi trên một vùng núi cao trùng điệp bốn mùa mây phủ có một cây thuốc lạ. Chỉ duy nhất một cây thôi. Cây đó đã sống cả ngàn năm và cũng chỉ nở duy nhất một bông hoa. Bông hoa cứ tươi nở suốt trong cả ngàn năm và có tác dụng làm thuốc, cho người chết uống sẽ sống lại, người già lão uống vào sẽ trẻ mãi. Hàng trăm hàng nghìn người, nhiều nhất là những chàng trai, đua nhau đi tìm cây thuốc quý.
+Có một chàng trai nông dân hiền lành kia cũng theo chúng bạn lên đường. Để có lương ăn, chàng vừa đi vừa làm thuê cho các chủ đất, lúc cày bừa, gặt hái, lúc khuân vác, lúc dựng nhà cửa… Trải qua mấy năm trời không biết nữa, cuối cùng chàng cũng tìm đến được nơi có cây hoa quý. Mới đến chân núi, chàng đã nhận ra mùi hoa thơm ngào ngạt. Lần theo dấu hương thơm, chàng ngược dần lên mãi. Vậy mà cũng phải đến cả tháng trời chàng mới gặp được bông hoa. Chàng ngỡ ngàng trước vẻ đẹp kỳ lạ chưa bao giờ từng thấy. Bông hoa hình chuông, lớn như một trái bưởi, màu sắc luôn thay đổi: lúc trắng muốt, lúc phớt hồng, lúc đỏ thắm… Dù màu sắc nào, bao giờ cũng lóng lánh, tỏa ra xung quanh một quầng sáng rực rỡ và hương thơm ngây ngất…
+Chàng trai chạy ào tới bên bông hoa. Trước vẻ linh thiêng của nó, chàng sợ không dám hái. Chàng nhắm mắt lại, đôi tay đưa ra hướng về phía bông hoa kỳ diệu, miệng thì thầm những lời cầu khấn chân thành. Chàng bỗng thấy đôi bàn tay trĩu nặng và toàn thân rùng rùng lay động. Một cảm giác lâng lâng lạ lùng lan tỏa khắp thân mình chàng. Mở mắt ra, chàng vô cùng kinh ngạc vì thấy bông hoa đã nằm gọn trong bàn tay.
+Vô cùng sung sướng, chàng ấp bông hoa trên ngực, chạy ào xuống núi. Một nửa vương quốc và nàng công chúa kiều diễm đã chắc chắn thuộc về chàng…
+Xuống đến lưng chừng núi, sương mù đã tan loãng, trời đã trong xanh trở lại, chàng bỗng gặp một toán đến dăm bảy chục người đang xăm xăm đi tới. Họ cũng là những người đi tìm bông hoa quý nhưng tiếc thay họ đã tới chậm hơn chàng. Trong đám người, chàng để ý thấy có một bà lão tóc bạc phơ người gầy hốc hác, dáng bơ phờ mệt mỏi. Tới gần hỏi chuyện, chàng được biết bà lão cũng đi tìm bông hoa kỳ diệu . Không phải vì muốn có nửa giang sơn với nàng công chúa xinh đẹp mà vì đứa con gái bất hạnh của bà. Bà đã lên đường đi tìm bông hoa suốt hơn mười năm trời nay, rất lâu trước khi nhà vua lâm bệnh. Con gái bà bị một chứng bệnh quái ác, nằm bất động mười mấy năm nay, lúc mê lúc tỉnh. Khi bà đi, tóc bà còn đen bóng, vẻ mặt cô gái mặn mà rất có duyên của bà nổi tiếng cả vùng. Nay thì tóc bà đã trắng xóa, những nếp nhăn khổ đau chằng chịt trên gương mặt già nua của bà.
+Suốt hơn mười năm ròng rã, bà lặn lội qua biết bao đường đất… Bà biết con gái bà vẫn sống, tuy bệnh tình ngày một trầm trọng hơn. Con em nó vẫn thay bà chăm sóc chị. Hai chị em nó vẫn mòn mỏi trông đợi bà trở về. Một con bồ câu khôn ngoan vẫn luôn ở bên bà. Thỉnh thoảng nó lại bay về quê nhà lấy tin tức của đứa con tật nguyền. Lòng thương con vô bờ bến đã thôi thúc bà bằng mọi cách phải tìm cho được bông hoa thiêng liêng. Không ngờ… Bà vừa khóc vừa đưa bàn tay gầy guộc ra ve vuốt những cánh hoa. Bà khóc vì mừng cho chàng trai hiền lành nhưng cũng vì tủi hổ cho thân phận hẩm hiu của mình. Vậy là con gái bà mất hết hi vọng…
+Thấy thân hình tiều tụy và vẻ mặt nhăn nhúm của bà mẹ, nhất là cái dáng ngồi khổ sở với đôi vai gầy và cánh tay rũ xuống đầy vẻ đau đớn bất lực, chàng trai thật sự mủi lòng. câu chuyện bà mẹ kể lay động sâu xa tâm hồn chàng.
+Chàng đặt bông hoa vào tay bà mẹ, giọng lạc đi:
+– Con xin biếu mẹ. Mẹ hãy mau mang về chạy chữa cho em con…
+Bà mẹ ngước đôi mắt đã bạc đi vì năm tháng mòn mỏi, kinh ngạc nhìn chàng, không tin ở tai mình. Bà rụt tay lại, vẻ mặt tái nhợt. Chàng trai nắm lấy tay bà, đặt bông hoa vào đó. Chàng nói rành rọt:
+– Mẹ về mau đi. Chắc là em con đang mong mẹ lắm.
+– Không, tôi không dám nhận đâu! – Bà mẹ khóc không ra tiếng – Cậu hãy mang vật báu này về dâng nhà vua. Bao nhiêu vinh hoa phú quý đang chờ cậu…
+Chàng trai mỉm cười chất phác, lay đôi vai gầy của bà mẹ:
+– Những ân huệ đó kể cũng vinh hiển thật. Nhưng con vẫn muốn tặng lại bông hoa này cho mẹ. Không có bông hoa kỳ diệu này, nhà vua vẫn có cả vương quốc, bên cạnh nhà vua vẫn có hàng trăm lương y với đủ loại thần dược . Còn mẹ và em gái con chỉ biết hi vọng vào bông hoa này. Tất cả sự sống của em côn trông chờ vào nó.
+– Thế còn con?… – Bà mẹ ngước nhìn băn khoăn.
+– Còn con – Chàng trai lắc đầu mỉm cười – Lâu nay không có bông hoa, con vẫn sống ung dung, có sao đâu, mẹ! Mẹ đừng băn khoăn nữa. Hãy mau trở về chữa chạy cho em gái con…
+Không muốn để cho bà mẹ phải nghĩ ngợi nhiều thêm nữa, chàng trai khẽ đặt bông hoa vào tay bà mẹ rồi vội vã bước nhanh, mau chóng chìm khuất sau mấy lùm cây rậm. Một áng mây ngũ sắc lóng lánh như những mảnh khảm xà cừ từ trong khe núi bỗng lững thững troi đến trùm lấp hết cả. Bóng chàng trai hiền lành và tốt bụng thoáng ấn thoáng hiện trong vầng mây ngũ sắc kỳ lạ đó…
+
+--------------------------------------------------
+
+
+ID: story_165
+TITLE: Bàn chân ông nội [Truyện đọc lớp 1]
+URL: https://truyendangian.com/ban-chan-ong-noi
+
+CONTENT:
+Cu Sún nhìn hai bàn chân ông nội ngâm trong chậu nước ấm pha muối, nó ngạc nhiên quá đi mất. Tại sao bàn chân ông nội lại dài và to thế kia nhỉ?
+Tại sao thì cu Sún chịu. Nó chỉ thấy, năm nào bố cũng mua một đôi giày ba ta ngoại cỡ cho ông nội. Năm nay, trời đã se lạnh, thế mà bố vẫn chưa mua giày cho ông. Bố bận việc hay quên không biết?
+Dạo này, cu Sún ngủ với ông nội. Không được sờ tí mẹ, khó ngủ quá, nó nghĩ vẩn vơ và luôn miệng hỏi chuyện:
+– Ông ơi! Tại sao con sông cạnh nhà mình lại gọi là sông Hồng?
+– Vì nước sông có màu hồng chứu sao.
+– Tại sao nước sông lại đỏ hồng lên thế hả ông?
+– À, màu ấy là phù sa đấy.
+Cu Sún hỏi chuyện gì, ông nội cũng biết. Nó tự hào về ông nội lắm. Gối đầu lên cánh tay gầy khô của ông, nó lại hỏi:
+– Tại sao bàn chân ông to đến nỗi phải đi giày ngoại cỡ hả ông?
+Xoay người ôm nó vào lòng, ông cười hiền lành:
+– Thôi ngủ đi cháu, mai còn dậy sớm mà học bài.
+Đã hơn một lần cu Sún hỏi về đôi bàn chân to quá khổ của ông. Nhưng ông đều lảng sang chuyện khác. Cu Sún khó hiểu và không vui. Ông không nói thì hỏi bố vậy. Nhưng bố làm bác sĩ ở mãi trên tỉnh cơ, chờ bố thì lâu quá, nhỡ quên mất thì xong… Quen tay, nó lần vào bộ ngực lép kẹp của ông nội. Bàn tay mềm mại của nó cụng vào khung xương gồ ghề, cứng như gỗ, nó vội rụt tay lại. Nó nghĩ về đôi bàn chân to quá khổ của ông nội… Tiếng máy nổ lúc khoan, lúc nhặt theo gió heo may vọng về đã kéo dòng suy nghĩ của nó ra bến sông, nơi ấy có nhiều thuyền gắn máy neo đậu. Hàng ngày đi học qua đây, nó thằng tỉ mẩn đứng đếm những người thợ đội than, vác đá lên bờ…
+Sáng dậy, cu Sún vẫn nghĩ về đôi chân của ông nội. Nó thầm hỏi, chủ nhật này, liệu bố có về không nhỉ?
+Cu Sún thổi bong bóng bằng xà phòng chơi, nó thích thú nhìn theo những quả bong bóng đủ các màu xanh, đỏ, tím, vàng bay lơ lửng trên trời. Mải chơi, bố đánh xe vào đến sân nó mới biết. Mừng quýnh lên, nó bám theo bố vào trong nhà. Bố đặt đôi giày ba ta màu tím còn thơm mùi vải lên bàn. Có thế chứ, bố quên sao được! Đi thử mấy bước xong, ông nội nói:
+– Hơi chật một tí nhưng không sao. Đi dăm bữa, nửa tháng, nó dãn ra là vừa.
+Có lẽ ông nói thế cho vui lòng bố thôi, chứ lúc đi thử, cu Sún thấy mặt ông nhăn lại có vẻ đau lắm.
+Ăn cơm chiều xong, bố ngồi trầm ngâm bên bàn. Nó mon men đến gần:
+– Bố!
+Bố áp má lên mái tóc khét mùi nắng của nó, thủ thỉ:
+– Bố thật có lỗi, năm nay không mua nổi một đôi giày cho ông nội!
+Nó quàng hai tay ôm lấy cổ bố, hỏi:
+– Tại sao bàn chân ông nội lại to và dài thế hả bố?
+Không trả lời, bố đứng dậy, dắt nó ra bến sông. Mặt trời đã tà tà ngọn tre, thợ khuân vác vẫn cần mẫn làm việc. Tiết trời mát mẻ thế mà lưng áo ai cũng ướt đẫm mồ hôi. Đầu tóc chân tay, mặt mày nhem nhuốc những than, những cát và vôi bột. Cu Sún để ý thấy không ai đi giày cả…
+– Họ khổ quá, bố nhỉ?
+– Ừ! Quá khổ là đằng khác.
+Tiến đến gần tốp thợ, bố chậm rãi kể:
+– Con biết không, ông nội đã từng làm thợ khuân vác bến sông này ngót bốn mươi năm để lấy tiền nuôi bác Cầu, nuôi bố ăn học nên người đấy! Con làm tính nhân được chứ, có à, lúc nào tính thử xem, bốn mươi năm trời, ông nội đã đi bao nhiêu bước chân trên bến sông kia và đội bao nhiêu thúng cát, vác bao nhiêu viên đá tảng… Đi lại nhiều, mang vác nặng nên bàn chân ông nội mới to khác thường thế đấy con ạ!
+– Thì ra là vậy!
+Lặng lẽ đi bên bố, cu Sún thầm nghĩ: “Ngày sau lớn lên, mình sẽ tìm mua bằng được giày ba ta ngoại cỡ cho ông nội!
+
+--------------------------------------------------
+
+
+ID: story_166
+TITLE: Tham thì thâm [Truyện đọc lớp 4]
+URL: https://truyendangian.com/tham-thi-tham
+
+CONTENT:
+Ngày xưa có một ông vua cùng quan tể tướng vi hành ra ngoài thành chơi. Qua một chiếc cầu, hai người gặp một ông lão bộ dạng thảm thương, lại mù cả hai mắt, chìa tay xin tiền. Thương tình, vua đặt vào tay ông lão một đồng tiền vàng và toan rảo bước đi ngay nhưng lão ăn mày đã nắm chặt tay nhà vua vua và bảo:
+– Xin ngài tát cho tôi một cái vào má rồi hãy đi.
+Nhà vua không thể chiều theo ý muốn kì quái của ông lão, toan bỏ đi thì lão đã đưa cả hai tay nắm riết lấy áo ngài, cầu khẩn:
+– Xin ngài hãy thương tôi mà tát cho tôi một cái. Nếu ngài biết tội lỗi của tôi, dám chắc rằng ngài sẽ cho cái hình phạt này đối với tôi hãy còn là rất nhẹ.
+Chẳng muốn mất thì giờ, nhà vua đành phải tát vào má ông lão. Bấy giờ, ông lão mới chịu bỏ tay ra, cảm ơn rối rít.
+Đi mấy bước, vua bảo tể tướng:
+– Ta đoán ông già mù kia có nỗi khổ tâm gì đây. Vậy ngươi hãy quay lại, dặn lão đến trưa mai vào cung hầu chuyện ta.
+Trưa hôm sau, ông lão mù được tể tướng dẫn vào chầu vua. Vua phán:
+– Ngươi hãy nói cho ta biết tại sao ngươi lại xin ăn kì khôi như vậy.
+Ông lão không dám trái lệnh vua, bèn kể:
+– Tâu bệ hạ, thảo dân vốn là một nhà buôn giàu có, chủ nhân của một đoàn lạc đà chở hàng hóa có tới chín mươi con.
+Một hôm, sau khi bán hàng trở về, thảo dân bỗng gặp một đạo sĩ . Nhân tiện tới bữa, thảo dân mời đạo sĩ cùng ăn. Chúng thảo dân nói hết chuyện gần xa lại nói tới chuyện làm giàu. Đạo sĩ bảo ông ta biết một nơi có vô vàn của cải, dùng chín mươi con lạc đà của thảo dân vị tất đã khuân được một phần nhỏ. Cái tin này làm cho thảo nhân vô cùng ngạc nhiên, vui sướng. Thảo dân bảo đạo sĩ rằng: “Ngài hãy mách cho tôi biết nơi đó rồi tôi sẽ làm quà cho ngài một con lạc đà của tôi”.
+Một con lạc đà để trả cái ơn to như thế thì quả là quá ít. Nhưng khốn nỗi, lúc ấy lòng tham tự nhiên nổi lên khiến thảo dân không còn biết thế nào là phải trái nữa.
+Đạo sĩ muốn được nửa số lạc đà và của cải. Ông ta bảo chỉ một con lạc đà chất đầy báu vật của ông cũng đủ mua cả triệu con lạc đà này. Tuy biết rằng đạo sĩ làm vậy là phải nhưng cái ý nghĩ có một người thứ hai cũng giàu bằng mình khiến thảo dân khổ tâm vô cùng. Nhưng cuối cùng thì thảo dân cũng đành phải ưng theo đạo sĩ.
+Chúng thần đi đến một nơi vô cùng hiểm trở. Tới một ngọn núi cao nhất, đạo sĩ dừng lại, lấy đá châm lửa đốt rồi làm lầm rầm khấn vái. Tức thì một đám khói đen cuồn cuộn bốc lên. Đạo sĩ gạt đám khói, tự nhiên bức tường núi đá mở toang ra. Phía trong hiện lên một tòa lâu đài vô cùng tráng lệ, vàng bạc, châu báu xếp cao chất ngất từ dưới đất lên đến tận trần. Chúng thần nhặt đầy ắp các bao tải, chất lặc lè lên lưng chính mươi con lạc đà.
+Trước khi đi đóng cửa lâu đâì, thảo dân để ý thấy đạo sĩ nhặt một chiếc hộp con rồi bỏ ngay cái hộp vào trong túi.
+Sau đó, chúng thần chia nhau lạc đà rồi mỗi người đi một ngả.
+Đi được mấy bước, tự nhiên lòng tham nổi lên xâm chiếm lòng thảo dân. Thảo dân nghĩ đạo sĩ cần gì bốn mươi nhăm con lạc đà với của cải chất trên lưng chúng. Ông ta là chủ khi báu kia mà. Nghĩ vậy, thảo dân chạy theo đạo sĩ, lớn tiếng gọi. Đạo sĩ dừng lại. Thảo dân đến gần ông ta, bảo: “Ngài phải chăm 45 con lạc đà sẽ vô cùng cực nhọc. Chi bằng ngài hãy nhường lại 15 con cho tôi.”
+Đạo sĩ đáp: “Bác nói có lí đấy! Vậy bác cứ lấy thêm 15 con nữa đi”.
+Thảo dân không ngờ đạo sĩ dễ tính như vậy nên lại ngọt ngào bảo: “Đạo sĩ hãy bớt cho tôi 10 con lạc đà nữa đi. Đấy là tôi thành thực khuyên ngài, đừng tưởng tôi tham lam nhá!”
+Nghe nói, đạo sĩ lại bằng lòng. Không biết xấu hổ, thảo dân lại cất lời cầu xin thêm 10 con lạc đà nữa. Đạo sĩ lại tươi cười đồng ý. Thảo dân sung sướng quá, bá lấy cổ ông ta hôn lấy hôn để: “Đạo sĩ sẽ làm cho tôi vui mừng khôn tả nếu ngài cho nốt tôi 10 con lạc đà còn lại kia”.
+Không lưỡng lự, đạo sĩ lại bằng lòng. Rồi ông ta dịu dàng bảo: “Tôi vui lòng biếu bác tất cả số lạc đà của tôi. Nhưng bác hãy nhớ ông Trời có thể ban cho ta sự giàu có, cũng có thể làm ta khánh kiệt. Vậy bác nên tiêu đồng tiền cho phải lẽ và phải luôn cứu giúp những người nghèo khó.
+Lúc bây giờ thảo dân đâu còn để tai đến những lời khuyên quý hóa đó. Thảo dân còn đương tính cách làm thế nào để chiếm nốt được cái hộp mà đạo sĩ lấy được ban nãy. Thế là, trước khi đạo sĩ lên đường, thảo dân lại dịu dàng nói: “Đạo sĩ ơi! Ngài hãy cho tôi nốt cái hộp nhỏ đi!!”.
+Lần này, đạo sĩ nhất định từ chối. Thảo dân ngạc nhiên: mấy lần trước ông ta đều cho dễ dàng như thế cơ mà! Vậy thì chắc chắn là cái hộp chứa một bí mật kì lạ. Thảo dân định bụng nếu xin lần nữa mà không được thì thảo dân sẽ dùng võ lực lấy cho kì được cái hộp mới thôi. May mắn thay, đạo sĩ lại bằng lòng đưa nốt cho thảo dân cái hộp.
+Thảo dân mở nắp hộp ra, thấy trong hộp chỉ chứa một thứ thuốc bột. Đạo sĩ bảo: “Thứ thuốc bột này nếu bôi vào mắt trái sẽ làm cho ta trông thấy tất cả vàng bạc, châu báu quý giá giấu trong lòng đất, nhưng nếu bôi vào mắt phải thì lập tức sẽ mù ngay”.
+Thảo dân bèn nhờ đạo sĩ bôi thử thức thuốc bột kì lạ đó. Đạo sĩ lấy tay miết thuốc lên mi mắt thảo dân. Thuốc vừa ngấm, thảo dân đã nhìn tới tận trung tâm trái đất: Chao ôi, kim cương, vàng bạc châu báu sáng lóa, nhiều vô kể. Muốn nhìn thấy nhiều vàng bạc hơn, thảo dân lại đòi đạo sĩ bôi thuốc vào mắt bên phải cho thảo dân.
+Đạo sĩ nhất định không làm theo ý thảo dân. Càng thấy đạo sĩ từ chối, thảo dân càng nài nỉ. Thảo dân thề với đạo sĩ dù thế nào cũng không oán trách ông.
+Đạo sĩ ngăn thế nào cũng không được, đành miết thuốc bột lên mi mắt phải của thảo dân. Thuốc vừa ngấm, hai mắt thảo dân bỗng dưng không nhìn thấy gì nữa. Tất cả là một màn đêm đen kịt. Thảo dân rối rít cầu xin đạo sĩ cứu vớt thảo dân đã quá dại không nghe lời ông.
+Đạo sĩ đáp: “Bác đã để cho lòng tham lam mờ ám lương tâm. Ta không có thuốc nào chữa cho bác khỏi mù. Thôi, bác hãy cầu xin Thượng đế, may người có thương tình chăng. Còn của cải thì bây giờ ta sẽ đem cho người khác xứng đáng hơn”.
+Cả ngày hôm đó, thảo dân lang thang đờ đãn, khổ sở quá chừng. Mãi đến tối, thảo dân mới gặp được một đoàn người ngựa. Họ thương tình sắt thảo dân trở về.
+Than ôi! Con đương ở một địa vị tột bậc giàu sang bỗng dưng mù lòa, lại phải ngửa tay xin ăn. Thảo dân tự đặt ra cho mình một hình phạt: bất cứ ai cho thảo dân tiền, thảo dân cũng xin người ấy tát thảo dân một cái.
+Ông lão mù nói xong, đức vua phán:
+– Tội ngươi tuy to thật nhưng ngươi đã biết hối lỗi, tự đặt ra hình phạt cho mình. Thôi từ nay ngươi đừng làm thế nữa. Ta thương nhà ngươi già nua tuổi tác còn phải ăn xin, vậy ta sẽ ban cho ngươi 50 lạng vàng.
+Ông lão ăn xin vội quỳ rạp xuống cảm ơn, tung hô vạn tuế, rồi hớn hở theo tên lính hầu ra về cùng với số tiền vua ban.
+
+--------------------------------------------------
+

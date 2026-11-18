@@ -1,0 +1,235 @@
+
+Bạn là người đánh giá Dataset cho dự án Vietnamese Comic Generation.
+
+Hãy đánh giá từng truyện để xác định mức độ phù hợp
+khi chuyển thành comic khoảng 4 cảnh.
+
+Đánh giá 4 tiêu chí, mỗi tiêu chí từ 0 đến 2:
+
+1. characters_clear
+0: Không rõ nhân vật
+1: Nhân vật tương đối rõ
+2: Nhân vật rõ ràng
+
+2. events_clear
+0: Sự kiện không có trình tự rõ
+1: Trình tự tương đối rõ
+2: Trình tự sự kiện rõ ràng
+
+3. scene_suitable
+0: Không phù hợp tạo comic
+1: Có thể tạo comic nhưng cần chỉnh sửa
+2: Rất phù hợp để chia khoảng 4 cảnh
+
+4. ending_clear
+0: Không có kết thúc rõ
+1: Kết thúc tương đối rõ
+2: Kết thúc rõ ràng
+
+Tổng điểm score = tổng 4 tiêu chí, tối đa 8.
+
+selected_candidate:
+- true: Nếu score >= 6 và phù hợp tạo comic
+- false: Nếu không phù hợp
+
+difficulty:
+- easy
+- medium
+- hard
+
+Không bịa thêm sự kiện.
+Không đánh giá chỉ dựa trên tên truyện.
+Đánh giá dựa trên nội dung được cung cấp.
+
+Trả về JSON array hợp lệ, không Markdown.
+
+Mỗi truyện:
+
+{
+  "id": "story_001",
+  "title": "...",
+  "characters_clear": 0,
+  "events_clear": 0,
+  "scene_suitable": 0,
+  "ending_clear": 0,
+  "score": 0,
+  "selected_candidate": false,
+  "difficulty": "easy",
+  "reason": "..."
+}
+
+
+==================================================
+STORIES TO EVALUATE
+==================================================
+
+
+ID: story_099
+TITLE: Sóc Nâu đi học [Truyện đọc cho bé lớp 1]
+URL: https://truyendangian.com/soc-nau-di-hoc
+
+CONTENT:
+Buổi sáng mùa thu hôm ấy, khu rừng nguyên sinh rộn ràng tiếng reo cười của chim muông hoa cỏ và thú rừng… Bởi hôm nay là lễ hội khai trường. Riêng Sóc Nâu đang ở trong một tâm trạng nôn nao khó tả vì đây là lần đầu tiên Sóc Nâu đi học.
+Lớp học của Sóc Nâu thật là đẹp, bàn ghế, tranh ảnh đủ màu. Tấm bảng thật to được treo trên tường ở chính giữa. Sóc Nâu ngồi vào bàn học, đưa mắt nhìn quanh. Ô hay, bé Sóc nhà bên cạnh hôm nay được mẹ tết cho chiếc đuôi màu đỏ rực, trông mới đẹp làm sao! Chóp Mào được mẹ đan cho mũ mới, màu đỏ thắm. Bạn Tắc Kè cũng được mẹ thêu cho áo hoa tinh tươm. Ngay cả Quạ Khoang cũng, đeo chiếc nơ vàng tươi sáng… Ôi, còn mỗi mình Sóc Nâu chẳng có gì, Sóc Nâu muốn khóc quá!
+Cô Yến Phụng líu lo giảng bài như đang hát, còn Sóc Nâu thì cứ ngẫm nghĩ mãi vì sao mẹ để cho Sóc Nâu đi học mà lại chẳng bằng ai thế này… Rồi Sóc Nâu lại càng thêm buồn khi nhớ đến túi hạt dẻ mẹ đã rang cho để sẵn trên bàn mà khi sáng vì vội đến trường, Sóc Nâu quên mang theo… Giá như đang được ở nhà, đang được ở bên mẹ thì Sóc Nâu vừa nhá hạt dẻ, vừa đòi nghe mẹ kể chuyện ngày xưa… Nghĩ đến đây thì Sóc Nâu không thể kiềm chế được nữa, bèn òa lên nức nở…
+Cô giáo Yến Phụng ngạc nhiên, đi đến tận chỗ Sóc Nâu ngồi để hỏi vì sao… Sóc Nâu đứng lên tức tưởi thưa:
+– Thưa cô, vì mẹ em không thương em! Mẹ không cho em mặc đẹp như bạn Tắc Kè, không cho em tô điểm như bạn Sóc Đuôi Đỏ, không cho em cài nơ như bạn Quạ Khoang. Hu… Hu… Hu…
+Hiểu ra, cô giáo Yến Phụng dỗ dành, lấy khăn lau nước mắt cho Sóc Nâu. Rồi cô ôn tồn giải thích:
+– Sóc Nâu luôn được mẹ thương chứ sao lại không? Sáng nay mẹ đã chải cho Sóc Nâu có bộ lông mượt mà. Mẹ đan cho Sốc Nâu chiếc túi đựng bút bằng cỏ non xinh xinh… Còn bạn Sóc Đuôi Đỏ chăm làm việc nhà, nên mẹ thưởng cho phấn màu tô chiếc đuôi. Bạn Chóp Mào hát ru em ngủ, nên mẹ rảnh tay đan cho chiếc mũ. Tắc Kè giúp mẹ luồn kim nên mẹ thêu hoa lên áo. Quạ Khoang cùng tìm thức ăn cho cả nhà với bố mẹ nên được thưởng chiếc nơ vàng… Còn Sóc Nâu có làm gì giúp mẹ ở nhà không?
+Sóc Nâu lúng túng… vì ở nhà Sóc Nâu chỉ chuyền thoăn thoắt từ cành này sang nhánh nọ thôi! Thấy Sóc Nâu đứng im, mắt nhìn xuống đất, cô giáo Yến Phụng lại líu lo:
+– Không sao! Không sao! Từ trước tới giờ Sóc Nâu chưa biết giúp mẹ, thì bây giờ trở đi, Sóc Nâu tập làm để giúp mẹ dần dần. Còn Sóc Nâu đến trường là để học, nên chỉ cần ăn mặc sạch sẽ, có đủ sách vở, thước, bút. Vào lớp phải chăm ngoan. Nếu Sóc Nâu học giỏi, lại chăm chỉ việc nhà giúp mẹ thì sẽ được thưởng nhiều quà đẹp. Sóc Nâu nín khóc rồi. Vậy Sóc Nâu muốn cô thưởng gì nào?
+Sóc Nâu tươi tỉnh:
+– Thưa cô, hạt dẻ ạ!
+Cô giáo Yển Phụng mở giỏ xách, lấy ra chiếc túi xinh xinh, trông quen quen…
+– Đây là chiếc túi hạt dẻ mẹ Sóc Nâu gửi cho cô để dành thưởng Sóc Nâu. Sóc Nâu ngoan nên rất xứng đáng được phần thưởng này. Giờ chơi hãy lấy ra ăn nhé!
+Sóc Nâu nhận hạt dẻ, vòng tay cảm ơn cô giáo Yến Phụng. Từ đó, mỗi lần Sóc Nâu được điểm mười, cô giáo Yến Phụng luôn thưởng cho Sóc Nâu nhiều hạt dẻ… Ở nhà Sóc Nâu giúp mẹ làm việc, lại được mẹ cho thêm nhiều hạt dẻ nữa, tha hồ thích, tha hồ nhấm nháp…
+Liên tiếp nhiều năm liền Sóc Nâu đều đạt danh hiệu Học sinh Xuất sắc và bao giờ phần thưởng cho Sóc Nâu cũng là một túi hạt dẻ thật to, đúng như mơ ước. Vì vậy, Sóc Nấu luôn đến lớp để học giỏi, học chăm chứ chẳng cần phải chải chuốt gì và… Sóc Nâu vẫn chỉ là Sóc Nâu thôi!
+
+--------------------------------------------------
+
+
+ID: story_100
+TITLE: Lời hứa của sâu róm [Truyện đọc lớp 3]
+URL: https://truyendangian.com/loi-hua-cua-sau-rom
+
+CONTENT:
+Lời hứa của sâu róm được trích trong sách Truyện đọc lớp 3, ngoài việc nói tới sự phát triển của loài sâu, còn có ý khuyên chúng ta nên biết giữ lời hứa.
+Nói lời phải giữ lấy lời Đừng như con bướm đậu rồi lại bay. – Tục ngữ Việt Nam –
+Con sâu róm thấy mình rất đẹp, nó soi mình vào các giọt sương và tự ngắm nghía:
+– Mình đẹp biết bao!
+Nó tự bảo thế. Và nó ngắm nghía cái mặt bẹt, uốn cái lưng xù lông lên để nhìn rõ hơn cái vạch màu vàng ở hai bên lưng.
+– Thật là thiệt thòi cho bất cứ ai không được trông thấy mình!
+May thay, có một cô bé đang hái hoa. Sâu róm ta liền bò lên trên đóa hoa đẹp nhất và chờ đợi.
+Vừa nhìn thấy sâu róm, cô bé kêu lên:
+– Khiếp! Khiếp! Xấu ơi là xấu!
+– A! Như thế à? – Sâu róm ta bực mình lên tiếng – Được rồi, ta lấy danh dự thề rằng từ nay trở đi ta sẽ không để một người nào trông thấy ta bất kì ở đâu và vì lí do gì nữa.
+Lời đã nói ra, phải nhớ lấy mặc dù nó chỉ là sâu róm. Lập tức nó bò lên một cây cao, từ thân cây bò ra cành lớn, từ cành lớn bò ra cành nhỏ, từ cành nhỏ bò lên nhánh, từ nhánh bò ra lá.
+Rồi sâu róm kéo ở bụng ra một sợi tơ nhỏ và tiếp tục nhả sợi làm thành kén bao quanh mình. Nó làm việc ấy lâu lắm. Làm kén xong, nó thở dài:
+– Ôi, mệt quá ! Đầu óc cứ quay cuồng lên!
+Ở trong kén, vừa tối lại vừa nóng, nhưng không còn việc gì làm, sâu róm ngủ thiếp đi.
+Rồi một hôm nó thức giấc vì thấy ngứa lưng quá. Nó cọ vào kén, cọ lâu quá đến nỗi kén thủng một lỗ và nó thò đầu ra ngoài. Suýt nữa thì nó rơi xuống. Ngay lúc đó, nó thấy cô bé hôm nọ ở trên bãi cỏ và rất sợ cô bé lại nhìn thấy mình.
+“Khiếp! Khiếp! – Nó nghĩ như vậy – Nếu mình không đẹp thì đó không phải là lỗi ở mình. Nhưng nếu để cô ta trông thấy mình thì mình là đồ nói dối. Mình đã hứa là không bao giờ để ai thấy mình nữa cơ mà! Không giữ lời hứa , mình sẽ mất danh dự…”.
+Thất vọng, nó buông mình xuống bãi cỏ.
+Cô bé liền kêu lên:
+– Ồ, đẹp quá !…
+“Như thế thì tin họ thế nào được nhỉ? Hôm trước họ bảo là xấu; nay họ lại bảo là đẹp!…”.
+Tức thì, sâu róm soi mình vào một giọt sương. Nó đã thấy gì? Nó ngạc nhiên thấy một gương mặt hoàn toàn khác, với những sợi râu mép dài, dài lắm. Sửng sốt , nó uốn cong lưng thì ở trên lưng đã có những cánh lớn màu sắc rực rỡ. Nó hiểu ngay là mình đã hóa thành bươm bướm. Thì ra mọi việc là như thế. Và nó bay lượn trên bãi cỏ. Là bươm bướm nó chả hứa gì cả.
+
+--------------------------------------------------
+
+
+ID: story_102
+TITLE: Mèo Vàng thi hát [Truyện thiếu nhi hay cho bé]
+URL: https://truyendangian.com/meo-vang-thi-hat
+
+CONTENT:
+Cứ đến kỳ ông trăng trở lại trên bầu trời, như chiếc đĩa bằng bạc xinh xẻo, tỏa ánh sáng mát dịu trên làng mạc, cây cỏ, thì các con vật trong làng lại rủ nhau ra gốc đa thi hát.
+Lần này, trong số người được mời dự thi có cả cô bé Mèo Vàng. Cô ta khoái lắm, đến nỗi suốt mấy ngày liền hết trèo lên bể nước soi gương lại thót lên mái nhà tập chào và luyện giọng. Cô Mèo Mướp hàng xóm cũng chạy sang tặng Mèo Vàng chiếc nơ hồng thật đẹp. Còn Mèo Khoang – mẹ Mèo Vàng – thì từ chiều đến giờ chỉ lo chải áo, rửa mặt cho cô con gái út. Mẹ còn dạy Mèo Vàng học thật thuộc những bài hát hay nhất của loài Mèo.
+Nhưng Mèo Vàng lại muốn có bài hát chưa ai được nghe bao giờ để lũ bạn Cún, Bê, Vịt, Gà trong làng phải kêu lên vì ngạc nhiên cơ! Trên đường đi, nó bỗng gặp thằng Cáo nấp trong bụi cây. Cáo đon đả chào:
+– Bạn Mèo Vàng đi đâu đấy?
+– Tôi ra gốc đa thi hát đây! Bạn Cáo có đi không?
+– Khịt, có cả bọn Gà, Vịt, ra đấy nữa chứ?
+– Đủ hết! Cả Cún Vện, Bê Vàng, Nghé Hoa nữa.
+Nghe đến Cún Vện, Bê Vàng, Cáo liền cụp đuôi, mắt lấm lét:
+– Thôi, tôi bận lắm! Mà có rỗi tôi cũng chẳng thèm thi với chúng.
+– Bạn có bài hát nào hay, dạy tôi với! – Mèo Vàng bảo Cáo.
+Cáo thích quá, nhận lời ngay. Nó đứng thẳng lên bằng hai chân sau, múa một vòng rồi cất tiếng hát the thé dạy Mèo Vàng hát. Khi cô bạn Mèo đã thuộc làu, Cáo nháy mắt tinh quái rồi lủi ngay vào bụi rậm.
+Dưới gốc đa, cuộc thi đang hào hứng. Bầy Vịt Choai mỏ tô son đỏ vừa đồng ca bài: “Nhặt thóc rơi” váng cả tai. Cún Vện đơn ca bài “Gâu, gâu!… thằng trộm đâu”. Còn Bê Vàng và Nghé Hoa cùng hát bài “Bó cỏ xanh” thật là hay.
+Thấy Mèo Vàng, ai nấy vui vẻ ùa ra đón. Lẽ ra thì tiếp đấy đến lượt cô Ngỗng, nhưng cô liền bảo bác Vịt Bầu, nhường cho Mèo hát trước.
+Mèo Vàng bước ra mô đất bằng phẳng giữa bãi, cúi đầu chào, rồi cũng múa một vòng như Cáo, hát:
+“Đến bờ ao Nấp kín vào Rình lũ vịt Khịt! Khịt!…
+Cạy chuồng gà Sáng tinh mơ Vồ mái tơ Hơ! Hơ!…”.
+Mèo Vàng mới hát đến đấy thì các con vật bỗng là hét inh ỏi. Cô Gà Hoa Mơ tức quá, kêu toáng lên: “Quác! Quác! Nó hát bài hát của thằng Cáo, kẻ thù của chúng ta”. Cô xù lông cổ, nhảy ra giữa bãi. Cả mấy chú Gà Trống mặt đỏ bừng và lũ gà Cánh Tiên cũng xông đến. Mèo Vàng sợ quá, nhảy vọt lên từ trên bục qua đàn Vịt Choai, khóc sướt mướt chạy về nhà.
+Ở nhà, Mèo Khoang đang lim dim ngủ trên chiếc chăn bông. Nghe con kể lại, Mèo Khoang phải kêu “Meo! Meo!” lên vì buồn cười.
+– Con hát bài của thằng Cáo, họ đuổi là phải. Nào ta ra lại ngoài ấy xem sao.
+Mèo Khoang vươn vai đứng dậy, sửa lại chiếc nơ trên cổ Mèo Vàng rồi dắt con đi.
+Thật là may, cuộc thi chưa tan. Mèo Vàng theo mẹ đi xin lỗi từng bạn gà, vịt. Cô bạn bước ra “sân khấu”, vừa hát vừa múa:
+“Con chuột nhắt Thoắt Chạy trên kèo Phắt
+Em nhào theo Meo Chuột ngã quèo Meo, meo… Biết tay, mèo !”.
+Bài hát vừa dứt: tiếng vỗ cánh hoan hô nổi lên rào rào, khiến Mèo ta sướng quá cuồng cả lên, vỗ mãi đuôi của mình.
+Nghe đâu sau buổi ấy, Mèo Vàng được cứ đi thi hát mãi tận xóm dưới. Mèo Vàng còn định vào học trường âm nhạc của cô Họa Mi nữa.
+
+--------------------------------------------------
+
+
+ID: story_103
+TITLE: Ong và Rùa [Truyện đọc lớp 1 ý nghĩa cho bé]
+URL: https://truyendangian.com/ong-va-rua
+
+CONTENT:
+Buổi sáng, ông Mặt Trời như chiếc mâm lửa từ từ nhô lên ở phía đằng đông.
+Trên giàn mướp, một đàn Ong với những chiếc giỏ thắt bên hông trông thật xinh xắn, đang say sưa lấy mật thì bỗng cả giàn mướp bị đung đưa thật mạnh. Và “Rầm” những chiếc giỏ mật nặng trĩu rơi ào xuống đất, mật đổ ra tung toé. Đàn Ong tròn mắt lên khi nhìn thấy một con Rùa với chiếc mai căng tròn nhẵn thín, đang cuộn tròn lăn đi cùng mấy vòng dây mướp cuốn quanh người.
+Một chú Ong to giọng quát:
+– Rùa kia mi làm cái trò gì thế, đổ hết mật của chúng ta rồi.
+Nghe Ong nói, đàn Kiến Đỏ nhả miệng ra khỏi người Rùa, nhảy phịch xuống đất.
+Một chú Kiến Đỏ nói:
+– Nó làm đổ mật của các cậu à? Nó vừa phá nhà của chúng tớ, chúng tớ liền đốt cho.
+Rùa đỏ mặt ấp úng:
+– Tôi xin lỗi các bạn, tôi không cố ý, chỉ vì nước nóng quá tôi mới bò lên. Tôi không biết đấy là nhà Kiến Đỏ nên tôi đã…
+Một chú Kiến Đỏ to giọng:
+– Lỗi! Lỗi cái gì, lần sau mà còn phá nhà của người ta nữa thì đừng có trách.
+Đàn Kiến bực tức bỏ đi. Rùa nhìn đàn Ong ấp úng:
+– Tôi sẽ lấy mật đền các bạn.
+Trên cành mướp, một cô Ong bĩu môi:
+– Cái chân tay mày cụt ngủn thế kia thì làm được cái gì mà đền mới chả không.
+Một chú Ong khác:
+– Cái đồ chậm chạp như ngươi thì có cả đời cũng chẳng lấy đủ mật để đền chúng ta đâu.
+– Tôi… Tôi sẽ cố…
+Một con Ong khác mặt mũi đỏ gay nhảy vù vào mặt Rùa. Lập tức cả đàn Ong tức tối lao vào vây chặt lấy Rùa đốt túi bụi. Rùa sợ hãi lăn tròn, giật lùi và rơi tõm xuống sông.
+Trưa, trời đang nắng gay gắt thì mây đen ùn ùn kéo về. Trời tối sầm lại. Những tia chớp loé lên kèm theo là những tiếng nổ kinh hoàng. Mưa trút xuống, nhà Kiến Đỏ bị vỡ tung ra. Đàn Kiến rồng rắn kéo nhau vào một hốc cây khô để nấp. Gió thổi mạnh, những cành cây phất lên quật xuống. Trên bẹ cau, cả đàn Ong bám chặt vào tổ, miệng kêu: “Ôi! Ôi!…”. Rồi một cơn gió xoáy mạnh, bẻ tung bẹ cau xoáy lên trời, tổ Ong bị rời ra khỏi bẹ lá, rơi “Bộp” xuống đất vỡ tung toé. Cả đàn rét run cầm cập, con nọ rúc vào con kia kêu khóc ầm ĩ.
+Trong hốc cây, đàn Kiến ngó đầu ra:
+– Các bạn ơi! Lại đây mà ẩn cùng chúng tôi.
+Đàn Ong cố cất cánh lên nhưng không sao bay được, đàn Kiến liền đẩy ra một cành củi dài cho đàn Ong bám vào rồi hò nhau kéo. Nhưng mưa to, gió lớn, đàn Ong cứ bám được vào thì lại bị hất tung ra, chúng càng sợ hãi kêu cứu.
+Dưới sông, nước đục ngầu, Rùa ngoi lên khỏi mặt nước. Nghe tiếng kêu cứu, Rùa nghển cổ nhìn lên rồi vội vàng vừa chạy lại vừa kêu cứu:
+– Kìa! Các bạn Ong mau lại đây tôi che mưa cho.
+Thấy đàn Ong nhìn mình với vẻ ngại ngùng, Rùa liền giục:
+– Thôi! Chuyện cũ bỏ qua, mau mau tránh mưa kéo ốm hết bây giờ.
+Đàn Ông lần lượt bò lại. Rùa kiễng chân lên, chiếc mai Rùa như một mái nhà hình tròn ngự trên bốn chiếc cột chân vững chắc.
+Gió vẫn ào ào, cây cối ngả nghiêng. Chiếc nhà Rùa từ từ di chuyển, bốn cột chân đàn Ong bám chặt. Mưa vẫn rơi lộp bộp trên mái,
+Đàn Kiến ngó đầu lặng lẽ nhìn với vẻ hối hận. Rùa đưa đàn Ong lại tới hốc cây, đàn Kiến ùa ra kéo đàn Ong vào. Và khi con Ong cuối cùng vừa bước lên hốc cây thì “ùa” một cái, cơn lũ ào tới. Rùa ngụp xuống nổi lên cố giữ chặt gốc cây. Nước chảy ồ ạt. Những tảng đá to bằng cái chum cũng bị cuốn đi, tất cả bị cuốn phăng tới dòng nước xoáy. Đúng lúc Rùa cố ngoi người lên đẩy gốc cây ra khỏi dòng xoáy nguy hiểm thì một tảng đá to gồ ghề sắc cạnh cuộn tới lăn đúng vào mai Rùa. Gốc cây giạt ra khỏi dòng xoáy cũng là lúc tiếng vỡ “Độp” vang lên. Mai Rùa bị vỡ bắn tung ra. Rùa đau đớn quằn quại, bàn tay run lên cầm cập từ từ buông khỏi gốc cây rồi chìm nghỉm.
+Một lúc sau gió dịu hẳn, mưa ngớt dần, nước đã rút. Một con Kiến mặt mũi hốc hác ngó đầu ra:
+– Ô! Hết bão lũ rồi, chúng ta ra ngoài đi.
+Một con Ong vừa bò ra vừa nói:
+– Hôm nay mà không có bạn Rùa thì…
+Một con Kiến khác:
+– Chúng ta ra cảm ơn bạn ấy đi.
+Cả đàn Ong lẫn Kiến lần lượt chui ra. Chúng đưa mắt nhìn quanh không thấy Rùa đâu cả. Chúng đưa tay lên mồm loa tỏa ra mọi phía gọi: “Rùa ơi! Bạn… ở… đâu?”.
+Dưới vũng nước Rùa nằm im, mắt nhắm tịt. Một chú Ong đã nhìn thấy và ngay lập tức cả bầy Ong, Kiến kéo tới. Chúng bám vào nhau cùng kéo Rùa lên. Chúng hô hấp nhân tạo cho Rùa nhưng Rùa vẫn nằm im bất động. Một chú Kiến khóc giọng nghẹn ngào
+– Bị mất mai thế kia thì bạn ấy làm sao mà sống được.
+Một cô Ong bảo:
+– Thế chúng ta mau tìm cái mai về cho bạn ấy đi.
+Thế là tất cả bầy đàn Ong và Kiến tản đi. Một cô Ong đã tìm thấy chiếc mai, cô đưa tay lên vẫy các bạn:
+– Các bạn ơi chiếc mai của bạn ấy đây rồi.
+Ngay lập tức cả bầy Ong, Kiến xúm lại. Một chú Kiến tròn mắt lên:
+– Ôi! Chiếc mai của bạn ấy bị vỡ tan rồi làm sao bây giờ?
+Một cô Ong vừa nhanh tay nhặt mảnh vỡ vừa nói:
+– Các bạn cứ mau nhặt về, rồi họ Ong nhà tôi sẽ có cách.
+Tất cả cùng xúm lại, mảnh lớn thì hò nhau ì ạch cùng khiêng, mảnh nhỏ thì ghé lưng cõng. Chỉ một lát sau những mảnh vỡ to nhỏ như những hình lục giác đã được khuân về. Chúng nhanh tay vần lên lưng Rùa. Bầy Ong xúm lại, chúng thay nhau ghé người nhả sáp gắn kết hết mảng này tới mảng khác. Và rồi mấy mảnh vỡ cuối cùng đã được gắn lại, chân tay Rùa khẽ cử động. Có tiếng thở nhè nhẹ, đôi mắt Rùa chớp chớp rồi từ từ mở ra. Rùa nhìn các bạn rồi toét miệng cười. Tất cả cùng nhảy lên sung sướng:
+– A! Bạn Rùa sống lại rồi! Sống lại rồi!
+Tất cả cùng nắm tay nhau nối thành vòng tròn múa hát.
+
+--------------------------------------------------
+
+
+ID: story_105
+TITLE: Phép tính chia [Truyện đọc lớp 1]
+URL: https://truyendangian.com/phep-tinh-chia
+
+CONTENT:
+Hương có hai chị em. Hương lên tám, là chị. Còn cậu em tên là Dũng, lên sáu. Bố Hương làm ở một viện khoa học. Còn mẹ Hương là giáo viên mẫu giáo. Không biết có phải vì nhà nghèo không mà Hương rất ngoan, biết nhường nhịn và rất yêu em.
+Ở trường, Hương là một học sinh giỏi toán nhất lớp. Mới học lớp Một mà Hương đã làm được một số bài toán lớp Hai, lớp Ba. Vậy mà một hôm chỉ một phép tính chia rất đơn giản nhưng Hương làm mẹ phải bật cười. Hôm ấy vào một chiều chủ nhật, Hương nài bố:
+– Bố ơi bố! Bố kể chuyện đi!
+Thường chiều chủ nhật nào cũng vậy, bố đều dành một ít thì giờ chơi với hai chị em Hương. Những lúc như thế, khi thì bố kể chuyện, khi thì bố ra những bài toán hoặc câu đố, đố hai chị em Hương giải. Nhưng hôm nay bố lại ra toán bằng những chiếc kẹo. Bố đưa ra 5 chiếc kẹo và đố Hương:
+– Bố có 5 chiếc kẹo đây, cho 2 chị em. Hương chia xem mỗi đứa được mấy chiếc.
+Hương nhận 5 chiếc kẹo. Không phải nghĩ ngợi lâu, cô bé nói luôn:
+– Em Dũng được ba, con được hai. Đúng không bố?
+Mẹ cười: – Phép chia có số dư cơ mà, con quên rồi à?
+Hương nhìn mẹ:
+– Nhưng mà, em Dũng bé hơn con?
+Mẹ xúc động, nói:
+– Ra thế!
+Còn bố thì kéo Hương vào lòng, xoa đầu khen:
+– Con gái của bố giỏi lắm! Muốn chia công bằng, trước hết phải nghĩ đến người khác đã, đúng không con?
+
+--------------------------------------------------
+

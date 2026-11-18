@@ -1,0 +1,169 @@
+
+Bạn là người đánh giá Dataset cho dự án Vietnamese Comic Generation.
+
+Hãy đánh giá từng truyện để xác định mức độ phù hợp
+khi chuyển thành comic khoảng 4 cảnh.
+
+Đánh giá 4 tiêu chí, mỗi tiêu chí từ 0 đến 2:
+
+1. characters_clear
+0: Không rõ nhân vật
+1: Nhân vật tương đối rõ
+2: Nhân vật rõ ràng
+
+2. events_clear
+0: Sự kiện không có trình tự rõ
+1: Trình tự tương đối rõ
+2: Trình tự sự kiện rõ ràng
+
+3. scene_suitable
+0: Không phù hợp tạo comic
+1: Có thể tạo comic nhưng cần chỉnh sửa
+2: Rất phù hợp để chia khoảng 4 cảnh
+
+4. ending_clear
+0: Không có kết thúc rõ
+1: Kết thúc tương đối rõ
+2: Kết thúc rõ ràng
+
+Tổng điểm score = tổng 4 tiêu chí, tối đa 8.
+
+selected_candidate:
+- true: Nếu score >= 6 và phù hợp tạo comic
+- false: Nếu không phù hợp
+
+difficulty:
+- easy
+- medium
+- hard
+
+Không bịa thêm sự kiện.
+Không đánh giá chỉ dựa trên tên truyện.
+Đánh giá dựa trên nội dung được cung cấp.
+
+Trả về JSON array hợp lệ, không Markdown.
+
+Mỗi truyện:
+
+{
+  "id": "story_001",
+  "title": "...",
+  "characters_clear": 0,
+  "events_clear": 0,
+  "scene_suitable": 0,
+  "ending_clear": 0,
+  "score": 0,
+  "selected_candidate": false,
+  "difficulty": "easy",
+  "reason": "..."
+}
+
+
+==================================================
+STORIES TO EVALUATE
+==================================================
+
+
+ID: story_078
+TITLE: Người bán mũ và đàn khỉ [Truyện cười dân gian Ân Độ]
+URL: https://truyendangian.com/nguoi-ban-mu-va-dan-khi
+
+CONTENT:
+Người bán mũ và đàn khỉ là câu chuyện cười dân gian Ấn Độ, ngụ ý châm biếm những kẻ chỉ biết nhắm mắt làm theo người khác một cách máy móc như đàn khỉ.
+Truyện được giới thiệu trong bộ Panchatantra nổi tiếng của Ấn Độ và được dịch ra nhiều ngôn ngữ khác nhau trên khắp thế giới.
+Panchatantra là một bộ truyện ngụ ngôn về động vật có liên quan đến nhau bằng tiếng Phạn và văn xuôi. Cho đến nay vẫn không rõ tác giả của Panchatantra ai, một số nhà nghiên cứu cho rằng đó là Vishnu Sharma.
+Có người đem một gánh mũ đi chợ bán. Giữa đường, trời nóng nực, anh ta ngồi nghỉ dưới một gốc cây, che mũ lên đầu cho khỏi chói rồi thiu thiu ngủ.
+Đàn khỉ trên cây thấy vậy, đợi anh ta ngủ say kéo xuống lấy mỗi con một chiếc mũ, đội lên đầu rồi leo tót lên cây.
+Tỉnh dậy, thấy mất mũ, anh kia nhìn lên cây trông thấy lũ khỉ đội mũ của mình liền lấy đá ném.
+Đàn khỉ bắt chước , dùng quả cây ném xuống. Anh ta tức giận la hét, chửi bới om sòm, vò đầu bứt tai vẻ khổ sở lắm.
+Đàn khỉ cũng nhăn nhó lại. Anh ta không biết làm sao, liền giật chiếc mũ trên đầu ném xuống đất, ngồi ôm mặt khóc.
+Đàn khỉ thấy vậy, liền bắt chước giật hết mũ trên đầu ném xuống đất.
+Anh chàng bán mũ mừng rỡ, nhặt lấy mũ rồi lại gánh đi bán.
+Người ta nói “bắt chước như khỉ” để chê những kẻ nào thấy người khác làm gì cũng nhắm mắt làm theo.
+
+--------------------------------------------------
+
+
+ID: story_079
+TITLE: Chuyện ở vườn hoa [Truyện đọc lớp 1]
+URL: https://truyendangian.com/chuyen-o-vuon-hoa
+
+CONTENT:
+Bé Ngân thích nhất là mỗi buổi chiều được ông nội cho đi đến câu lạc bộ hưu trí ở cạnh vườn hoa . Trong khi ông chơi cờ, đánh cầu lông thì Ngân tha hồ chơi đu quay, cầu trượt, bập bênh cùng các bạn.
+Một hôm đuổi theo bắt con bướm vàng, bé Ngân chợt nhìn thấy hai mẹ con người hành khất ngồi nghỉ ở vạt cỏ cạnh luống hoa . Cô bé cũng trạc tuổi Ngân đang đếm những đồng tiền lẻ nhàu nát đựng trong cái nón rách rồi bảo mẹ:
+– Được tất cả một ngàn năm trăm thôi mẹ ạ. Để con đi mua cho mẹ bát cháo đậu xanh nhé…
+– Thôi, con mua một chiếc bánh mì mà ăn cho chắc dạ con ạ.
+– Nhưng cái răng mẹ bị đau, bánh mì thì cứng lắm!
+– Mẹ không đói, con cứ mua bánh mì mà ăn đi, kẻo từ sáng đến giờ con chưa có gì vào bụng…
+– Mẹ cũng thế mà!… Ước gì bây giờ có cô Tiên hiện lên, cho mẹ con mình thêm năm trăm nữa sẽ đủ mua cho mẹ bát cháo với cái bánh mì cho con thì sướng quá mẹ nhỉ… À không, nếu có cô Tiên hiện ra, con sẽ xin cô hoá phép cho mẹ được sáng mắt ra thì mẹ con mình sẽ không phải đi ăn xin thế này nữa đâu mẹ nhỉ…
+– Ừ,… tội nghiệp con gái bé bỏng của tôi… – Người mẹ quờ hai bàn tay ôm đứa con vào lòng, vuốt ve mái tóc đỏ quạch , khét mùi nắng của nó. Hai hàng nước mắt của mẹ ứa ra lăn trên gò má hốc hác sạm đen.
+Nhìn cảnh đó, bé Ngân bỗng thấy cay cay ở mũi và chợt nhớ tới tờ một ngàn mới tinh mẹ vừa cho để đi ăn kem đang để trong túi áo, nó vội móc ra, rụt rè bước lại, giúi vào tay cô bé và nói lí nhí:
+– Đằng ấy cầm lấy…
+Cô bé chưa kịp nói lời cảm ơn thì Ngân đã chạy biến đi, khuất sau những bông hoa hướng dương vàng chói lọi như mặt trời.
+Người mẹ hỏi:
+– Ai thế con?
+– Một bạn gái bé bằng con, mặc áo hồng đẹp như nàng tiên ấy mẹ ạ…
+
+--------------------------------------------------
+
+
+ID: story_080
+TITLE: Hai kiểu áo [Truyện cười dân gian Việt Nam]
+URL: https://truyendangian.com/hai-kieu-ao
+
+CONTENT:
+Một ông quan lớn đến hiệu may, may một cái áo thật sang để tiếp khác. Biết quan xưa nay nổi tiếng tiếng luồn cúi cấp trên, hách dịch với dân, người thợ may hỏi:
+– Xin quan lớn cho biết ngày may chiếc áo này để tiếp ai ạ?
+Quan cau mày lại hỏi:
+– Nhà ngươi muốn biết như thế để làm gì?
+Người thợ may liền đáp:
+– Thưa ngài, con hỏi để may cho vừa. Nếu ngài mặc hầu quan trên thì vạt áo đằng trước phải may ngắn dăm tấc ; còn nếu ngài mặc để tiếp dân thì vạt áo đằng sau phải may ngắn lại.
+Quan ngẫm nghĩ một hồi, gật gù cho là chí lí và truyền:
+– Thế thì ngươi may cho ta cả hai kiểu.
+
+--------------------------------------------------
+
+
+ID: story_081
+TITLE: Con chó chết đuối [Truyện cười dân gian Việt Nam]
+URL: https://truyendangian.com/con-cho-chet-duoi
+
+CONTENT:
+Có một con chó ở với chủ nhà trên bờ sông, cạnh ngôi chùa. Bên kia sông cũng có một ngôi chùa. Mỗi lần nghe tiếng chuông ở chùa nào là nó vội tới ngay đó để kiếm ăn.
+Một hôm, nghe tiếng chuông bên kia sông, nó vội lao ngay xuống nước để bơi sang. Ra đến giữa dòng, nó bỗng nghe tiếng chuông ở bên bờ này. Cho ta chợt nghĩ:
+– Lỡ chùa bên này có món ăn ngon hơn chùa bên kia thì sao?
+Nó bơi vòng trở lại. Được một quãng ngắn, nó lại nghĩ:
+– Ồ! Lỡ chùa bên kia có món ăn ngon hơn thì thiệt quá.
+Ta bơi sang chùa bên ấy là hơn.
+Thế rồi nó bơi đi bơi lại, lưỡng lự không biết nên đến chùa nào. Vì thế nó cứ chơi vơi ở giữa dòng cho đến khi đuối sức không thể bơi vào bờ, bị chết chìm dưới sông .
+
+--------------------------------------------------
+
+
+ID: story_082
+TITLE: Câu chuyện Chú Đỗ con [Tiếng Việt lớp 2]
+URL: https://truyendangian.com/cau-chuyen-chu-do-con
+
+CONTENT:
+Câu chuyện Chú Đỗ con trích trong sách Tiếng Việt lớp 2 kể về hành trình vươn mình lên khỏi mặt đất để có thể khám phá thế giới bên ngoài của chú Đỗ con.
+Các con cần mạnh mẽ, vươn cao và đứng vững như chú Đỗ con. Chúng ta từng bước tự lập, đừng mãi sống trong sự bao bọc của bố mẹ thì mới có thể khôn lớn, trưởng thành được.
+Hãy dũng cảm bước ra ngoài, khám phá thế giới và trải nghiệm cuộc sống nhiều hơn sẽ thấy thế giới tươi đẹp luôn rộng mở đón chờ.
+Một chú Đỗ con ngủ khì trong cái chum khô ráo và tối om suốt một năm. Một hôm tỉnh dậy chú thấy mình nằm giữa những hạt đất li ti xôm xốp. Chợt có tiếng lộp độp bên ngoài.
+– Ai đó ?
+– Cô đây.
+Thì ra cô Mưa Xuân, đem nước đến cho Đỗ con được tắm mát, chú lại ngủ khì.
+Có tiếng sáo vi vu trên mặt đất làm chú tỉnh giấc. Chú khẽ cựa mình hỏi :
+– Ai đó ?
+Tiếng thì thầm trả lời chú: “Chị đây mà, chị là Gió Xuân đây. Dậy đi em, mùa xuân đẹp lắm”. Đỗ con lại cựa mình. Chú thấy mình lớn phổng lên làm nứt cả chiếc áo ngoài.
+Chị Gió Xuân bay đi. Có những tia nắng ấm ấp khẽ lay chú Đỗ con . Đỗ con hỏi :
+– Ai đó ?
+Một giọng nói ồm ồm, âm ấm vang lên :
+– Bác đây ! Bác là Mặt Trời đây, cháu dậy đi thôi, sáng lắm rồi. Các cậu học trò cắp sách tới trường rồi đấy.
+Đỗ con rụt rè nói :
+– Nhưng mà trên đấy lạnh lắm.
+Bác Mặt Trời khuyên :
+– Cháu cứ vùng dậy đi nào. Bác sẽ sưởi ấm cho cháu, cựa mạnh vào.
+Đỗ con vươn vai một cái thật mạnh. Chú trồi lên khỏi mặt đất. Mặt đất sáng bừng ánh nắng xuân. Đỗ con xoè hai cánh tay nhỏ xíu hướng về phía mặt trời ấm áp
+
+--------------------------------------------------
+

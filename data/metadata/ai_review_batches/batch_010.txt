@@ -1,0 +1,178 @@
+
+Bạn là người đánh giá Dataset cho dự án Vietnamese Comic Generation.
+
+Hãy đánh giá từng truyện để xác định mức độ phù hợp
+khi chuyển thành comic khoảng 4 cảnh.
+
+Đánh giá 4 tiêu chí, mỗi tiêu chí từ 0 đến 2:
+
+1. characters_clear
+0: Không rõ nhân vật
+1: Nhân vật tương đối rõ
+2: Nhân vật rõ ràng
+
+2. events_clear
+0: Sự kiện không có trình tự rõ
+1: Trình tự tương đối rõ
+2: Trình tự sự kiện rõ ràng
+
+3. scene_suitable
+0: Không phù hợp tạo comic
+1: Có thể tạo comic nhưng cần chỉnh sửa
+2: Rất phù hợp để chia khoảng 4 cảnh
+
+4. ending_clear
+0: Không có kết thúc rõ
+1: Kết thúc tương đối rõ
+2: Kết thúc rõ ràng
+
+Tổng điểm score = tổng 4 tiêu chí, tối đa 8.
+
+selected_candidate:
+- true: Nếu score >= 6 và phù hợp tạo comic
+- false: Nếu không phù hợp
+
+difficulty:
+- easy
+- medium
+- hard
+
+Không bịa thêm sự kiện.
+Không đánh giá chỉ dựa trên tên truyện.
+Đánh giá dựa trên nội dung được cung cấp.
+
+Trả về JSON array hợp lệ, không Markdown.
+
+Mỗi truyện:
+
+{
+  "id": "story_001",
+  "title": "...",
+  "characters_clear": 0,
+  "events_clear": 0,
+  "scene_suitable": 0,
+  "ending_clear": 0,
+  "score": 0,
+  "selected_candidate": false,
+  "difficulty": "easy",
+  "reason": "..."
+}
+
+
+==================================================
+STORIES TO EVALUATE
+==================================================
+
+
+ID: story_050
+TITLE: Đôi bạn đường [Truyện ngụ ngôn cho bé]
+URL: https://truyendangian.com/doi-ban-duong
+
+CONTENT:
+Một già một trẻ cùng đi trên đường. Hai người nhìn thấy một túi tiền lăn lóc giữa đường. Người trẻ nhặt lên và bảo:
+– Thượng đế gởi lộc cho tôi đây.
+Còn ông già bảo:
+– Chúng ta cùng hưởng chứ.
+Người trẻ cãi lại:
+– Không, chúng ta đâu có cùng thấy, một mình tôi nhặt lên thôi.
+Ông già chẳng nói gì thêm. Hai người đi tiếp một chút nữa. Chợt họ nghe thấy có ngời cưỡi ngựa đuổi theo sau, quát tháo:
+Đứa nào ăn cắp túi tiền!
+Người trẻ sợ hãi nói:
+– Bác ơi, không khéo vì cái của bắt được của chúng ta mà chúng ta khốn mất.
+Ông già liền bảo:
+– Của bắt được của anh chứ đâu phải của chúng ta, thế thì anh khốn chứ chúng ta không khốn.
+Người ta tóm cổ người trẻ và giải về tỉnh xét xử, còn ông già thì trở về nhà.
+
+--------------------------------------------------
+
+
+ID: story_051
+TITLE: Đại bàng, quạ và người chăn cừu [Truyện ngụ ngôn cho bé]
+URL: https://truyendangian.com/dai-bang-qua-va-nguoi-chan-cuu
+
+CONTENT:
+Bầy cừu tha thẩn ăn cỏ trên đồng. Một con đại bàng không hiểu từ đâu bay tới lao xuống quắp một chú cừu mang đi. Quạ nhìn thấy thế cũng đâm thèm chén thịt. Nó tự bảo:
+– Chẳng có gì đặc biệt cả. Ta cũng có thể làm như vậy, mà còn hay hơn nữa kia. Đại bàng là kẻ ngu dốt, nó chộp con cừu non bé tí, chứ ta là ta chọn con cừu đực béo núc kia kìa.
+Quạ cắm móng vuốt vào đám lông của cừu đực, muốn cuỗm đi nhưng cuỗm sao nổi. Mà nó cũng chịu không biết làm cách nào gỡ nổi móng vuốt ra khỏi đám lông cừu.
+Người chăn cừu thấy thế liền đi tới gỡ chân quạ ra khỏi đám lông cừu, đánh chết quạ rồi ném đi.
+
+--------------------------------------------------
+
+
+ID: story_053
+TITLE: Thói quen dùng từ [Truyện cười dân gian Việt Nam]
+URL: https://truyendangian.com/thoi-quen-dung-tu
+
+CONTENT:
+Có anh chàng nọ tính tình keo kiệt. Một hôm, đi đò qua sông, anh chàng khát nước bèn cúi xuống, lấy tay vục nước sông uống. Chẳng may quá đà, anh ta lộn cổ xuống sông. Một người ngồi cạnh thấy thế, vội giơ tay ra, hét lên:
+– Đưa tay cho tôi mau!
+Anh chàng sắp chìm nghỉm nhưng vẫn không chịu nắm tay người kia. Bỗng một người có vẻ quen biết anh chàng chạy lại, nói:
+– Cầm lấy tay tôi này!
+Tức thì, anh ta cố ngoi lên, nắm chặt lấy tay người nọ và được cứu thoát. Trong lúc anh chàng còn mê mệt, người nọ giải thích:
+– Tôi nói thế vì biết tính anh này. Anh ấy chỉ muốn cầm của người khác , chứ không bao giờ chịu đưa cho ai cái gì.
+
+--------------------------------------------------
+
+
+ID: story_055
+TITLE: Tam đại con gà [Truyện cười dân gian Việt Nam]
+URL: https://truyendangian.com/tam-dai-con-ga
+
+CONTENT:
+Xưa, có anh học trò học hành dốt nát, nhưng trò đời “xấu hay làm tốt, dốt hay chơi chữ” , đi đâu cũng lên mặt văn hay chữ tốt.
+Có người tưởng anh ta hay chữ thật, mới đón về dạy trẻ.
+Một hôm, dạy sách Tam thiên tự , sau chữ “tước” là chim sẻ, đến chữ “kê” là gà, thầy thấy mặt chữ nhiều nét rắc rối, không biết chữ gì, học trò lại hỏi gấp, thầy cuống, nói liều: “Dủ dỉ là con dù dì” . Thầy cũng khôn, sợ nhỡ sai, người nào biết thì xấu hổ, mới bảo học trò đọc khẽ, tuy vậy, trong lòng thầy vẫn thấp thỏm.
+Nhân trong nhà có bàn thờ thổ công , thầy mới đến khấn thầm xin ba đài âm dương để xem chữ ấy có phải thật là “dù dì” không. Thổ công cho ba đài được cả ba.
+Thấy vậy, thấy lấy làm sắc chí lắm, hôm sau bệ vệ ngồi trên giường, bảo trẻ đọc cho to. Trò vâng lời thầy, gân cổ lên gào:
+– Dủ dỉ là con dù dì… Dủ dỉ là con dù dì…
+Bố chúng đang cuốc đất ngoài vườn, nghe tiếng học, ngạc nhiên bỏ cuốc chạy vào, giở sách ra xem, hỏi thầy:
+– Chết chửa! Chữ “kê” là gà, sao thầy lại dạy ra “dủ dỉ” là con “dù dì”?
+Bấy giờ thầy mới nghĩ thầm: “Mình đã dốt, thổ công nhà nó cũng dốt nữa”, nhưng nhanh trí thầy vội nói gỡ:
+– Tôi vẫn biết chữ ấy là chữ “kê”, mà “kê” nghĩa là “gà”, nhưng tôi dạy cháu thế là dạy cho cháu nó biết tận tam đại con gà kia.
+Chủ nhà càng không hiểu, hỏi:
+– Tam đại con gà là nghĩa ra làm sao?
+– Thế này nhé! Dủ dỉ là con dù dì, dù dì là chị con công, con công là ông con gà!
+
+--------------------------------------------------
+
+
+ID: story_057
+TITLE: Anh nhà giàu bị chơi khăm [Truyện cười dân gian]
+URL: https://truyendangian.com/anh-nha-giau-bi-choi-kham
+
+CONTENT:
+Anh nhà giàu bị chơi khăm là câu chuyện cười dân gian Việt Nam, đả kích thói học đòi của những kẻ giàu có nhưng tính tình bủn xỉn, đa nghi trong xã hội cũ.
+Truyện có kết thúc bất ngờ gây ra tiếng cười cho độc giả, từng được đưa vào giảng dạy trong sách Văn học trích giảng lớp 6 phổ thông, NXB Giáo dục Giải Phóng – 1973.
+Xưa có một anh nhà giàu muốn học đòi cách sống quý phái . Hắn thấy tên quan nào ra đường cũng có lính điếu tráp theo hầu. Hắn bắt chước thuê một em bé, rồi mỗi khi đi đâu, đều bắt em bé lẽo đẽo theo sau, mang điều tráp. Em bé tay ôm tay cắp rất khó nhọc, lại còn luôn luôn bị quở mắng, trong lòng rất tức tối, nhưng không biết làm sao.
+Anh nhà giàu vốn có tính bủn xỉn và đa nghi , cho nên thường căn dặn em bé:
+– Màu thấy cái gì của tao để ở đâu thì cứ để ở đấy, không được đụng chạm đến, nghe chưa?
+Một hôm hắn đi chơi, em bé vẫn lẽo đẽo theo sau. Giữa đường, hắn đánh rơi cái túi tiền. Em bé thấy nhưng không nhặt. Về đến nhà, hắn mới biết. Hoảng hốt, hắn gọi em bé tra hỏi:
+– Mày có bắt được túi tiền của tao không? Mày giấu thì mày liệu hồn!
+Em bé nhanh nhảu:
+– Con có thấy ạ
+Hắn vội vã:
+– Mày thấy ở đâu? Đưa trả tao!
+Em bé giả làm ngớ ngẩn, bình tĩnh nói:
+– Con thấy rơi ở giữa đường.
+Hắn hỏi dồn:
+– Thế mày nhặt để đâu? Đưa trả tao!
+Em bé tiếp:
+– Thưa ông, con không nhặt.
+Hắn kinh ngạc:
+– Trời ơi! Tại sao lại không nhặt?
+Em bé thong thả trả lời:
+– Thưa ông, ông chả dặn con thấy cái gì của ông để đâu thì để ở đấy, không được đụng chạm đến là gì?
+Anh nhà giàu nghe nói vừa giận vừa tức, nhưng đành chịu, vì em bé đã làm đúng lời hắn dặn. Hắn chửi bâng quơ một lúc rồi nói:
+– Từ rày trở đi, hễ thấy tao đánh rơi cái gì là phải nhặt đem về cho tao nghe không?
+Vài hôm sau, anh nhà giàu sang chơi làng bên cạnh. Hắn ung dung cưỡi ngựa đi trước. Em bé lẽo đẽo mang điếu tráp theo sau. Lúc trở về, hắn đến nhà một hột lâu mới thấy em bé về. Hắn nghi em bé nghỉ chơi la cà dọc đường, quát mắng:
+– Tại sao mày về chậm thế?
+Em bé khệ nệ đặt tráp xuống chiếu rồi chắp tay, nói thong thả:
+– Thưa ông, con có phải chơi đâu! Dọc đường ông đánh rơi nhiều quá, con phải dừng lại nhặt cho kỳ hết nên về chậm đấy ạ.
+Anh nhà giàu nghe nói “đánh rơi”, giật nảy mình, đổi giọng dỗ dành, hỏi:
+– Mày nhặt được của tao cái gì đó? Đưa lại hết cho tao!
+Em bé đưa tráp cho hắn và thong thả đáp:
+– Thưa ông, đây ạ. Con nhặt hết, không bỏ sót chút nào cả.
+Hắn vui mừng, vội vàng mở tráp ra thì thấy đầy những những… cục phân ngựa.
+
+--------------------------------------------------
+

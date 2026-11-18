@@ -1,0 +1,171 @@
+
+Bạn là người đánh giá Dataset cho dự án Vietnamese Comic Generation.
+
+Hãy đánh giá từng truyện để xác định mức độ phù hợp
+khi chuyển thành comic khoảng 4 cảnh.
+
+Đánh giá 4 tiêu chí, mỗi tiêu chí từ 0 đến 2:
+
+1. characters_clear
+0: Không rõ nhân vật
+1: Nhân vật tương đối rõ
+2: Nhân vật rõ ràng
+
+2. events_clear
+0: Sự kiện không có trình tự rõ
+1: Trình tự tương đối rõ
+2: Trình tự sự kiện rõ ràng
+
+3. scene_suitable
+0: Không phù hợp tạo comic
+1: Có thể tạo comic nhưng cần chỉnh sửa
+2: Rất phù hợp để chia khoảng 4 cảnh
+
+4. ending_clear
+0: Không có kết thúc rõ
+1: Kết thúc tương đối rõ
+2: Kết thúc rõ ràng
+
+Tổng điểm score = tổng 4 tiêu chí, tối đa 8.
+
+selected_candidate:
+- true: Nếu score >= 6 và phù hợp tạo comic
+- false: Nếu không phù hợp
+
+difficulty:
+- easy
+- medium
+- hard
+
+Không bịa thêm sự kiện.
+Không đánh giá chỉ dựa trên tên truyện.
+Đánh giá dựa trên nội dung được cung cấp.
+
+Trả về JSON array hợp lệ, không Markdown.
+
+Mỗi truyện:
+
+{
+  "id": "story_001",
+  "title": "...",
+  "characters_clear": 0,
+  "events_clear": 0,
+  "scene_suitable": 0,
+  "ending_clear": 0,
+  "score": 0,
+  "selected_candidate": false,
+  "difficulty": "easy",
+  "reason": "..."
+}
+
+
+==================================================
+STORIES TO EVALUATE
+==================================================
+
+
+ID: story_106
+TITLE: Quà sinh nhật [Truyện đọc lớp 1 ý nghĩa cho bé]
+URL: https://truyendangian.com/qua-sinh-nhat
+
+CONTENT:
+Ngày kỉ niệm sinh nhật lần thứ 7 của bé Thủy, mẹ bé đưa con gái ra phố mua quà tặng . Mẹ bé bảo con thích đồ chơi nào thì mẹ mua cho, nhưng chỉ được mua một thứ thôi. Đến phố bán đồ chơi, bé Thủy reo lên thích thú. Ôi! bao nhiêu là đồ chơi! Màu sắc hoa cả mắt. Đồ chơi bằng gỗ, bằng nhựa, bằng cao su, to nhỏ đủ loại, cái nào trông cũng thích. Còn búp bê thì mới đáng yêu làm sao! Búp bê có mái tóc thật đẹp: vàng, nâu, đen. Bím tóc lại được tết nơ đỏ, nơ xanh. Cặp má búp bê phinh phính đỏ hồng, đôi mắt mở to, đen láy, khi đặt nằm lại biết nhắm mắt ngủ. Bộ váy áo của búp bê thì có khi còn đẹp hơn bộ váy bé Thủy đang mặc!
+Đi qua hàng bán đồ chơi, mẹ con bé được người bán mời mua hàng. Bé Thủy chưa biết chọn đồ chơi nào vì thứ nào bé cũng thích. Hai mẹ con đi đến góc phố, thấy một bà cụ tóc bạc, lưng còng dựa vào tường nhà. Bà ngồi bán những con búp bê khâu bằng vải vụn bày trên mặt thúng. Bé Thủy kéo tay mẹ đến. Bà cụ nhìn hai mẹ con bé Thủy, cười hiền hậu:
+– Cháu mua búp bê cho bà đi.
+Nhìn những con búp bê được khâu bằng những mảnh vải vụn sơ sài, vụng về, mẹ bé Thủy im lặng, thầm nghĩ: “có lẽ bây giờ chẳng trẻ con nào thích loại búp bê này”. Chợt bé Thủy chỉ tay vào con búp bê có cái váy khâu bằng mụn vải xanh, khuôn mặt bằng bông độn, hai mắt được chấm bằng mực không đều nhau:
+– Mẹ mua cho con búp bê này.
+Mẹ bé Thủy trả tiền mua. Bé Thủy nâng búp bê lên tay ru:
+– Bé bé bằng bông…
+Hai mẹ con chào bà cụ ra về. Trên đường mẹ bé Thủy hỏi con:
+– Bao nhiêu đồ chơi đẹp, sao con không mua lại thích búp bê này?
+Bé Thủy chúm chím cười:
+– Vì con thương bà, bà già bằng bà nội mẹ nhỉ? Trời rét mà bà không được ở nhà. Con mua búp bê cho bà vui.
+Mẹ bé ôm con vào lòng, nghẹn ngào:
+– Ôi con tôi!
+
+--------------------------------------------------
+
+
+ID: story_107
+TITLE: Mũi Lao Xanh trong đầm nước [Truyện đọc lớp 1]
+URL: https://truyendangian.com/mui-lao-xanh-trong-dam-nuoc
+
+CONTENT:
+Dưới gốc cây sen già trong đầm nước, Búp Sen đội bùn nhú lên. Nước sóng sánh tẩy sạch bùn nhơ để lộ một ngó sen trắng muốt. Làn mưa rào đầu hạ rắc lộp độp trên mặt đầm khiến búp nụ nôn nao. Nó căng mắt dõi qua làn nước bàng bạc. Chao ôi, khoảng cách từ đáy hồ lên đến những túm râu rậm rạp của mấy cụm bèo tây, xa ơi là xa! Tuy nóng lòng nhưng Búp Sen vẫn kiên trì nhích dần từng tí một.
+Lũ cá trong đầm nước ngạc nhiên vì sự có mặt đột ngột của Búp Sen bé nhỏ. Nhưng ghét nhất vẫn là lão Trê Già ngoe nguẩy mấy chiếc râu dài thưa thớt, giương cặp mắt ti hí mà sừng sộ :
+– Mày ở đâu chui ra mà lù lù chắn đường bơi của bọn tao?
+– Tôi là một bông hoa, tôi sẽ làm đẹp thêm cho đầm nước – Búp Sen nhỏ xíu kiêu hãnh trả lời.
+– Trông như cái cọng cỏ hoang thế kia mà dám gọi là hoa – Lão Trê trề cặp môi xám bệch loe như cái miệng kèn cười khùng khục. Chừng chưa đã, lão còn lao tới đưa cái đầu bẹp dí, cứng như mảnh đá húc vào gốc sen. Búp Sen nhỏ rùng mình, xù hết các gai nhọn ra chống đỡ. Những mũi gai chưa thật cứng cáp nhưng cũng đủ làm cho lão Trê nản lòng. Trước khi quẫy đuôi bỏ đi, lão còn hằm hè:
+– Ông sẽ gọi Trắm Cỏ, lúc ấy mày sẽ hết đời là hoa nhé.
+Chưa biết Trắm Cỏ là ai nhưng nghe lão Trê dọa thế, Búp Sen cũng sờ sợ. Một chốc sau, anh Trắm Cỏ có bộ lưng đen sì hung hăng phóng đến. Miệng Trắm Cỏ rộng toác, lởm chởm hai hàm răng nhọn hoắt chóp cha chóp chép. Chẳng đợi Trắm Cỏ kịp hù dọa, Búp Sen nhỏ lấy hết can đảm gào lên:
+– Ta là Mũi Lao Xanh , ta đang phóng lên mặt nước!
+Chẳng hiểu câu nói buột miệng trong cơn nguy khốn ấy của Búp Sen có tác dụng thế nào mà Trắm Cỏ đang đà lao tới bỗng giương vây khựng lại. Miệng thôi không đớp đớp, nó giương mắt nhìn lại cái cọng cây xanh lợt. Quả thật, trông Búp Sen ở dưới nước chẳng khác gì một mũi lao nhọn hoắt. Chả dại gì mà đùa với Mũi Lao Xanh – Trắm Cỏ nghĩ thế rồi ngoắt đuôi rẽ sang hướng khác. Nó bơi sát vào bờ, tìm rứt những ngọn cỏ thia thia mềm ngọt.
+Đợi lũ Trê, Trắm bỏ đi thật xa, cô Chép có chiếc đuôi hồng mềm mại bơi đến:
+– Mình chẳng tin cậu là Mũi Lao Xanh. Chẳng phải cậu đã nhận mình là một bông hoa cơ mà!
+– Nhưng, biết làm sao được, tôi phải là Mũi Lao Xanh. – Giọng Búp Sen tuy đã hết lo âu nhưng xem chừng vẫn còn cảnh giác. Cô Chép chẳng chịu tin vào điều ấy.
+– Nhưng mình chả thích Mũi Lao Xanh tí nào cả, mình muốn cậu là một búp hoa cơ.
+Thấy cô Chép dáng hiền hậu, Búp Sen nhỏ thật lòng:
+– Quả thật, mình là một bông hoa, mẹ mình bảo thế! Nhưng như bạn thấy dó, trước khi trở thành một bông hoa, có khi buộc phải làm một Mũi Lao Xanh.
+Câu chuyện thân tình ấy còn kéo dài nhưng bị khuất lấp đi trong tiếng sóng nước vỗ ì oạp nên chẳng ai hay biết gì cả.
+– Cố lên Mũi Lao Xanh! Chỉ cần vượt qua được mặt nước, lũ Trê, Trắm sẽ không còn làm gì được.
+Chép khích lệ bạn mình bằng những lời đựng trong những bóng nước nhỏ li ti, nối đuôi nhau nổi lên mặt hồ. Cũng đã gần lắm rồi. Búp Sen cố rán sức đẩy mình – những cú phóng âm thầm cuối cùng của Mũi Lao Xanh.
+Một ngày nọ, trên mặt hồ phẳng lặng nhú lên một búp hoa nhỏ nhọn. Chẳng mấy chốc, đầu búp kia đã to vổng lên, cọng sen rắn rỏi xanh thẫm lại. Bộ cánh bợt bạt vì sống lâu ngày trong bùn nước nay đổi sắc hồng hào. Rồi một sáng mai trong màn sương đang tan loãng, Búp Sen xoè mở những cánh hoa, để lộ ra một khuôn mặt tròn trĩnh tươi xinh. Bỗng hoa ngơ ngác ngắm nhìn ông Mặt Trời khoác bộ cánh rực rỡ vừa ló khuôn mặt đỏ au ở đằng đông.
+– Chào bông hoa của hồ nước! Ông Mặt Trời vừa tỉnh dậy đã cất giọng ấm áp. Bông hoa e thẹn, thích thú nghiêng đầu soi vào đầm nước. Chà! Mình có một bộ tóc vàng tươi mềm mại và thơm ngát! Nó cúi mình xuống thật thấp và cất tiếng reo vui:
+– Bạn Chép ơi! Mình đã trở thành một bông hoa!
+Cô Chép dịu dàng chắc chẳng thờ ơ với sự kiện quan trọng này bởi vì trong đầm sen, dưới những bông hoa ngát hương vừa mới nở, người ta nghe rất rõ tiếng quẫy lao xao của cá.
+
+--------------------------------------------------
+
+
+ID: story_108
+TITLE: Sư Tử và Chuột Nhắt [Truyện ngụ ngôn Aesop]
+URL: https://truyendangian.com/su-tu-va-chuot-nhat
+
+CONTENT:
+Một con Sư Tử ngủ say trong rừng. Chuột Nhắt chạy qua, không may đụng phải làm Sư Tử tỉnh giấc. Sư Tử giận dữ, giơ chân chộp lấy Chuột Nhắt. Chuột van lạy:
+– Xin ông tha cho tôi. Tôi bé nhỏ thế này, ông ăn chẳng bõ dính răng.
+Sư Tử ngẫm nghĩ một lát rồi thả Chuột ra. Được tha, Chuột nói:
+– Cảm ơn ông! Có ngày tôi sẽ trả ơn ông.
+Nghe vậy, Sư Tử bật cười:
+– Chuột mà cũng đòi giúp sức Sư Tử sao?
+Ít lâu sau, Sư Tử bị sa lưới. Nó vùng vẫy hết sức, nhưng không sao thoát được, đành nằm chờ chết. May sao, Chuột đi qua trông thấy. Nó chạy về gọi cả nhà ra cắn đứt hết lưới. Nhờ thế, Sư Tử thoát nạn.
+
+--------------------------------------------------
+
+
+ID: story_109
+TITLE: Câu hỏi của Sói [Truyện cổ Grimm về loài vật]
+URL: https://truyendangian.com/cau-hoi-cua-soi
+
+CONTENT:
+Một chú Sóc đang chuyền trên cành cây bỗng trượt chân, rơi trúng đầu lão Sói đang ngái ngủ. Sói chồm dậy, túm lấy sóc. Sóc van nài:
+– Xin ngài hãy thả tôi ra!
+Sói nói:
+– Được, ta sẽ thả, nhưng ngươi hãy nói cho ta biết: Vì sao bọn sóc các ngươi cứ nhảy nhót vui đùa suốt ngày, còn ta lúc nào cũng thấy buồn bực?
+Sóc bảo:
+– Thả tôi ra, rồi tôi sẽ nói.
+Sói thả Sóc ra . Sóc nhảy tót lên cây cao, rồi đáp vọng xuống:
+– Mỗi khi nhìn thấy anh, chúng tôi đều bỏ chạy vì anh hay gây gổ. Anh hay buồn bực vì anh không có bạn bè. Còn chúng tôi lúc nào cũng vui vì chúng tôi có nhiều bạn tốt.
+
+--------------------------------------------------
+
+
+ID: story_110
+TITLE: Lạc đàn [Truyện đọc lớp 1 ý nghĩa cho bé]
+URL: https://truyendangian.com/lac-dan
+
+CONTENT:
+Nhà Kiến ở ven sông, sâu trong một hẻm đá. Thật đông và vui. Hằng ngày, theo chân Kiến chúa , cả đàn rời tổ từ sáng sớm để tìm kiếm thức ăn. Dòng họ Kiến sống vốn có kỉ luật nên đi đâu cũng thành đàn thành lũ. Nhiều hôm, chúng kéo nhau đi thật xa, tối mịt mới về nhà. Những dịp ấy, tha hồ mà đùa chơi cho thoả thích.
+Trong đàn, có chú Kiến nhỏ vốn rất tinh nghịch, thích lang thang một mình trên bãi vắng. Chú tự nghĩ ra đủ các trò chơi nghịch ngợm. Có bữa, chú leo lên vắt vẻo trên đầu một ngọn cỏ. Làn gió thổi mạnh khiến Kiến ta ngã nhào xuống đất. Đau lắm, nhưng chỉ được một chốc, Kiến nhỏ lại quên ngay. Nó chẳng bao giờ thấy chán các trò chơi của mình.
+Một chiều nọ, sau khi nhìn đất ngó trời, Kiến chúa vội lo lắng báo tin:
+– Trời sắp có mưa bão. Chúng ta phải tranh thủ đi kiếm một ít thức ăn dự trữ và trở về nhà ngay!
+Nghe lời Kiến chúa, đàn kiến nháo nhác tản nhanh sục tìm những thức ăn vương vãi. Chỉ một lát sau, có con đã lặc lè cõng về một mẩu gạo bé xíu bằng nửa hạt vừng, có nhóm thì xúm nhau khiêng một con cào cào hay một con ruồi đã chết. Trông cả bọn cuống cuồng hoảng loạn, Kiến nhỏ cười thầm. Lo xa làm gì cho mệt. Bầu trời vẫn cứ xanh êm, nắng vẫn cứ dịu dàng như dát bạc dát vàng lên mặt đất. Mặc kệ cả đàn lục tục thu xếp mọi thứ để chuẩn bị trở về nhà, Kiến nhỏ tách khỏi bầy và tiếp tục cuộc dạo chơi.
+Nhìn thấy chú Chuồn Đỏ đang gật gà trên một mô đất thấp, nó nghĩ ngay ra một trò chọc nghịch. Men tới thật gần và chờ khi cái đuôi vằn vện của Chuồn Đỏ đập dúi xuống đất, Kiến ta bèn bám ngay vào đó. Chú Chuồn vẫn lim dim mơ màng chẳng hay biết gì cả. Kiến nhỏ khoái chí cắn một cái rõ mạnh vào đuôi Chuồn. Giật thót mình, Chuồn Đỏ hốt hoảng bay lên. Kiến nhỏ thích chí cười tít cả mắt:
+– Ê! Chịu khó cõng tớ đi dạo một vòng nhé!
+Nhưng, chỉ sau mấy cái vỗ cánh nhẹ nhàng, Chuồn Đỏ đã bay vút lên cao. Ngó xuống đất, thấy mọi vật đều bé tí, Kiến nhỏ run lập cập. Mắt nó hoa lên, tai ù đặc bởi tiếng gió rít mạnh bên tai. Choáng ngợp, Kiến nhỏ cố bám chặt những cẳng chân đã bủn rủn của mình vào đuôi Chuồn Đỏ. Lúc này mà rơi xuống thì không vỡ đầu cũng gãy chân. Mà nguy thật rồi! Chuồn đã mang Kiến đi thật xa. Bóng dáng đàn Kiến, ngôi nhà của nó cứ mất hút dần. Kiến nhỏ hoảng sợ, mếu máo van xin:
+– Anh Chuồn ơi! Em trót dại, xin anh tha lỗi!
+Chẳng hiểu thế nào mà Chuồn Đỏ bớt giận, hạ cánh. Mừng rỡ vì thoát nạn, Kiến ta nhảy vội xuống đất, tìm đường trở về nhà. Chẳng may trời về chiều bỗng nhiên đổi gió. Bầu trời âm u. Những đám mây đen kịt chẳng rõ từ đâu ùn ùn kéo đến. Từ trên trời cao, những giọt nước mưa khổng lồ bắt đầu ném xuống. Kiến nhỏ vội vàng tìm chỗ ẩn mình dưới một chiếc lá khô. Một cơn gió thốc tới lật tung chiếc lá khiến nó sũng ướt. Rồi đêm xuống. Một mình Kiến nhỏ giữa bãi vắng mênh mông đầy sấm chớp nhì nhằng. Không chịu nổi cái lạnh và cơn đói cồn cào, nó oà khóc. Đồng không mông quạnh , tiếng khóc của Kiến bị chìm đi trong lộp độp mưa rơi và tiếng gió hú lồng lộn. Ôi! Giá nó đừng bám vào đuôi Chuồn Đỏ!
+Trong cơn khốn khó, nó chợt thấy hiện lên cái cảnh cả đàn Kiến quây quần bên bếp lửa, nhấm nháp những thức ăn vừa kiếm được chiều nay. Co ro không ngủ được, nó chỉ mong trời mau sáng để được trở lại đàn, về với ngôi nhà ấm cúng trong hốc đá ven sông.
+
+--------------------------------------------------
+

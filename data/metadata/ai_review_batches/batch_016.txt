@@ -1,0 +1,199 @@
+
+Bạn là người đánh giá Dataset cho dự án Vietnamese Comic Generation.
+
+Hãy đánh giá từng truyện để xác định mức độ phù hợp
+khi chuyển thành comic khoảng 4 cảnh.
+
+Đánh giá 4 tiêu chí, mỗi tiêu chí từ 0 đến 2:
+
+1. characters_clear
+0: Không rõ nhân vật
+1: Nhân vật tương đối rõ
+2: Nhân vật rõ ràng
+
+2. events_clear
+0: Sự kiện không có trình tự rõ
+1: Trình tự tương đối rõ
+2: Trình tự sự kiện rõ ràng
+
+3. scene_suitable
+0: Không phù hợp tạo comic
+1: Có thể tạo comic nhưng cần chỉnh sửa
+2: Rất phù hợp để chia khoảng 4 cảnh
+
+4. ending_clear
+0: Không có kết thúc rõ
+1: Kết thúc tương đối rõ
+2: Kết thúc rõ ràng
+
+Tổng điểm score = tổng 4 tiêu chí, tối đa 8.
+
+selected_candidate:
+- true: Nếu score >= 6 và phù hợp tạo comic
+- false: Nếu không phù hợp
+
+difficulty:
+- easy
+- medium
+- hard
+
+Không bịa thêm sự kiện.
+Không đánh giá chỉ dựa trên tên truyện.
+Đánh giá dựa trên nội dung được cung cấp.
+
+Trả về JSON array hợp lệ, không Markdown.
+
+Mỗi truyện:
+
+{
+  "id": "story_001",
+  "title": "...",
+  "characters_clear": 0,
+  "events_clear": 0,
+  "scene_suitable": 0,
+  "ending_clear": 0,
+  "score": 0,
+  "selected_candidate": false,
+  "difficulty": "easy",
+  "reason": "..."
+}
+
+
+==================================================
+STORIES TO EVALUATE
+==================================================
+
+
+ID: story_088
+TITLE: Ba chú chuột ăn vụng mỡ [Truyện ngụ ngôn ý nghĩa]
+URL: https://truyendangian.com/ba-chu-chuot-an-vung-mo
+
+CONTENT:
+Trong một hang chuột có ba con chuột cùng chung sống. Một hôm, phát hiện dưới đáy liễn mỡ của nhà nọ vẫn còn một ít mỡ, chúng đều muốn nếm thử. Nhưng chiếc liễn quá cao, nếu đẩy nó rơi xuống thì mỡ sẽ đổ tung tóe. Phải làm thế nào đây?
+Ba con chuột nhanh chóng nghĩ ra cách giải quyết: Con nọ cắn vào đuôi con kia rồi thả mình xuống để húp mỡ, con đầu tiên sau khi húp mỡ xong thì lại cắn đuôi thả con thứ hai xuống, rồi cứ làm như thế cho đến hết lượt. Còn con nào được xuống đầu tiên thì phải dùng đến cách bốc thăm.
+Đã nghĩ ra cách tốt mà lại có thể thực hiện được, ba con chuột bắt đầu bắt tay vào thực hiện. Một con chuột rút thăm được là con được thả xuống đầu tiên. Nó nghĩ: “Ôi, hôm nay ta thật may mắn, chút mỡ đó cũng đủ để ta húp no”. Con chuột được thả xuống thứ hai thì nghĩ: “Chỉ có chút mỡ như thế, nếu như để nó húp trước thì ta còn gì để húp nữa? Ta có thể tự mình nhảy xuống để húp được mà!”.
+Con chuột thứ ba ở phía trên cùng cũng suy tính: “Mỡ trong liễn còn ít như thế, nếu hai bọn chúng húp trước thì liệu còn phần cho ta không? Chẳng bằng không cần họ nữa, ta có thể tự mình nhảy vào để húp được”.
+Cuối cùng, ba con chuột đều ở trong liễn mỡ kêu “chít chít chít”.
+
+--------------------------------------------------
+
+
+ID: story_089
+TITLE: Chú vịt bầu [Truyện đọc lớp 1 cho bé]
+URL: https://truyendangian.com/chu-vit-bau
+
+CONTENT:
+Nấu xong nồi cháo trắng, bé múc ra tô, bưng lên nhà rồi tới giường khẽ khàng gọi mẹ:
+– Mẹ ơi. Mẹ dậy ăn bát cháo nóng đi mẹ!
+– Ủa! Sáng rồi hả con? – Bà Tư lờ đờ mở mắt hỏi.
+– Dạ! Sáng rồi ạ! – Mai nhìn mẹ dò hỏi: – Mẹ thấy đỡ chút nào không?
+– Khá hơn rồi… Tội nghiệp con…
+Không sao! Con tự lo liệu được mà!
+Nhìn thân hình gầy guộc của mẹ, Mai muốn ứa nước mắt. Em biết mẹ nói thoái đi như thế cho mình yên tâm chứ không thuốc men thì làm sao khỏi bệnh được.
+Đợi mẹ ăn xong, Mai thu dọn chén bát bỏ chậu rửa, rồi sau vài phút phân vân, em quả quyết bước tới nhấc cánh cửa chuồng vịt lên. Lập tức một chủ vịt bầu múp míp lạch bạch nhảy ra, ngoan ngoãn nằm gọn trong vòng tay cô chủ. Chú dịu dàng dùng cái mỏ bèn bẹt rúc ría lên mình cô một cách thân yêu. Nhưng… Chủ nào có thấy được đôi mắt ươn ướt của cô chủ nhìn nó:
+– Vịt ơi! Tao đành phải chia tay mày thôi. Bỏ lỗi cho tạo nhé… Tao… Tao cần…
+…Từ ngày bố mất, chỉ còn hai mẹ con lủi thủi sống với nhau ở ven rìa thị xã. Ở xóm xa hẻo lánh như thế này thật ít bạn, nếu không có chú vịt bầu thì bé cũng chả có ai để vui chơi. Chú vịt được sinh ra trong hoàn cảnh thật đặc biệt. Hôm ấy, như thường lệ mẹ lấy trứng lộn hấp bán. Bỗng nhiên bà dừng lại, đưa một cái trứng lên tai lắng nghe rồi rối rít gọi Mai:
+– Này con xem. Hình như…!
+– Có tiếng chim chíp mẹ ạ! Hay là…
+– Đúng rồi! Chú vịt này sắp nở. Ta đừng giết nó tội nghiệp!
+Thế là sáng hôm sau, chú vịt con đạp vỏ chui ra. Trông chú thật ngộ với chòm lông trên chỏm đầu cộng với cái cổ khoang vàng trắng bao quanh và cái mỏ lúc nào cũng ngọ nguậy thật… dễ ghét.
+Đôn đáo chạy tới tận cuối xóm năn nỉ thằng Long hết nước miếng, cô bé mới xin được chiếc lồng cũ đem về bỏ chú vịt vào, treo lên cây mận. Thỏa mãn rồi nhé! Lâu nay bé cứ ước ao được chú chim để nuôi, nay dù sao có chú vịt cũng đáp ứng được phần nào nguyện vọng. Cô bé thầm cám ơn món quà bất ngờ của mẹ… Từ đó, về nhà là Mai sà vào chăm sóc chú vịt. Cô thích nhất là khi chú rối rít đớp những anh ruồi ngã lăn quay.
+Cứ thế, vịt và người quẩn quanh bên nhau ngày càng thân thiết. Chú ăn nhiều, chóng lớn. Chẳng bao lâu mẹ phải bỏ ra một buổi giúp Mai lợp cái chòi nhỏ bằng lá dừa mới đủ chứa chú. Bây giờ chú đã trổ mã , tiếng kêu ồ ề quàm quạp nhưng lại biết tỏ lộ tình cảm của mình với cô chủ hơn. Thế mà…
+– Mai ơi! Cháu đi đâu mà hấp tấp thế?
+Giật mình, bé ngước mắt lên, bắt gặp bác Ba đang nhìn mình dò hỏi.
+– Dạ… Cháu mang vịt ra chợ … Cháu… – Mai đáp lí nhí.
+– Mẹ lại bệnh hả? Tội nghiệp…
+Bác đưa tay lần túi áo.
+– Cháu cầm cả đi, khỏi cần trả lại, đi nhanh mua thuốc cho mẹ!
+Ngắm nghía chú vịt, bác nói thêm:
+– Chà! Ngữ này làm tiết canh hết biết!
+Đang đưa tay cầm tiền, bé chợt rụt tay lại, nhưng rồi đành miễn cưỡng trao vịt cho bác Ba, đi như trốn chạy…
+… “Mỗi mùa xuân sang, mẹ tôi già thêm một tuổi. Mỗi mùa xuân sang, ngày tôi xa mẹ càng gần…”. Chả biết vì lời ca hay do tiếc thương chú vịt mà Mai trằn trọc mãi mới thiếp vào giấc ngủ. Hôm nay dậy muộn, nhìn sang giường mẹ thấy gối mền đâu đó tươm tất, Mai mừng thầm. Cô vội bươn bả chạy sang chuồng vịt nhưng sực nhớ đành tần ngần đứng lại, vui buồn lẫn lộn… Bỗng nhiên tiếng quàm quạp quen thuộc cất lên, rồi từ đâu đó chú vịt bầu sải cánh ào tới. Mai đứng như trời trồng vì ngạc nhiên và vui mừng, nhưng cũng kịp thấy hình như thằng Long con bác Ba lẩn quẩn bên ngoài hàng giậu. Chừng như giận dỗi vì thấy cô chủ tỏ ra lạnh nhạt với mình, chú vịt bầu ráng sức mổ vào tay Mai một cú đau điếng…
+
+--------------------------------------------------
+
+
+ID: story_090
+TITLE: Chàng Dưa và con gái nữ thần Mặt Trời [Truyện cổ tích Cơ Tu]
+URL: https://truyendangian.com/chang-dua-va-con-gai-nu-than-mat-troi
+
+CONTENT:
+Có một gia đình hai vợ chồng người Cơ Tu lấy nhau đã lâu, mà vẫn chưa có con. Họ buồn lắm.
+Một hôm người vợ đi làm rẫy, bắt gặp một dây dưa giữa rẫy có một quả dưa trông thật ngon mắt. Đang cơn nắng khát, bà ta hái dưa ăn.
+Hôm sau về nhà, bà thấy bụng mình to lên. Thế là bà có mang. Ba tháng sau bà đẻ được một cậu bé. Cậu bé sinh ra mười ngày không bú không khóc. Đến ngày thứ mười một, thì cậu bỗng lớn lên như thổi. Cậu đòi cha mẹ cho đi chăn trâu cùng lũ trẻ trong buôn.
+Ra ngoài rừng cậu hết bày lũ trẻ chơi trò đánh trận lại rủ chúng lấy đất sét nhồi nặn trâu bò. Riêng cậu ta thì lại nặn một con voi hai đầu trông rất kỳ lạ. Cậu làm phép cho con voi biết cử động như voi thật. Bọn trẻ xúm lại xem và đồn khắp làng.
+Một lần, cậu bắt lũ trẻ trông trâu, còn mình thì dắt voi đất sang làng bên cạnh chơi, xem có gì lạ. Cậu dắt voi đi mãi mà không gặp làng. Cuối cùng đến một làng mà cậu chưa hề nghe tên bao giờ. Chúa làng là một người ác có tiếng và tham vô cùng. Thấy cậu đến, lão hỏi cậu đi đâu. Nhưng sau khi thấy con voi kỳ lạ thì hắn tìm cách chiếm đoạt.
+– Con voi gì thế này? A! Mày đem ma vào làng tao, phải bắt con voi và giết mày mới được!
+Nghe chúa làng dọa như thế cậu rất sợ. Cậu phải nói thật là voi do mình làm ra. Tên chúa làng có máu tham nghe thế liền bắt cậu nặn ra nhiều con voi khác nữa. Cậu ta bằng lòng, hẹn ngày mai sẽ nặn cho. Nhưng đêm đó cậu trốn đi mất.
+Cậu đi đến làng Rơ-nu gần giáp nước Lào.
+Vì nóng quá nên cậu xuống suối tắm. Không ngờ dưới suối đã có một cô gái đang tắm. Cô gái còn ít tuổi nhưng đẹp tuyệt vời. Cậu xuống làm bạn cùng cô ta và lấy đất nặn những con cá to hóa phép cho nó lội dưới suối tung cả nước lên. Cùng lúc đó mẹ cô gái ra bắt gặp, và cô gái xin mẹ đưa cậu về cùng ở trong gia đình. Họ xem nhau như anh em. Cậu lại nặn một con voi hai đầu cưỡi đi chăn trâu cùng cô gái.
+Khi lớn lên, hai người rất yêu nhau. Nhưng tính cậu bé không chịu ở yên một chỗ. Cậu muốn đi xem nhiều nơi. Cậu muốn về thăm cha mẹ.
+Họ rủ nhau trốn đi.
+Cô gái ra đi mang theo một gùi phép, vì cô là con của nữ thần Mặt Trời . Họ cưỡi lên lưng voi đi suốt đêm suốt ngày. Cha mẹ nàng hay tin liền đuổi theo. Sợ cha mẹ bắt trở lại, cô gái bèn ném lại phía sau một viên đá. Viên đá hóa thành tảng đá to chắn đường. Cha mẹ vất vả trèo qua tảng đá đuổi theo. Cô gái lại ném một cành tre. Một bụi tre gai to tướng mọc ngay giữa đường. Cha mẹ rất khó nhọc chui qua bụi tre để đuổi theo. Cha mẹ đuổi sắp kịp, cô gái bèn hóa phép làm một trái núi khổng lồ chắn ngang đường. Hòn núi đó ngày nay vẫn còn, gọi là núi Rơ-gu. Cha mẹ nàng lại vượt qua được trái núi to ấy và quyết đuổi theo bắt nàng lại. Buộc lòng cô gái hóa phép làm một con sông to cản đường. Đó là con sông Re ngày nay. Cha mẹ nàng đành chịu, không đuổi theo được nữa.
+– Thôi, không đuổi kịp các con rồi!
+Cha mẹ nàng buồn bã ra về. Hôm đó trời âm u và cây cối trầm lặng không có một chút động đậy!
+Hai người đi về nhà cha mẹ người chồng. Cha mẹ không tài nào nhận ra đó là con trai của mình nữa.
+– Anh chị người buôn làng nào mà đến đây?
+Cậu con trai nhìn cha mẹ mình già quá rất thương. Chàng liền thưa:
+– Đây là con trai và con dâu của cha mẹ đấy!
+Bà mẹ nghe nói mừng rỡ chạy ôm chầm cả hai người con vừa nói vừa khóc:
+– Cha mẹ ở nhà tưởng con đã chết ở nơi nào rồi!
+Nhưng người cha thì chưa tin là con của mình. Ông đi lấy xôi vò lại ném cho người con trai. Xôi chạy thẳng vào mồm chàng trai. Ông reo lên:
+– Đúng nó là con trai của ta rồi!
+Sau đó họ giết heo, gà ăn mừng, mời cả dân làng đến dự rất đông vui.
+Họ hóa phép làm nhà cho cha mẹ và vợ chồng mình ở. Chàng lại nặn ra nhiều trâu, bò, heo, gà cho cha mẹ.
+Biết tin chàng trai nặn voi hai đầu năm xưa đã trở về và rất giàu có, lão chúa làng bèn ghen ghét, kéo tôi tớ đến bắt nạt và chiếm đoạt.
+– Năm xưa mày nợ tao. Bây giờ mày phải trả nợ. Nếu không trả thì phải đắp cho tao một con đường sang Lào.
+Chàng bằng lòng đắp cho lão ta một con đường. Chàng hóa phép ra hàng ngàn con voi đi phá núi làm đường. Vài ngày sau, con đường đã xong. Nhưng chưa đủ, tên chúa làng còn bắt chàng làm một chiếc cầu thật to bắc qua sông Re. Hai cha mẹ và hai vợ chồng lo buồn bàn tính cách làm cầu.
+Đêm đó, chàng nằm ngủ thì thấy một ông lão cao to đến báo mộng:
+– Ngày mai cháu ra đầu làng đến chỗ bụi lồ ô có hai cây chặt lấy đem về. Cháu cầm một cây, vợ cháu cầm một cây đứng hai bên sông, gõ xuống nước, sẽ có người đến giúp cháu!
+Sáng hôm sau chàng dậy làm y lời ông lão dặn, chàng chạy ra đầu làng chặt hai cây lồ ô đem về rủ vợ cùng ra sông. Họ vừa gõ xuống nước, cá kéo đến hàng đàn làm thành một chiếc cầu chắc như đá.
+Chúa làng ra trông thấy thích lắm. Chúng kéo cả họ hàng lên cầu đi thử. Cũng chưa thấm vào đâu. Chúng đi khoe khắp các làng và chúng mời những chúa làng lân cận đến thử xem sức bền chắc của cầu. Lũ chúng kéo lên cầu đông nghịt. Kẻ nào cũng khen cầu đẹp và bảo tên chúa làng bắt chàng trai kia làm ở giữa sông một cái nhà to và đẹp.
+Chúng đang bàn tán với nhau trên cầu thì hai vợ chồng chàng trai cầm cây lồ ô gõ xuống nước. Tức khắc đàn cá tan lặn hết, cầu không còn, tất cả những tên chúa làng gian ác đều chết chìm.
+Hai vợ chồng trở về được dân làng đón tiếp niềm nở. Chàng rủ dân làng đi lấy của của bọn chúa làng giàu có về chia cho những ai nghèo khổ. Từ đó, dân làng không còn bị bọn chúa làng gian ác cướp đoạt nữa.
+Mãi sau này khi cha mẹ chàng trai chết, thì vợ chồng chàng cũng biến đi đâu mất. Có người bảo chàng đi theo nàng về trời. Có người bảo vợ chồng chàng đi đến một xứ khác để diệt bọn nhà giàu gian ác cho dân làng khắp nơi sống yên vui hạnh phúc. Mãi đến ngày nay không ai biết chàng tên là gì. Họ chỉ gọi là chàng Dưa. Vì mẹ chàng ăn dưa đẻ ra chàng.
+
+--------------------------------------------------
+
+
+ID: story_091
+TITLE: Chiếc mũ trí tuệ [Truyện cổ tích cho bé]
+URL: https://truyendangian.com/chiec-mu-tri-tue
+
+CONTENT:
+Ngày xửa ngày xưa, có một vị quốc vương đã rất cao tuổi, muốn truyền ngôi vị cho đứa con trai duy nhất có phần ngu đần của mình.
+Nhưng triều thần và người dân lại phản đối ý kiến đó. Họ đề nghị quốc vương rằng sáu tháng sau ngài phải tổ chức cuộc thi tuyển chọn nhân tài. Nếu hoàng tử không chứng minh được trí tuệ của mình, chàng ta sẽ không được lên ngôi.
+Quốc vương vô cùng lo lắng, không nghĩ được cách nào tốt, đành sai hoàng tử đến gặp một mụ phù thủy. Ngài nói với hoàng tử:
+– Con phải đưa thứ này cho mụ phù thủy ăn. Mụ ta là người có pháp thuật, nếu được ăn đồ ăn của con, mụ ta sẽ rất vui vẻ truyền phép thuật cho con.
+Hoàng tử ghi nhớ lời của quốc vương, chàng đem theo rất nhiều đồ ăn, vừa đi trên đường vừa ăn, gặp ai trên đường cũng đưa thức ăn của mình cho họ.
+Cuối cùng hoàng tử gặp một bà lão, chàng đem quả khô còn lại cho bà ta. Bà lão nhận lấy, hoàng tử hỏi, quả nhiên bà ta chính là mụ phù thủy. Vì thế, hoàng tử cầu xin mụ ban cho chàng trí tuệ.
+Mụ phù thủy nói:
+– Ta rất vui mừng được ban trí tuệ cho ngươi. Nhưng với điều kiện quốc vương phải đóng cửa tất cả trường học, vì trường học cho con người tri thức, họ sẽ cướp đi pháp lực phù thủy của ta.
+Hoàng tử vội vàng đồng ý.
+Mụ phù thủy đan cho hoàng tử một chiếc mũ trí tuệ , khi đội chiếc mũ đó lên thì ai cũng sẽ trở nên vô cùng thông minh.
+Hoàng tử trở về, kể lại câu chuyện mình đã trải qua, quốc vương vô cùng mừng rỡ. Họ tin hoàng tử nhất định sẽ được thừa kế ngôi vị.
+Ngày thi tài đã đến, thần dân cử đến chín thanh niên thi diễn thuyết cùng hoàng tử. Tuy trời rất nóng, nhưng hoàng tử vẫn đội chiếc mũ đó. Chàng diễn thuyết rất thành công và được rất nhiều người tán thưởng.
+Trí tuệ của hoàng tử khiến mọi người cảm thấy kinh ngạc, chiếc mũ chàng đội cũng rất kỳ lạ. Vì thế, một người thông minh kiến nghị, khi diễn thuyết thì phải đứng thẳng và bỏ mũ ra để thể hiện lòng tôn trọng đối với mọi người. Lần này quốc vương không có cách nào chối từ.
+Cuộc thi diễn thuyết thứ hai bắt đầu.
+Hoàng tử bỏ chiếc mũ trí tuệ ra thì nói năng lúng túng thật đáng chê cười.
+Mọi người cười lớn và buộc hoàng tử hạ đài.
+Cuối cùng, họ chọn ra một người thông minh nhất trong chín người thanh niên để làm quốc vương, tám người còn lại đều là đại thần.
+
+--------------------------------------------------
+
+
+ID: story_092
+TITLE: Con ngựa lười biếng [Truyện ngụ ngôn ý nghĩa cho bé]
+URL: https://truyendangian.com/con-ngua-luoi-bieng
+
+CONTENT:
+Có một người nuôi hai con ngựa. Một hôm, người chủ ngựa đặt những đồ vật buôn bán lên hai chiếc xe ngựa, mỗi một con ngựa kéo một xe. Trên đường, một con ngựa tụt dần lại phía sau. Ông chủ liền lấy tất cả đồ ở xe ngựa phía sau chất lên xe ngựa trước.
+Con ngựa phía sau thấy đồ trên xe của mình được khuân đi hết, nó mau chóng chạy lên phía trước và cười nhạo con ngựa kia:
+– Ha ha! Anh có chịu nổi không! Anh phải chịu khổ rồi! Anh càng chịu khổ thì ông chủ sẽ càng hành hạ anh.
+Chú ngựa phía trước không nói lời nào, tiếp tục cố gắng đi về phía trước.
+Con ngựa lười biếng thấy thế lại càng đắc ý, không ngừng trêu chọc chú ngựa cần cù kia, nhưng chú ngựa đó vẫn không phản ứng gì.
+Có người nói với ông chủ rằng: “Ngài chỉ cần nuôi một con ngựa thôi, nuôi hai con như thế chẳng phải là lãng phí sao? Chẳng bằng giữ lại một con, đem con ngựa lười nhác kia bán đi, như thế ngài vừa có tiền, lại còn tiết kiệm được lương thực”. Ông chủ nghe thế, cảm thấy ý kiến đó không sai, liền làm theo.
+Con ngựa lười biếng vừa nghe thấy chuyện không hay, vội vàng nghĩ cách bỏ chạy, nhưng nó chưa kịp chạy thì ông chủ lập tức túm lấy dây cương và dắt nó đến bán cho lò mổ.
+
+--------------------------------------------------
+

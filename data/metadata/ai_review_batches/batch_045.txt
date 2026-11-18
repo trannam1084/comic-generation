@@ -1,0 +1,266 @@
+
+Bạn là người đánh giá Dataset cho dự án Vietnamese Comic Generation.
+
+Hãy đánh giá từng truyện để xác định mức độ phù hợp
+khi chuyển thành comic khoảng 4 cảnh.
+
+Đánh giá 4 tiêu chí, mỗi tiêu chí từ 0 đến 2:
+
+1. characters_clear
+0: Không rõ nhân vật
+1: Nhân vật tương đối rõ
+2: Nhân vật rõ ràng
+
+2. events_clear
+0: Sự kiện không có trình tự rõ
+1: Trình tự tương đối rõ
+2: Trình tự sự kiện rõ ràng
+
+3. scene_suitable
+0: Không phù hợp tạo comic
+1: Có thể tạo comic nhưng cần chỉnh sửa
+2: Rất phù hợp để chia khoảng 4 cảnh
+
+4. ending_clear
+0: Không có kết thúc rõ
+1: Kết thúc tương đối rõ
+2: Kết thúc rõ ràng
+
+Tổng điểm score = tổng 4 tiêu chí, tối đa 8.
+
+selected_candidate:
+- true: Nếu score >= 6 và phù hợp tạo comic
+- false: Nếu không phù hợp
+
+difficulty:
+- easy
+- medium
+- hard
+
+Không bịa thêm sự kiện.
+Không đánh giá chỉ dựa trên tên truyện.
+Đánh giá dựa trên nội dung được cung cấp.
+
+Trả về JSON array hợp lệ, không Markdown.
+
+Mỗi truyện:
+
+{
+  "id": "story_001",
+  "title": "...",
+  "characters_clear": 0,
+  "events_clear": 0,
+  "scene_suitable": 0,
+  "ending_clear": 0,
+  "score": 0,
+  "selected_candidate": false,
+  "difficulty": "easy",
+  "reason": "..."
+}
+
+
+==================================================
+STORIES TO EVALUATE
+==================================================
+
+
+ID: story_243
+TITLE: Truyện cổ tích Tấm Cám [Bản kể cũ]
+URL: https://truyendangian.com/truyen-co-tich-tam-cam
+
+CONTENT:
+[alert style=”danger”]
+Truyện cổ tích Tấm Cám là một truyện cổ tích thế sự vào loại tiêu biểu và đắc sắc nhất trong kho tàng truyện cổ tích Việt Nam. Cũng như phần lớn các truyện cổ tích thế sự khác, Tấm Cám đề cao công lí, đồng thời là điều mong ước thiết tha nhất của nhân dân lao động thời xưa trong mối quan hệ xã hội là “Ở hiền gặp lành, ở ác gặp ác”.
+Tấm là cô gái hiền lành, thật thà và chăm chỉ sẽ được hưởng hạnh phúc; mẹ con nhà Cám gian ác, hiểm độc phải bị trừng phạt thích đáng.
+“Những loại bạc ác tinh ma Mình làm mình chịu, kêu mà ai thương.”
+– Truyện Kiều (Nguyễn Du) –
+[/alert]
+Ngày xưa, ở một gia đình kia có hai chị em cùng cha khác mẹ tên là Tấm và Cám. Mẹ Tấm mất sớm, sau đó ít năm cha Tấm cũng qua đời. Tấm ở với dì ghẻ là mẹ của Cám.
+Một hôm, mẹ Cám đưa cho Tấm và Cám mỗi người một cái giỏ, sai đi xúc tép, ai xúc được nhiều thì được thưởng yếm đỏ. Tấm vốn chăm chỉ lại sợ dì mắng nên mải miết suốt buổi xúc được đầy một giỏ cả tôm lẫn tép. Còn Cám, vốn được mẹ nuông chiều, chỉ ham chơi nên chẳng xúc được gì cả. Sợ chị được yếm đỏ, Cảm bèn bảo chị:
+“Chị Tấm ơi, chị Tấm Đầu chị lấm Chị hụp cho sâu Kẻo về mẹ mắng”.
+Tấm nghe lời em hụp xuống thì Cám trút hết tôm tép của Tấm vào giỏ mình, rồi chạy về nhà.
+Khi Tấm lên bờ, nhìn vào giỏi chỉ thấy giỏi không bèn bưng mặt khóc nức nở. Bụt hiện lên hỏi: “Làm sao con khóc?”
+Tấm vừa khóc vừa kể lại sự tình. Bụt bảo xem lại giỏ xem có còn gì không. Tấm dòm lại giỏ thì quả nhiên thấy còn một con cá bống . Bụt dặn đem về thả xuống giếng, mỗi bữa bớt một bát cơm đem cho Bống. Lúc nào cho Bỗng ăn thì gọi:
+“Bống bống, bang bang Lên ăn cơm vàng, cơm bạc nhà ta Chớ ăn cơm hẩm , cháo hoa nhà người”.
+Tấm về làm đúng theo lời Bụt dặn, mỗi bữa cơm bớt đúng một bát, giấu đi đem cho Bống. Mỗi lần nghe Tấm gọi, Bống lại ngoi lên mặt nước, ăn hết cơm rồi mới lặn xuống. Vì thế Bống lớn rất mau.
+Mẹ con nhà Cám thấy sau bữa cơm nào Tấm cũng ra giếng bèn sinh nghi. Mụ dì ghẻ liền sai con đi rình. Cám ra giếng nấp rình, rồi về kể lại cho mẹ nghe.
+Sáng hôm sau, mẹ Cám chợt bảo với Tấm:
+“Con ơi, con! Con đi chăn trâu thì đi đồng xa Chớ chăn đồng nhà, làng bắt mất trâu”.
+Tấm vâng lời dì ghẻ cho trâu đi ăn đồng xa. Ở nhà, hai mẹ con Cám mang một bát cơm ra giếng, cũng gọi Bống như Tấm đã gọi. Bống nổi lên mặt nước thì hai mẹ con Cám vội vàng bắt lấy đem về làm thịt ăn, rồi vùi xương Bống vào trong đống tro bếp.
+Đến chiều Tấm dắt trâu về, đem cơm ra gọi Bống thì không thấy Bống đâu nữa, mà chỉ thấy một cục máu nổi lên trên mặt giếng. Tấm bưng mặt khóc òa lên. Bụt lại hiện ra và hỏi: “Làm sao con khóc?” Tấm kể rõ chuyện. Bụt bảo: “Con về nhà nhặt xương Bống, kiếm bốn cái lọ bỏ xương vào, rồi đem chôn ở bốn chân giường con nằm.”
+Về nhà, Tấm tìm mãi không thấy xương Bống đâu cả. Con gà đang kiếm ăn quanh nhà thấy bế bỗng kêu:
+“Cục ta cục tác Cho ta nắm thóc Ta bới xương cho”.
+Tấm bốc cho gà nắm thóc. Gà bới đống tro trong bếp tìm thấy xương Bống. Tấm nhặt lấy bỏ vào bốn cái lọ, đem chôn ở bốn chân giường.
+Ít lâu sau, có tin nhà vua mở hội. Hai mẹ con Cám sắm sửa quần áo đẹp để đi xem. Đến đúng ngày hội, mụ dì ghẻ lấy một đấu thóc đem trộn với một đấu gạo, rồi bắt Tấm phải nhặt cho hết thóc mới được đi xem hội.
+Hai mẹ con Cám dắt nhau đi rồi, Tấm tủi thân ngồi khóc huhu. Bụt lại hiện lên hỏi: “Làm sao con khóc?”
+Tấm kể lể nỗi khổ của mình, Bụt nghe xong bảo Tấm: “Để ta sai một đàn chim sẻ xuống nhặt thóc giúp con”. Chỉ một lát sau đàn chim đã nhặt xong. Nhưng Tấm lại khóc. Bụt lại hỏi: “Làm sao con khóc?”. Tấm thưa: “Con không có quần áo đẹp để đi xem hội”. Bụt bảo: “Con đi đào những cái lọ đã chôn ngày trước ở bốn chân giường lên!”
+Tấm đào lên thì thấy bốn chiếc lọ chứa đầy quần áo đẹp, một đôi giày nhung thêu kim tuyến óng ảnh, lại có cả một con ngựa hồng yên cương đủ bộ. Tấm thay bộ quần áo đẹp vào, rồi cưỡi ngựa đi xem hội, trông nàng xinh đẹp tuyệt trần.
+Lúc đi qua một cái cầu, Tấm vô ý đánh rơi một chiếc giày xuống nước, không sao lấy lên được. Một lát sau, nhà vua cưỡi voi ra dự hội. Khi đi ngang qua cầu, voi bỗng đứng lại, rống ầm lên, không chịu đi nữa. Vua thấy sự lạ, sai lính thử lặn xuống nước mò xem thì thấy một chiếc giày đàn bà xinh xắn lạ thường.
+Vua tần ngần ngắm nghía mãi chiếc giày, rồi truyền lệnh hễ trong đám đàn bà, con gái đi xem hội, ai ướm chân vừa chiếc giày thì được nhà vua lấy làm vợ.
+Đàn bà, con gái trong hội lập tức chen nhau đến ướm thử. Cả mẹ con nhà Cám cũng đến ướm giày, nhưng không chân ai vừa cả. Tới lượt Tấm đến ướm, mụ dì ghẻ trông thấy liền bĩu môi nói rằng:
+“Chuông khánh còn chẳng ăn ai Nữa là mảnh chĩnh mảnh chai bờ rào”.
+Nhưng chân Tấm ướm vừa vặn như khuôn đúc. Chiếc giày mà quân lính nhà vua mò được dưới đáy nước với chiếc giày Tấm còn giữ trong tay vừa khéo một đôi tuyệt đẹp. Nhà vua cho đem kiệu rước ngay Tấm về cung.
+Đến ngày giỗ bố, Tấm về nhà ăn giỗ. Mụ dì ghẻ bảo Tấm trèo lên cây cau, cắt lấy một chẽ cau cúng bố. Lúc Tấm leo lên đến ngọn cây thì mụ ta chặt luôn gốc cây. Tấm thấy cây rung liền hỏi: “Dì làm gì ở dưới ấy thế?”, mụ bèn trả lời: “Dì đuổi kiến cho nó khỏi đốt con đấy mà!”.
+Cây cau đổ, Tấm ngã lộn cổ xuống ao chết! Mẹ Cám lấy hết quần áo của Tấm mặc vào cho con, rồi đưa con gái vào cung làm vợ vua thay cho Tấm.
+Tấm hóa thành chim vàng anh cũng bay trở về cung vua. Thấy Cám đang phơi áo cho vua, chim bảo:
+“Giặt áo chồng tao Thì giặt cho sạch Phơi áo chồng tao Phơi lao phơi sào Chớ phơi bờ rào Rách áo chồng tao”.
+Vua nghe chim nói lấy làm lạ, bèn gọi:
+“Vàng ảnh vàng anh Có phải vợ anh Chui vào tay áo.”
+Vua vừa dứt lời, chim vàng anh chui tọt ngay vào tay áo vua. Vua bèn cho chim vào lồng sơn son thiết vàng , rồi suốt ngày đêm vui chơi với chim.
+Cám thấy vậy, vội về mách mẹ. Mẹ Cám xui bắt chim làm thịt ăn. Cám nghe lời mẹ, sai lính giết chim ăn thịt, rồi vứt lông ra vườn. Chẳng bao lâu, lông chim hóa ra hai cây xoan đào, cành lá xum xuê, tươi tốt. Nhà vua thấy hai cây xon đào rất đẹp, liền sai mắc võng vào cây để nằm hóng mát suốt ngày. Cám lại về mạch mẹ. Mẹ Cám xui chặt hai cây xoan đào đi, lấy gỗ đóng khung cửi. Nhưng lúc ngồi dệt vải, Cám lại nghe thấy tiếng khung cửi rủa:
+“Kẽo cà kẽo kẹt Lấy tranh chồng chị Chị khoét mắt ra.”
+Cám lại về mách mẹ. Mẹ Cám xui đốt khung cửi đi, rồi đem tro đổ ra bờ đường. Cám về làm theo lời mẹ. Chẳng bao lâu, từ đống tro bên đường mọc lên một cây thị lớn chỉ có một quả rất to. Có bà lão bán hàng nước đi qua, thấy quả thị vừa to vừa đẹp bèn bảo:
+“Thị ơi, thị! Thị rụng bị bà Bà để bà ngửi Chứ bà không ăn”.
+Bà lão nói vừa dứt lời thì quả thị rụng ngay vào giữa bị, bà ta bèn đem về nhà. Từ đó, ngày nào đi chợ về, bà lão cũng thấy nhà cửa ngăn nắp, sạch sẽ, cơm nước đã dọn sẵn sàng, tươm tất, nên rất lấy làm ngạc nhiên.
+Một bữa, giả vờ đi chợ, đến nửa đường, bà quay về, rón rén nhòm qua khe cửa thì thấy một cô tiên rất xinh đẹp đang nấu nướng chuẩn bị bữa ăn. Bất thình lình, bà lão chạy xộc vào ôm chầm lấy cô tiên và nhặt chiếc vỏ thị ở xó buồng xé vụn ngay đi. Từ đo, hai người ở với nhau, thương yêu nhau như mẹ con.
+Một hôm, vua đi qua, ghé vào chỗ ngồi nghỉ ở quán hàng nước của bà lão. Bà lão rót nước, mời trầu nhà vua. Thấy miếng trầu têm cánh phượng rất khéo, giống hệt như miếng trầu Tấm têm ngày trước, vua bèn hỏi: “Trầu này ai têm mà khéo vậy? Có thể cho trẫm xem mặt được không?”.
+Bà lão liền gọi Tấm ra. Vua vừa nhìn thấy, nhận ngay ra vợ mình và đón luôn Tấm về cung.
+Về đến cung, Tấm kể rõ sự tình cho vua nghe. Vua tức giận sai người đem mẹ con Cám lên xử tội. Tấm thương cảm, xin vua tha cho họ. Thấy vợ mình hết lời khuyên xin, vua truyền chỉ đuổi mẹ con Cám ra khỏi cung. Vừa ra đến cổng thành, giông tố ập đến, mẹ con Cám bị sét đánh chết giữa đồng.
+
+--------------------------------------------------
+
+
+ID: story_244
+TITLE: Sự tích chú Cuội cung trăng
+URL: https://truyendangian.com/su-tich-chu-cuoi-cung-trang
+
+CONTENT:
+[alert style=”danger”]
+Sự tích chú Cuội cung trăng là câu chuyện cổ tích nổi tiếng của Việt Nam, lý giải nguồn gốc của hình ảnh cây đa và chú Cuội xuất hiện trên mặt trăng.
+[/alert]
+Ngày xưa ở một miền nọ có một người tên là Cuội. Một hôm, Cuội vào rừng chặt củi, đến gần một con suối nhỏ bỗng thấy một cái hang cọp. Bốn con cọp con nhe nanh, giơ vuốt xông ra cắn Cuội. Cuội liền vung rìu bo cho mỗi con một nhát. Vừa lúc đó, cọp mẹ cũng về tới nơi. Nghe tiếng gầm kinh hồn ở sau lưng, Cuội chỉ kịp quăng rìu leo thoăn thoắt lên ngọn một cây cao.
+Từ trên nhìn xuống, Cuội thấy cọp mẹ lồng lộn trước đàn con đã chết. Nhưng rồi cọp mẹ lẳng lặng đi đến một gốc cây gần chỗ Cuội ẩn, đớp lấy một ít lá, trở lại nhai và mớm cho đàn con. Chỉ một lát sau, bốn con cọp con đã sống lại, vẫy đuôi. Cuội vô cùng sửng sốt. Chờ cọp mẹ đi nơi khác, Cuội mới lần xuống tìm đến cây lạ kia đào gốc vác về.
+Dọc đường gặp một ông lão ăn mày nằm chết trên bãi cỏ, Cuội liền đặt gánh xuống, bứt ngay mấy lá cây lạ, nhai và mớm cho ông già. Kì lạ làm sao, vừa móm xong, ông lão đã mở mắt ngồi dậy. Thấy cây lạ, ông lão liền hỏi chuyện, Cuội kể lại đầu đuôi mọi việc. Nghe xong, ông lão kêu lên:
+– Trời ơi! Cây này chính là cây có phép “cải tử hoàn sinh” đây. Thật là trời cho con để cứu giúp thiên hạ. Con hãy chăm sóc cho cây nhưng nhớ đừng tưới nước bẩn mà cây bay lên trời đó!
+Nói rồi ông lão chống gậy đi. Còn Cuội thì gánh cây về nhà trồng ở góc vườn phía đông, luôn luôn nhớ lời ông lão dặn, ngày nào cũng tưới bằng nước giếng trong.
+Từ ngày có cây thuốc quý, Cuội cứu sống được rất nhiều người. Hễ nghe nói có ai nhắm mắt tắt hơi là Cuội vui lòng mang lá đến tận nơi cứu chữa. Tiếng đồn Cuội có phép lạ lan đi khắp nơi.
+Một hôm, Cuội lội qua con sông gặp xác một con chó chết trôi, Cuội vớt lên rồi giở lá cây trong mình ra cứu chữa cho chó sống lại. Con chó quấn quýt theo Cuội tỏ lòng biết ơn. Từ đấy Cuội có thêm một con vật tinh khôn làm bạn.
+Một lần khác, ở làng bên có người hớt hải chạy đến tìm Cuội, vật nài xin cứu cho con gái mình vừa sẩy chân chết đuối. Cuội vui lòng theo về nhà, lấy lá cây chữa cho. Chỉ một lát sau, mặt cô gái đang tái nhợt bỗng hồng hào, rồi cô gái sống lại. Thấy Cuội là người cứu mình, cô gái xin làm vợ chồng.
+Vợ chồng Cuội sống với nhau thuận hòa, êm ấm, thì bỗng nhiên một hôm, trong khi Cuội đi vắng có bọn giặc cướp đi qua nhà Cuội. Biết Cuội có phép cải tử hoàn sinh, chúng quyết tâm chơi ác. Chúng bèn giết vợ Cuội, cố ý moi ruột người đàn bà vứt xuống sông, rồi mới kéo nhau đi.
+Khi Cuội trở về nhà thì vợ đã chết từ bao giờ, mớm bao nhiêu lá của cây lạ vẫn không công hiệu, vì không có ruột thì làm sao mà sống được.
+Thấy chủ khóc thảm thiết, con chó lại gần xin hiến ruột mình thay vào ruột vợ chủ. Cuội chưa từng làm thế bao giờ, nhưng cũng liều mượn ruột chó thay ruột người xem sao. Quả nhiên người vợ sống lại và vẫn trẻ đẹp như xưa.
+Thương con chó có nghĩa, Cuội bèn nặn thử một bộ ruột bằng đất, rồi đặt vào bụng chó, chó cũng sống lại. Vợ với chồng, người với vật lại càng quấn quýt với nhau hơn xưa.
+Nhưng cũng từ đấy, tính nết vợ Cuội tự nhiên thay đổi hẳn. Hễ nói đâu là quên đó, làm cho Cuội lắm lúc bực mình. Ðã không biết mấy lần, chồng dặn vợ: “Có rác thì đổ bên Tây, chớ đổ bên Ðông, cây dông lên trời!”. Nhưng vợ Cuội hình như bị lũ lẫn, vừa nghe dặn đã quên ngay.
+Một buổi chiều, chồng còn đi rừng kiếm củi chưa về, vợ ra vườn sau, không còn nhớ lời chồng dặn, cứ nhằm vào gốc cây quý mà đổ rác. Không ngờ chị ta vừa đổ rác xong thì mặt đất chuyển động, cây đảo mạnh, gió thổi ào ào. Cây đa tự nhiên bật gốc, từ từ bay lên trời.
+Vừa lúc đó, Cuội về đến nhà. Thấy thế, Cuội hốt hoảng vứt gánh củi, nhảy bổ đến, toan níu cây lại. Nhưng cây lúc ấy đã rời khỏi mặt đất lên quá đầu người. Cuội chỉ kịp mắc rìu vào rễ cây, định lôi cây xuống, nhưng cây vẫn cứ bốc lên, không một sức nào cản nổi. Cuội cũng nhất định không chịu buông, thành thử cây kéo cả Cuội bay vút lên đến cung trăng.
+Từ đấy Cuội ở luôn cung trăng với cả cây quý của mình. Mỗi năm cây chỉ rụng xuống biển có một lá. Bọn cá heo đã chực sẵn, khi lá xuống mặt nước là chúng tranh nhau đớp lấy, coi như món quà thuốc quý để cứu chữa cho tộc loại chúng.
+Nhìn lên Mặt Trăng, người ta thấy một vết đen rõ hình một cây cổ thụ có người ngồi dưới gốc, người ta gọi cái hình ấy là hình “chú Cuội ngồi gốc cây đa”.
+
+--------------------------------------------------
+
+
+ID: story_245
+TITLE: Sự tích bánh chưng – bánh giầy [Truyện truyền thuyết Việt Nam]
+URL: https://truyendangian.com/su-tich-banh-chung-banh-giay
+
+CONTENT:
+Sự tích bánh chưng – bánh giầy (hay còn gọi sự tích bánh chưng bánh dày ) giải thích nguồn gốc của hai thứ bánh cổ truyền và phản ánh quan niệm sơ khai của người xưa về vũ trụ: trời tròn, đất vuông.
+Ngoài ra, cũng như nhiều truyện cổ dân gian khác, câu chuyện có ý nghĩa giáo dục sâu sắc về nền tảng đạo đức của dân tộc: đó là tình cảm gắn bó thiết tha với tổ tông, với cội nguồn dân tộc và lòng thành kính biết ơn đời đời tổ tiên, ông cha chúng ta đã gây dựng lên non sông đất nước.
+Uống nước nhớ nguồn – Tục ngữ Việt Nam –
+1. Ngày đó, vua Hùng trị vì đất nước. Thấy mình đã gìa, sức khỏe ngày một suy yếu, vua có ý định chọn người nối ngôi . Vua có cả thảy hai mươi hai người con trai, người nào cũng đã khôn lớn và tài trí hơn người. Vua bèn quyết định mở một cuộc thi để kén chọn.
+Vua Hùng cho hội họp tất cả các hoàng tử lại. Vua truyền bảo:
+– Cha biết mình gần đất xa trời . Cha muốn truyền ngôi cho một trong số anh em các con. Bây giờ mỗi con hãy làm một món ăn lạ để cúng tổ tiên . Ai có món ăn quý vừa ý ta thì sẽ được ta chọn.
+Nghe vua cha phán truyền thế, các hoàng tử thi nhau cho người đi khắp mọi nơi lùng kiếm thức ăn quý. Họ lặn lội lên ngàn , xuống biển không sót chỗ nào.
+2. Trong số hai mươi hai hoàng tử, có chàng Liêu là hoàng tử thứ mười tám. Mồ côi mẹ từ nhỏ, chàng Liêu từng sống nhiều ngày cô đơn. Chẳng có ai giúp đỡ chàng trong việc lo toan tìm kiếm món ăn lạ. Chỉ còn ba ngày nữa là đến kỳ thi mà Liêu vẫn chưa có gì. Đêm hôm đó, Liêu nằm gác tay lên trán lo lắng, suy nghĩ rồi ngủ quên lúc nào không biết. Liêu mơ mơ màng màng thấy có một vị nữ thần từ trên trời bay xuống giúp chàng. Nữ thần bảo:
+– To lớn trong thiên hạ không gì bằng trời đất, của báo nhất trần gian không gì bằng gạo . Hãy đem vo cho tôi chỗ nếp này, rồi kiếm cho tôi một ít đậu xanh.
+Rồi Liêu thấy thần lần lượt bày ra những tàu lá rộng và xanh. Thần vừa gói vừa giảng giải:
+– Bánh này giống hình mặt đất. Đất có cây cỏ, đồng ruộng thì màu phải xanh xanh, hình phải vuông vắn. Trong bánh phải cho thịt, cho đỗ để lấy ý nghĩa đất chở cầm thú , cỏ cây… Rồi đem thứ nếp trắng đồ lên cho dẻo, giã ra làm thứ bánh giống hình trời: màu phải trắng, hình phải tròn và khum khum như vòm trời…
+Tỉnh dậy, Liêu bắt đầu làm bánh y như trong giấc mộng.
+3. Ngày các hoàng tử đem các món ăn đến dự thi là một ngày náo nhiệt nhất ở Phong Châu. Người đông nghìn nghịt. Nhân dân các nơi náo nức về dự một cái Tết tưng bừng hiếm có.
+Đúng vào lúc mặt trời mọc, vua Hùng đi kiệu đến làm lễ tổ tiên. Chiêng trống cờ quạt thật là rộn rã. Tất cả trông chờ kết quả cuộc chấm thi.
+Nhưng tất cả các món “nem công, chả phượng, tay gấu, gan tê” của các hoàng tử đều không thể bằng thứ bánh quê mùa của Liêu.
+Sau khi đã nếm xong, vua Hùng rất ngạc nhiên, cho đòi Liêu lên hỏi cách thứ làm bánh. Hoàng tử cứ thực tâu lên, không quên nhắc lại giấc mộng lạ của mình.
+Trưa hôm ấy, vua Hùng trịnh trọng tuyên bố hoàng tử thứ mười tám được giải nhất và được truyền ngồi. Vua cầm hai thứ bánh giơ lên cho mọi người xem và phán rõ:
+– Hai thứ bánh này bày tỏ được lòng hiếu thảo của con cháu, tôn ông bà tổ tiên như Trời Đất, nhưng những hạt ngọc ấy mọi người đều làm ra được. Phải chăng đó không phải là những món ăn ngon và quý nhất để ta dâng cúng tổ tiên…
+Từ đó thành tục lệ , hàng năm cứ đến ngày Tết, mọi người đều làm hai thứ bánh đó, gọi là bánh chưng bánh giầy, để thờ cúng tổ tiên.
+Hoàng tử Liêu sau được làm vua, tức Hùng Vương thứ bảy.
+
+--------------------------------------------------
+
+
+ID: story_246
+TITLE: Ông lão đánh cá và con cá vàng
+URL: https://truyendangian.com/ong-lao-danh-ca-va-con-ca-vang
+
+CONTENT:
+[alert style=”danger”]
+Ông lão đánh cá và con cá vàng là truyện dân gian Nga, được Pushkin kể lại bằng 206 câu thơ và được Vũ Đình Liên cùng với Lê Trí Viễn dịch ra tiếng Việt.
+Câu chuyện ca ngợi lòng biết ơn, phê phán đức tính nhu nhược và là bài học cho những kẻ tham lam.
+[/alert]
+Ngày xưa, có hai vợ chồng ông lão đánh cá ở với nhau trong một túp lều nát trên bờ biển. Ngày ngày chồng đi thả lưới, vợ ở nhà kéo sợi.
+Một hôm người chồng ra biển đánh cá. Lần đầu kéo lưới chỉ thấy có bùn; lần thứ nhì kéo lưới chỉ chỉ thấy cây rong biển ; lần thứ ba kéo lưới thì bắt được một con cá vàng. Con cá cất tiếng kêu van:
+– Ông lão ơi! Ông sinh phúc thả tôi trở lại xuống biển, tôi sẽ xin đền ơn ông, ông muốn gì cũng được.
+Ông lão ngạc nhiên, nhưng rồi cũng thả con cá xuống biển và bảo:
+– Trời phù hộ cho ngươi! Ngươi trở về biển khơi mà vùng vẫy. Ta không đòi gì cả, ta cũng chẳng cần gì.
+Về nhà, ông lão đem câu chuyện kể cho vợ nghe. Mụ vợ mắng:
+– Đồ ngốc! Sao lại không bắt con cá đền cái gì? Đòi một cái máng cho lợn ăn không được à? Cái máng nhà đã gần vỡ rồi!
+Thế là ông lão đi ra biển. Biển gợn sóng êm ả. Ông lão gọi con cá vàng. Con cá bơi lên hỏi:
+– Ông lão ơi! Ông cần gì thế?
+Ông lão chào con cá và bảo:
+– Cá ơi! Giúp tôi với! Mụ vợ tôi nó mắng tôi và càu nhàu mãi làm tôi không ở yên được. Mụ ấy đòi một cái máng lợn ăn mới. Máng nhà tôi đã sứt mẻ rồi.
+Con cá vàng trả lời:
+– Ông lão ơi! Đừng băn khoăn nữa. Cứ về đi. Tôi sẽ giúp ông. Ông sẽ có một cái máng mới.
+Ông lão về đến nhà thì mụ vợ đã có một cái máng mới thật. Nhưng mụ lại quát to hơn:
+– Đồ ngu! Đòi một cái máng thật à? Một cái máng thì thấm vào đâu? Đi tìm lại con cá và đòi cho một cái nhà rộng.
+Thế là ông lão lại đi ra biển. Biển xanh đã nổi sóng. Ông lão gọi con cá vàng. Con cá bơi lên hỏi:
+– Ông lão ơi! Ông lão cần gì thế?
+Ông lão chào con cá và nói:
+– Giúp tôi với, cá ơi! Mụ vợ tôi nó mắng nhiều hơn và không để tôi yên chút nào. Mụ đòi một toà nhà đẹp.
+Con cá vàng lại trả lời ông:
+– Ông lão ơi! Đừng băn khoăn quá. Thôi hãy về đi. Tôi kêu trời phù hộ cho, ông lão sẽ được cái nhà rộng và đẹp.
+Ông lão trở về túp lều của mình, chẳng thấy lều đâu mà chỉ thấy trước mặt một ngôi nhà đẹp, có cổng lớn bằng gỗ lim, trong ngoài sáng sủa, có lò sưởi, quét vôi trắng xoá, và mụ vợ đang ngồi bên cửa sổ.
+Mụ thấy ông lão về lại mắng như tát nước vào mặt:
+– Đồ ngu! Ngốc sao ngốc thế! Đòi một cái nhà thôi à? Trời! Lại tìm ngay con cá ngay và bảo tao không muốn làm một mụ nông dân quèn , tao muốn làm một bà nhất phẩm phu nhân kia.
+Ông lão lại lóc cóc ra biển. Biển xanh nổi sóng dữ dội. Ông lão gọi con cá vàng. Con cá bơi lên hỏi:
+– Ông lão cần gì thế, ông lão ơi!
+Ông lão chào con cá và trả lời:
+– Giúp tôi với, cá ơi! Mụ vợ tôi lại phát khùng lên, nó chẳng để tôi yên chút nào. Bây giờ nó không muốn làm nông dân nữa mà muốn làm một bà nhất phẩm phu nhân.
+Con cá vàng lại trả lời:
+– Ông lão ơi! Đừng lo lắng quá. Trời sẽ phù hộ ông lão.
+Ông lão lại trở về. Lão ngạc nhiên thấy trước mặt một toà lâu đài lớn, mụ vợ đang đứng trên thềm cao, mình khoác áo lông, đầu đội mũ nhiễu hoa, cổ quấn ngọc trai, tay đeo nhẫn vàng, chân đi giày đỏ. Xung quanh mụ kẻ hầu người hạ tấp nập, còn mụ thì luôn mồm quở mắng. Ông lão bảo mụ vợ:
+– Kính chào phu nhân, chắc bây giờ bà đã thoả nguyện rồi chứ?
+Mụ vợ mắng lão một thôi và bắt lão xuống quét dọn chuồng ngựa.
+Được ít tuần lễ, mụ lại giận dữ, mụ bắt ông lão đi tìm con cá:
+– Lão đi tìm con cá và bảo nó tao không muốn làm một bà phu nhân nữa, tao muốn làm nữ hoàng kia.
+Ông lão hoảng sợ kêu xin:
+– Mụ nói gì vậy? Mụ có lẫn không? Mụ đi chẳng biết đường đi, nói chẳng biết đường nói mà đòi làm nữ hoàng? Thiên hạ họ biết, họ sẽ cười cho.
+Mụ vợ nổi trận lôi đình tát vào mặt ông lão:
+– Mày cãi à? Mày dám cãi một bà nhất phẩm phu nhân à? Đi ngay ra biển, nếu không tao sẽ cho người lôi đi.
+Ông lão đành lủi thủi ra biển. Biển nổi sóng mù mịt. Ông lão gọi con cá. Con cá bơi đến hỏi:
+– Ông lão ơi! Ông lão cần gì thế?
+Ông lão chào con cá và nói:
+– Mụ vợ tôi lại nổi cơn điên rồi. Nó không muốn làm bà nhất phẩm phu nhân nữa, nó muốn làm nữ hoàng.
+Con cá trả lời:
+– Thôi đừng lo lắng. Cứ về đi. Trời phù hộ lão. Mụ già sẽ là nữ hoàng.
+Ông lão trở về và thấy trước mặt cung điện nguy nga, mụ vợ lão đã thành nữ hoàng đang ngồi ở bàn tiệc. Bọn thị vệ đang rót mời mụ những thứ rượu quý của các nước phương xa và dâng cho mụ những thứ bánh rất ngon lành. Xung quanh lại có cả một đội vệ binh gươm giáo chỉnh tề , đứng hầu. Ông lão trông thấy, hoảng sợ, cúi rạp xuống đất chào mụ vợ và nói:
+– Kính chào nữ hoàng. Chắc bây giờ nữ hoàng đã thoả lòng rồi chứ?
+Mụ vợ không thèm nhìn, ra lệnh đuổi đi. Bọn thị vệ xốc túm vai ông lão đẩy ra ngoài; bọn vệ binh cũng chạy đến tuốt gươm doạ chém. Người dân không rõ đầu đuôi, cũng chạy lại chế giễu ông lão và bảo: “Đáng kiếp! Có thế mới sáng mắt ra, bận sau đừng thấy người sang bắt quàng làm họ nữa!”.
+Được ít tuần, mụ vợ lại nổi cơn thịnh nộ . Mụ sai người đi bắt ông lão đến. Mụ bảo:
+– Mày hãy đi tìm con cá, bảo nó tao không muốn làm nữ hoàng, tao muốn làm Long Vương ngự trên mặt biển, để con cá vàng hầu hạ tao và làm theo ý muốn của tao.
+Ông lão không dám trái lời mụ. Ông lại đi ra biển. Một cơn giông tố kinh khủng kéo đến, mặt biển nổi sóng ầm ầm. Ông lão gọi con cá vàng. Con cá bơi đến hỏi:
+– Ông lão có việc gì thế? Ông lão cần gì?
+Ông lão chào con cá và nói:
+– Cá ơi, giúp tôi với! Thương tôi với! Tôi sống làm sao được với mụ vợ quái ác này! Bây giờ mụ ấy không muốn làm nữ hoàng nữa, mụ muốn làm Long Vương ngự trên mặt biển, để bắt cá vàng phải hầu hạ mụ và làm theo ý muốn của mụ.
+Con cá vàng không nói gì, quẫy đuôi lặn sâu xuống đáy biển. Ông lão đứng trên bờ đợi mãi không thấy nó lên trả lời, mới trở về.
+Đến nơi, ông sửng sốt, lâu đài cung điện biến đâu mất; trước mắt, ông lão lại thấy túp lều nát ngày xưa, và trên bậc cửa, mụ vợ đang ngồi trước cái máng lợn ăn sứt mẻ.
+
+--------------------------------------------------
+
+
+ID: story_248
+TITLE: Câu chuyện bó đũa [Truyện ngụ ngôn Việt Nam]
+URL: https://truyendangian.com/cau-chuyen-bo-dua
+
+CONTENT:
+Câu chuyện bó đũa là truyện ngụ ngôn Việt Nam ý nghĩa, cho thấy sức mạnh to lớn của sự đoàn kết và khuyên nhủ anh em trong gia đình phải biết đồng sức đồng lòng, yêu thương, giúp đỡ lẫn nhau.
+Một cây làm chẳng nên non Ba cây chụm lại nên hòn núi cao. – Ca dao Việt Nam –
+Một ông lão làm ruộng có bốn người con trai. Một hôm ông gọi cả bốn người lại trước một cái bàn, trên để một bó đũa và một túi bạc. Ông bảo rằng:
+– Hễ ai trong các con bẻ được bó đũa này thì ta cho túi bạc.
+Bốn người con mỗi người thử một lượt, không ai bẻ được.
+Ông già bèn cởi bó đũa ra, bẻ từng chiếc một, thì bẻ gãy như chơi. Các con nói rằng:
+– Nếu bẻ từng cái một, chẳng khó gì cả.
+Người cha từ tốn bảo:
+– Này các con, bây gừi các con đã hiểu rằng: Muốn có sức mạnh phải đoàn kết. Khi ta chết rồi, các con phải nhớ đến chuyện bó đũa này. Các con phải thương yêu nhau, đùm bọc lấy nhau, thì mới đủ sức đối với người ngoài.
+
+--------------------------------------------------
+
