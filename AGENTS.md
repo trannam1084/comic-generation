@@ -218,3 +218,15 @@ Không tự động chuyển sang giai đoạn tiếp theo khi chưa có xác nh
 Tài liệu AI VIET NAM – AIO2025 là nguồn tham khảo được nhóm nêu tên; repository chưa có PDF/phiên bản/trang đối chiếu. Không gán chi tiết thiết kế hay cải tiến của nhóm cho PDF khi chưa có dẫn chứng. `docs/model_selection.md` ghi rõ ứng viên model và phần License Review còn mở.
 
 Không suy diễn rằng toàn bộ pipeline đã hoạt động.
+
+## 14. Kaggle execution và experiment artifacts
+
+- Chỉ chạy commands read-only trong phạm vi task được user cho phép; dùng CLI authentication đã cấu hình, không đọc credential files hoặc yêu cầu token trong chat.
+- Phải được user phê duyệt trước mỗi GPU run; trình bày notebook/metadata hash, source/model revision, input cases, accelerator, timeout và expected artifacts trước khi xin phép. Không coi quyền publish Git hoặc upload notebook là quyền chạy GPU.
+- Không tự retry failed experiments hoặc gửi lại execution request khi chưa rõ trạng thái run trước.
+- Không in/log/sao chép credentials hoặc đưa chúng vào code, context hay artifacts.
+- Không tự công khai hoặc xóa notebook/dataset; chỉ upload nội dung trong phạm vi được phê duyệt.
+- Không sửa experiment artifacts gốc, gồm ZIP, raw outputs, manifests và checksums; lưu phân tích mới riêng và tham chiếu checksum baseline.
+- Không commit weights, cache, credentials hoặc experiment ZIPs; lưu experiments ngoài repository.
+
+Workflow và giới hạn CLI/API: [docs/kaggle_workflow.md](docs/kaggle_workflow.md).
