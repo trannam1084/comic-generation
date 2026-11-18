@@ -113,21 +113,21 @@ Không tự ý sửa Data Contract nếu chưa có sự đồng ý của nhóm t
 
 ## 8. Phân công thành viên
 
-TV1 — Nhóm trưởng:
+TV1 — Trần Hải Nam — Nhóm trưởng:
 - LLM Story Generation.
 - Storyboard schema.
 - Validator và Repair.
 - Pipeline integration.
 - Kiến trúc hệ thống.
 
-TV2:
+TV2 — An Hoàng Anh:
 - Image Prompt Builder.
 - Image Generation.
 - Comic Renderer.
 - Gradio UI.
 - Character Consistency.
 
-TV3:
+TV3 — Nguyễn Công Thành:
 - Dataset.
 - Evaluation Metrics.
 - Ablation Study.
