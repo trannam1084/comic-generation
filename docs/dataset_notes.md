@@ -61,6 +61,7 @@ Phân bố difficulty chính thức phải được tính trực tiếp từ hai
 - `metadata/dataset_selection.csv`: theo dõi ứng viên, quyết định chọn, split và trạng thái human review.
 - `metadata/ai_evaluated_stories.csv`: kết quả AI-assisted scoring, không phải xác nhận của người review.
 - Chỉ các hàng có trạng thái review rõ ràng mới được xem là đã review. `Pending` không được tính là đã review.
+- Tại thời điểm kiểm tra branch `feature/evaluation`, trong 30 record được chọn có **5** hàng `Reviewed - approved for Dev` và **25** hàng `Pending`. Ngoài 30 record được chọn có 5 hàng `Reviewed - not selected for updated Dev`.
 - Ghi chú `normalization_note` thể hiện rõ nội dung có AI hỗ trợ và có thể cần đối chiếu.
 
 ## 6. Nguồn và quyền sử dụng
@@ -77,7 +78,7 @@ Validator chỉ kiểm tra cấu trúc, kiểu dữ liệu, URL hình thức, ID
 4. Nếu rút gọn để làm comic, ghi rõ phần lược bỏ; không biến suy luận thành sự kiện nguồn.
 5. Ghi trạng thái review và người/ngày review trong metadata theo quy ước nhóm.
 
-Repository hiện không có bằng chứng xác nhận toàn bộ 30 record đã được đối chiếu từng dòng với văn bản nguồn. Vì vậy không tuyên bố semantic review đã hoàn tất.
+Repository hiện không có bằng chứng xác nhận toàn bộ 30 record đã được đối chiếu từng dòng với văn bản nguồn. Trong lần kiểm tra gần nhất, chỉ thực hiện cross-check nguồn ở một số record (ưu tiên 5 record hard); việc đó không thay thế review độc lập cho cả dataset. Với 25 record đang Pending, không tuyên bố semantic review đã hoàn tất.
 
 ## 8. Dependencies và cách chạy
 
