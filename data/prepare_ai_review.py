@@ -1,117 +1,64 @@
-import pandas as pd
+"""Create prompt batches from the optional candidate corpus.
+Importing this module creates no directories or files.
+"""
 from pathlib import Path
 
-INPUT_FILE = Path("data/metadata/candidate_stories.csv")
-OUTPUT_DIR = Path("data/metadata/ai_review_batches")
-
+ROOT_DIR = Path(__file__).resolve().parents[1]
+INPUT_FILE = ROOT_DIR / "data" / "metadata" / "candidate_stories.csv"
+OUTPUT_DIR = ROOT_DIR / "data" / "metadata" / "ai_review_batches"
 BATCH_SIZE = 5
+REQUIRED_COLUMNS = {"id", "title", "url", "content"}
 
-OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
-
-df = pd.read_csv(INPUT_FILE)
-
-required_columns = ["id", "title", "url", "content"]
-
-for col in required_columns:
-    if col not in df.columns:
-        raise ValueError(f"Missing column: {col}")
-
-df = df.dropna(subset=["content"])
-df = df.reset_index(drop=True)
-
-prompt = """
+PROMPT = """
 Bạn là người đánh giá Dataset cho dự án Vietnamese Comic Generation.
-
-Hãy đánh giá từng truyện để xác định mức độ phù hợp
-khi chuyển thành comic khoảng 4 cảnh.
-
-Đánh giá 4 tiêu chí, mỗi tiêu chí từ 0 đến 2:
-
-1. characters_clear
-0: Không rõ nhân vật
-1: Nhân vật tương đối rõ
-2: Nhân vật rõ ràng
-
-2. events_clear
-0: Sự kiện không có trình tự rõ
-1: Trình tự tương đối rõ
-2: Trình tự sự kiện rõ ràng
-
-3. scene_suitable
-0: Không phù hợp tạo comic
-1: Có thể tạo comic nhưng cần chỉnh sửa
-2: Rất phù hợp để chia khoảng 4 cảnh
-
-4. ending_clear
-0: Không có kết thúc rõ
-1: Kết thúc tương đối rõ
-2: Kết thúc rõ ràng
-
-Tổng điểm score = tổng 4 tiêu chí, tối đa 8.
-
-selected_candidate:
-- true: Nếu score >= 6 và phù hợp tạo comic
-- false: Nếu không phù hợp
-
-difficulty:
-- easy
-- medium
-- hard
-
-Không bịa thêm sự kiện.
-Không đánh giá chỉ dựa trên tên truyện.
-Đánh giá dựa trên nội dung được cung cấp.
-
-Trả về JSON array hợp lệ, không Markdown.
-
-Mỗi truyện:
-
-{
-  "id": "story_001",
-  "title": "...",
-  "characters_clear": 0,
-  "events_clear": 0,
-  "scene_suitable": 0,
-  "ending_clear": 0,
-  "score": 0,
-  "selected_candidate": false,
-  "difficulty": "easy",
-  "reason": "..."
-}
+Đánh giá từng truyện theo 4 tiêu chí từ 0 đến 2:
+characters_clear, events_clear, scene_suitable, ending_clear.
+score là tổng điểm (tối đa 8); difficulty thuộc easy, medium, hard.
+Không bịa thêm sự kiện; dựa trên nội dung truyện, không chỉ tên truyện.
+Trả về JSON array hợp lệ, không Markdown. Mỗi object phải có id, title,
+characters_clear, events_clear, scene_suitable, ending_clear, score,
+selected_candidate, difficulty và reason.
 """
 
-for start in range(0, len(df), BATCH_SIZE):
 
-    batch = df.iloc[start:start + BATCH_SIZE]
+def main() -> int:
+    try:
+        import pandas as pd
+    except ImportError as exc:
+        raise SystemExit("Install optional dependency: python -m pip install pandas") from exc
+    if not INPUT_FILE.is_file():
+        raise SystemExit(f"Candidate CSV not found: {INPUT_FILE}")
+    try:
+        df = pd.read_csv(INPUT_FILE)
+    except pd.errors.EmptyDataError:
+        raise SystemExit(f"Candidate CSV is empty: {INPUT_FILE}")
 
-    batch_number = start // BATCH_SIZE + 1
+    missing = REQUIRED_COLUMNS - set(df.columns)
+    if missing:
+        raise SystemExit(f"Candidate CSV missing columns: {', '.join(sorted(missing))}")
+    if df.empty:
+        raise SystemExit("Candidate CSV contains headers but no rows.")
+    df = df.dropna(subset=["id", "title", "url", "content"])
+    df = df[df["content"].astype(str).str.strip().ne("")]
+    if df.empty:
+        raise SystemExit("No complete candidate rows with non-empty content.")
 
-    output_file = OUTPUT_DIR / f"batch_{batch_number:03d}.txt"
+    OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
+    batch_count = (len(df) + BATCH_SIZE - 1) // BATCH_SIZE
+    for number, start in enumerate(range(0, len(df), BATCH_SIZE), start=1):
+        batch = df.iloc[start:start + BATCH_SIZE]
+        sections = [PROMPT, "\nSTORIES TO EVALUATE\n"]
+        for _, row in batch.iterrows():
+            sections.append(
+                f"ID: {row['id']}\nTITLE: {row['title']}\nURL: {row['url']}\n"
+                f"CONTENT:\n{row['content']}\n{'-' * 50}\n"
+            )
+        output_file = OUTPUT_DIR / f"batch_{number:03d}.txt"
+        output_file.write_text("\n".join(sections), encoding="utf-8")
+        print(f"Created: {output_file}")
+    print(f"Total stories: {len(df)}; batches: {batch_count}")
+    return 0
 
-    content = prompt + "\n\n"
-    content += "=" * 50
-    content += "\nSTORIES TO EVALUATE\n"
-    content += "=" * 50 + "\n\n"
 
-    for _, row in batch.iterrows():
-
-        content += f"""
-ID: {row['id']}
-TITLE: {row['title']}
-URL: {row['url']}
-
-CONTENT:
-{row['content']}
-
-{'-' * 50}
-
-"""
-
-    output_file.write_text(content, encoding="utf-8")
-
-    print(f"Created: {output_file}")
-
-print("\nDone!")
-print(f"Total stories: {len(df)}")
-print(f"Batch size: {BATCH_SIZE}")
-print(f"Total batches: {(len(df) + BATCH_SIZE - 1) // BATCH_SIZE}")
+if __name__ == "__main__":
+    raise SystemExit(main())

@@ -120,3 +120,56 @@ def test_duplicate_character_ids_are_detected():
         {"id": "char_1", "name": "Nhân vật khác", "description": "Mô tả."}
     )
     assert any("duplicate character id" in e for e in validate_record(record, "test"))
+
+
+def test_empty_jsonl_files_report_wrong_record_count(tmp_path):
+    dev = tmp_path / "empty_dev.jsonl"
+    test = tmp_path / "empty_test.jsonl"
+    dev.write_text("", encoding="utf-8")
+    test.write_text("", encoding="utf-8")
+    errors, counts = validate_dataset_files(dev, test, expected_dev=1, expected_test=1)
+    assert counts == {"dev_records": 0, "test_records": 0, "total_records": 0}
+    assert any("expected 1 records, found 0" in error for error in errors)
+
+
+def test_missing_jsonl_file_is_reported(tmp_path):
+    missing = tmp_path / "missing.jsonl"
+    present = tmp_path / "present.jsonl"
+    write_jsonl(present, [valid_record()])
+    errors, _ = validate_dataset_files(missing, present, expected_dev=0, expected_test=1)
+    assert any("file does not exist" in error for error in errors)
+
+
+def test_malformed_url_does_not_crash_validator():
+    record = valid_record(url="https://[invalid-host/story")
+    errors = validate_record(record, "test")
+    assert any("source_url must be a valid HTTP(S) URL" in error for error in errors)
+
+
+def test_duplicate_url_inside_same_split_is_detected(tmp_path):
+    dev = tmp_path / "dev.jsonl"
+    test = tmp_path / "test.jsonl"
+    write_jsonl(
+        dev,
+        [
+            valid_record("story_a", "https://example.org/story"),
+            valid_record("story_b", "https://EXAMPLE.org/story/"),
+        ],
+    )
+    write_jsonl(test, [])
+    errors, _ = validate_dataset_files(dev, test, expected_dev=2, expected_test=0)
+    assert any("Dev: duplicate source_url" in error for error in errors)
+
+
+def test_optional_utility_modules_import_without_running_jobs():
+    import importlib
+
+    modules = [
+        "data.evaluate_stories",
+        "data.inspect_dataset",
+        "data.prepare_ai_review",
+        "data.save_ai_review",
+        "scripts.test",
+    ]
+    for module in modules:
+        importlib.import_module(module)

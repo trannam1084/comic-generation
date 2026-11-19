@@ -1,27 +1,45 @@
-import pandas as pd
+"""Inspect the optional raw story CSV. Importing the module performs no file I/O."""
+from pathlib import Path
 
-DATA_PATH = "data/raw/full_story.csv"
+ROOT_DIR = Path(__file__).resolve().parents[1]
+DATA_PATH = ROOT_DIR / "data" / "raw" / "full_story.csv"
 
-df = pd.read_csv(DATA_PATH)
 
-print("===== DATASET INFORMATION =====")
-print("Number of rows:", len(df))
-print("Columns:", df.columns.tolist())
+def main() -> int:
+    try:
+        import pandas as pd
+    except ImportError as exc:
+        raise SystemExit("Install optional dependency: python -m pip install pandas") from exc
+    if not DATA_PATH.is_file():
+        raise SystemExit(f"Raw CSV not found: {DATA_PATH}")
+    try:
+        df = pd.read_csv(DATA_PATH)
+    except pd.errors.EmptyDataError:
+        raise SystemExit(f"Raw CSV is empty: {DATA_PATH}")
 
-print("\n===== MISSING VALUES =====")
-print(df.isnull().sum())
+    required = {"url", "title", "content"}
+    missing = required - set(df.columns)
+    if missing:
+        raise SystemExit(f"Raw CSV missing columns: {', '.join(sorted(missing))}")
+    if df.empty:
+        print("Raw CSV contains headers but no rows.")
+        return 0
 
-print("\n===== DUPLICATE URL =====")
-print(df["url"].duplicated().sum())
+    print("===== DATASET INFORMATION =====")
+    print("Rows:", len(df))
+    print("Columns:", df.columns.tolist())
+    print("\n===== MISSING VALUES =====")
+    print(df.isnull().sum())
+    print("\n===== DUPLICATES =====")
+    print("URL:", df["url"].duplicated().sum())
+    print("Title:", df["title"].duplicated().sum())
+    print("\n===== CONTENT LENGTH =====")
+    print(df["content"].fillna("").astype(str).str.len().describe())
+    print("\n===== SAMPLE TITLES =====")
+    for title in df["title"].head(20):
+        print("-", title)
+    return 0
 
-print("\n===== DUPLICATE TITLE =====")
-print(df["title"].duplicated().sum())
 
-print("\n===== CONTENT LENGTH =====")
-df["content_length"] = df["content"].fillna("").str.len()
-
-print(df["content_length"].describe())
-
-print("\n===== SAMPLE TITLES =====")
-for title in df["title"].head(20):
-    print("-", title)
+if __name__ == "__main__":
+    raise SystemExit(main())

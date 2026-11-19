@@ -58,8 +58,17 @@ def validate_record(record, location: str) -> list[str]:
 
     source_url = record.get("source_url")
     if isinstance(source_url, str) and source_url.strip():
-        parsed = urlsplit(source_url.strip())
-        if parsed.scheme not in {"http", "https"} or not parsed.netloc:
+        try:
+            parsed = urlsplit(source_url.strip())
+            port = parsed.port
+            valid_url = (
+                parsed.scheme in {"http", "https"}
+                and bool(parsed.hostname)
+                and (port is None or 1 <= port <= 65535)
+            )
+        except ValueError:
+            valid_url = False
+        if not valid_url:
             errors.append(f"{location}: source_url must be a valid HTTP(S) URL")
 
     characters = record.get("characters")
@@ -180,20 +189,23 @@ def validate_dataset_files(
     for duplicate in sorted(dev_ids & test_ids):
         errors.append(f"Dev/Test: duplicate story id across splits: {duplicate}")
 
-    def collect_urls(records: list[dict]) -> set[str]:
+    def collect_urls(records: list[dict], label: str) -> set[str]:
         values: set[str] = set()
         for record in records:
             value = record.get("source_url")
             if isinstance(value, str) and value.strip():
                 try:
-                    values.add(normalize_url(value))
+                    normalized = normalize_url(value)
                 except ValueError:
-                    # Invalid ports/URLs are already reported by validate_record.
+                    # Invalid URLs are already reported by validate_record.
                     continue
+                if normalized in values:
+                    errors.append(f"{label}: duplicate source_url: {normalized}")
+                values.add(normalized)
         return values
 
-    dev_urls = collect_urls(dev_records)
-    test_urls = collect_urls(test_records)
+    dev_urls = collect_urls(dev_records, "Dev")
+    test_urls = collect_urls(test_records, "Test")
     for duplicate in sorted(dev_urls & test_urls):
         errors.append(f"Dev/Test: duplicate source_url across splits: {duplicate}")
 
