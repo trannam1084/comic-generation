@@ -9,6 +9,7 @@ import platform
 import re
 from time import perf_counter
 from typing import Any, Callable
+from uuid import uuid4
 
 from .prompts import PROMPT_VERSION, build_story_messages
 
@@ -91,6 +92,7 @@ class QwenStoryBackend:
         self._execution_mode = "injected" if loader is not None else "transformers"
         self._components: tuple[Any, Any, Any] | None = None
         self._last_run: dict[str, Any] | None = None
+        self._last_review: dict[str, Any] | None = None
 
     @property
     def generation_parameters(self) -> dict[str, Any]:
@@ -99,7 +101,7 @@ class QwenStoryBackend:
 
     @property
     def last_run(self) -> dict[str, Any] | None:
-        """Snapshot metadata, không tự log/save; validation do caller ghi riêng."""
+        """Snapshot story generation gần nhất; review không thay đổi dữ liệu này."""
         return deepcopy(self._last_run)
 
     def load(self) -> None:
@@ -116,9 +118,37 @@ class QwenStoryBackend:
 
     def generate(self, summary: str) -> str:
         """Trả decoded continuation nguyên trạng; parsing/repair không thuộc backend."""
-        self._last_run = {
+        return self._generate_messages(
+            lambda: build_story_messages(summary), purpose="story_generation", prompt_version=PROMPT_VERSION
+        )
+
+    @property
+    def last_review(self) -> dict[str, Any] | None:
+        """Snapshot của review gần nhất; không ghi đè last_run của story generation."""
+        return deepcopy(self._last_review)
+
+    def review(self, messages: list[dict[str, str]], *, prompt_version: str) -> str:
+        """Custom system/user messages trên cùng components; một call, không parse/retry."""
+        def prepare() -> list[dict[str, str]]:
+            if not isinstance(prompt_version, str) or not prompt_version.strip():
+                raise ValueError("Review cần prompt version không rỗng.")
+            if type(messages) is not list or len(messages) != 2:
+                raise ValueError("Review cần list gồm một system và một user message.")
+            for message, role in zip(messages, ("system", "user")):
+                if (type(message) is not dict or set(message) != {"role", "content"}
+                        or message["role"] != role or not isinstance(message["content"], str)
+                        or not message["content"].strip()):
+                    raise ValueError("Review message phải có role/content hợp lệ, không extra fields.")
+            return deepcopy(messages)
+
+        return self._generate_messages(prepare, purpose="semantic_review", prompt_version=prompt_version)
+
+    def _generate_messages(
+        self, prepare: Callable[[], list[dict[str, str]]], *, purpose: str, prompt_version: str
+    ) -> str:
+        run = {
             "model_id": MODEL_ID, "revision": MODEL_REVISION,
-            "prompt_version": PROMPT_VERSION,
+            "prompt_version": prompt_version, "purpose": purpose, "call_id": uuid4().hex,
             "generation_parameters": self.generation_parameters,
             "device": self._device, "precision": "float16", "batch_size": 1,
             "execution_mode": self._execution_mode,
@@ -129,11 +159,15 @@ class QwenStoryBackend:
             "gpu_model": None, "raw_output": None, "hit_max_new_tokens": None,
             "validation_outcome": "not_checked", "error_category": None,
         }
+        if purpose == "story_generation":
+            self._last_run = run
+        else:
+            self._last_review = run
         phase = "input"
         try:
-            messages = build_story_messages(summary)
-            self._last_run["messages"] = messages
-            self._last_run["prompt_sha256"] = hashlib.sha256(
+            messages = prepare()
+            run["messages"] = messages
+            run["prompt_sha256"] = hashlib.sha256(
                 json.dumps(messages, ensure_ascii=False, sort_keys=True).encode("utf-8")
             ).hexdigest()
             phase = "load"
@@ -141,14 +175,14 @@ class QwenStoryBackend:
             tokenizer, model, runtime = self._components
             model_config = getattr(model, "generation_config", None)
             if model_config is not None:
-                self._last_run["model_generation_config"] = model_config.to_dict()
+                run["model_generation_config"] = model_config.to_dict()
             measured = self._execution_mode == "transformers"
             if measured:
-                self._last_run["package_versions"].update({
+                run["package_versions"].update({
                     name: _package_version(name)
                     for name in ("torch", "transformers", "huggingface-hub", "safetensors")
                 })
-                self._last_run["gpu_model"] = runtime.cuda.get_device_name(self._device)
+                run["gpu_model"] = runtime.cuda.get_device_name(self._device)
 
             phase = "tokenization"
             chat_text = tokenizer.apply_chat_template(
@@ -160,11 +194,11 @@ class QwenStoryBackend:
             if inputs["input_ids"].shape[0] != 1:
                 raise ValueError("QwenStoryBackend chỉ hỗ trợ batch size 1.")
             input_length = inputs["input_ids"].shape[1]
-            self._last_run["input_tokens"] = input_length
+            run["input_tokens"] = input_length
             parameters = self.generation_parameters
             if tokenizer.eos_token_id is not None:
                 parameters["pad_token_id"] = tokenizer.eos_token_id
-            self._last_run["generation_parameters"] = deepcopy(parameters)
+            run["generation_parameters"] = deepcopy(parameters)
 
             phase = "generation"
             if measured:
@@ -175,20 +209,20 @@ class QwenStoryBackend:
                 output_ids = model.generate(**inputs, **parameters)
             if measured:
                 runtime.cuda.synchronize(self._device)
-                self._last_run["generation_latency_seconds"] = perf_counter() - start
-                self._last_run["peak_allocated_vram_bytes"] = runtime.cuda.max_memory_allocated(self._device)
+                run["generation_latency_seconds"] = perf_counter() - start
+                run["peak_allocated_vram_bytes"] = runtime.cuda.max_memory_allocated(self._device)
             if output_ids.shape[0] != 1 or output_ids.shape[1] < input_length:
                 raise ValueError("Model phải trả một sequence gồm input và continuation.")
             continuation = output_ids[0, input_length:]
             count = continuation.numel()
-            self._last_run["generated_tokens"] = count
-            self._last_run["hit_max_new_tokens"] = count >= parameters["max_new_tokens"]
+            run["generated_tokens"] = count
+            run["hit_max_new_tokens"] = count >= parameters["max_new_tokens"]
             phase = "decode"
             raw_output = tokenizer.decode(
                 continuation, skip_special_tokens=True, clean_up_tokenization_spaces=False
             )
-            self._last_run["raw_output"] = raw_output
+            run["raw_output"] = raw_output
             return raw_output
         except Exception:
-            self._last_run["error_category"] = f"{phase}_error"
+            run["error_category"] = f"{phase}_error"
             raise
