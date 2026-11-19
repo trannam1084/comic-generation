@@ -1,151 +1,127 @@
-# Ghi chú về bộ dữ liệu truyện (Dataset Notes)
+# Dataset Notes — Comic Generation
 
-## 1. Mục tiêu
+## 1. Mục tiêu và phạm vi
 
-Tài liệu này ghi lại cách chuẩn bị và tổ chức bộ dữ liệu truyện dùng cho dự án **Comic Generation**. Bộ dữ liệu được dùng làm đầu vào cho các bước xử lý tiếp theo, chẳng hạn tóm tắt truyện, xác định nhân vật, trích xuất các sự kiện chính và xây dựng storyboard.
+Tài liệu mô tả dataset truyện đầu vào phục vụ phát triển pipeline tạo comic: summary, character annotations, key events và các trường nguồn. Dataset hiện có **30 record**, chia **20 Dev** và **10 Test**. Đây là bộ dữ liệu thử nghiệm nhỏ; không xem là bộ test đã chứng nhận nếu chưa hoàn tất kiểm tra nội dung và quyền sử dụng.
 
-Trong giai đoạn hiện tại, bộ dữ liệu tập trung vào khoảng **30 truyện** đã được chọn sơ bộ và chuẩn hóa.
-
-## 2. Nguồn dữ liệu
-
-Các truyện được lấy từ tập dữ liệu ứng viên (`candidate_stories.csv`) đã được đánh giá và chọn lọc sơ bộ.
-
-- Nguồn gốc dữ liệu: tập truyện ứng viên của dự án.
-- Các trường nguồn (`source`, `source_url`) được giữ lại khi có thông tin.
-- Cần kiểm tra lại nguồn, đường dẫn và quyền sử dụng dữ liệu trước khi dùng cho mục đích phát hành hoặc chia sẻ công khai.
-
-## 3. Tiêu chí lựa chọn truyện
-
-Truyện được đánh giá sơ bộ theo các tiêu chí:
-
-| Tiêu chí | Điểm tối đa | Ý nghĩa |
-|---|---:|---|
-| Nhân vật rõ ràng | 2 | Có thể xác định nhân vật và vai trò |
-| Sự kiện rõ ràng | 2 | Các sự kiện chính có thể tóm tắt |
-| Phù hợp chia cảnh | 2 | Nội dung có thể chuyển thành các cảnh truyện tranh |
-| Kết thúc rõ ràng | 2 | Có diễn biến/kết thúc đủ rõ để xử lý |
-
-Tổng điểm tối đa là **8**. Việc chọn truyện ở giai đoạn này là chọn sơ bộ; cần tiếp tục rà soát thủ công trước khi đưa vào bộ dữ liệu chính thức.
-
-## 4. Cấu trúc dữ liệu chuẩn hóa
-
-Mỗi truyện được chuẩn hóa thành một bản ghi với các trường sau:
-
-| Trường | Kiểu dữ liệu | Mô tả |
-|---|---|---|
-| `id` | string | Mã định danh duy nhất của truyện |
-| `title` | string | Tên truyện |
-| `summary` | string | Tóm tắt nội dung bằng tiếng Việt |
-| `characters` | list | Danh sách nhân vật; mỗi nhân vật có thông tin nhận diện cơ bản |
-| `key_events` | list | Các sự kiện chính theo đúng thứ tự diễn biến |
-| `source` | string | Tên/nguồn dữ liệu nếu có |
-| `source_url` | string | URL nguồn nếu có |
-| `difficulty` | string | Mức độ xử lý dự kiến: `easy`, `medium`, `hard` |
-| `selection_score` | number | Điểm đánh giá sơ bộ của truyện |
-
-### Ví dụ cấu trúc JSON
-
-```json
-{
-  "id": "story_001",
-  "title": "Tên truyện",
-  "summary": "Tóm tắt ngắn gọn nội dung truyện.",
-  "characters": [
-    {
-      "id": "character_1",
-      "name": "Tên nhân vật",
-      "description": "Mô tả ngắn để nhận diện nhân vật."
-    }
-  ],
-  "key_events": [
-    "Sự kiện thứ nhất",
-    "Sự kiện thứ hai",
-    "Sự kiện thứ ba"
-  ],
-  "source": "Nguồn dữ liệu",
-  "source_url": "",
-  "difficulty": "easy",
-  "selection_score": 8
-}
-```
-
-> Đây là cấu trúc dữ liệu phục vụ bước chuẩn bị dataset. Cấu trúc này không thay thế hoặc tự ý thay đổi schema storyboard dùng chung của dự án.
-
-## 5. Chia tập dữ liệu
-
-Bộ 30 truyện được chia thành hai tập:
-
-| Tập | Số lượng | Mục đích |
-|---|---:|---|
-| Dev | 20 truyện | Dùng để phát triển, thử nghiệm và điều chỉnh pipeline/prompt |
-| Test | 10 truyện | Giữ riêng để đánh giá pipeline sau khi hoàn thiện |
-
-Không sử dụng nội dung trong tập **Test** để điều chỉnh prompt trong quá trình phát triển, nhằm hạn chế việc đánh giá bị thiên lệch.
-
-## 6. Các tệp dữ liệu
-
-Các tệp dự kiến trong thư mục dataset:
+## 2. Cấu trúc repository hiện tại
 
 ```text
-data/dataset/
-├── raw/
-│   └── shortlist_top30.csv
-├── processed/
-│   ├── all_30_normalized.csv
-│   ├── all_30_normalized.json
-│   └── all_30_normalized.jsonl
+data/
 ├── dev_cases.jsonl
-└── test_cases.jsonl
+├── test_cases.jsonl
+└── metadata/
+    ├── ai_evaluated_stories.csv
+    └── dataset_selection.csv
+scripts/
+├── dataset_validation.py
+├── validate_dataset.py
+└── test.py
+tests/
+└── test_dataset.py
+docs/
+└── dataset_notes.md
 ```
 
-- `raw/`: lưu dữ liệu ứng viên/đầu vào ban đầu.
-- `processed/`: lưu dữ liệu đã chuẩn hóa.
-- `dev_cases.jsonl`: 20 truyện phục vụ phát triển.
-- `test_cases.jsonl`: 10 truyện dùng cho đánh giá riêng.
+Full-text candidate corpus và AI batch artifacts không nằm trong PR hiện tại.
 
-## 7. Kiểm tra dữ liệu
+## 3. Dataset record schema
 
-Trước khi sử dụng dataset, cần kiểm tra:
+Mỗi dòng JSONL là một JSON object gồm:
 
-- Mỗi truyện có `id` duy nhất.
-- Các trường bắt buộc (`id`, `title`, `summary`, `characters`, `key_events`) không bị thiếu.
-- `characters` và `key_events` đúng kiểu danh sách.
-- Nội dung chuỗi không rỗng hoặc chỉ chứa khoảng trắng.
-- `key_events` được sắp xếp theo thứ tự diễn biến.
-- Không có truyện trùng lặp ngoài ý muốn.
-- ID giữa tập Dev và Test không bị trùng.
-- Các thông tin `source`/`source_url` được giữ lại khi có.
-- Kiểm tra thủ công tính rõ ràng của nhân vật, sự kiện và khả năng chia thành các cảnh truyện tranh.
+| Trường | Kiểu | Ý nghĩa |
+|---|---|---|
+| `id` | string | ID duy nhất |
+| `title` | string | Tên truyện |
+| `summary` | string | Tóm tắt |
+| `characters` | array<object> | Mỗi nhân vật có `id`, `name`, `description` |
+| `key_events` | array<string> | Sự kiện theo thứ tự |
+| `source` | string | Thông tin nguồn |
+| `source_url` | URL | Địa chỉ nguồn |
+| `difficulty` | enum | `easy`, `medium`, `hard` |
+| `selection_score` | number | Điểm chọn sơ bộ, thang 0–8 |
+| `normalization_note` | string (optional) | Ghi chú chuẩn hóa và giới hạn review |
 
-Có thể chạy script kiểm tra dữ liệu tại:
+Schema này dành riêng cho dataset preparation, không thay thế Shared Storyboard Schema.
+
+## 4. Split và difficulty
+
+- Dev: 20 truyện.
+- Test: 10 truyện.
+- Tổng: 30 truyện.
+- Năm truyện hard được chọn bổ sung vào Dev: `story_012`, `story_016`, `story_066`, `story_072`, `story_077`.
+- Test split giữ nguyên.
+
+Không dùng nội dung Test để điều chỉnh prompt, chọn tham số hoặc sửa pipeline trước held-out evaluation. Thay đổi split sau khi đánh giá bắt đầu phải được ghi nhận và tạo phiên bản dataset mới.
+
+Phân bố difficulty chính thức phải được tính trực tiếp từ hai JSONL hiện hành; không suy diễn từ toàn bộ candidate metadata hoặc bảng AI scoring rộng hơn tập 30 record.
+
+## 5. Metadata và human review
+
+- `metadata/dataset_selection.csv`: theo dõi ứng viên, quyết định chọn, split và trạng thái human review.
+- `metadata/ai_evaluated_stories.csv`: kết quả AI-assisted scoring, không phải xác nhận của người review.
+- Chỉ các hàng có trạng thái review rõ ràng mới được xem là đã review. `Pending` không được tính là đã review.
+- Ghi chú `normalization_note` thể hiện rõ nội dung có AI hỗ trợ và có thể cần đối chiếu.
+
+## 6. Nguồn và quyền sử dụng
+
+Các record giữ `source` và `source_url` để truy vết. URL tồn tại hoặc truy cập được không chứng minh quyền sao chép, chuẩn hóa, phân phối hay sử dụng thương mại. Trước khi public dataset, nhóm cần kiểm tra điều khoản từng nguồn, giấy phép/điều kiện sử dụng và nguồn văn bản gốc. Không đưa full-text corpus hoặc batch chứa toàn văn vào repository nếu chưa xác minh quyền phân phối.
+
+## 7. Human review — semantic fidelity
+
+Validator chỉ kiểm tra cấu trúc, kiểu dữ liệu, URL hình thức, ID và số lượng; không chứng minh summary, characters hay key_events trung thành với truyện nguồn. Reviewer cần kiểm tra từng record:
+
+1. Summary giữ đúng nhân vật và kết cục, không thêm chi tiết không có trong nguồn.
+2. Mỗi character có xuất hiện trong nguồn; description không gán tính cách/sự kiện thiếu căn cứ.
+3. Mỗi key event thực sự xuất hiện và đúng thứ tự; không bỏ mất sự kiện thiết yếu.
+4. Nếu rút gọn để làm comic, ghi rõ phần lược bỏ; không biến suy luận thành sự kiện nguồn.
+5. Ghi trạng thái review và người/ngày review trong metadata theo quy ước nhóm.
+
+Repository hiện không có bằng chứng xác nhận toàn bộ 30 record đã được đối chiếu từng dòng với văn bản nguồn. Vì vậy không tuyên bố semantic review đã hoàn tất.
+
+## 8. Dependencies và cách chạy
+
+Core validator dùng Python standard library. Unit tests cần `pytest`.
+
+```bash
+python -m pip install pytest
+python scripts/validate_dataset.py
+python -m pytest tests/test_dataset.py -v
+python -m pytest -v
+```
+
+Các script tiện ích chuẩn bị corpus là optional:
+
+| Script | Dependencies |
+|---|---|
+| `data/inspect_dataset.py` | `pandas` |
+| `data/prepare_ai_review.py` | `pandas` |
+| `data/save_ai_review.py` | `pandas` |
+| `data/evaluate_stories.py` | `pandas`, `openai`, `OPENAI_API_KEY`, model được cấp quyền |
+
+Cài khi cần:
+
+```bash
+python -m pip install pandas openai
+```
+
+Không đưa API key vào source control. Các script tiện ích không gọi API hoặc đọc/ghi file khi import; thao tác chỉ chạy khi thực thi trực tiếp.
+
+## 9. Validation
 
 ```bash
 python scripts/validate_dataset.py
 ```
 
-## 8. Giới hạn hiện tại
+Có thể chạy từ thư mục gốc hoặc thư mục khác. Validator kiểm tra JSONL, record object, trường bắt buộc, nested character fields, key events, difficulty, selection_score, số lượng và ID/URL trùng giữa hai split. Đây là kiểm tra integrity, không phải xác minh bản quyền hay tính đúng đắn ngữ nghĩa.
 
-- Việc đánh giá và lựa chọn truyện ban đầu có thể có sai sót; cần rà soát thủ công.
-- Mô tả nhân vật và sự kiện có thể cần chỉnh sửa để nhất quán hơn.
-- Một số truyện có thể thiếu thông tin nguồn hoặc URL.
-- Dataset hiện tại là bộ dữ liệu thử nghiệm quy mô nhỏ, chưa đại diện cho mọi thể loại truyện hoặc mọi trường hợp phức tạp.
-- Chưa xem đây là bộ dữ liệu cuối cùng cho đánh giá chính thức nếu chưa có sự xác nhận của nhóm.
+## 10. Giới hạn và trạng thái
 
-## 9. Quy trình cập nhật
+- Dataset chỉ có 30 truyện, chưa đại diện đầy đủ các thể loại và độ khó.
+- AI scores không thay thế human review.
+- Các record có ghi chú cần review và metadata Pending chưa được xác nhận.
+- Quyền sử dụng từng nguồn chưa được chứng minh chỉ bằng source URL.
+- Chưa xem dataset là bộ held-out evaluation chính thức cho tới khi semantic review và quyền sử dụng được xác nhận.
 
-Khi bổ sung hoặc chỉnh sửa truyện:
-
-1. Cập nhật bản dữ liệu nguồn.
-2. Chuẩn hóa bản ghi theo cấu trúc thống nhất.
-3. Kiểm tra các trường bắt buộc và ID.
-4. Xác định truyện thuộc Dev hay Test.
-5. Không chuyển truyện qua lại giữa Dev và Test tùy tiện sau khi đã bắt đầu đánh giá.
-6. Chạy script validation.
-7. Rà soát thủ công các thay đổi.
-8. Ghi lại thay đổi trong commit hoặc pull request.
-
----
-
-**Phụ trách:** TV3 – Dataset Preparation  
-**Dự án:** Comic Generation  
-**Trạng thái:** Bộ dữ liệu chuẩn hóa sơ bộ, chờ rà soát và xác nhận của nhóm.
+**Phụ trách:** TV3 — Dataset Preparation  
+**Dự án:** Comic Generation
