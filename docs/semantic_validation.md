@@ -1,5 +1,10 @@
 # LLM-assisted Semantic Storyboard Validator — Task 09B
 
+Task 09B.3A: default vẫn là reviewer v1; variant evidence-first v2 phải chọn explicit.
+Kết quả GPU pilot v1 Task 09B.2B và thiết kế comparison mới nằm trong
+[Semantic review experiments](semantic_review_experiments.md). Các mô tả chưa chạy GPU bên dưới
+ghi trạng thái tại Task 09B/09B.1; v2 hiện chỉ có CPU tests, chưa có kết quả GPU.
+
 ## 1. Quyết định và trạng thái
 
 Đây là phương pháp TV1 đề xuất: structured LLM review bổ sung cho [deterministic validator](validation_and_repair.md), dùng cùng Qwen2.5-3B-Instruct runtime đã load. Một model instance giúp hạn chế VRAM/load overhead, nhưng **chưa có bằng chứng reviewer đạt độ chính xác đủ cao**. Self-review có thể lặp lại lỗi của model sinh truyện. Reviewer verdict không phải ground truth hoặc semantic score.
