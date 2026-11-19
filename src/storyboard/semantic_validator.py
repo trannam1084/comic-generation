@@ -10,7 +10,7 @@ from uuid import uuid4
 from pydantic import ValidationError, __version__ as pydantic_version
 
 from .schema import Storyboard
-from .semantic_prompts import SEMANTIC_PROMPT_VERSION, build_semantic_messages
+from .semantic_prompts import SEMANTIC_PROMPT_VERSION, SEMANTIC_PROMPT_VERSIONS, build_semantic_messages
 from .semantic_schema import SemanticReviewResponse, SemanticValidationReport
 
 
@@ -159,15 +159,18 @@ def _validation_errors(error: ValidationError, diagnostics: list[dict]) -> list[
 class SemanticStoryboardValidator:
     """Offline semantic analysis, kể cả summary mismatch; chưa là production acceptance policy."""
 
-    def __init__(self, backend: SemanticReviewBackend):
+    def __init__(self, backend: SemanticReviewBackend, *, prompt_version: str = SEMANTIC_PROMPT_VERSION):
+        if not isinstance(prompt_version, str) or prompt_version not in SEMANTIC_PROMPT_VERSIONS:
+            raise ValueError("Semantic prompt version không được hỗ trợ.")
         self._backend = backend
+        self._prompt_version = prompt_version
 
     def validate(self, original_summary: str, storyboard: Storyboard) -> SemanticValidationReport:
         state = {
             "review_status": "not_checked",
             "diagnostics": [],
             "provenance": {
-                "review_attempt_id": uuid4().hex, "prompt_version": SEMANTIC_PROMPT_VERSION,
+                "review_attempt_id": uuid4().hex, "prompt_version": self._prompt_version,
                 "purpose": "semantic_review", "mode": "offline_analysis",
                 "reviewer_is_ground_truth": False, "pydantic_version": pydantic_version,
             },
@@ -200,7 +203,7 @@ class SemanticStoryboardValidator:
             summary_matching="passed" if checked.summary == original_summary else "failed",
             storyboard_snapshot=deepcopy(snapshot),
         )
-        messages = build_semantic_messages(original_summary, checked)
+        messages = build_semantic_messages(original_summary, checked, prompt_version=self._prompt_version)
         prompt_hash = hashlib.sha256(json.dumps(messages, ensure_ascii=False, sort_keys=True).encode("utf-8")).hexdigest()
         state["provenance"].update(
             prompt_sha256=prompt_hash,
@@ -219,7 +222,7 @@ class SemanticStoryboardValidator:
         backend_error = None
         try:
             # Copy data boundary để backend không mutate prompt/snapshot của caller.
-            raw = self._backend.review(deepcopy(messages), prompt_version=SEMANTIC_PROMPT_VERSION)
+            raw = self._backend.review(deepcopy(messages), prompt_version=self._prompt_version)
         except Exception as error:
             backend_error = _error_types(error)
         metadata = None
@@ -231,7 +234,7 @@ class SemanticStoryboardValidator:
                 if (not isinstance(candidate, dict) or not isinstance(candidate.get("call_id"), str)
                         or not candidate["call_id"] or candidate["call_id"] == previous_id
                         or candidate.get("purpose") != "semantic_review"
-                        or candidate.get("prompt_version") != SEMANTIC_PROMPT_VERSION
+                        or candidate.get("prompt_version") != self._prompt_version
                         or candidate.get("prompt_sha256") != prompt_hash or candidate.get("messages") != messages):
                     raise ValueError("Reviewer metadata không chứng minh là của invocation hiện tại.")
                 if isinstance(raw, str) and candidate.get("raw_output") != raw:
