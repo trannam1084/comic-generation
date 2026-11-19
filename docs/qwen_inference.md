@@ -1,5 +1,7 @@
 # Qwen Structured Story Backend — chuẩn bị Task 08B
 
+Task 09B bổ sung public `review(messages, prompt_version=...)` dùng chung tokenizer/model/runtime và property `last_review` riêng; `generate(summary)` và baseline prompt giữ nguyên. Các phần Task 08A/08B dưới đây là tài liệu của baseline; xem [semantic_validation.md](semantic_validation.md) cho API mới, metadata isolation và giới hạn CPU fake tests. Notebook 05/06 vẫn pin commit baseline cũ; chưa có semantic reviewer GPU run sau refactor.
+
 ## 1. Trạng thái và nguồn đối chiếu
 
 Task 08A chỉ triển khai code và CPU unit tests bằng fakes, không tải weights hoặc chạy Qwen thật. Không tạo notebook outputs, benchmark hoặc kết quả structured generation giả. Notebook 02 được đọc và giữ nguyên smoke test cũ; số đo 102/78 tokens, 5.7 giây và budget 256 trong [environment.md](environment.md) thuộc thử nghiệm khác, không tái dùng làm kết quả cho prompt mới.

@@ -1,5 +1,7 @@
 # Deterministic Storyboard Consistency Validator — Task 09A
 
+Task 09A bên dưới giữ nguyên phạm vi deterministic. Task 09B bổ sung [LLM-assisted semantic review](semantic_validation.md) bằng shared runtime và CPU fakes; chưa có GPU semantic-review results hoặc Repair, không thay đổi report/schema của Task 09A.
+
 ## 1. Bối cảnh và provenance
 
 Đây là implementation TV1 — Trần Hải Nam, sử dụng [Shared Contract v1.0](data_contract.md) trong `src/storyboard/schema.py`. Không thay schema, baseline prompt, Qwen backend, StoryGenerator hoặc code TV2/TV3. Tên tài liệu mô tả hướng phát triển Validation & Repair; **Repair chưa được triển khai** trong task này.
