@@ -1,164 +1,122 @@
+"""Unit tests for the shared dataset validation logic."""
+
 import json
 from pathlib import Path
 
 import pytest
 
+from scripts.dataset_validation import validate_dataset_files, validate_record
 
-ROOT_DIR = Path(__file__).resolve().parent.parent
-
+ROOT_DIR = Path(__file__).resolve().parents[1]
 DEV_FILE = ROOT_DIR / "data" / "dev_cases.jsonl"
 TEST_FILE = ROOT_DIR / "data" / "test_cases.jsonl"
 
-REQUIRED_FIELDS = {
-    "id",
-    "title",
-    "summary",
-    "characters",
-    "key_events",
-}
+
+def valid_record(story_id="story_001", url="https://example.org/story"):
+    return {
+        "id": story_id,
+        "title": "Tên truyện",
+        "summary": "Tóm tắt truyện.",
+        "characters": [
+            {"id": "char_1", "name": "Nhân vật", "description": "Mô tả nhân vật."}
+        ],
+        "key_events": ["Sự kiện thứ nhất.", "Sự kiện thứ hai."],
+        "source": "Nguồn truyện",
+        "source_url": url,
+        "difficulty": "easy",
+        "selection_score": 8,
+    }
 
 
-def load_jsonl(file_path):
-    """Đọc file JSONL và trả về danh sách các bản ghi."""
-    records = []
-
-    with open(file_path, "r", encoding="utf-8") as file:
-        for line_number, line in enumerate(file, start=1):
-            if not line.strip():
-                continue
-
-            try:
-                record = json.loads(line)
-            except json.JSONDecodeError as error:
-                pytest.fail(
-                    f"{file_path.name}, line {line_number}: "
-                    f"JSON không hợp lệ - {error}"
-                )
-
-            records.append(record)
-
-    return records
-
-
-@pytest.fixture
-def dev_records():
-    return load_jsonl(DEV_FILE)
-
-
-@pytest.fixture
-def test_records():
-    return load_jsonl(TEST_FILE)
-
-
-def test_dataset_files_exist():
-    """Kiểm tra các file Dev và Test tồn tại."""
-    assert DEV_FILE.exists(), "Không tìm thấy file dev_cases.jsonl"
-    assert TEST_FILE.exists(), "Không tìm thấy file test_cases.jsonl"
-
-
-def test_dev_dataset_has_20_records(dev_records):
-    """Dev dataset phải có 20 truyện."""
-    assert len(dev_records) == 20
-
-
-def test_test_dataset_has_10_records(test_records):
-    """Test dataset phải có 10 truyện."""
-    assert len(test_records) == 10
-
-
-@pytest.mark.parametrize("dataset_name", ["dev", "test"])
-def test_required_fields(dataset_name):
-    """Kiểm tra các trường bắt buộc của từng bản ghi."""
-    file_path = DEV_FILE if dataset_name == "dev" else TEST_FILE
-    records = load_jsonl(file_path)
-
-    for index, record in enumerate(records, start=1):
-        missing_fields = REQUIRED_FIELDS - record.keys()
-
-        assert not missing_fields, (
-            f"{dataset_name} - record {index} thiếu trường: "
-            f"{missing_fields}"
-        )
-
-
-@pytest.mark.parametrize("dataset_name", ["dev", "test"])
-def test_required_fields_are_not_empty(dataset_name):
-    """Kiểm tra các trường nội dung không bị trống."""
-    file_path = DEV_FILE if dataset_name == "dev" else TEST_FILE
-    records = load_jsonl(file_path)
-
-    for index, record in enumerate(records, start=1):
-        for field in ("id", "title", "summary"):
-            value = record.get(field)
-
-            assert isinstance(value, str), (
-                f"{dataset_name} - record {index}: "
-                f"{field} phải là string"
-            )
-
-            assert value.strip(), (
-                f"{dataset_name} - record {index}: "
-                f"{field} không được rỗng"
-            )
-
-
-@pytest.mark.parametrize("dataset_name", ["dev", "test"])
-def test_characters_is_list(dataset_name):
-    """Characters phải là danh sách."""
-    file_path = DEV_FILE if dataset_name == "dev" else TEST_FILE
-    records = load_jsonl(file_path)
-
-    for index, record in enumerate(records, start=1):
-        assert isinstance(record["characters"], list), (
-            f"{dataset_name} - record {index}: "
-            "characters phải là list"
-        )
-
-
-@pytest.mark.parametrize("dataset_name", ["dev", "test"])
-def test_key_events_is_list(dataset_name):
-    """Key events phải là danh sách."""
-    file_path = DEV_FILE if dataset_name == "dev" else TEST_FILE
-    records = load_jsonl(file_path)
-
-    for index, record in enumerate(records, start=1):
-        assert isinstance(record["key_events"], list), (
-            f"{dataset_name} - record {index}: "
-            "key_events phải là list"
-        )
-
-        assert len(record["key_events"]) >= 2, (
-            f"{dataset_name} - record {index}: "
-            "cần tối thiểu 2 sự kiện chính"
-        )
-
-
-def test_dev_ids_are_unique(dev_records):
-    """ID trong Dev không được trùng."""
-    ids = [record["id"] for record in dev_records]
-
-    assert len(ids) == len(set(ids)), "ID bị trùng trong Dev dataset"
-
-
-def test_test_ids_are_unique(test_records):
-    """ID trong Test không được trùng."""
-    ids = [record["id"] for record in test_records]
-
-    assert len(ids) == len(set(ids)), "ID bị trùng trong Test dataset"
-
-
-def test_dev_and_test_ids_do_not_overlap(dev_records, test_records):
-    """Dev và Test không được chứa cùng ID."""
-    dev_ids = {record["id"] for record in dev_records}
-    test_ids = {record["id"] for record in test_records}
-
-    overlap = dev_ids & test_ids
-
-    assert not overlap, (
-        f"ID bị trùng giữa Dev và Test: {overlap}"
+def write_jsonl(path: Path, records):
+    path.write_text(
+        "".join(json.dumps(record, ensure_ascii=False) + "\n" for record in records),
+        encoding="utf-8",
     )
 
 
-def test_total_dataset_has_30_records(dev_records, test_records):
-    """Tổng dataset phải có 30 truyện."""
-    assert len(dev_records) + len(test_records) == 30
+def test_repository_dataset_passes():
+    errors, counts = validate_dataset_files(DEV_FILE, TEST_FILE)
+    assert errors == []
+    assert counts == {"dev_records": 20, "test_records": 10, "total_records": 30}
+
+
+def test_json_record_must_be_dictionary():
+    assert any("dictionary" in e for e in validate_record(["not", "object"], "test"))
+
+
+@pytest.mark.parametrize("bad_id", [None, 123, [], {}])
+def test_id_must_be_non_empty_string(bad_id):
+    record = valid_record()
+    record["id"] = bad_id
+    assert any("id must be a non-empty string" in e for e in validate_record(record, "test"))
+
+
+@pytest.mark.parametrize("bad_character", ["name", None, {}, {"id": "x", "name": "A"}])
+def test_character_must_have_id_name_description(bad_character):
+    record = valid_record()
+    record["characters"] = [bad_character]
+    assert any("character 1" in e for e in validate_record(record, "test"))
+
+
+@pytest.mark.parametrize("bad_event", ["", "   ", None, 42, {}])
+def test_each_key_event_must_be_non_empty_string(bad_event):
+    record = valid_record()
+    record["key_events"] = ["Sự kiện hợp lệ", bad_event]
+    assert any("key_events[2]" in e for e in validate_record(record, "test"))
+
+
+@pytest.mark.parametrize("bad_url", ["", "not-a-url", "ftp://example.org/story"])
+def test_source_url_must_be_http_or_https(bad_url):
+    record = valid_record(url=bad_url)
+    assert any("source_url" in e for e in validate_record(record, "test"))
+
+
+@pytest.mark.parametrize("bad_difficulty", ["", "unknown", 1, None])
+def test_difficulty_must_be_supported_value(bad_difficulty):
+    record = valid_record()
+    record["difficulty"] = bad_difficulty
+    assert any("difficulty" in e for e in validate_record(record, "test"))
+
+
+@pytest.mark.parametrize("bad_score", [True, "8", -1, 9, float("nan")])
+def test_selection_score_must_be_number_from_zero_to_eight(bad_score):
+    record = valid_record()
+    record["selection_score"] = bad_score
+    assert any("selection_score" in e for e in validate_record(record, "test"))
+
+
+def test_cross_split_duplicate_id_is_detected(tmp_path):
+    dev = tmp_path / "dev.jsonl"
+    test = tmp_path / "test.jsonl"
+    write_jsonl(dev, [valid_record("same_id", "https://example.org/dev")])
+    write_jsonl(test, [valid_record("same_id", "https://example.org/test")])
+    errors, _ = validate_dataset_files(dev, test, expected_dev=1, expected_test=1)
+    assert any("duplicate story id across splits" in e for e in errors)
+
+
+def test_cross_split_duplicate_url_is_detected(tmp_path):
+    dev = tmp_path / "dev.jsonl"
+    test = tmp_path / "test.jsonl"
+    write_jsonl(dev, [valid_record("story_a", "https://example.org/story/")])
+    write_jsonl(test, [valid_record("story_b", "https://EXAMPLE.org/story")])
+    errors, _ = validate_dataset_files(dev, test, expected_dev=1, expected_test=1)
+    assert any("duplicate source_url across splits" in e for e in errors)
+
+
+def test_wrong_record_counts_are_detected(tmp_path):
+    dev = tmp_path / "dev.jsonl"
+    test = tmp_path / "test.jsonl"
+    write_jsonl(dev, [valid_record()])
+    write_jsonl(test, [valid_record("story_002", "https://example.org/2")])
+    errors, _ = validate_dataset_files(dev, test, expected_dev=20, expected_test=10)
+    assert any("expected 20 records" in e for e in errors)
+    assert any("expected 10 records" in e for e in errors)
+
+
+def test_duplicate_character_ids_are_detected():
+    record = valid_record()
+    record["characters"].append(
+        {"id": "char_1", "name": "Nhân vật khác", "description": "Mô tả."}
+    )
+    assert any("duplicate character id" in e for e in validate_record(record, "test"))
