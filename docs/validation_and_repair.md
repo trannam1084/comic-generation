@@ -2,6 +2,8 @@
 
 Task 09A bên dưới giữ nguyên mô tả lịch sử deterministic validator. Task 09B bổ sung [LLM-assisted semantic review](semantic_validation.md). Task 09C.1 bổ sung [Bounded Deterministic Repair Controller](repair_controller.md), chỉ kích hoạt repair bởi INVALID_JSON, SCHEMA_VIOLATION hoặc SUMMARY_MISMATCH; warnings và semantic verdict không tham gia automatic acceptance/repair. Controller đã có CPU tests; chưa có inference repair thật hoặc ComicPipeline integration. Report/schema và parser policy Task 09A được giữ nguyên.
 
+Task 09C.2 bổ sung [Concrete Qwen Repair Backend](qwen_repair.md), không thay report/schema/parser policy deterministic. Backend repair dùng shared runtime; controller vẫn giữ acceptance và default budget hai repairs. Chưa có GPU repair inference hoặc kết quả efficacy; semantic-triggered repair vẫn tắt.
+
 ## 1. Bối cảnh và provenance
 
 Đây là implementation TV1 — Trần Hải Nam, sử dụng [Shared Contract v1.0](data_contract.md) trong `src/storyboard/schema.py`. Không thay schema, baseline prompt, Qwen backend, StoryGenerator hoặc code TV2/TV3. Tên tài liệu mô tả hướng phát triển Validation & Repair; **Repair chưa được triển khai** trong task này.
