@@ -95,42 +95,26 @@ Chưa đủ dữ liệu để kết luận về chất lượng sinh truyện t�
 
 Nhóm cần hoàn thành kiểm tra giấy phép model, thiết lập development set và thực hiện các thử nghiệm tiếp theo trước khi đưa ra kết luận chính thức.
 
-## 9. Development trên CPU và nhóm dependencies
+## 9. Development CPU và optional inference dependencies
 
-Development mặc định: story backend `mock`, image backend `mock`, device `cpu`. `requirements.txt` chỉ chứa các dependency CPU dự kiến, không pin phiên bản chưa kiểm chứng:
+Các mục1–8 giữ nguyên smoke-test record lịch sử, không phải phiên bản package bắt buộc cho laptop. Shared CPU mock pipeline đã chạy được ở Task07B; Task10A.1 thêm Qwen factory wiring bằng injected CPU tests, không chạy GPU hoặc cài package.
 
-| Nhóm | Dependencies | Mục đích và trạng thái |
-|---|---|---|
-| CPU cơ sở | `pydantic`, `Pillow`, `PyYAML`, `pytest` | Dự kiến phục vụ schema, rendering, YAML và tests; chưa có mock pipeline để chạy |
-| LLM inference, chọn riêng trên Kaggle | `torch`, `transformers`, `accelerate`, `huggingface-hub`, `safetensors` | Cần xác minh trong session được sử dụng; không nằm trong requirements CPU |
-| Diffusion inference, sau khi chốt backend | `torch`, `diffusers`, `accelerate`, `safetensors`; có thể cần `transformers`, `huggingface-hub` theo backend | Chưa phải dependency set đã chốt hoặc đã kiểm thử cho model ảnh |
-| UI, khi có task triển khai | `gradio` | Không bắt buộc cho mock/module tests; UI chưa triển khai |
+- Default mock/direct Python config cần Pydantic v2 và Pillow; pytest cho tests.
+- `PyYAML6.0.3` đã được cài vào project .venv Python3.12.3 theo approval Task10A.1.1;12existing packages giữ nguyên versions. Chỉ explicit YAML loader cần dependency này, import lazy. Actual YAML integration đã PASS; không dùng injected parser để thay thế bằng chứng parsing thật.
+- LLM stack trong requirements-llm.txt chọn riêng cho Kaggle; không import/load tại factory build. Story/repair model và tokenizer pin revision cũ; không quantization hoặc automatic device_map.
+- Diffusion/Gradio không cần cho default mock hoặc CPU factory tests; concrete image factory wiring và UI ngoài Task10A.1.
+- requirements.txt vẫn khai báo PyYAML không pin;6.0.3 là actual tested version, không phải lockfile mới. Không sửa requirements hoặc nâng/hạ packages để vượt tests.
 
-Không chạy cài đặt tự động. Không suy ra các phiên bản ghi ở mục 2 là lockfile hoặc yêu cầu cho laptop. PyTorch/CUDA phải được chọn phù hợp với môi trường Kaggle thực tế. Bitsandbytes không thuộc phương án smoke test FP16 hiện tại.
+## 10. Active configuration API
 
-Nếu cần tách file sau này, có thể đề xuất `requirements-llm.txt`, `requirements-diffusion.txt` và `requirements-ui.txt`; chưa tạo hoặc pin các file đó trong task nền tảng. Chỉ lock dependencies sau khi có kiểm thử tương ứng.
+Xem [configuration.md](configuration.md) và [pipeline.md](pipeline.md). `PipelineConfig()` vẫn mock/mock/cpu, mock retry0; qwen mode yêu cầu explicit CUDA story device và default retry2, explicit retry0 không bị ghi đè. Story/image devices độc lập; legacy device alias không trộn split fields.
 
-## 10. Cấu hình và tính tái lập
+`build_pipeline(config)` không đọc YAML/.env/environment. `load_pipeline_config` là opt-in loader với precedence defaults → YAML → documented environment mapping → explicit caller overrides. Không parse .env ngầm; template chỉ phục vụ caller tự export. Credentials không được config loader đọc hoặc persist. Output/cache/YAML relative paths dựa trên repository root.
 
-`configs/settings.yaml` ghi các giá trị nền dự kiến; `.env.example` có các biến tương ứng. Chưa có code đọc YAML hoặc `.env`, nên đổi file cấu hình hiện chưa thay đổi hành vi module. Đề xuất thứ tự ưu tiên cho loader tương lai: tham số chạy rõ ràng → environment variables → YAML; cần review trước khi triển khai. Credentials chỉ lấy từ secret store/environment, không lưu trong YAML.
+Default CLI `.venv/bin/python scripts/run_pipeline.py` vẫn chỉ CPU mock, tạo unique ignored output directory. Build real-story pipeline không tải weights; gọi generate trong actual runtime có thể lazy-load model nên cần phê duyệt inference riêng. Không chạy notebook/GPU inference trên laptop. Chưa có automatic GPU cleanup/offloading manager hoặc bảo đảm đủ VRAM cho story và diffusion cùng lúc.
 
-| Biến môi trường | Trường YAML |
-|---|---|
-| `STORY_BACKEND` | `story.backend` |
-| `IMAGE_BACKEND` | `image.backend` |
-| `DEVICE` | `runtime.device` |
-| `OUTPUT_DIR` | `runtime.output_dir` |
-| `MAX_RETRIES` | `runtime.max_retries` |
+## 11. Strict YAML regression verification — Task10A.1.2
 
-`runtime.max_retries = 2` là giá trị development dự kiến; nghĩa retry là số lần thử lại sau lần đầu cần được xác nhận cùng interface Repair. Không dùng giá trị này để tuyên bố Repair đã tồn tại.
+Private SafeLoader-derived loader reject duplicate mapping keys/sections trước dict construction ở mọi level; so sánh constructed keys, reject non-hashable keys và merge keys. Không sửa global PyYAML state hoặc cho unsafe object constructors. Aliases không bypass mapping checks; intentional overrides giữa defaults/YAML/environment/explicit layers vẫn hợp lệ, không implicit .env loading.
 
-Khi chuẩn bị chạy Kaggle trong task riêng:
-
-1. Ghi nhận phiên bản Python/packages, GPU/VRAM và trạng thái cache thực tế.
-2. Chọn cấu hình inference tách khỏi mặc định CPU; ghi rõ model ID và revision `aa8e72537993ba99e69dfaafa59ed015b17504d1`, FP16, một T4, không quantization/fine-tuning.
-3. Kiểm tra quyền sử dụng và khả năng truy cập model; không in credential.
-4. Notebook hiện lấy `REVISION = info.sha`, có thể đổi theo upstream; cần task riêng để pin revision và lưu bằng chứng chạy. Task nền tảng giữ nguyên notebook.
-5. Lưu prompt, thông số decoding, outputs và metrics đã loại secret; phân biệt thời gian load từ cache với thời gian download.
-6. Kiểm thử structured storyboard riêng; smoke test bốn cảnh văn bản chưa chứng minh Data Contract.
-
-Notebook dùng đường dẫn `/kaggle/working`; không chạy trực tiếp notebook inference trên laptop CPU. Model chỉ được load bởi thao tác inference rõ ràng, không tự load khi import module. Chưa có lệnh chạy mock end-to-end để hướng dẫn ở thời điểm này.
+Actual PyYAML6.0.3:178targeted tests PASS,877full CPU tests PASS,0skipped/failed/errors; pip check PASS.30regression cases mới và hai original P1 probes xác nhận duplicate YAML bị reject. Default mock CLI vẫn chạy CPU với actual PNG1060×1320. Không chạy real Qwen factory inference/GPU hoặc thay frozen prompts/controller semantics.

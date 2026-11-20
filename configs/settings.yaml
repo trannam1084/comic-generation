@@ -1,11 +1,14 @@
-# Cấu hình development dự kiến; chưa có config loader hoặc mock pipeline.
-# Cấu hình inference thật được chọn riêng khi chạy Kaggle.
+# Opt-in qua load_pipeline_config("configs/settings.yaml"); build_pipeline() không tự đọc.
+# Story real phải chọn qwen và explicit cuda:N; không đổi GPU mặc định cho mock.
 story:
   backend: mock
+  device: cpu
+  cache_dir: null
 image:
   backend: mock
-runtime:
   device: cpu
+  base_seed: 42
+runtime:
   output_dir: outputs
-  # Số lần thử lại sau lần đầu là đề xuất, cần chốt cùng interface Repair.
-  max_retries: 2
+  # null = auto theo backend: mock0, qwen2. Explicit0 giữ nguyên cho B0.
+  max_retries: null
