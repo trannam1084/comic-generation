@@ -11,6 +11,29 @@ from .schemas import GeneratedImage, ScenePrompt
 logger = logging.getLogger(__name__)
 
 EXPECTED_SCENES = 4
+MIN_IMAGE_SIZE = 64  # nhỏ hơn mức này thì cỡ chữ và tọa độ khung vẽ không còn hợp lệ
+
+
+def validate_scene_prompts(prompts: object) -> None:
+    """Raise ValueError nếu prompts không phải đúng 4 ScenePrompt hợp lệ, scene_index = [1, 2, 3, 4]."""
+    if not isinstance(prompts, (list, tuple)):
+        raise ValueError(f"prompts phải là list hoặc tuple, nhận {type(prompts).__name__}")
+    if len(prompts) != EXPECTED_SCENES:
+        raise ValueError(f"Cần đúng {EXPECTED_SCENES} prompt, nhận được {len(prompts)}")
+
+    for position, p in enumerate(prompts, start=1):
+        if not isinstance(p, ScenePrompt):
+            raise ValueError(f"Prompt thứ {position} không phải ScenePrompt: {type(p).__name__}")
+        if isinstance(p.scene_index, bool) or not isinstance(p.scene_index, int):
+            raise ValueError(f"Prompt thứ {position}: scene_index phải là int, nhận {p.scene_index!r}")
+        if not isinstance(p.prompt, str) or not p.prompt.strip():
+            raise ValueError(f"Prompt thứ {position}: prompt phải là chuỗi không rỗng")
+        if not isinstance(p.negative_prompt, str):
+            raise ValueError(f"Prompt thứ {position}: negative_prompt phải là chuỗi")
+
+    indices = [p.scene_index for p in prompts]
+    if indices != list(range(1, EXPECTED_SCENES + 1)):
+        raise ValueError(f"scene_index phải đúng [1, 2, 3, 4] theo thứ tự, nhận {indices}")
 
 
 class BaseImageGenerator(ABC):
@@ -25,11 +48,11 @@ class BaseImageGenerator(ABC):
     def generate_all(
         self, prompts: list[ScenePrompt], base_seed: int = 42
     ) -> list[GeneratedImage]:
-        """Sinh lần lượt các ảnh, giữ nguyên thứ tự cảnh."""
-        if len(prompts) != EXPECTED_SCENES:
-            raise ValueError(
-                f"Cần đúng {EXPECTED_SCENES} prompt, nhận được {len(prompts)}"
-            )
+        """Kiểm tra toàn bộ đầu vào rồi mới sinh lần lượt 4 ảnh, giữ nguyên thứ tự cảnh."""
+        validate_scene_prompts(prompts)
+        if isinstance(base_seed, bool) or not isinstance(base_seed, int):
+            raise ValueError(f"base_seed phải là int, nhận {base_seed!r}")
+
         results: list[GeneratedImage] = []
         for p in prompts:
             seed = base_seed + p.scene_index
@@ -47,8 +70,11 @@ class MockImageGenerator(BaseImageGenerator):
     _COLORS = [(205, 225, 245), (215, 240, 215), (250, 235, 205), (240, 215, 225)]
 
     def __init__(self, width: int = 512, height: int = 512) -> None:
-        if width <= 0 or height <= 0:
-            raise ValueError("width và height phải > 0")
+        for label, value in (("width", width), ("height", height)):
+            if isinstance(value, bool) or not isinstance(value, int) or value < MIN_IMAGE_SIZE:
+                raise ValueError(
+                    f"{label} phải là số nguyên >= {MIN_IMAGE_SIZE}, nhận {value!r}"
+                )
         self.width = width
         self.height = height
 
@@ -61,8 +87,8 @@ class MockImageGenerator(BaseImageGenerator):
         draw.rectangle(
             [(4, 4), (self.width - 5, self.height - 5)], outline=(80, 80, 80), width=3
         )
-        big = ImageFont.load_default(size=self.height // 3)
-        small = ImageFont.load_default(size=self.height // 22)
+        big = ImageFont.load_default(size=max(8, self.height // 3))
+        small = ImageFont.load_default(size=max(8, self.height // 22))
 
         draw.text(
             (self.width / 2, self.height / 2),
