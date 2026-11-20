@@ -1,4 +1,4 @@
-# CPU Mock Pipeline Integration — Task 07B
+# Shared Pipeline Integration — Task 07B và 10A.1
 
 ## 1. Trạng thái và kiến trúc thực tế
 
@@ -65,32 +65,23 @@ Nếu render/save/verification thất bại, exception propagate, không ComicRe
 
 ## 5. Configuration và factory
 
-`src/factory.py` cung cấp `PipelineConfig` và `build_pipeline`. Phạm vi tối thiểu là explicit Python config; không có YAML loader, dotenv loader hoặc environment auto-discovery. Môi trường hiện thiếu PyYAML; task này không cài package mới. Các YAML/.env files nền tảng được đọc để đối chiếu, nhưng **không được factory tự load**. Truyền mapping/YAML path vào `config` bị từ chối; unknown config/keyword không bị silently ignore.
+Task10A.1 mở rộng existing factory, không thay adapters/orchestration Task07B. `PipelineConfig` và `load_pipeline_config` được re-export qua `src.factory`; nguồn config là `src/configuration.py`. Xem [configuration.md](configuration.md) cho field/device rules, precedence, DI policy và limitations.
 
-| Field | CPU mock default | Quy tắc |
-|---|---|---|
-| story_backend | mock | Chỉ mock; qwen/API unsupported configuration raise rõ |
-| image_backend | mock | Chỉ mock; diffusion unsupported configuration raise rõ |
-| device | cpu | Chỉ cpu cho factory hiện tại |
-| output_dir | outputs | str/Path; relative tính từ repository root, independent cwd |
-| max_retries | 0 | Integer không âm, reject bool; >0 cần explicit repair backend |
-| base_seed | 42 | Integer, reject bool; giữ cả negative integers như TV2 |
+Default `build_pipeline(PipelineConfig())` vẫn mock/mock/cpu, output root dựa trên repository, base_seed42 và max_retries0. Mock chỉ hỗ trợ exact fixture summary. Qwen mode cần explicit story_backend=qwen và story_device=cuda:N; image_device=cpu, retry mặc định2, explicit0 giữ nguyên. Một QwenStoryBackend instance làm cả initial và repair backend; chỉ lazy load khi generate, không gọi load/generate/review khi build.
 
-Thứ tự lựa chọn: config Python explicit → default `PipelineConfig`; explicit injected dependency → default component constructor tương ứng. Không đọc `STORY_BACKEND`, `DEVICE`, `MAX_RETRIES` hoặc `.env`; thay chúng không đổi factory behavior. Không có precedence ngầm environment/YAML.
+`build_pipeline` không đọc ambient config. Caller opt-in `load_pipeline_config(yaml_path, environ=..., overrides=...)`: defaults → YAML → supported environment → explicit overrides. Không implicit .env loader. YAML import lazy; PyYAML6.0.3 đã được cài theo approval và actual YAML integration đã PASS. Private SafeLoader-derived parser reject duplicate keys/sections ở mọi level và reject merge keys; intentional cross-layer overrides vẫn hợp lệ. Mock/direct Python config không cần YAML. Settings và .env.example đã cập nhật sang mock defaults cùng auto retry để không ghi đè Qwen default khi chọn real mode.
 
-`runtime.max_retries=2` trong settings/.env là policy real repair đã chốt và không bị sửa. Riêng **CPU accepted-fixture smoke dùng0** vì không có production mock repair backend. Không tạo repair backend trả fixture bất kể input. Muốn exercise repair, tests inject scripted backend rõ ràng và chọn2; controller real default2 vẫn nguyên vẹn. Nếu chọn >0 nhưng không inject repair backend, factory fail ngay.
+Qwen selection không cho story-stage/backend override bypass selected backend; dùng public qwen_loader test seam để inject tokenizer/model/runtime doubles. Những injection points Task07B vẫn giữ trong mock mode; prompt/image/render injection giữ ở cả hai modes. Không fake real backend, thêm retry/fallback hoặc semantic-triggered repair.
 
 ```python
 from src.factory import PipelineConfig, build_pipeline
 
-pipeline = build_pipeline(PipelineConfig(output_dir="outputs", base_seed=42))
+pipeline = build_pipeline(PipelineConfig())
 result = pipeline.generate(
     "Thỏ thách rùa thi chạy. Thỏ chủ quan ngủ quên giữa đường, còn rùa kiên trì về đích và chiến thắng."
 )
 print(result.comic_path)
 ```
-
-Factory không import torch/transformers/diffusers/Gradio hoặc tự load weights. Có thể inject `initial_backend`, `repair_backend`, `story_stage`, `prompt_stage`, `image_backend`, `renderer_backend`. StoryStage explicit không được kết hợp story backends hoặc nonzero retry config vì sẽ gây ambiguity. Explicit injection không tự cấp quyền real inference; caller chịu trách nhiệm backend và quyền execution.
 
 ## 6. CLI và CPU setup
 
@@ -113,6 +104,10 @@ Có thể gọi script bằng absolute path từ cwd khác; default fixture/font
 
 TV2 có thể inject pipeline đã build vào UI, gọi `pipeline.generate(summary)` và dùng `result.comic_path`. Với story failure, đọc `StoryStageError.category/result/attempts`; log/report phù hợp, không tự gọi lại backend hoặc fallback. Image/render exceptions có thể được UI hiển thị an toàn theo exception contract. Task này không sửa `app.py` hoặc merge UI PR.
 
-CPU mock chỉ nhận exact fixture summary. Real Qwen stage có thể được wiring qua adapter/controller trong task integration riêng; real image backend/configuration/credential management chưa nằm trong factory. Không coi bounded repair hoặc semantic reviewers là đã nâng chất lượng nội dung trong pipeline mock.
+CPU mock chỉ nhận exact fixture summary. Qwen story + mock image đã có factory wiring và CPU injected tests ở Task10A.1; chưa chạy real factory invocation. Real image backend/credential management chưa được tích hợp. Không coi bounded repair hoặc semantic reviewers là đã nâng chất lượng nội dung trong pipeline mock.
 
 Task09D.2B riêng đã ghi nhận paired development structural acceptance10/12→12/12, hai initial failures accepted sau first repair. Đây là GPU experiment riêng trên development inputs, không phải kết quả của CPU integration tests và không chứng minh semantic correctness. Story/Repair components và prompts đã freeze; task này không tune/rerun GPU.
+
+## 8. Verification sau strict YAML fix — Task10A.1.2
+
+Targeted config/factory+integration178PASS; full CPU877PASS, không skipped/failed/errors. Hai original duplicate YAML probes đều reject trước factory build/load. Strict loader giữ safe constructors/global PyYAML state, không echo key/value; malformed/empty/invalid shape/object tags vẫn reject. Actual default CPU mock CLI tiếp tục tạo unique1060×1320PNG. Không thay adapters, shared Qwen runtime, Story/Repair prompts hoặc acceptance algorithm. Không có real factory GPU inference trong task này.
