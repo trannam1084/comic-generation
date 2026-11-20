@@ -15,6 +15,11 @@ DEFAULT_FONT_PATH = (
 )
 
 
+def _require_int(name: str, value: object, minimum: int) -> None:
+    if isinstance(value, bool) or not isinstance(value, int) or value < minimum:
+        raise ValueError(f"{name} phải là số nguyên >= {minimum}, nhận {value!r}")
+
+
 class CaptionOverflowError(ValueError):
     """Caption quá dài, không vừa khung kể cả khi đã giảm về cỡ chữ nhỏ nhất."""
 
@@ -35,6 +40,30 @@ class RenderConfig:
     border_color: tuple[int, int, int] = (20, 20, 20)
     text_color: tuple[int, int, int] = (20, 20, 20)
 
+    def __post_init__(self) -> None:
+        for name in ("panel_size", "caption_height", "font_size", "min_font_size"):
+            _require_int(name, getattr(self, name), minimum=1)
+        for name in ("line_spacing", "text_padding", "border_width", "gap", "margin"):
+            _require_int(name, getattr(self, name), minimum=0)
+        if self.min_font_size > self.font_size:
+            raise ValueError("min_font_size không được lớn hơn font_size")
+        if self.text_padding < self.border_width:
+            raise ValueError("text_padding phải >= border_width để chữ không đè lên viền")
+        if self.panel_size - 2 * self.text_padding < 1:
+            raise ValueError("panel_size quá nhỏ so với text_padding: không còn chỗ cho chữ")
+        if self.caption_height - 2 * self.text_padding < 1:
+            raise ValueError("caption_height quá nhỏ so với text_padding: không còn chỗ cho chữ")
+        if 2 * self.border_width >= min(self.panel_size, self.caption_height):
+            raise ValueError("border_width quá lớn so với kích thước panel")
+        for name in ("background", "border_color", "text_color"):
+            color = getattr(self, name)
+            if (
+                not isinstance(color, tuple)
+                or len(color) != 3
+                or not all(isinstance(c, int) and not isinstance(c, bool) and 0 <= c <= 255 for c in color)
+            ):
+                raise ValueError(f"{name} phải là tuple RGB gồm 3 số nguyên 0..255, nhận {color!r}")
+
 
 @dataclass
 class RenderResult:
@@ -43,12 +72,18 @@ class RenderResult:
     font_sizes: list[int] = field(default_factory=list)  # cỡ chữ thực tế đã dùng cho từng panel
 
 
+def line_width(font: ImageFont.FreeTypeFont, text: str) -> float:
+    """Độ rộng cần thiết: lấy mức lớn hơn giữa advance width và bề rộng nét vẽ thực tế."""
+    left, _, right, _ = font.getbbox(text)
+    return max(font.getlength(text), right - left)
+
+
 def _split_long_word(word: str, font: ImageFont.FreeTypeFont, max_width: int) -> list[str]:
     """Cắt một từ dài hơn max_width thành nhiều đoạn theo từng ký tự."""
     chunks: list[str] = []
     current = ""
     for ch in word:
-        if current and font.getlength(current + ch) > max_width:
+        if current and line_width(font, current + ch) > max_width:
             chunks.append(current)
             current = ch
         else:
@@ -64,12 +99,12 @@ def wrap_text(text: str, font: ImageFont.FreeTypeFont, max_width: int) -> list[s
     current = ""
     for word in text.split():
         candidate = word if not current else f"{current} {word}"
-        if font.getlength(candidate) <= max_width:
+        if line_width(font, candidate) <= max_width:
             current = candidate
             continue
         if current:
             lines.append(current)
-        if font.getlength(word) <= max_width:
+        if line_width(font, word) <= max_width:
             current = word
         else:
             chunks = _split_long_word(word, font, max_width)
@@ -109,7 +144,8 @@ class ComicRenderer:
             lines = wrap_text(caption, font, max_width)
             line_h = self._line_height(font)
             total = len(lines) * line_h + (len(lines) - 1) * cfg.line_spacing
-            if lines and total <= max_height:
+            fits_width = all(line_width(font, line) <= max_width for line in lines)
+            if lines and fits_width and total <= max_height:
                 return font, lines, size
         raise CaptionOverflowError(
             f"Caption không vừa khung ở cỡ chữ tối thiểu {cfg.min_font_size}: {caption!r}"
@@ -153,14 +189,25 @@ class ComicRenderer:
     def render(self, images: list[GeneratedImage], captions: list[str]) -> RenderResult:
         """Ghép đúng 4 panel theo thứ tự đọc: 1 2 / 3 4."""
         cfg = self.config
+        if not isinstance(images, (list, tuple)) or not isinstance(captions, (list, tuple)):
+            raise ValueError("images và captions phải là list hoặc tuple")
         if len(images) != EXPECTED_PANELS or len(captions) != EXPECTED_PANELS:
             raise ValueError(
                 f"Cần đúng {EXPECTED_PANELS} ảnh và {EXPECTED_PANELS} caption, "
                 f"nhận {len(images)} ảnh và {len(captions)} caption"
             )
+        for position, (generated, caption) in enumerate(zip(images, captions), start=1):
+            if not isinstance(generated, GeneratedImage) or not isinstance(generated.image, Image.Image):
+                raise ValueError(f"Ảnh thứ {position} không phải GeneratedImage chứa PIL Image")
+            if isinstance(generated.scene_index, bool) or not isinstance(generated.scene_index, int):
+                raise ValueError(
+                    f"Ảnh thứ {position}: scene_index phải là int, nhận {generated.scene_index!r}"
+                )
+            if not isinstance(caption, str):
+                raise ValueError(f"Caption thứ {position} phải là chuỗi, nhận {type(caption).__name__}")
         indices = [g.scene_index for g in images]
-        if any(b <= a for a, b in zip(indices, indices[1:])):
-            raise ValueError(f"scene_index của ảnh phải tăng dần, nhận {indices}")
+        if indices != list(range(1, EXPECTED_PANELS + 1)):
+            raise ValueError(f"scene_index của ảnh phải đúng [1, 2, 3, 4] theo thứ tự, nhận {indices}")
 
         panels: list[Image.Image] = []
         sizes: list[int] = []

@@ -146,3 +146,146 @@ def test_save_writes_five_png_files(renderer, images, tmp_path):
     for p in paths:
         with Image.open(p) as im:
             assert im.format == "PNG"
+
+            
+# ---------- scene_index phải đúng [1, 2, 3, 4] ----------
+
+def _with_indices(images, indices):
+    from src.image_generator.schemas import GeneratedImage
+
+    return [
+        GeneratedImage(i, g.image, g.seed, g.backend, g.elapsed_sec, g.params)
+        for g, i in zip(images, indices)
+    ]
+
+
+@pytest.mark.parametrize(
+    "indices",
+    [
+        [1, 1, 3, 4],   # trùng
+        [1, 2, 4, 4],   # trùng ở cuối
+        [1, 2, 4, 5],   # thiếu 3
+        [0, 1, 2, 3],   # ngoài khoảng
+        [2, 3, 4, 5],   # ngoài khoảng
+        [1, 2, 3, 5],   # thừa 5
+        [-1, 2, 3, 4],  # âm
+        [2, 1, 3, 4],   # đảo
+    ],
+)
+def test_scene_indices_must_be_exactly_one_to_four(renderer, images, indices):
+    with pytest.raises(ValueError):
+        renderer.render(_with_indices(images, indices), CAPTIONS)
+
+
+@pytest.mark.parametrize("bad_index", ["1", 1.0, True, None])
+def test_non_integer_scene_index_raises(renderer, images, bad_index):
+    bad = _with_indices(images, [1, 2, 3, 4])
+    bad[0].scene_index = bad_index
+    with pytest.raises(ValueError):
+        renderer.render(bad, CAPTIONS)
+
+
+def test_non_string_caption_raises(renderer, images):
+    with pytest.raises(ValueError):
+        renderer.render(images, [None] + CAPTIONS[1:])
+
+
+def test_image_without_pil_image_raises(renderer, images):
+    bad = _with_indices(images, [1, 2, 3, 4])
+    bad[1].image = "not an image"
+    with pytest.raises(ValueError):
+        renderer.render(bad, CAPTIONS)
+
+
+# ---------- RenderConfig hợp lệ ----------
+
+@pytest.mark.parametrize(
+    "kwargs",
+    [
+        {"panel_size": 0},
+        {"panel_size": -5},
+        {"caption_height": 0},
+        {"font_size": 0},
+        {"min_font_size": 0},
+        {"font_size": 10, "min_font_size": 20},
+        {"line_spacing": -1},
+        {"gap": -1},
+        {"margin": -1},
+        {"text_padding": 2, "border_width": 4},       # chữ đè lên viền
+        {"panel_size": 20, "text_padding": 10},        # không còn chỗ cho chữ (rộng)
+        {"caption_height": 20, "text_padding": 10},    # không còn chỗ cho chữ (cao)
+        {"border_width": 200, "text_padding": 200},    # viền quá lớn
+        {"panel_size": 512.0},
+        {"font_size": True},
+        {"background": (255, 255)},
+        {"text_color": (0, 0, 300)},
+        {"border_color": [0, 0, 0]},
+    ],
+)
+def test_invalid_render_config_raises(kwargs):
+    with pytest.raises(ValueError):
+        RenderConfig(**kwargs)
+
+
+# ---------- chữ không vượt vùng hiển thị (kể cả config tùy chỉnh) ----------
+
+def _assert_no_ink_outside_text_area(panel, cfg):
+    """Mọi pixel trong dải padding (giữa viền và vùng chữ) phải còn nguyên màu nền."""
+    w, h = panel.size
+    top = cfg.panel_size
+    b, p = cfg.border_width, cfg.text_padding
+    strips = [
+        (b, top, w - b, top + p),            # dải trên vùng chữ
+        (b, h - p, w - b, h - b),            # dải dưới vùng chữ
+        (b, top, p, h - b),                  # dải trái
+        (w - p, top, w - b, h - b),          # dải phải
+    ]
+    for box in strips:
+        if box[2] <= box[0] or box[3] <= box[1]:
+            continue
+        extrema = panel.crop(box).getextrema()
+        assert all(lo == hi == cfg.background[i] for i, (lo, hi) in enumerate(extrema)), (
+            f"Chữ tràn ra ngoài vùng hiển thị tại dải {box}"
+        )
+
+
+CUSTOM_CONFIGS = [
+    {},
+    {"panel_size": 300, "caption_height": 90, "font_size": 30, "text_padding": 10, "border_width": 3},
+    {"panel_size": 256, "caption_height": 70, "font_size": 20, "min_font_size": 8, "text_padding": 6, "border_width": 2},
+    {"panel_size": 512, "caption_height": 200, "font_size": 60, "text_padding": 20, "border_width": 6},
+    {"panel_size": 400, "caption_height": 110, "font_size": 18, "text_padding": 4, "border_width": 4},
+]
+
+
+@pytest.mark.parametrize("kwargs", CUSTOM_CONFIGS)
+def test_caption_never_overflows_text_area(images, kwargs):
+    renderer = ComicRenderer(RenderConfig(**kwargs))
+    for caption in CAPTIONS + ["Thỏ ngủ quên ở " + "gốc cây " * 4]:
+        try:
+            panel, _ = renderer.render_panel(images[0].image, caption)
+        except CaptionOverflowError:
+            continue  # báo lỗi rõ ràng cũng là hành vi hợp lệ, miễn không tràn âm thầm
+        _assert_no_ink_outside_text_area(panel, renderer.config)
+
+
+def test_lines_fit_inside_text_area_by_measurement(renderer):
+    cfg = renderer.config
+    max_width = cfg.panel_size - 2 * cfg.text_padding
+    max_height = cfg.caption_height - 2 * cfg.text_padding
+    for caption in CAPTIONS:
+        font, lines, _ = renderer._fit_caption(caption)
+        line_h = renderer._line_height(font)
+        total = len(lines) * line_h + (len(lines) - 1) * cfg.line_spacing
+        assert total <= max_height
+        assert all(font.getlength(line) <= max_width for line in lines)
+
+
+def test_text_narrower_than_one_glyph_raises_overflow(images):
+    """Vùng chữ hẹp hơn một ký tự: phải báo lỗi, không vẽ chữ tràn."""
+    renderer = ComicRenderer(
+        RenderConfig(panel_size=30, caption_height=60, font_size=40, min_font_size=30,
+                     text_padding=10, border_width=1)
+    )
+    with pytest.raises(CaptionOverflowError):
+        renderer.render_panel(images[0].image, "WWW")
