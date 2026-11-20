@@ -1,6 +1,6 @@
 # Bounded Deterministic Repair Controller — Task 09C.1
 
-Implementation TV1 — Trần Hải Nam. Controller đã có CPU tests với scripted backends; chưa có thực nghiệm repair bằng model thật, chưa tích hợp vào ComicPipeline và chưa có Qwen repair backend/prompt.
+Implementation TV1 — Trần Hải Nam. Controller đã có CPU tests với scripted backends. Task 09C.2 bổ sung [concrete Qwen repair backend/prompt](qwen_repair.md) trên shared runtime; chưa có thực nghiệm repair bằng model thật hoặc ComicPipeline integration.
 
 ## Contract và Dependency Injection
 
@@ -9,7 +9,7 @@ Module `src/story_generator/repair.py` sử dụng trực tiếp `StoryboardVali
 - `StoryBackend.generate(summary: str) -> str`: initial generation trả raw JSON.
 - `StoryGenerator.generate(summary: str) -> Storyboard`: luồng một lần sinh hiện có, không bị thay đổi.
 - Controller nhận raw backend riêng vì cần giữ output thất bại trước khi parse; không gọi StoryGenerator rồi làm mất raw/history qua exception.
-- `RepairBackend.generate_repair(feedback: RepairFeedback) -> str`: một generation attempt mới. Caller inject implementation; controller không sở hữu model hoặc inference prompt.
+- `RepairBackend.generate_repair(feedback: RepairFeedback) -> str`: một generation attempt mới. Caller inject implementation; controller không sở hữu model hoặc inference prompt. QwenStoryBackend.generate_repair dùng chung cached runtime với initial generation.
 
 ```python
 from src.story_generator.mock_backend import MockStoryBackend
@@ -56,7 +56,7 @@ Feedback không chứa backend metadata, stack traces hoặc environment. Backen
 
 Mỗi `RepairAttempt` lưu index, `initial`/`repair`, raw preservation mode, validation report, canonical feedback nếu có, metadata snapshot/status, failure category, diagnostics và `elapsed_seconds`. Thời gian attempt đo wall time quanh backend method (có thể gồm load nếu backend lazy), không được gọi là `model.generate` latency. `RepairResult.elapsed_seconds` đo toàn bộ invocation. Không tự tạo model token/VRAM metrics.
 
-Optional metadata đọc qua public `last_run` (initial) hoặc `last_repair` (repair). Chỉ capture snapshot JSON/UTF-8-safe có fresh `call_id` và raw khớp call hiện tại; thiếu identity, stale/mismatch hoặc getter/serialization lỗi thì discard và ghi diagnostic. Backend không hỗ trợ metadata vẫn hoạt động. Allowlist chỉ giữ provenance/generation metrics/parameters/package versions; không copy arbitrary runtime dictionaries, credentials hay messages. Snapshot là deep copy, không live reference. Fresh partial raw từ metadata có thể được giữ khi backend exception; stale metadata không được tái sử dụng. Không retry để lấy metadata.
+Optional metadata đọc qua public `last_run` (initial) hoặc `last_repair` (repair). Chỉ capture snapshot JSON/UTF-8-safe có fresh `call_id` và raw khớp call hiện tại; thiếu identity, stale/mismatch hoặc getter/serialization lỗi thì discard và ghi diagnostic. Backend không hỗ trợ metadata vẫn hoạt động. Allowlist chỉ giữ provenance/generation metrics/parameters/package versions; không copy arbitrary runtime dictionaries, credentials hay messages. Snapshot là deep copy, không live reference. Fresh partial raw từ metadata có thể được giữ khi backend exception; stale metadata không được tái sử dụng. Nếu metadata có purpose, initial phải story_generation; repair nhận canonical story_repair hoặc legacy alias repair đã có trong generic backends. Sai purpose bị discard. Legacy optional metadata thiếu purpose giữ behavior cũ; concrete Qwen luôn cung cấp canonical story_repair. Không retry để lấy metadata.
 
 ## Result và failure handling
 
@@ -96,4 +96,4 @@ Chưa có human-confirmed annotations; không suy ra accuracy/precision/recall h
 git diff --check
 ```
 
-Scripted doubles kiểm tra orchestration, budget, feedback/history, warnings policy, failure handling, metadata isolation và Unicode; không tải model/network/GPU. Tests không chứng minh model có thể sửa đúng truyện. Muốn thử repair thật cần thiết kế concrete repair backend/prompt, phê duyệt inference riêng và human evaluation. StoryStage/ComicPipeline integration, semantic-triggered repair và Repair efficacy evaluation chưa triển khai.
+Scripted doubles kiểm tra orchestration, budget, feedback/history, warnings policy, failure handling, metadata isolation và Unicode; không tải model/network/GPU. Tests không chứng minh model có thể sửa đúng truyện. Concrete backend/prompt đã có trong Task 09C.2; muốn thử repair thật vẫn cần phê duyệt inference riêng và human evaluation. StoryStage/ComicPipeline integration, semantic-triggered repair và Repair efficacy evaluation chưa triển khai.

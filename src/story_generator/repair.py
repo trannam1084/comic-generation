@@ -114,6 +114,10 @@ def _metadata_snapshot(
                 or not value["call_id"] or value["call_id"] == previous_id):
             return None, "discarded", None
         current_raw = value.get("raw_output")
+        expected_purposes = {"story_generation"} if attribute == "last_run" else {"story_repair", "repair"}
+        # Generic backends cũ có thể thiếu purpose hoặc dùng alias repair; Qwen dùng story_repair.
+        if "purpose" in value and value["purpose"] not in expected_purposes:
+            return None, "discarded", None
         if isinstance(raw, str) and current_raw != raw:
             return None, "discarded", None
         keys = {
