@@ -13,7 +13,9 @@ from __future__ import annotations
 
 import argparse
 import logging
+import re
 import time
+import uuid
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, Protocol
@@ -24,9 +26,18 @@ logger = logging.getLogger(__name__)
 
 ROOT = Path(__file__).resolve().parent
 OUTPUT_DIR = ROOT / "outputs"
+DEMO_OUTPUT_DIR = OUTPUT_DIR / "demo_ui"
 EXAMPLE_STORYBOARD = ROOT / "examples" / "storyboard.json"
 
+EXPECTED_PANELS = 4
+MAX_ERROR_CHARS = 300
+
 BUSY_MESSAGE = "Đang tạo truyện tranh... Khi chạy model thật bước này có thể mất vài phút."
+DEMO_BANNER = (
+    "## CHẾ ĐỘ DEMO\n"
+    "Đang dùng **storyboard mẫu cố định** và **ảnh mock** (không phải kết quả từ LLM "
+    "hay model sinh ảnh thật). Chỉ dùng để thử giao diện."
+)
 
 
 class PipelineLike(Protocol):
@@ -48,8 +59,72 @@ class UIOutput:
     run_info: str
 
 
+class _InvalidResult(ValueError):
+    """Kết quả pipeline không đạt kiểm tra tối thiểu của UI."""
+
+
+# ---------------------------------------------------------------------------
+# Lọc thông tin nhạy cảm trước khi đưa lỗi lên giao diện hoặc ghi log
+# ---------------------------------------------------------------------------
+_URL_RE = re.compile(r"https?://[^\s'\"<>]+", re.IGNORECASE)
+_WINDOWS_PATH_RE = re.compile(r"(?:[A-Za-z]:[\\/]|\\\\)[^\s'\"<>|]*")
+_POSIX_PATH_RE = re.compile(r"(?<![\w:/.\-])/(?:[\w.\-+@~]+/)*[\w.\-+@~]+")
+_BEARER_RE = re.compile(r"\bbearer\s+[A-Za-z0-9\-._~+/]+=*", re.IGNORECASE)
+_KEY_VALUE_RE = re.compile(
+    r"\b(api[_-]?key|access[_-]?token|token|secret|password|passwd|authorization|credentials?)\b"
+    r"(\s*[:=]\s*)(\S+)",
+    re.IGNORECASE,
+)
+_TOKEN_RE = re.compile(
+    r"\b(?:hf_|ghp_|gho_|ghs_|github_pat_|sk-|xox[abprs]-)[A-Za-z0-9_\-]{8,}|\bAKIA[0-9A-Z]{12,}\b"
+)
+
+
+def sanitize_message(text: object) -> str:
+    """Che đường dẫn nội bộ, URL, token và mật khẩu; gộp xuống dòng và cắt ngắn."""
+    cleaned = str(text)
+    cleaned = _URL_RE.sub("<url>", cleaned)
+    cleaned = _WINDOWS_PATH_RE.sub("<đường dẫn>", cleaned)
+    cleaned = _BEARER_RE.sub("Bearer <đã ẩn>", cleaned)
+    cleaned = _KEY_VALUE_RE.sub(lambda m: f"{m.group(1)}{m.group(2)}<đã ẩn>", cleaned)
+    cleaned = _TOKEN_RE.sub("<đã ẩn>", cleaned)
+    cleaned = _POSIX_PATH_RE.sub("<đường dẫn>", cleaned)
+    cleaned = " ".join(cleaned.split())
+    if len(cleaned) > MAX_ERROR_CHARS:
+        cleaned = cleaned[:MAX_ERROR_CHARS].rstrip() + "…"
+    return cleaned
+
+
 def _error(message: str) -> UIOutput:
     return UIOutput(False, f"LỖI: {message}", [], None, "", "", "")
+
+
+def _describe(exc: BaseException) -> str:
+    """Tên loại lỗi cộng thông điệp đã lọc (không bao giờ dùng str(exc) thô)."""
+    safe = sanitize_message(exc)
+    return f"{type(exc).__name__}: {safe}" if safe else type(exc).__name__
+
+
+def _validate_result(result: object) -> None:
+    """Kiểm tra tối thiểu trước khi báo thành công. Thông báo lỗi không chứa đường dẫn."""
+    comic_path = getattr(result, "comic_path", None)
+    try:
+        path = Path(comic_path)  # type: ignore[arg-type]
+        usable = path.is_file() and path.stat().st_size > 0
+    except (TypeError, OSError):
+        usable = False
+    if not usable:
+        raise _InvalidResult("comic_path không tồn tại hoặc là file rỗng")
+
+    for name in ("images", "prompts"):
+        items = getattr(result, name, None)
+        if not isinstance(items, (list, tuple)) or len(items) != EXPECTED_PANELS:
+            got = len(items) if isinstance(items, (list, tuple)) else "không phải danh sách"
+            raise _InvalidResult(f"cần đúng {EXPECTED_PANELS} {name}, nhận {got}")
+
+    scenes = getattr(getattr(result, "storyboard", None), "scenes", None)
+    if not isinstance(scenes, (list, tuple)) or len(scenes) != EXPECTED_PANELS:
+        raise _InvalidResult(f"storyboard cần đúng {EXPECTED_PANELS} cảnh")
 
 
 def _format_result(result: ComicResult, elapsed_sec: float) -> UIOutput:
@@ -82,7 +157,7 @@ def _format_result(result: ComicResult, elapsed_sec: float) -> UIOutput:
 
 
 def run_generation(pipeline: PipelineLike, summary: object) -> UIOutput:
-    """Gọi pipeline và định dạng kết quả. Mọi lỗi đều được báo rõ, không thay bằng ảnh giả."""
+    """Gọi pipeline và định dạng kết quả. Lỗi được báo rõ nhưng đã lọc, không thay bằng ảnh giả."""
     if not isinstance(summary, str) or not summary.strip():
         return _error("Vui lòng nhập tóm tắt truyện trước khi tạo.")
 
@@ -91,18 +166,23 @@ def run_generation(pipeline: PipelineLike, summary: object) -> UIOutput:
         # Truyền nguyên văn: pipeline so khớp summary với input gốc nên UI không strip hay chuẩn hóa.
         result = pipeline.generate(summary)
     except PipelineContractError as exc:
-        logger.exception("Pipeline trả dữ liệu sai hợp đồng")
-        return _error(f"Dữ liệu giữa các bước không hợp lệ ({exc}).")
-    except Exception as exc:  # noqa: BLE001 - hiển thị lỗi thật cho người dùng, không nuốt lỗi
-        logger.exception("Pipeline thất bại")
-        return _error(f"Không tạo được truyện tranh ({type(exc).__name__}): {exc}")
+        # Chỉ ghi thông điệp đã lọc, không ghi traceback (có thể chứa đường dẫn nội bộ).
+        logger.error("Pipeline trả dữ liệu sai hợp đồng: %s", _describe(exc))
+        return _error(f"Dữ liệu giữa các bước không hợp lệ ({sanitize_message(exc)}).")
+    except Exception as exc:  # noqa: BLE001 - hiển thị lỗi (đã lọc) cho người dùng, không nuốt lỗi
+        logger.error("Pipeline thất bại: %s", _describe(exc))
+        return _error(f"Không tạo được truyện tranh ({_describe(exc)})")
 
     elapsed = time.perf_counter() - start
     try:
+        _validate_result(result)
         return _format_result(result, elapsed)
+    except _InvalidResult as exc:
+        logger.error("Kết quả pipeline không đạt kiểm tra tối thiểu: %s", sanitize_message(exc))
+        return _error(f"Kết quả pipeline không hợp lệ ({sanitize_message(exc)}).")
     except Exception as exc:  # noqa: BLE001
-        logger.exception("Không đọc được kết quả pipeline")
-        return _error(f"Pipeline trả kết quả không đọc được ({type(exc).__name__}): {exc}")
+        logger.error("Không đọc được kết quả pipeline: %s", _describe(exc))
+        return _error(f"Pipeline trả kết quả không đọc được ({_describe(exc)})")
 
 
 def load_example_summary() -> str | None:
@@ -121,11 +201,17 @@ def create_demo(pipeline: PipelineLike):
     """Dựng giao diện Gradio quanh một pipeline. Import gradio trễ để test CPU không cần gradio."""
     import gradio as gr
 
-    with gr.Blocks(title="AI Comic Generation") as demo:
+    # Pipeline giả tự khai báo IS_DEMO nên UI luôn hiện biểu ngữ, không phụ thuộc cờ truyền tay.
+    is_demo = bool(getattr(pipeline, "IS_DEMO", False))
+    status_prefix = "[DEMO] " if is_demo else ""
+
+    with gr.Blocks(title="AI Comic Generation (DEMO)" if is_demo else "AI Comic Generation") as demo:
         gr.Markdown(
             "# AI Comic Generation\n"
             "Nhập tóm tắt truyện bằng tiếng Việt, hệ thống tạo truyện tranh đúng 4 khung."
         )
+        if is_demo:
+            gr.Markdown(DEMO_BANNER)
         summary_box = gr.Textbox(
             label="Tóm tắt truyện (tiếng Việt)",
             lines=5,
@@ -149,10 +235,10 @@ def create_demo(pipeline: PipelineLike):
         outputs = [status_box, gallery, comic_image, download, storyboard_box, prompts_box, info_box]
 
         def on_click(summary: str):
-            yield BUSY_MESSAGE, [], None, None, "", "", ""
+            yield status_prefix + BUSY_MESSAGE, [], None, None, "", "", ""
             out = run_generation(pipeline, summary)
             yield (
-                out.status,
+                status_prefix + out.status,
                 out.gallery,
                 out.comic_path,
                 out.comic_path,
@@ -171,8 +257,17 @@ def create_demo(pipeline: PipelineLike):
 class _DemoPipeline:
     """Pipeline giả: fixture storyboard + ảnh mock + renderer thật. Không phải Comic Pipeline của nhóm."""
 
-    def __init__(self, output_dir: Path = OUTPUT_DIR / "demo_ui") -> None:
+    IS_DEMO = True
+
+    def __init__(self, output_dir: Path = DEMO_OUTPUT_DIR) -> None:
         self._output_dir = output_dir
+
+    def _new_run_dir(self) -> Path:
+        """Tạo thư mục riêng cho mỗi lượt. exist_ok=False để không bao giờ ghi đè lượt trước."""
+        run_id = f"{time.strftime('run_%Y%m%d_%H%M%S')}_{uuid.uuid4().hex[:8]}"
+        run_dir = self._output_dir / run_id
+        run_dir.mkdir(parents=True, exist_ok=False)
+        return run_dir
 
     def generate(self, summary: str) -> ComicResult:
         from src.comic_renderer.renderer import ComicRenderer
@@ -192,9 +287,13 @@ class _DemoPipeline:
         renderer = ComicRenderer()
         rendered = renderer.render(images, [scene.caption_vi for scene in storyboard.scenes])
 
-        run_dir = self._output_dir / time.strftime("run_%Y%m%d_%H%M%S")
-        comic_path = renderer.save(rendered, run_dir)[-1]
+        comic_path = renderer.save(rendered, self._new_run_dir())[-1]
         return ComicResult(storyboard, prompts, images, comic_path)
+
+
+def launch_kwargs(port: int) -> dict[str, Any]:
+    """Tham số launch của chế độ demo: chỉ cho phép phục vụ file trong outputs/demo_ui."""
+    return {"server_port": port, "allowed_paths": [str(DEMO_OUTPUT_DIR)]}
 
 
 def main(argv: list[str] | None = None) -> None:
@@ -211,8 +310,8 @@ def main(argv: list[str] | None = None) -> None:
         )
 
     demo = create_demo(_DemoPipeline())
-    OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
-    demo.launch(server_port=args.port, allowed_paths=[str(OUTPUT_DIR)])
+    DEMO_OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
+    demo.launch(**launch_kwargs(args.port))
 
 
 if __name__ == "__main__":

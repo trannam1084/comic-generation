@@ -1,6 +1,7 @@
-# Chỉ cho inference riêng trên Kaggle; không tự động cài trong CPU development.
-# Chọn torch build phù hợp CUDA của session, không coi file này là lockfile.
-# Các phiên bản Kaggle ghi trong docs/environment.md không phải pins ở đây.
+# For Kaggle-specific inference only; do not install automatically in CPU development.
+# Choose a torch build compatible with the session's CUDA version; do not treat this file as a lockfile.
+# Kaggle versions recorded in docs/environment.md are not pins here.
+
 torch
 transformers
 huggingface-hub
