@@ -125,7 +125,7 @@ def test_cli_returns_nonzero_for_invalid_synthetic_fixture(tmp_path, capsys):
     test.write_text("{not valid json}\n", encoding="utf-8")
     exit_code = validate_cli(["--dev", str(dev), "--test", str(test)])
     assert exit_code == 1
-    assert "Dataset validation FAILED." in capsys.readouterr().out
+    assert "Dataset validation FAILED:" in capsys.readouterr().out
 
 def test_optional_utility_modules_import_without_running_jobs():
     import importlib
