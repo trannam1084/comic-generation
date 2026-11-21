@@ -5,7 +5,7 @@ UI chỉ phụ thuộc vào một hợp đồng duy nhất do nhóm trưởng ch
 với result.comic_path, result.storyboard, result.images (và result.prompts).
 UI không tự dựng Story Generator hay Comic Pipeline riêng.
 
-Chạy thử giao diện bằng pipeline giả (chỉ để phát triển UI, không phải pipeline thật):
+Chế độ demo dùng pipeline dùng chung của nhóm (src.factory.build_pipeline) với backend mock:
     python app.py --demo
 """
 
@@ -15,12 +15,14 @@ import argparse
 import logging
 import re
 import time
-import uuid
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, Protocol
 
-from src.pipeline import ComicResult, PipelineContractError
+from src.configuration import PipelineConfig
+from src.factory import build_pipeline
+from src.pipeline import ComicPipeline, ComicResult, PipelineContractError
+from src.pipeline_adapters import StoryStageError
 
 logger = logging.getLogger(__name__)
 
@@ -35,8 +37,9 @@ MAX_ERROR_CHARS = 300
 BUSY_MESSAGE = "Đang tạo truyện tranh... Khi chạy model thật bước này có thể mất vài phút."
 DEMO_BANNER = (
     "## CHẾ ĐỘ DEMO\n"
-    "Đang dùng **storyboard mẫu cố định** và **ảnh mock** (không phải kết quả từ LLM "
-    "hay model sinh ảnh thật). Chỉ dùng để thử giao diện."
+    "Đang dùng **backend mock dùng chung** của nhóm: story mock (storyboard mẫu cố định) và "
+    "**ảnh mock** (không phải kết quả từ LLM hay model sinh ảnh thật). "
+    "Với backend mock, hãy dùng ví dụ bên dưới ô nhập."
 )
 
 
@@ -162,9 +165,19 @@ def run_generation(pipeline: PipelineLike, summary: object) -> UIOutput:
         return _error("Vui lòng nhập tóm tắt truyện trước khi tạo.")
 
     start = time.perf_counter()
+    # Chỉ ghi độ dài, không ghi nội dung tóm tắt của người dùng.
+    logger.info("Gọi pipeline.generate một lần (độ dài tóm tắt: %d ký tự)", len(summary))
     try:
         # Truyền nguyên văn: pipeline so khớp summary với input gốc nên UI không strip hay chuẩn hóa.
         result = pipeline.generate(summary)
+    except StoryStageError as exc:
+        # Không bao giờ dùng str(exc), exc.result, exc.attempts hay __cause__: có thể chứa raw output.
+        category = sanitize_message(getattr(exc, "category", "không rõ"))
+        logger.error("Bước tạo truyện thất bại (loại: %s)", category)
+        return _error(
+            f"Bước tạo truyện thất bại (loại: {category}). "
+            "Chi tiết không được hiển thị để tránh lộ dữ liệu."
+        )
     except PipelineContractError as exc:
         # Chỉ ghi thông điệp đã lọc, không ghi traceback (có thể chứa đường dẫn nội bộ).
         logger.error("Pipeline trả dữ liệu sai hợp đồng: %s", _describe(exc))
@@ -197,12 +210,14 @@ def load_example_summary() -> str | None:
     return summary if isinstance(summary, str) else None
 
 
-def create_demo(pipeline: PipelineLike):
-    """Dựng giao diện Gradio quanh một pipeline. Import gradio trễ để test CPU không cần gradio."""
+def create_demo(pipeline: PipelineLike, *, demo_mode: bool):
+    """Dựng giao diện Gradio quanh một pipeline. Import gradio trễ để test CPU không cần gradio.
+
+    demo_mode bắt buộc (keyword-only): người gọi phải quyết định có hiện biểu ngữ DEMO hay không.
+    """
     import gradio as gr
 
-    # Pipeline giả tự khai báo IS_DEMO nên UI luôn hiện biểu ngữ, không phụ thuộc cờ truyền tay.
-    is_demo = bool(getattr(pipeline, "IS_DEMO", False))
+    is_demo = bool(demo_mode)
     status_prefix = "[DEMO] " if is_demo else ""
 
     with gr.Blocks(title="AI Comic Generation (DEMO)" if is_demo else "AI Comic Generation") as demo:
@@ -252,66 +267,42 @@ def create_demo(pipeline: PipelineLike):
 
 
 # ---------------------------------------------------------------------------
-# CHỈ DÙNG ĐỂ PHÁT TRIỂN UI. Xóa khi ComicPipeline thật (Task 07B của TV1) sẵn sàng.
+# Chế độ demo: pipeline dùng chung của nhóm với backend mock
 # ---------------------------------------------------------------------------
-class _DemoPipeline:
-    """Pipeline giả: fixture storyboard + ảnh mock + renderer thật. Không phải Comic Pipeline của nhóm."""
+def build_demo_pipeline() -> tuple[ComicPipeline, PipelineConfig]:
+    """Dựng pipeline dùng chung (src.factory.build_pipeline) với backend mock, ghi vào outputs/demo_ui.
 
-    IS_DEMO = True
-
-    def __init__(self, output_dir: Path = DEMO_OUTPUT_DIR) -> None:
-        self._output_dir = output_dir
-
-    def _new_run_dir(self) -> Path:
-        """Tạo thư mục riêng cho mỗi lượt. exist_ok=False để không bao giờ ghi đè lượt trước."""
-        run_id = f"{time.strftime('run_%Y%m%d_%H%M%S')}_{uuid.uuid4().hex[:8]}"
-        run_dir = self._output_dir / run_id
-        run_dir.mkdir(parents=True, exist_ok=False)
-        return run_dir
-
-    def generate(self, summary: str) -> ComicResult:
-        from src.comic_renderer.renderer import ComicRenderer
-        from src.image_generator.image_generator import MockImageGenerator
-        from src.image_generator.prompt_builder import PromptBuilder
-        from src.image_generator.schemas import Storyboard as LegacyStoryboard
-        from src.storyboard.schema import Storyboard
-
-        storyboard = Storyboard.model_validate_json(EXAMPLE_STORYBOARD.read_text(encoding="utf-8"))
-        if summary != storyboard.summary:
-            raise ValueError(
-                "Chế độ demo chỉ hỗ trợ đúng tóm tắt mẫu (bấm ví dụ bên dưới ô nhập)."
-            )
-
-        prompts = PromptBuilder().build(LegacyStoryboard.from_dict(storyboard.model_dump()))
-        images = MockImageGenerator().generate_all(prompts)
-        renderer = ComicRenderer()
-        rendered = renderer.render(images, [scene.caption_vi for scene in storyboard.scenes])
-
-        comic_path = renderer.save(rendered, self._new_run_dir())[-1]
-        return ComicResult(storyboard, prompts, images, comic_path)
+    Không truyền image_backend nên factory dùng ảnh mock mặc định. Từ chối chạy nếu cấu hình mặc định
+    không còn là story mock, để biểu ngữ DEMO không bao giờ nói sai.
+    """
+    config = PipelineConfig(output_dir=DEMO_OUTPUT_DIR)
+    if config.story_backend != "mock":
+        raise RuntimeError("Chế độ demo chỉ chạy với story backend mock.")
+    return build_pipeline(config), config
 
 
-def launch_kwargs(port: int) -> dict[str, Any]:
-    """Tham số launch của chế độ demo: chỉ cho phép phục vụ file trong outputs/demo_ui."""
-    return {"server_port": port, "allowed_paths": [str(DEMO_OUTPUT_DIR)]}
+def launch_kwargs(port: int, output_root: Path) -> dict[str, Any]:
+    """Tham số launch của chế độ demo: chỉ cho phép phục vụ file trong thư mục output của demo."""
+    return {"server_port": port, "allowed_paths": [str(Path(output_root).resolve())]}
 
 
 def main(argv: list[str] | None = None) -> None:
     parser = argparse.ArgumentParser(description="Gradio UI cho AI Comic Generation")
-    parser.add_argument("--demo", action="store_true", help="dùng pipeline giả để thử giao diện")
+    parser.add_argument("--demo", action="store_true", help="dùng pipeline dùng chung với backend mock")
     parser.add_argument("--port", type=int, default=7860)
     args = parser.parse_args(argv)
 
     logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s")
     if not args.demo:
         raise SystemExit(
-            "Chưa có pipeline thật để gắn vào UI (chờ TV1 tích hợp ở Task 07B). "
-            "Dùng `python app.py --demo` để thử giao diện."
+            "Chưa có cấu hình pipeline thật cho UI (chờ TV1 tích hợp). "
+            "Dùng `python app.py --demo` để chạy với backend mock."
         )
 
-    demo = create_demo(_DemoPipeline())
-    DEMO_OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
-    demo.launch(**launch_kwargs(args.port))
+    pipeline, config = build_demo_pipeline()
+    demo = create_demo(pipeline, demo_mode=True)
+    Path(config.output_root).mkdir(parents=True, exist_ok=True)
+    demo.launch(**launch_kwargs(args.port, config.output_root))
 
 
 if __name__ == "__main__":
