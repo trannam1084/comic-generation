@@ -383,7 +383,7 @@ def audit(event,args):
     if event in {'socket.connect','socket.getaddrinfo'}:raise AssertionError('Network')
 sys.addaudithook(audit)
 from src.factory import PipelineConfig,build_pipeline,PROJECT_ROOT
-p=json.loads((PROJECT_ROOT/'examples/storyboard.json').read_text())
+p=json.loads((PROJECT_ROOT/'examples/storyboard.json').read_text(encoding="utf-8"))
 r=build_pipeline(PipelineConfig(output_dir=Path(sys.argv[1]))).generate(p['summary'])
 assert r.comic_path.is_file()
 assert not any(n.split('.')[0] in {'torch','transformers','diffusers','gradio','yaml'} for n in sys.modules)
