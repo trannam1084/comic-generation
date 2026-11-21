@@ -9,8 +9,8 @@
 
 Dùng hai snapshot cập nhật cuối:
 
-- `dev_cases(2).jsonl`: 20 record; SHA-256 `cf499691c012bb7b93d391a9e7ccc8ecf1c54d6402a0207517b7a2b92563a2f3`.
-- `test_cases(2).jsonl`: 10 record; SHA-256 `370e3e7d742e6acf5e6d07c5929eeae21c68d50e64ed6fb9221bb05eb586e737`.
+- `dev_cases(2).jsonl`: 20 record; SHA-256 `f54dcab4c835969c9fbd46f4eda3af9d9dfe3502d85de1686d9202c1c7c33602`.
+- `test_cases(2).jsonl`: 10 record; SHA-256 `76ee7ef7a9ca57e7511928faf5e1a61364f269f4187aa8e8a14fdaa04bae09f8`.
 
 Không dùng `dev_cases(1).jsonl` hoặc `dataset_prepared/dev_cases.jsonl` cũ: các file đó vẫn chứa split Dev trước khi bổ sung năm truyện Hard.
 
@@ -127,7 +127,17 @@ The flagged `key_events` were compared against the exact `summary` field supplie
 | Test | `story_053` | 4 | revised | `Người quen hiểu tính anh nên dùng lời “cầm tay tôi” để anh nắm lấy và được cứu.` — aligned the phrasing to the causal relationship explicitly stated in the summary. |
 | Dev | `story_033` | 4 | retained | Retained as a semantic paraphrase of the summary statement that the buyer admits he would not need glasses if he could read. This is a lexical-screen false positive, not a confirmed defect. |
 
-**Resolution count:** 7 event texts revised, 3 events removed, and 1 event retained after semantic-equivalence review. Dev/Test split, IDs, source URLs, summaries, characters, difficulty and selection scores were not changed.
+**Resolution count:** 6 event texts revised, 4 events removed, and 1 event retained after semantic-equivalence review. Dev/Test split, IDs, source URLs, summaries, characters, difficulty and selection scores were not changed.
 
 **Scope limitation:** the 109 records not flagged by the lexical screen were not all independently certified by this resolution step. A lexical-screen pass is not proof of semantic alignment. The existing `normalization_note` values were retained; this work does not claim that the entire 30-story dataset has completed human semantic review.
 
+
+
+### Dataset snapshot hash refresh
+
+After applying the key-event resolutions, the final JSONL SHA-256 values are:
+
+- `data/dev_cases.jsonl`: `f54dcab4c835969c9fbd46f4eda3af9d9dfe3502d85de1686d9202c1c7c33602`
+- `data/test_cases.jsonl`: `76ee7ef7a9ca57e7511928faf5e1a61364f269f4187aa8e8a14fdaa04bae09f8`
+
+The Dev and Test files are the exact snapshots described by these hashes. The `story_047` event 1 removal is included in the Dev hash.
