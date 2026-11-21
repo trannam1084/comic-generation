@@ -1,7 +1,11 @@
 """Optional AI-assisted candidate scoring utility.
 Importing this module does not initialize an API client or access files.
 Optional dependencies: pandas and openai.
+
+Existing ai_evaluated_stories.csv is protected by default. Use --output for a
+new file or --overwrite only when replacement is intentional.
 """
+import argparse
 import json
 import time
 from pathlib import Path
@@ -11,6 +15,11 @@ INPUT_PATH = ROOT_DIR / "data" / "metadata" / "candidate_stories.csv"
 OUTPUT_PATH = ROOT_DIR / "data" / "metadata" / "ai_evaluated_stories.csv"
 TEST_LIMIT = 3
 MODEL_NAME = "YOUR_MODEL_NAME"
+
+try:
+    from data.output_safety import atomic_write_text, ensure_outputs_available
+except ModuleNotFoundError:
+    from output_safety import atomic_write_text, ensure_outputs_available
 
 
 def build_prompt(title: str, content: str) -> str:
@@ -55,6 +64,19 @@ def evaluate_story(client, title: str, content: str) -> dict:
 
 
 def main() -> int:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--output", type=Path, default=OUTPUT_PATH,
+                        help="Output CSV path (default: data/metadata/ai_evaluated_stories.csv).")
+    parser.add_argument("--overwrite", action="store_true",
+                        help="Explicitly allow replacing an existing output file.")
+    args = parser.parse_args()
+    output_path = args.output.expanduser().resolve()
+    try:
+        # Check before dependency initialization, API client creation, or API calls.
+        ensure_outputs_available([output_path], overwrite=args.overwrite)
+    except FileExistsError as exc:
+        raise SystemExit(str(exc)) from exc
+
     try:
         import pandas as pd
     except ImportError as exc:
@@ -112,9 +134,12 @@ def main() -> int:
         time.sleep(1)
 
     result_df = pd.DataFrame(results)
-    OUTPUT_PATH.parent.mkdir(parents=True, exist_ok=True)
-    result_df.to_csv(OUTPUT_PATH, index=False, encoding="utf-8-sig")
-    print(f"Evaluated: {len(result_df)}; saved: {OUTPUT_PATH}")
+    try:
+        atomic_write_text(output_path, result_df.to_csv(index=False),
+                          encoding="utf-8-sig", overwrite=args.overwrite)
+    except FileExistsError as exc:
+        raise SystemExit(str(exc)) from exc
+    print(f"Evaluated: {len(result_df)}; saved: {output_path}")
     return 0
 
 

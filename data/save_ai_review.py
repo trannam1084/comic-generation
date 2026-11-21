@@ -1,7 +1,11 @@
-"""Merge AI review JSON into metadata CSV files.
-Importing this module performs no file-system operations.
+"""Merge AI review JSON into optional metadata CSV files.
+Importing this module performs no directory or file operations.
 Optional dependency: pandas.
+
+Existing metadata CSVs are protected by default. Use alternative output paths
+or pass --overwrite explicitly after taking a backup.
 """
+import argparse
 import json
 from pathlib import Path
 
@@ -9,6 +13,11 @@ ROOT_DIR = Path(__file__).resolve().parents[1]
 RESULT_DIR = ROOT_DIR / "data" / "metadata" / "ai_review_results"
 OUTPUT_FILE = ROOT_DIR / "data" / "metadata" / "ai_evaluated_stories.csv"
 SELECTED_FILE = ROOT_DIR / "data" / "metadata" / "selected_stories.csv"
+
+try:
+    from data.output_safety import atomic_write_text, ensure_outputs_available
+except ModuleNotFoundError:
+    from output_safety import atomic_write_text, ensure_outputs_available
 
 REQUIRED_COLUMNS = [
     "id", "title", "characters_clear", "events_clear", "scene_suitable",
@@ -18,6 +27,24 @@ SCORE_COLUMNS = ["characters_clear", "events_clear", "scene_suitable", "ending_c
 
 
 def main() -> int:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--output", type=Path, default=OUTPUT_FILE,
+                        help="Full evaluation CSV output path.")
+    parser.add_argument("--selected-output", type=Path, default=SELECTED_FILE,
+                        help="Selected-only CSV output path.")
+    parser.add_argument("--overwrite", action="store_true",
+                        help="Explicitly allow replacing existing output files.")
+    args = parser.parse_args()
+    output_file = args.output.expanduser().resolve()
+    selected_file = args.selected_output.expanduser().resolve()
+    if output_file == selected_file:
+        raise SystemExit("--output and --selected-output must be different paths.")
+    try:
+        # Protect the existing curated metadata before reading or transforming results.
+        ensure_outputs_available([output_file, selected_file], overwrite=args.overwrite)
+    except FileExistsError as exc:
+        raise SystemExit(str(exc)) from exc
+
     try:
         import pandas as pd
     except ImportError as exc:
@@ -70,12 +97,18 @@ def main() -> int:
     selected_df = df[df["selected_candidate"] == True].copy()
     selected_df = selected_df.sort_values(by="score", ascending=False)
 
-    OUTPUT_FILE.parent.mkdir(parents=True, exist_ok=True)
-    df.to_csv(OUTPUT_FILE, index=False, encoding="utf-8-sig")
-    selected_df.to_csv(SELECTED_FILE, index=False, encoding="utf-8-sig")
+    # Re-check targets immediately before writes. Both files were preflighted above.
+    try:
+        ensure_outputs_available([output_file, selected_file], overwrite=args.overwrite)
+        atomic_write_text(output_file, df.to_csv(index=False),
+                          encoding="utf-8-sig", overwrite=args.overwrite)
+        atomic_write_text(selected_file, selected_df.to_csv(index=False),
+                          encoding="utf-8-sig", overwrite=args.overwrite)
+    except FileExistsError as exc:
+        raise SystemExit(str(exc)) from exc
     print(f"Evaluation completed. Total: {len(df)}; selected: {len(selected_df)}")
-    print(f"Saved: {OUTPUT_FILE}")
-    print(f"Saved: {SELECTED_FILE}")
+    print(f"Saved: {output_file}")
+    print(f"Saved: {selected_file}")
     return 0
 
 
