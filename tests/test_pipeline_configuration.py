@@ -29,7 +29,7 @@ def no_network(monkeypatch):
 
 @pytest.fixture
 def payload():
-    return json.loads((PROJECT_ROOT / 'examples/storyboard.json').read_text())
+    return json.loads((PROJECT_ROOT / 'examples/storyboard.json').read_text(encoding="utf-8"))
 
 
 def qconfig(tmp_path, **kwargs):
