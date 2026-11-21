@@ -2,7 +2,13 @@
 import argparse
 from pathlib import Path
 
-from scripts.dataset_validation import validate_dataset_files
+if __package__:
+    # Supports: python -m scripts.validate_dataset
+    from .dataset_validation import validate_dataset_files
+else:
+    # Supports: python scripts/validate_dataset.py
+    from dataset_validation import validate_dataset_files
+
 
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description=__doc__)
@@ -11,6 +17,7 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--expected-dev", type=int, default=None, help="Optional expected Dev count.")
     parser.add_argument("--expected-test", type=int, default=None, help="Optional expected Test count.")
     return parser
+
 
 def main(argv: list[str] | None = None) -> int:
     args = build_parser().parse_args(argv)
@@ -27,6 +34,7 @@ def main(argv: list[str] | None = None) -> int:
         return 1
     print("\nDataset validation PASSED.")
     return 0
+
 
 if __name__ == "__main__":
     raise SystemExit(main())
