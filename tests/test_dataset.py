@@ -1,6 +1,8 @@
 """Dataset validator unit tests use synthetic temporary JSONL fixtures only."""
 import json
 from pathlib import Path
+import subprocess
+import sys
 import pytest
 from scripts.dataset_validation import validate_dataset_files, validate_record
 from scripts.validate_dataset import main as validate_cli
@@ -131,3 +133,36 @@ def test_optional_utility_modules_import_without_running_jobs():
     import importlib
     for module in ("data.evaluate_stories", "data.inspect_dataset", "data.prepare_ai_review", "data.save_ai_review"):
         importlib.import_module(module)
+
+
+@pytest.mark.parametrize("invocation", ["direct", "module"])
+def test_cli_subprocess_supports_direct_and_module_invocation(tmp_path, invocation):
+    """Exercise the actual CLI entry points with isolated synthetic JSONL files."""
+    dev = tmp_path / "synthetic-dev.jsonl"
+    test = tmp_path / "synthetic-test.jsonl"
+    write_jsonl(dev, [valid_record("subprocess-dev", "https://example.org/subprocess-dev")])
+    write_jsonl(test, [valid_record("subprocess-test", "https://example.org/subprocess-test")])
+
+    repo_root = Path(__file__).resolve().parents[1]
+    if invocation == "direct":
+        command = [sys.executable, "scripts/validate_dataset.py"]
+    else:
+        command = [sys.executable, "-m", "scripts.validate_dataset"]
+
+    completed = subprocess.run(
+        command
+        + [
+            "--dev", str(dev),
+            "--test", str(test),
+            "--expected-dev", "1",
+            "--expected-test", "1",
+        ],
+        cwd=repo_root,
+        capture_output=True,
+        text=True,
+        check=False,
+    )
+
+    assert completed.returncode == 0, completed.stdout + completed.stderr
+    assert "Dataset validation PASSED." in completed.stdout
+    assert "Records: Dev=1, Test=1, Total=2" in completed.stdout
