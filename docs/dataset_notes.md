@@ -2,138 +2,73 @@
 
 ## 1. Mục tiêu và phạm vi
 
-Tài liệu mô tả dataset truyện đầu vào phục vụ phát triển pipeline tạo comic: summary, character annotations, key events và các trường nguồn. Dataset hiện có **30 record**, chia **20 Dev** và **10 Test**. Đây là bộ dữ liệu thử nghiệm quy mô nhỏ; cần giữ riêng Test để đánh giá held-out và không sử dụng Test để điều chỉnh pipeline.
+Dataset đầu vào phục vụ pipeline tạo comic gồm summary, character annotations, key events và trường truy vết nguồn. Snapshot hiện có 30 record, 20 Dev và 10 Test. Đây là bộ dữ liệu thử nghiệm quy mô nhỏ; giữ riêng Test cho held-out evaluation, không dùng Test để tuning pipeline.
 
-## 2. Cấu trúc repository hiện tại
+## 2. Cấu trúc repository
 
-```text
-data/
-├── dev_cases.jsonl
-├── test_cases.jsonl
-└── metadata/
-    ├── ai_evaluated_stories.csv
-    └── dataset_selection.csv
-scripts/
-├── dataset_validation.py
-├── validate_dataset.py
-└── test.py
-tests/
-└── test_dataset.py
-docs/
-└── dataset_notes.md
-```
+- data/dev_cases.jsonl
+- data/test_cases.jsonl
+- data/metadata/dataset_selection.csv
+- data/metadata/ai_evaluated_stories.csv
+- scripts/dataset_validation.py
+- scripts/validate_dataset.py
+- scripts/test.py
+- tests/test_dataset.py
 
-Full-text candidate corpus và AI batch artifacts không nằm trong PR hiện tại.
+Full-text candidate corpus và generated AI batch artifacts không thuộc phạm vi public PR này.
 
 ## 3. Dataset record schema
 
-Mỗi dòng JSONL là một JSON object gồm:
-
-| Trường | Kiểu | Ý nghĩa |
-|---|---|---|
-| `id` | string | ID duy nhất |
-| `title` | string | Tên truyện |
-| `summary` | string | Tóm tắt |
-| `characters` | array<object> | Mỗi nhân vật có `id`, `name`, `description` |
-| `key_events` | array<string> | Sự kiện theo thứ tự |
-| `source` | string | Thông tin nguồn |
-| `source_url` | URL | Địa chỉ nguồn |
-| `difficulty` | enum | `easy`, `medium`, `hard` |
-| `selection_score` | number | Điểm chọn sơ bộ, thang 0–8 |
-| `normalization_note` | string (optional) | Ghi chú chuẩn hóa và giới hạn review |
-
-Schema này dành riêng cho dataset preparation, không thay thế Shared Storyboard Schema.
+Mỗi JSONL record có id, title, summary, characters, key_events, source, source_url, difficulty, selection_score và optional normalization_note. Schema này dành riêng cho dataset preparation, không thay thế Shared Storyboard Schema.
 
 ## 4. Split và difficulty
 
-Dataset được chia thành:
-
-| Split | Easy | Medium | Hard | Tổng |
+| Split | Easy | Medium | Hard | Total |
 |---|---:|---:|---:|---:|
 | Dev | 12 | 3 | 5 | 20 |
 | Test | 6 | 4 | 0 | 10 |
-| **Tổng** | **18** | **7** | **5** | **30** |
+| Total | 18 | 7 | 5 | 30 |
 
-Năm truyện Hard được chọn bổ sung vào Dev: `story_012`, `story_016`, `story_066`, `story_072`, `story_077`. Test split giữ nguyên.
+Năm truyện Hard được bổ sung vào Dev: story_012, story_016, story_066, story_072, story_077. Held-out Test hiện có 0 Hard cases.
 
-Điểm `selection_score`: 25 record có điểm 8 và 5 record có điểm 7. Phân bố trên được tính trực tiếp từ hai JSONL hiện hành, không suy diễn từ toàn bộ candidate metadata hoặc bảng AI scoring rộng hơn tập 30 record.
+## 5. Selection metadata và giới hạn human review
 
-Không dùng nội dung Test để điều chỉnh prompt, chọn tham số hoặc sửa pipeline trước held-out evaluation. Thay đổi split sau khi đánh giá bắt đầu phải được ghi nhận và tạo phiên bản dataset mới.
+dataset_selection.csv ghi trạng thái lựa chọn/review của 306 ứng viên; ai_evaluated_stories.csv là AI-assisted scoring, không phải nhãn human gold. Các trạng thái Reviewed/Reviewed - approved for Dev phản ánh bước selection review trong metadata. Chúng không tự chứng minh rằng từng summary, character annotation và key event đã qua semantic adjudication. normalization_note trong JSONL vẫn ghi AI-assisted normalization và yêu cầu người review đối chiếu nguồn.
 
-## 5. Metadata và human review
+Không mô tả 30 record là semantic-certified hoặc human gold chỉ dựa trên selection metadata. Human semantic review cần lưu reviewer, ngày, rubric version, verdict, issue/evidence và adjudication riêng.
 
-- `metadata/dataset_selection.csv`: theo dõi 306 ứng viên, quyết định chọn, split và trạng thái human review.
-- `metadata/ai_evaluated_stories.csv`: kết quả AI-assisted scoring, không phải xác nhận của người review.
-- Theo bản metadata được TV3 cập nhật, **306/306 ứng viên** đã có trạng thái review; không còn hàng `Pending`.
-- Trong 30 record được chọn: **25** hàng có trạng thái `Reviewed`, **5** truyện Hard có trạng thái `Reviewed - approved for Dev`.
-- Ngoài 30 record được chọn có **5** hàng `Reviewed - not selected for updated Dev`.
-- `normalization_note` thể hiện nội dung có AI hỗ trợ và có thể ghi chú các điểm cần chú ý khi sử dụng.
+## 6. Nguồn, attribution và quyền sử dụng
 
-Trạng thái trong CSV phản ánh kết quả human review do TV3 cập nhật. Validator chỉ kiểm tra tính toàn vẹn dữ liệu, không tự đánh giá chất lượng hoặc độ trung thành ngữ nghĩa của phần review.
+source và source_url được giữ để truy vết. URL truy cập và attribution không tự cấp quyền tái sử dụng hoặc phân phối.
 
-## 6. Nguồn và quyền sử dụng
+Audit ngày 2026-11-21 chưa tìm thấy giấy phép theo từng nguồn, văn bản cho phép, email chấp thuận hoặc hồ sơ rights-holder xác nhận phạm vi sử dụng nội bộ/công khai trong package đã kiểm tra. Trang nguồn story_016 hiển thị byline “Hồ Lãng kể”; raw corpus để trống và selection metadata ghi Unknown. Đây là byline trên host page, không phải xác minh độc lập về ấn bản gốc hoặc chủ thể quyền.
 
-Các record giữ `source` và `source_url` để truy vết. **Theo xác nhận của TV3, việc xác minh điều kiện sử dụng các nguồn cho phạm vi dataset hiện tại đã hoàn tất.**
+Footer TruyenDanGian.com trên trang đã kiểm tra thông báo đăng ký DMCA và yêu cầu ghi nguồn khi sao chép. Thông báo ghi nguồn không phải giấy phép phân phối lại. Vì vậy, quyền sử dụng cho cả phạm vi nội bộ và công khai hiện chưa được chứng minh bằng hồ sơ trong package. Giữ dữ liệu ở không gian riêng tư/hạn chế; không công khai full text, trích đoạn đáng kể hoặc dataset dẫn xuất như một corpus được phép tái sử dụng cho đến khi dự án/trường và chủ thể quyền làm rõ bằng văn bản.
 
-Cần phân biệt URL truy vết với bằng chứng về quyền sử dụng: `source_url` tự nó không phải giấy phép. Nhóm cần duy trì hồ sơ tham chiếu đến điều khoản, giấy phép hoặc xác nhận quyền tương ứng, đặc biệt khi thay đổi phạm vi sử dụng hoặc phát hành dataset ra ngoài phạm vi đã xác minh. Full-text candidate corpus và AI batch artifacts không được đưa trở lại repository nếu chưa kiểm tra riêng quyền phân phối các nội dung đó.
+Rights/attribution register của 30 nguồn được bàn giao riêng, không commit vào public PR.
 
-## 7. Human review — semantic fidelity
+## 7. Semantic fidelity và key events
 
-Validator kiểm tra cấu trúc, kiểu dữ liệu, URL hình thức, ID và số lượng; validator không thể kết luận summary, characters hay key_events có trung thành với truyện nguồn hay không.
+Audit docs/dataset_semantic_fidelity_audit_30.md ghi việc đối chiếu 11 key-event flags với summary thực tế đưa vào Story Generator: 6 event text được sửa, 4 event bị loại, 1 lexical false-positive được giữ. Việc này chỉ giải quyết 11 mục bị đánh dấu; 109 event còn lại chưa được chứng nhận bằng review ngữ nghĩa thủ công toàn bộ. Structural validator không tự chứng minh semantic fidelity.
 
-Checklist semantic fidelity dành cho người review:
+## 8. Offline Evaluation Harness gates
 
-1. Summary giữ đúng nhân vật và kết cục, không thêm chi tiết không có trong nguồn.
-2. Mỗi character có xuất hiện trong nguồn; description không gán tính cách/sự kiện thiếu căn cứ.
-3. Mỗi key event thực sự xuất hiện và đúng thứ tự; không bỏ mất sự kiện thiết yếu.
-4. Nếu rút gọn để làm comic, ghi rõ phần lược bỏ; không biến suy luận thành sự kiện nguồn.
-5. Ghi trạng thái review và người/ngày review trong metadata theo quy ước nhóm.
+Theo src/offline_evaluation/contracts.py trên main, official evaluation cần split_frozen, review_approved, rights_approved và dataset_reference có SHA-256; official Test còn cần official_test_authorized=true. Source URL, selection status hoặc validator PASS không tự mở các gate này. Human annotation phải đạt full-case gold_ready theo src/offline_evaluation/semantic.py; case có finding uncertain không được partial-match.
 
-Theo xác nhận của TV3 và trạng thái trong `dataset_selection.csv`, human review cho các ứng viên đã được đánh dấu hoàn tất. Việc validator PASS không thay thế việc duy trì audit trail hoặc rà soát lại khi record được chỉnh sửa.
+## 9. Validation và dependencies
 
-## 8. Dependencies và cách chạy
+Core validator dùng Python standard library; tests cần pytest. Chạy từ repository root:
 
-Core validator dùng Python standard library. Unit tests cần `pytest`.
-
-```bash
-python -m pip install pytest
 python scripts/validate_dataset.py
 python -m pytest tests/test_dataset.py -v
 python -m pytest -v
-```
 
-Các script tiện ích chuẩn bị corpus là optional:
+pandas cần cho các script corpus/metadata tiện ích; openai/API key chỉ cần khi chủ động chạy AI evaluation utilities. Không đưa API keys vào source control. Các script tiện ích không được gọi API hoặc ghi file khi import.
 
-| Script | Dependencies |
-|---|---|
-| `data/inspect_dataset.py` | `pandas` |
-| `data/prepare_ai_review.py` | `pandas` |
-| `data/save_ai_review.py` | `pandas` |
-| `data/evaluate_stories.py` | `pandas`, `openai`, `OPENAI_API_KEY`, model được cấp quyền |
+## 10. Giới hạn hiện tại
 
-Cài khi cần:
-
-```bash
-python -m pip install pandas openai
-```
-
-Không đưa API key vào source control. Các script tiện ích không gọi API hoặc đọc/ghi file khi import; thao tác chỉ chạy khi thực thi trực tiếp.
-
-## 9. Validation
-
-```bash
-python scripts/validate_dataset.py
-```
-
-Có thể chạy từ thư mục gốc hoặc thư mục khác. Validator kiểm tra JSONL, record object, trường bắt buộc, nested character fields, key events, difficulty, selection_score, số lượng và ID/URL trùng giữa hai split. Đây là kiểm tra integrity, không phải xác minh bản quyền hoặc tính đúng đắn ngữ nghĩa.
-
-## 10. Giới hạn và trạng thái
-
-- Dataset có 30 truyện, chưa đại diện đầy đủ cho mọi thể loại hoặc độ khó.
-- AI scores không thay thế human review.
-- Human review đã được TV3 đánh dấu hoàn tất trong metadata; nên duy trì người review, ngày review và ghi chú theo từng record nếu nhóm cần audit trail chi tiết.
-- Điều kiện sử dụng nguồn cho phạm vi dataset hiện tại đã được TV3 xác minh; cần xác minh lại nếu phạm vi sử dụng hoặc hình thức phân phối thay đổi.
-- Không xem dataset là benchmark đại diện cho mọi trường hợp của bài toán.
-
-**Phụ trách:** TV3 — Dataset Preparation  
-**Dự án:** Comic Generation
+- Dataset 30 truyện nhỏ, không đại diện cho mọi thể loại/độ khó.
+- Test có 0 Hard cases.
+- Semantic fidelity review của toàn bộ 30 truyện chưa được xác nhận hoàn tất.
+- Rights/permission cho internal và public use chưa có chứng cứ hồ sơ trong package đã kiểm tra.
+- Nghiệm thu dataset/PR và nghiệm thu human gold là hai quyết định riêng.

@@ -1,143 +1,93 @@
-# Audit bộ dữ liệu 30 truyện Dev/Test — kiểm tra nguồn, key_events và trạng thái review
+# Dataset Semantic Fidelity Audit — final reconciliation of 30 Dev/Test stories
 
-**Ngày kiểm tra:** 21/11/2026  
-**Nguồn local được kiểm tra:** `full_story (2).csv`, `dataset_selection_reviewed.csv`, `dev_cases(2).jsonl`, `test_cases(2).jsonl`  
-**Repo:** `trannam1084/comic-generation`, branch `feature/evaluation`, PR #20  
-**Phạm vi:** audit provenance, split, trạng thái review, đối chiếu key_events với summary và raw source. Đây là audit thủ công/hỗ trợ kiểm tra; không phải xác nhận giấy phép bản quyền hay chứng nhận semantic gold.
+**Review date:** 2026-11-21  
+**Repository:** trannam1084/comic-generation, PR #20, feature/evaluation  
+**Contract baseline:** main commit 141eed38cbfd7b5306227e18750f48b3dc58deb3  
+**Scope:** provenance, split integrity, selection-review metadata, the 11 lexical-screen flags, story_016 attribution and evidence limitations. This is not a certification of all story semantics or rights clearance.
 
-## 1. Snapshot dữ liệu chính xác
+## 1. Frozen dataset snapshot
 
-Dùng hai snapshot cập nhật cuối:
+| File | Records | SHA-256 |
+|---|---:|---|
+| data/dev_cases.jsonl | 20 | f54dcab4c835969c9fbd46f4eda3af9d9dfe3502d85de1686d9202c1c7c33602 |
+| data/test_cases.jsonl | 10 | 76ee7ef7a9ca57e7511928faf5e1a61364f269f4187aa8e8a14fdaa04bae09f8 |
 
-- `dev_cases(2).jsonl`: 20 record; SHA-256 `f54dcab4c835969c9fbd46f4eda3af9d9dfe3502d85de1686d9202c1c7c33602`.
-- `test_cases(2).jsonl`: 10 record; SHA-256 `76ee7ef7a9ca57e7511928faf5e1a61364f269f4187aa8e8a14fdaa04bae09f8`.
+Difficulty: Dev 12 easy / 3 medium / 5 hard; Test 6 easy / 4 medium / 0 hard; total 18 easy / 7 medium / 5 hard. IDs and URLs remain unique across splits. The raw candidate corpus is not copied into this repository.
 
-Không dùng `dev_cases(1).jsonl` hoặc `dataset_prepared/dev_cases.jsonl` cũ: các file đó vẫn chứa split Dev trước khi bổ sung năm truyện Hard.
+Hashes were calculated from the exact JSONL snapshots committed at this PR revision. Any further edit to either file requires recalculating the hashes and rerunning validation.
 
-| Split | Easy | Medium | Hard | Tổng |
-|---|---:|---:|---:|---:|
-| Dev | 12 | 3 | 5 | 20 |
-| Test | 6 | 4 | 0 | 10 |
-| Tổng | 18 | 7 | 5 | 30 |
+## 2. Provenance reconciliation
 
-Dev IDs: `story_010`, `story_013`, `story_014`, `story_020`, `story_021`, `story_025`, `story_027`, `story_030`, `story_033`, `story_039`, `story_041`, `story_045`, `story_047`, `story_049`, `story_050`, `story_012`, `story_016`, `story_066`, `story_072`, `story_077`.
+Cross-reference against the 306-row raw corpus and selection metadata:
 
-Test IDs: `story_002`, `story_006`, `story_017`, `story_022`, `story_031`, `story_036`, `story_040`, `story_044`, `story_048`, `story_053`.
+- 30/30 source URLs have exactly one matching raw-corpus row.
+- 30/30 source URLs have exactly one matching selection-metadata row.
+- 30/30 are final_selected=Yes and the recorded Dev/Test split agrees.
+- 28/30 titles match the raw title verbatim; two are normalized title strings.
+- 26/30 dataset source strings match raw author_or_source verbatim; four have attribution/provenance differences: story_016, story_066, story_072 and story_077.
 
-## 2. Truy vết raw corpus và metadata selection
+### story_016 — host-page attribution verified
 
-Đã đối chiếu 30 record cuối với `full_story (2).csv` (306 dòng) và `dataset_selection_reviewed.csv` (306 dòng):
+The raw corpus author_or_source field is empty and selection metadata uses Unknown. However, the live source page https://truyendangian.com/su-tich-cai-sung/ displays the story attribution block with “Truyện cổ tích Việt Nam” and “Hồ Lãng kể”. The Dev JSONL therefore has a traceable basis for displaying “Hồ Lãng kể” as the byline shown by the host webpage.
 
-- 30/30 `source_url` khớp đúng một dòng trong raw corpus.
-- 30/30 `source_url` khớp đúng một dòng trong selection metadata.
-- 30/30 record có `final_selected=Yes` và split metadata trùng Dev/Test.
-- 28/30 title khớp nguyên văn raw corpus; hai title có hậu tố phân loại bị lược bỏ.
-- 26/30 trường `source` khớp nguyên văn `author_or_source`; bốn trường có khác biệt định dạng/nội dung cần lưu vết.
+This does not independently verify the original printed edition, underlying rights holder, or permission to reuse. Preserve this distinction in the private register; do not describe it as independently verified original authorship or copyright ownership.
 
-### Sai khác provenance cần chú ý
+### Other normalized source fields
 
-| ID | Khác biệt phát hiện | Nhận định/việc cần làm |
-|---|---|---|
-| `story_016` | Raw corpus và selection metadata ghi `author_or_source=Unknown`, nhưng JSON record ghi `Hồ Lãng kể`. | Cần xác minh attribution “Hồ Lãng kể” từ nguồn gốc hoặc tài liệu có thẩm quyền; nếu không có bằng chứng, đổi thành attribution chưa xác định. Đây là mục ưu tiên cao. |
-| `story_066` | Source trong JSON là tên truyện + “Truyện ngắn Vũ Duy Thông”; raw/selection chứa title website, mô tả và tên Vũ Duy Thông. | Có vẻ khác cách trình bày/chuẩn hóa; giữ raw attribution trong hồ sơ và xác nhận cách ghi chuẩn. |
-| `story_072` | Title JSON là `Thờn Bơn đón trăng [Truyện thiếu nhi]`; raw title có thêm `hay cho bé`. Source JSON và raw author/source cũng khác cách trình bày nhưng cùng nêu Vũ Duy Thông. | Ghi lại việc rút gọn title và chuẩn hóa attribution; không coi là sai nếu nhóm có quy tắc đặt title rõ ràng. |
-| `story_077` | Title JSON bỏ cụm `hay cho bé`; source JSON nêu truyện Grimm và sách Tập đọc lớp 2/1976, raw metadata có cùng nguồn nhưng cách viết khác. | Ghi lại chuẩn hóa title/source và duy trì dẫn chiếu đến xuất bản phẩm gốc. |
+- story_066: dataset source is shortened/normalized relative to raw webpage attribution wording; both include Vũ Duy Thông.
+- story_072: dataset title/source wording is normalized; raw metadata contains additional site/category wording and Vũ Duy Thông.
+- story_077: dataset title/source wording is normalized relative to raw metadata; Grimm and the cited 1976 Vietnamese reading-book reference remain recorded.
 
-Chi tiết theo từng record và raw text được lưu trong `dataset30_source_side_by_side.md`; bảng truy vết/rights ở `dataset_source_rights_register_30.csv`.
+The private rights_attribution_register_30.csv preserves raw metadata and final JSONL source strings side by side. It is not committed to the public repository.
 
-## 3. Trạng thái human review trong metadata
+## 3. Human-review status and limits
 
-Trong `dataset_selection_reviewed.csv`:
+Selection metadata contains a non-empty review status for 306/306 candidates: 296 Reviewed, 5 Reviewed - approved for Dev, and 5 Reviewed - not selected for updated Dev. The 30 selected records comprise 25 Reviewed and 5 Reviewed - approved for Dev entries.
 
-- 306/306 record có trạng thái review khác rỗng.
-- 296 `Reviewed`.
-- 5 `Reviewed - approved for Dev`.
-- 5 `Reviewed - not selected for updated Dev`.
-- 30 record được chọn: 25 có trạng thái `Reviewed`, 5 record bổ sung Hard có trạng thái `Reviewed - approved for Dev`.
-- Trong 30 record được chọn, split metadata là 20 Dev và 10 Test.
+These fields document selection-stage review status. They do not, on their own, provide reviewer ID, review date, detailed adjudication notes, or proof that every summary/character/key-event field completed semantic-fidelity review. The JSONL normalization_note still records AI-assisted normalization and requests human comparison against source. The 30-story dataset is therefore not described as human gold or fully semantic-certified.
 
-**Giới hạn audit trail:** trường `human_review` là trạng thái tổng quát; CSV hiện không lưu riêng reviewer ID, review date hoặc decision note cho từng record. `normalization_note` trong cả 30 JSONL cuối vẫn ghi nội dung AI-assisted và “cần người review đối chiếu nội dung nguồn trước khi dùng chính thức”. Vì vậy, metadata selection nói đã review nhưng note trên record chưa được đồng bộ. Không tự chuyển thành “semantic verified” chỉ dựa vào status `Reviewed`.
+## 4. Final disposition of the 11 key-event alignment flags
 
-Đề xuất đồng bộ `normalization_note` sau khi TV3 xác nhận semantic review 30 truyện đã hoàn tất. Trước khi đó, dùng wording trung thực: AI-assisted normalization; selection/human review status có ghi nhận; key-event-to-summary alignment còn các mục cần rà soát ở bảng dưới.
+The original 11 flags were a lexical-overlap triage screen, not confirmed semantic defects. They were reviewed against the exact summary string supplied to Story Generator. Resolution changed only listed key_events; summaries, IDs, URLs, split membership, difficulty and selection scores were not changed. Event numbers below refer to one-based positions in the pre-revision snapshot.
 
-## 4. Key-event grounding: cách kiểm tra và giới hạn
-
-Đã tạo `dataset_key_event_alignment_screen.csv` cho 120 key events. Screen đo độ phủ token nội dung riêng biệt của key_event so với summary và raw source. Ngưỡng `<0.35` chỉ dùng để **đánh dấu cần đọc lại**, không phải tiêu chí pass/fail semantic. Phép so khớp từ vựng có thể bỏ sót đồng nghĩa, biến thể từ và suy luận tóm tắt hợp lý.
-
-Có 11/120 events dưới ngưỡng 0.35. Kết quả đọc đối chiếu các trường hợp bị đánh dấu:
-
-| ID / event | Nhận xét grounding | Hành động đề xuất |
-|---|---|---|
-| `story_010` / 1 | Raw source mô tả đất lồi lõm, cây rậm và nước ngập; summary hiện tại không nêu trạng thái ban đầu này. | Rút key_event về nội dung summary hoặc bổ sung câu vào summary từ raw source. |
-| `story_013` / 1 | Raw source có chi tiết Sĩ nghe giảng ngoài cửa; summary chỉ nói ham học dù nghèo. | Rút gọn key_event thành “Sĩ ham học dù nhà nghèo” hoặc bổ sung chi tiết nghe giảng ngoài cửa vào summary. |
-| `story_013` / 3 | Chi tiết người hỏi về đèn và Sĩ chỉ trăng/gọi là “ngọn đèn lớn” có trong raw source, nhưng không được nêu trong summary. | Thêm vào summary nếu là key event cần giữ; nếu không, chuyển khỏi key_events. |
-| `story_030` / 1 | Summary nói hai sông thi nhau; phần Ping chê Mekong cồng kềnh là chi tiết raw source không có trong summary. | Bỏ phần chê bai, giữ việc hai sông thách/thi nhau theo summary. |
-| `story_030` / 2 | Summary nói Ping hợp với các sông khác; tên Wang/Yom/Nan và hành trình cụ thể chỉ có trong raw source. | Dùng “Ping hợp với các sông khác” hoặc mở rộng summary nếu tên sông là chi tiết cần giữ. |
-| `story_033` / 2 | Việc thử năm sáu đôi kính là raw-source detail; summary nói anh liên tục chê kính vì cầm lịch ngược. | Rút gọn theo nội dung summary, bỏ số lượng/thử nhiều đôi nếu không có trong summary. |
-| `story_033` / 4 | Summary diễn đạt “anh thừa nhận nếu biết chữ thì đã không cần mua kính”; key_event “thú nhận không biết chữ” là tương đương ngữ nghĩa. | Có thể giữ; ghi nhận lexical screen false positive. |
-| `story_041` / 1 | Vua đến Hồ Tây và lính ngăn dân tới gần có trong raw source, không có trong summary. | Rút khỏi key_events hoặc bổ sung summary từ nguồn nếu sự kiện mở đầu cần thiết. |
-| `story_047` / 1 | Chi tiết hai người kết nghĩa và một người đỗ làm quan có trong raw source; summary chỉ nêu bạn cũ và vị quan từ chối tiếp. | Rút gọn bám summary hoặc bổ sung summary có căn cứ. |
-| `story_040` / 1 (Test) | Summary nói Ngựa Con mải chăm chút vẻ ngoài và tự tin; soi bóng/chuẩn bị trang phục chi tiết hơn có trong raw source. | Giữ phần tóm lược appearance/self-confidence; tránh thêm chi tiết raw-only nếu yêu cầu strict grounding theo summary. Test set không dùng để tuning; chỉ cập nhật trước freeze theo governance. |
-| `story_053` / 4 (Test) | Summary nói người quen hiểu tính anh và chọn cách nói khiến anh nắm tay; câu key_event “giải thích đã dùng cách nói phù hợp” là diễn giải tương đương nhưng phần hành động giải thích không nêu rõ trong summary. | Có thể rút gọn thành người quen dùng lời phù hợp tính anh, anh nắm tay và được cứu. |
-
-### Kết luận semantic fidelity hiện tại
-
-- 120/120 key events đều được liên kết với một raw source row duy nhất qua source URL; token-overlap screen cho thấy nội dung của đa số events có từ/cụm tương ứng trong raw source.
-- Tuy vậy, một số key_events chứa chi tiết có trong raw full text nhưng không có trong field `summary`. Điều này không nhất thiết là hallucination so với truyện nguồn, nhưng chưa đáp ứng cách hiểu nghiêm ngặt “key_events có căn cứ trong input summary”.
-- Cần xử lý các dòng được đánh dấu trước khi tuyên bố toàn bộ 120 events đã được xác minh theo summary. Trường hợp `story_033` event 4 là false positive lexical đã nêu; `story_040` và `story_053` có thể là diễn giải tương đương nhưng nên rút gọn để rõ ràng.
-- Không dùng 0.35 hoặc bất kỳ ngưỡng token nào làm nhãn semantic tự động.
-
-## 5. Hồ sơ quyền sử dụng nguồn
-
-`docs/dataset_notes.md` trên branch PR #20 ghi rằng TV3 đã xác minh điều kiện sử dụng nguồn cho phạm vi dataset hiện tại; tài liệu cũng nói rõ `source_url` không tự nó là giấy phép và nhóm cần duy trì hồ sơ giấy phép/điều khoản/xác nhận tương ứng.
-
-Trong các file local được kiểm tra ở đợt audit này, chưa tìm thấy một rights register/license terms/permission email/permission snapshot riêng cho từng nguồn. Vì vậy:
-
-- Trạng thái được báo cáo: TV3 đã xác nhận việc review điều kiện sử dụng ở phạm vi hiện tại đã hoàn tất.
-- Bằng chứng trong package hiện có: URL, title, author/source, raw full text và metadata selection.
-- Bằng chứng chưa tìm thấy tại local: giấy phép/điều khoản lưu trữ, email chấp thuận, hoặc bản ghi quyền dùng/phân phối theo từng nguồn.
-- Không kết luận rằng dữ liệu được cấp phép tái phân phối công khai chỉ dựa vào URL hoặc lời ghi trong metadata.
-
-Đề nghị TV3 bổ sung/đính kèm quyền sử dụng evidence cho từng nguồn hoặc một bản xác nhận tập trung liệt kê URL, phạm vi (nội bộ/đồ án/công bố), mục đích, điều kiện attribution và ngày kiểm tra. Đặc biệt xác minh attribution `story_016`.
-
-## 6. Đồng bộ và hành động đề xuất
-
-1. Giữ nguyên raw corpus `full_story (2).csv`; không crawl hoặc tạo lại dữ liệu.
-2. Dùng `dev_cases(2).jsonl` và `test_cases(2).jsonl` làm snapshot hiện hành; không nhầm với Dev snapshot cũ.
-3. Chốt 11 key_event rows được đánh dấu: sửa summary hoặc key_event để quan hệ summary → key_events rõ ràng; với Test, không dùng để tuning prompt/model, chỉ chỉnh lỗi dữ liệu đã xác minh theo quy trình versioned.
-4. Đồng bộ `normalization_note` sau khi semantic review được chốt; không tự đổi metadata status thành “semantic pass”.
-5. Bổ sung rights evidence/attribution register và lưu cùng phiên bản dataset.
-6. Sau mọi thay đổi, tạo dataset version mới, cập nhật SHA-256, chạy lại `scripts/validate_dataset.py` và tests; giữ bản gốc để truy vết.
-
-## 9. Resolution of the 11 key-event alignment flags (2026-11-21)
-
-The flagged `key_events` were compared against the exact `summary` field supplied to Story Generator. The resolution edits only `key_events`; no summary was expanded to justify source-only details. The original raw-source material remains unchanged.
-
-| Split | Story ID | Event | Decision | Resolution |
+| Split | Story ID | Original event no. | Final status | Final disposition |
 |---|---|---:|---|---|
-| Dev | `story_010` | 1 | removed | Removed — the initial terrain/water condition occurs in raw source but not in the input summary. |
-| Dev | `story_013` | 1 | revised | `Ngô Thì Sĩ ham học dù nhà nghèo.` — reduced to the level supported by the input summary. |
-| Dev | `story_013` | 3 | removed | Removed — the “ngọn đèn lớn” anecdote is not present in the input summary. |
-| Dev | `story_030` | 1 | revised | `Sông Mekong và sông Ping thi nhau ra biển để giành cá bức.` — removed the raw-source-only taunt/detail. |
-| Dev | `story_030` | 2 | revised | `Ping hợp với các sông khác rồi đi chậm.` — removed secondary river names and journey details absent from the summary. |
-| Dev | `story_033` | 2 | revised | `Anh liên tục chê kính không tốt vì không đọc được lịch đang cầm ngược.` — removed unsupported counts/details of trying glasses. |
-| Dev | `story_041` | 1 | removed | Removed — the king's visit to West Lake and guards blocking the crowd are absent from the input summary. |
-| Dev | `story_047` | 1 | revised | `Một người bạn cũ trở thành quan và nhiều lần từ chối tiếp người bạn kia.` — removed the sworn-brother/exam details absent from the summary. |
-| Test | `story_040` | 1 | revised | `Ngựa Con mải chăm chút vẻ ngoài và tin rằng mình sẽ thắng.` — kept only the appearance/self-confidence idea present in the input summary. |
-| Test | `story_053` | 4 | revised | `Người quen hiểu tính anh nên dùng lời “cầm tay tôi” để anh nắm lấy và được cứu.` — aligned the phrasing to the causal relationship explicitly stated in the summary. |
-| Dev | `story_033` | 4 | retained | Retained as a semantic paraphrase of the summary statement that the buyer admits he would not need glasses if he could read. This is a lexical-screen false positive, not a confirmed defect. |
+| Dev | story_010 | 1 | removed | Initial terrain/water condition was present in raw full text but absent from input summary. Removed instead of expanding the summary. |
+| Dev | story_013 | 1 | revised | Reduced to “Ngô Thì Sĩ ham học dù nhà nghèo.” |
+| Dev | story_013 | 3 | removed | “Ngọn đèn lớn” anecdote was in raw text but not in input summary. Removed. |
+| Dev | story_030 | 1 | revised | Reduced to the competition between Mekong and Ping; removed raw-source-only taunt detail. |
+| Dev | story_030 | 2 | revised | Reduced to “Ping hợp với các sông khác rồi đi chậm”; removed tributary names/journey details absent from summary. |
+| Dev | story_033 | 2 | revised | Reduced to the summary-grounded point that the buyer repeatedly complains because he is holding the calendar upside down. |
+| Dev | story_033 | 4 | retained | Lexical-screen false positive; semantically equivalent to the summary statement that he admits he would not need glasses if he could read. |
+| Dev | story_041 | 1 | removed | The king's visit to West Lake and guards keeping the crowd back were raw-source details absent from input summary. Removed. |
+| Dev | story_047 | 1 | removed | Final correction: after unsupported sworn-brother/examination details are removed, this duplicates event 2 and adds no distinct summary-grounded event. It is removed, not retained/revised. |
+| Test | story_040 | 1 | revised | Reduced to the summary-grounded idea that Ngựa Con focuses on appearance and is confident of winning. |
+| Test | story_053 | 4 | revised | Reworded to the summary-grounded causal sequence: the acquaintance understands his nature, uses “cầm tay tôi”, and he grasps the hand and is rescued. |
 
-**Resolution count:** 6 event texts revised, 4 events removed, and 1 event retained after semantic-equivalence review. Dev/Test split, IDs, source URLs, summaries, characters, difficulty and selection scores were not changed.
+**Final counts:** 6 event texts revised, 4 events removed, 1 lexical false-positive retained. Earlier wording that story_047 was revised or that all 11 rows were still pending is superseded.
 
-**Scope limitation:** the 109 records not flagged by the lexical screen were not all independently certified by this resolution step. A lexical-screen pass is not proof of semantic alignment. The existing `normalization_note` values were retained; this work does not claim that the entire 30-story dataset has completed human semantic review.
+**Scope limitation:** the 109 events not flagged by the lexical screen were not individually certified through a full human semantic review in this task. A lexical-screen pass is not proof of semantic fidelity. Test event edits are data-quality alignment fixes only; they are not a basis for tuning the generator/reviewer on held-out Test.
 
+## 5. Rights and attribution status
 
+A private register covers all 30 source URLs. All 30 point to truyendangian.com and remain recorded for traceability.
 
-### Dataset snapshot hash refresh
+The story_016 source-page footer states that the site has registered copyright with DMCA and asks that copied content credit TruyenDanGian.Com. This host-site notice is not an explicit license to reuse, store, train on or publicly redistribute stories. No per-source license, permission email, rights-holder approval or captured terms granting the intended use scope were present in the inspected local package.
 
-After applying the key-event resolutions, the final JSONL SHA-256 values are:
+- Internal project use: not cleared by documentary evidence in the inspected package. Keep materials in restricted/private storage pending a documented project/institution and, where necessary, rights-holder decision.
+- Public GitHub/public distribution: not cleared by the evidence available. Do not publish full-text corpus, substantial extracts or the derived 30-story dataset as an openly reusable corpus until permission/rights review is complete.
+- URL and attribution are provenance, not a license. Do not infer public-domain status for modern retellings, translations, textbook versions or editorial page content merely because the underlying story is folkloric.
 
-- `data/dev_cases.jsonl`: `f54dcab4c835969c9fbd46f4eda3af9d9dfe3502d85de1686d9202c1c7c33602`
-- `data/test_cases.jsonl`: `76ee7ef7a9ca57e7511928faf5e1a61364f269f4187aa8e8a14fdaa04bae09f8`
+The detailed register is handed over separately and remains outside this public PR.
 
-The Dev and Test files are the exact snapshots described by these hashes. The `story_047` event 1 removal is included in the Dev hash.
+## 6. Validation and remaining gates
+
+Run and record actual output for:
+- python scripts/validate_dataset.py
+- python scripts/test.py
+- python -m pytest tests/test_dataset.py tests/test_metadata_output_safety.py -v
+- python -m pytest -v (full CPU regression on a checkout with latest main plus PR changes)
+
+A passing structural validator does not set the Offline Evaluation Harness gates review_approved or rights_approved. Official evaluation also requires frozen split, a dataset artifact reference with SHA-256, and official-test authorization before using held-out Test.
+
+**Current status:** dataset snapshot and 11 flagged key-event rows reconciled; 30-source rights register handed over privately but rights clearance remains pending; human-gold acceptance remains separate. Do not merge or start official evaluation until full CPU regression on latest main and rights/review gates are evidenced.
