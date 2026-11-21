@@ -418,12 +418,16 @@ def test_traceable_exact_evidence_required(board, kind):
 
 def test_uncertain_findings_not_confirmed_gold(board):
     certain = AnnotatedFinding(finding_id="f1", discrepancy_id="d1", issue=issue_for(board), status="confirmed")
-    uncertain = replaced(certain, finding_id="f2", discrepancy_id="d2", status="uncertain")
-    case = semantic_case(board, findings=(certain, uncertain), predictions=[issue_for(board), issue_for(board)])
-    out = prepare_semantic_matches(case, (link(), link(1, "d2")))
-    assert out["excluded_uncertain_gold"] == ["f2"]
-    assert out["excluded_uncertain_predictions"] == [1]
-    assert len(out["matches"]) == 1 and not out["unmatched_gold"]
+    uncertain = replaced(certain, finding_id="f2", discrepancy_id="d2", status="uncertain",
+                         issue=replaced(certain.issue, severity="warning"))
+    # Task11A.3 requires a full-case gold gate, replacing the earlier subset policy.
+    case = semantic_case(board, findings=(certain, uncertain), status="uncertain", adjudicated=False,
+                         predictions=[issue_for(board), issue_for(board)])
+    assert annotation_readiness(case)["gold_ready"] is False
+    assert annotation_readiness(case)["uncertain_findings"] == 1
+    with pytest.raises(ValueError, match="gold gate"):
+        prepare_semantic_matches(case, (link(), link(1, "d2")))
+    assert case.annotation.issues[1].status == "uncertain"
 
 
 @pytest.mark.parametrize("status", ["failed", "not_checked"])
@@ -703,3 +707,98 @@ def test_invalid_or_inferred_model_count_is_rejected(board, changes):
     pair, costs = pair_for(board, board.model_dump_json())
     with pytest.raises(ValueError):
         evaluate_pairs(plan_for(board.summary), (pair,), (replaced(costs[0], **changes),))
+
+
+def root_case(board, *, prediction_locations=([],), gold_location=(), related_locations=()):
+    predictions = [replaced(issue_for(board), location=path) for path in prediction_locations]
+    case = semantic_case(board, predictions=predictions)
+    finding = replaced(case.annotation.issues[0], issue=replaced(issue_for(board), location=list(gold_location)),
+                       related_locations=related_locations)
+    return replaced(case, annotation=replaced(case.annotation, issues=(finding,)))
+
+
+def test_exact_root_matches_exact_gold_root(board):
+    out = prepare_semantic_matches(root_case(board), (link(),))
+    assert len(out["matches"]) == 1 and not out["unmatched_gold"]
+
+
+@pytest.mark.parametrize("prediction_root", [True, False])
+def test_root_and_scene_locations_are_not_wildcards(board, prediction_root):
+    scene = ("scenes", 0, "caption_vi")
+    case = root_case(board, prediction_locations=([] if prediction_root else list(scene),),
+                     gold_location=scene if prediction_root else ())
+    out = prepare_semantic_matches(case, (link(),))
+    assert not out["matches"] and out["unmatched_predictions"] == [0]
+    assert out["unmatched_gold"] == ["f1"]
+
+
+@pytest.mark.parametrize("prediction_root", [True, False])
+def test_root_related_locations_must_be_explicit(board, prediction_root):
+    scene = ("scenes", 0, "caption_vi")
+    case = root_case(board, prediction_locations=([] if prediction_root else list(scene),),
+                     gold_location=scene if prediction_root else (),
+                     related_locations=((),) if prediction_root else (scene,))
+    assert len(prepare_semantic_matches(case, (link(),))["matches"]) == 1
+
+
+def test_duplicate_root_predictions_still_match_once(board):
+    case = root_case(board, prediction_locations=([], []))
+    out = prepare_semantic_matches(case, (link(), link(1)))
+    assert len(out["matches"]) == 1 and out["duplicate_predictions"] == [1]
+    assert not out["unmatched_gold"]
+
+
+def test_unresolved_findings_cannot_open_full_gold_gate(board):
+    case = semantic_case(board)
+    tentative = replaced(case.annotation.issues[0], finding_id="tentative", discrepancy_id="d2",
+                         status="uncertain", issue=replaced(issue_for(board), severity="warning"))
+    # Inconsistent imported flags must be rejected, not treated as human approval.
+    invalid = replaced(case, annotation=replaced(case.annotation, issues=(*case.annotation.issues, tentative)))
+    with pytest.raises(ValueError, match="Unresolved"):
+        annotation_readiness(invalid)
+    with pytest.raises(ValueError, match="Unresolved"):
+        prepare_semantic_matches(invalid, (link(),))
+    case = replaced(invalid, annotation=replaced(invalid.annotation, annotation_status="uncertain", adjudicated=False))
+    before = json_bytes(case)
+    readiness = annotation_readiness(case)
+    assert case.annotation.verdict == "fail" and case.annotation.human_review_state == "completed"
+    assert readiness["gold_ready"] is False and readiness["unresolved_findings"] == 1
+    with pytest.raises(ValueError, match="gold gate"):
+        prepare_semantic_matches(case, (link(),))
+    assert json_bytes(case) == before
+    assert case.annotation.issues[1].status == "uncertain"
+    assert not case.annotation.adjudicated
+
+
+def test_uncertain_error_severity_is_rejected_without_downgrading(board):
+    finding = semantic_case(board).annotation.issues[0]
+    invalid = replaced(finding, status="uncertain")
+    with pytest.raises(ValueError, match="warning"):
+        parse_record(json_bytes(invalid), AnnotatedFinding)
+    assert invalid.issue.severity == "error" and invalid.status == "uncertain"
+    valid = replaced(invalid, issue=replaced(invalid.issue, severity="warning"))
+    checked = parse_record(json_bytes(valid), AnnotatedFinding)
+    assert checked.status == "uncertain" and checked.issue.severity == "warning"
+
+
+def test_fully_confirmed_adjudicated_findings_open_gold_gate_without_inventing_approval(board):
+    case = semantic_case(board)
+    assert annotation_readiness(case)["gold_ready"] is True
+    assert annotation_readiness(case)["unresolved_findings"] == 0
+    unapproved = replaced(case, annotation=replaced(case.annotation, adjudicated=False))
+    before = json_bytes(unapproved)
+    assert annotation_readiness(unapproved)["gold_ready"] is False
+    with pytest.raises(ValueError, match="gold gate"):
+        prepare_semantic_matches(unapproved, (link(),))
+    assert json_bytes(unapproved) == before and not unapproved.annotation.adjudicated
+
+
+def test_logical_cost_attribution_is_not_variant_execution_count(board):
+    pair, costs = pair_for(board, board.model_dump_json())
+    pair = replaced(pair, b0=VariantResult(variant="B0", state="not_run", failure_category="stop_policy"))
+    out = evaluate_pairs(plan_for(board.summary), (pair,), costs)
+    assert out["variants"]["B0"]["attempted"] == 0 and out["variants"]["B0"]["not_run"] == 1
+    assert out["variants"]["B1"]["attempted"] == 1
+    assert out["costs"]["physical"]["backend_invocations"] == 1
+    assert out["costs"]["B0_logical"]["backend_invocations"] == 1
+    assert out["costs"]["B1_logical"]["backend_invocations"] == 1

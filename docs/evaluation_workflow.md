@@ -128,6 +128,11 @@ không NFC/NFD normalization.
 - B0 logical = shared initial backend invocations.
 - B1 logical = shared initial backend invocations + actual repairs.
 - Không cộng B0 logical + B1 logical thành physical cost.
+- `B0_logical/B1_logical` là **quy thuộc shared physical calls** theo design, không
+  phải observed per-variant execution count. Khi initial generation đã xảy ra nhưng
+  B0 `not_run`, shared initial cost vẫn được quy thuộc B0_logical; B0 attempted vẫn 0.
+  Đây không phải bằng chứng B0 đã chạy. Variant state/coverage mới mô tả execution.
+  Task11A.3 chỉ làm rõ nhãn này và thêm regression test, không đổi cost formulas/totals.
 - Logical ledger mô tả cost của shared inputs/repairs đã quan sát; không giả lập
   measurements cho missing/not-run calls hoặc infer cost cho một full pipeline chưa chạy.
 - Tổng input/generated tokens, model.generate seconds và backend wall seconds tách
@@ -162,8 +167,23 @@ discrepancy ID**, production issue, related_locations và confirmed/uncertain st
 
 Pending/in-progress không được chứa final verdict hoặc gold approval. Completed empty
 issues chỉ là clean gold nếu có explicit confirmed/adjudicated PASS và reviewed rubric.
-Uncertain case verdict/annotation không mở gold gate. Uncertain individual findings
-không tham gia primary matching. Prior exposure được lưu; không tuyên bố blind tuyệt đối.
+Uncertain case verdict/annotation không mở gold gate. **Full case gold gate** còn yêu
+cầu không có finding `status=uncertain`; readiness báo `unresolved_findings` riêng.
+Completed case verdict `fail` chỉ khẳng định có confirmed error, không chứng minh mọi
+finding đã được adjudicate.
+
+Nếu có unresolved uncertain finding nhưng case `annotation_status=confirmed` hoặc
+`adjudicated=True`, `HumanAnnotation` reject combination mâu thuẫn. Consistent completed
+`fail` với confirmed error + uncertain warning có thể lưu để audit với annotation status
+`uncertain`, adjudicated false, nhưng `gold_ready=False` và không gọi matching. Không
+xóa uncertain findings, không đổi chúng thành confirmed và không tự tạo human approval.
+Prior exposure được lưu; không tuyên bố blind tuyệt đối.
+
+`AnnotatedFinding` chỉ nhận uncertain finding với severity `warning`, theo TV3 draft
+rubric section 3 tại `origin/feature/evaluation` commit
+`7756d3015ed20590dd6ae7c867c7ec6662749517`. Tentative `error` + `uncertain` bị reject,
+không tự downgrade severity. Các giả thuyết chưa đủ căn cứ có thể giữ ở draft notes,
+không xuất thành confirmed error. Không sửa TV3 rubric hoặc production SemanticIssue.
 
 `SemanticCase` chứa target Storyboard, independent summary, annotation và production
 `SemanticValidationReport`. Annotation và reviewer snapshot phải thuộc đúng case target.
@@ -173,12 +193,23 @@ bytes, không reconstruct JSON để thay raw.
 
 One-to-one matching cần human `DiscrepancyLink(prediction_index, discrepancy_id,
 confirmed_by)`. Cùng case, canonical code, discrepancy đã adjudicate và exact anchor
-hoặc related location mới match; không parent/`[]` wildcard. Cả gold và predictions
+hoặc related location mới match; không parent/`[]` wildcard. **Exact root `[]` match
+exact root `[]`**; không dùng truthiness để loại root. Root và scene-specific location
+không match nhau trừ khi path kia nằm trong explicit human related_locations. Cả gold và predictions
 phải có exact traceable evidence, original-summary evidence path `[]`, storyboard
 paths zero-based và resolve tới string cho quote. Exact substring phù hợp không chứng
 minh semantic claim đúng. Duplicate predictions chỉ match gold một lần; severity
 agreement tách khỏi identity. Unlinked predictions còn cần human adjudication;
-không mặc định mọi unmatched là FP. Linked uncertain findings được exclude, không TP/FN.
+không mặc định mọi unmatched là FP. Với full-case gate, bất kỳ unresolved finding nào
+cũng chặn matching cho cả case; không xuất partial confirmed-subset TP/FP/FN dưới nhãn
+full gold-ready.
+
+Policy boundary: Task11A.3 yêu cầu full-case gate này. TV3 draft sections 3–4 quy định
+uncertain severity và case-level confirmed không còn ambiguity; section 6 cũng mô tả
+confirmed-only primary matching và case fail có thể kèm uncertain findings. Nếu muốn
+partial confirmed-subset matching, cần API/policy version riêng và **team-lead sign-off**;
+không âm thầm coi đó là full gold. Cần chốt interpretation này cùng TV3 trước official
+gold/matching freeze; tài liệu này không tự nghiệm thu rubric draft.
 
 Reviewer `failed/not_checked` giữ verdict null, matching not_checked và không sinh
 false semantic FAIL hoặc FN counts. API này chỉ chuẩn bị match inventory, luôn giữ
@@ -277,6 +308,13 @@ pip check, git diff --check, syntax, whitespace, secret screening và docs links
 P2/dependencies còn lại: ledger observation và approval declarations cần external evidence
 audit, human discrepancy crosswalk/rubric/gold cần TV1/TV3 sign-off; chưa có Windows runtime
 verification. Không coi các flags hoặc findings synthetic là official human approval.
+
+Task11A.3 sửa hai P1 root location/full-gold readiness, kiểm tra uncertain severity theo
+draft và làm rõ P2 logical cost attribution mà không đổi structural metrics.
+Verification Ubuntu/project .venv: **125 targeted PASS**, full CPU **1002 PASS**, không
+failed/skipped/errors. Root-to-root, explicit related root, duplicate root, unresolved
+findings, severity rejection, no fabricated approval và not-run logical attribution
+được kiểm tra bằng synthetic fixtures; không phải semantic model quality evidence.
 Chưa có official metric results, human-confirmed gold package, semantic scores, real
 image evaluation hoặc Windows runtime verification từ task này. Cần TV3 chốt frozen
 dataset/rubric/adjudication/matching protocol và TV2 chốt real image/Gradio contracts

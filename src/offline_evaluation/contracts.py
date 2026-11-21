@@ -184,6 +184,13 @@ class AnnotatedFinding(Record):
     related_locations: tuple[Location, ...] = ()
     status: Literal["confirmed", "uncertain"]
 
+    @model_validator(mode="after")
+    def tentative_severity(self) -> Self:
+        # TV3 rubric draft section 3: provisional uncertain findings use warning.
+        if self.status == "uncertain" and self.issue.severity != "warning":
+            raise ValueError("Uncertain finding cần severity warning; không tự downgrade hoặc confirm.")
+        return self
+
 
 class HumanAnnotation(Record):
     """Human state tách verdict. Không tự điền gold hoặc adjudication."""
@@ -208,6 +215,10 @@ class HumanAnnotation(Record):
         ids = [issue.finding_id for issue in self.issues]
         if len(ids) != len(set(ids)):
             raise ValueError("Duplicate human finding IDs.")
+        if any(f.status == "uncertain" for f in self.issues) and (
+            self.annotation_status == "confirmed" or self.adjudicated
+        ):
+            raise ValueError("Unresolved uncertain findings không nhận confirmed case status hoặc adjudicated=True.")
         if self.human_review_state != "completed":
             if self.verdict is not None or self.annotation_status is not None or self.adjudicated:
                 raise ValueError("Pending/in-progress không nhận final verdict/gold status.")

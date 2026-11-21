@@ -40,10 +40,12 @@ def annotation_readiness(case: SemanticCase) -> dict:
         _ground(finding.issue, case.original_summary, snapshot, finding.related_locations)
     ready = (annotation.human_review_state == "completed" and annotation.annotation_status == "confirmed"
              and annotation.verdict != "uncertain" and annotation.adjudicated
+             and all(f.status == "confirmed" for f in annotation.issues)
              and annotation.rubric_version not in ("draft_not_approved", "pending"))
     return {"human_review_state": annotation.human_review_state, "gold_ready": ready,
             "confirmed_findings": sum(f.status == "confirmed" for f in annotation.issues),
             "uncertain_findings": sum(f.status == "uncertain" for f in annotation.issues),
+            "unresolved_findings": sum(f.status == "uncertain" for f in annotation.issues),
             "prior_prediction_exposure": annotation.prior_prediction_exposure,
             "blind_annotation_claimed": False}
 
@@ -96,14 +98,12 @@ def prepare_semantic_matches(case: SemanticCase, links: tuple[DiscrepancyLink, .
     for index, prediction in enumerate(report.issues):
         discrepancy = crosswalk.get(index)
         uncertain_candidates = [f for f in uncertain if f.discrepancy_id == discrepancy and f.issue.code == prediction.code
-                                and tuple(prediction.location) in {tuple(f.issue.location), *f.related_locations}
-                                and prediction.location]
+                                and tuple(prediction.location) in {tuple(f.issue.location), *f.related_locations}]
         if uncertain_candidates:
             excluded.append(index)
             continue
         candidates = [f for f in confirmed if f.discrepancy_id == discrepancy and f.issue.code == prediction.code
-                      and tuple(prediction.location) in {tuple(f.issue.location), *f.related_locations}
-                      and prediction.location]
+                      and tuple(prediction.location) in {tuple(f.issue.location), *f.related_locations}]
         if candidates:
             gold = candidates[0]
             if gold.finding_id in used:
