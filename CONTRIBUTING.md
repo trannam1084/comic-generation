@@ -70,9 +70,9 @@ Không đưa `models/` cũ vào pipeline hoặc force-add các file ignored. Hai
 
 | Thành viên | Files chính |
 |---|---|
-| TV1 | `src/story_generator/`, `src/storyboard/`, `src/pipeline.py`, notebook 02 |
-| TV2 | `src/image_generator/`, `src/comic_renderer/`, `app.py`, notebook 03 |
-| TV3 | `data/`, `src/evaluation/`, notebook 04, test strategy và integration/evaluation tests |
+| TV1 — Trần Hải Nam | `src/story_generator/`, `src/storyboard/`, `src/pipeline.py`, notebook 02 |
+| TV2 — An Hoàng Anh | `src/image_generator/`, `src/comic_renderer/`, `app.py`, notebook 03 |
+| TV3 — Nguyễn Công Thành | `data/`, `src/evaluation/`, notebook 04, test strategy và integration/evaluation tests |
 
 Chủ module phối hợp TV3 viết unit tests theo chức năng trong các file riêng; tránh cùng sửa một file test lớn. TV3 phụ trách dữ liệu kiểm thử và tiêu chí đánh giá; không tự đổi interface để làm tests pass.
 
