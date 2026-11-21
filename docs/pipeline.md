@@ -1,113 +1,113 @@
-# Comic Pipeline Orchestration — Task 07A
+# Shared Pipeline Integration — Task 07B và 10A.1
 
-## 1. Trạng thái repository và phạm vi
+## 1. Trạng thái và kiến trúc thực tế
 
-Khi bắt đầu Task 07A, branch TV1 ở `376fbca`; sau fetch, `origin/main` ở `b04455a`. Main có PromptBuilder và dataclasses của TV2, trong khi `src/image_generator/image_generator.py` và `src/comic_renderer/renderer.py` vẫn là placeholder. Task 07A không merge main, đổi branch hoặc sửa các module TV2.
+Task 07A tạo shared orchestration; Task 07B nối các production interfaces đã có trên main thành CPU mock pipeline. Không tạo pipeline implementation thứ hai. Chạy thành công tạo bốn mock images, captions tiếng Việt và comic PNG layout 2×2 bằng Pillow. Mock images chỉ có màu nền/số cảnh/seed, **không phải diffusion results**; MockStoryBackend chỉ trả fixture cho exact sample summary, không phải AI sinh truyện tùy ý. Chưa có full real AI pipeline.
 
-Task này triển khai orchestration và kiểm thử CPU bằng test doubles, không hoàn thành Task 07B hoặc full mock pipeline. Artifact do renderer double tạo chỉ là JSON/text kiểm thử alignment, không phải comic thực tế hoặc bằng chứng chất lượng hình ảnh.
-
-## 2. Dependency Injection và interfaces
-
-`ComicPipeline` không tự tạo backend, chọn model, tải weights hoặc đọc toàn bộ cấu hình. Caller phải inject bốn dependencies:
-
-| Dependency | Interface | Trạng thái |
-|---|---|---|
-| Story Generator | `generate(summary: str) -> Storyboard` | Dùng implementation Task 06 và shared schema |
-| Prompt Builder | `build(storyboard: Storyboard) -> list[ScenePrompt]` | Input shared; dùng adapter tạm với builder legacy TV2 |
-| Image Generator | `generate(prompts: list[ScenePrompt]) -> list[GeneratedImage]` | Interface orchestration đề xuất, cần TV2 xác nhận |
-| Renderer | `render(panels: list[ComicPanel]) -> Path` | Interface orchestration đề xuất, cần TV2 xác nhận |
-
-Bốn Protocols chỉ mô tả các method cần thiết để type checking và thay dependency; không phải runtime validation framework. Không có registry, auto factory, backend fallback hoặc inference trong pipeline.
-
-Story Generator và PromptBuilder có implementation thật được dùng trong tests; hai stage còn thiếu được inject bằng doubles trong `tests/test_pipeline.py`, không ghi code giả vào production modules thuộc TV2.
-
-## 3. Kết quả và caption handoff
-
-`ComicResult` là dataclass gồm:
-
-- `storyboard`: shared Pydantic Storyboard.
-- `prompts`: list các ScenePrompt nguyên interface TV2.
-- `images`: list các GeneratedImage nguyên interface TV2.
-- `comic_path`: Path của artifact do Renderer trả.
-
-`ComicPanel` chỉ là envelope integration ghép `scene_index`, `caption_vi`, `generated_image`. Đây không phải một Storyboard schema khác. Renderer đọc payload qua `panel.generated_image.image`; các metadata seed/backend/params vẫn nằm trong GeneratedImage. Không đưa style, seed hoặc inference metadata vào Storyboard.
-
-Result/Panel dùng frozen dataclass để không gán lại fields trực tiếp, nhưng Storyboard, lists và image payload bên trong vẫn mutable. Caller phải tuân thủ [quy tắc revalidation](data_contract.md), không suy ra deep immutability.
-
-## 4. Luồng xử lý và scene alignment
-
-1. Gọi Story Generator đúng một lần. Yêu cầu trả shared Storyboard, revalidate instance thành bản riêng và kiểm tra summary khớp input.
-2. Truyền một bản Storyboard riêng cho PromptBuilder. Nếu builder mutate bản input này, pipeline báo lỗi thay vì coi thành công; instance của caller được giữ nguyên.
-3. Kiểm tra prompts là list đúng bốn ScenePrompt, scene_index là integer thực sự và theo thứ tự chính xác 1, 2, 3, 4.
-4. Truyền bản copy của list prompts cho Image Generator, gọi một lần.
-5. Kiểm tra images là list đúng bốn GeneratedImage, index strict theo thứ tự 1–4 và image payload không phải None.
-6. Tạo lookup ảnh theo scene index sau khi kiểm tra uniqueness/order; ghép đúng ảnh với caption từ Storyboard. Không dùng sort để chữa output sai.
-7. Gọi Renderer một lần với bốn ComicPanel đã align.
-8. Chỉ trả ComicResult nếu Renderer trả Path trỏ tới file tồn tại, không rỗng.
-
-Không ép tuple/generator thành list để che interface sai; không bỏ/thay/tạo thêm prompt hoặc ảnh. Không retry, repair hoặc fallback. `runtime.max_retries` trong settings chưa được dùng ở orchestration này; chưa có config loader.
-
-## 5. Error propagation
-
-Exceptions từ dependencies hoặc shared Pydantic validation được propagate nguyên trạng. Pipeline không wrap mất type/cause, không gọi stage sau khi stage trước phát sinh lỗi. Tests xác minh exception identity, call count và thứ tự gọi tại từng stage.
-
-`PipelineContractError(ValueError)` chỉ dành cho lỗi do pipeline tự phát hiện ở boundary. Thuộc tính `stage` là `story`, `prompts`, `images` hoặc `render`. Ví dụ: prompt count sai dừng trước Image Generator; image index sai dừng trước Renderer; artifact thiếu/rỗng/không phải file không tạo ComicResult thành công. Lỗi filesystem trong quá trình kiểm tra artifact cũng được propagate, không bị đổi thành trạng thái thành công.
-
-Kiểm tra artifact chỉ xác nhận Path/file/non-empty, không decode định dạng ảnh, đo chất lượng hoặc chứng minh freshness của file. Renderer chịu trách nhiệm thực sự tạo artifact đúng lần gọi và format được nhóm thống nhất. Payload GeneratedImage hiện khai báo Any trong TV2; pipeline chỉ reject None, chưa xác minh đó là PIL Image. Không tự cài Pillow hoặc dựng renderer để làm thay phần việc này.
-
-## 6. Adapter compatibility chuyển tiếp
-
-`src/storyboard/compat.py` thuộc phạm vi TV1, có `LegacyPromptBuilderAdapter`. Caller bọc builder legacy một cách rõ ràng:
-
-```python
-from src.image_generator.prompt_builder import PromptBuilder
-from src.storyboard.compat import LegacyPromptBuilderAdapter
-
-prompt_stage = LegacyPromptBuilderAdapter(PromptBuilder())
+```text
+original summary
+  → RepairStoryStageAdapter → BoundedRepairController → MockStoryBackend
+  → Shared Storyboard
+  → LegacyPromptBuilderAdapter → PromptBuilder TV2
+  → ImageStageAdapter → MockImageGenerator.generate_all
+  → ComicPanel[4] (scene index + caption + GeneratedImage)
+  → RenderStageAdapter → ComicRenderer.render → save → comic.png
 ```
 
-Adapter revalidate shared Storyboard trước, rồi dựng các dataclasses đã tồn tại của TV2 bằng mapping từng field. Characters/scenes và scene references chuyển từ list sang tuple rõ ràng; text, IDs, thứ tự và caption giữ nguyên. Không thêm schema độc lập, không dùng model_construct hoặc bỏ qua validation. PromptBuilder tiếp tục tạo final prompts riêng; base image prompts không bị ghi đè.
+Story/Repair prompts, Qwen backend, deterministic validator, Shared Schema và semantic reviewers giữ nguyên. Semantic verdict không tham gia acceptance/automatic repair. Pipeline stage được gọi tối đa một lần; bên trong StoryStage, production controller có bounded generation attempts theo explicit retry configuration. Không thêm outer retry/fallback.
 
-Adapter là giải pháp tạm thời; cần bỏ wrapper khi Hoàng Anh migration PromptBuilder sang shared Pydantic/list. Không truyền shared Storyboard trực tiếp cho builder legacy chỉ vì duck typing có thể chạy: khi đó ScenePrompt.character_ids có thể thành list trái type annotation tuple hiện tại. ScenePrompt và GeneratedImage vẫn thuộc Image Pipeline.
+## 2. Shared interfaces và public API
 
-## 7. Ví dụ kiểm thử orchestration trên CPU
+`ComicPipeline.generate(summary) -> ComicResult` giữ nguyên. `ComicResult` gồm shared `storyboard`, list `prompts`, list `images` và `comic_path: Path`. `ComicPanel` giữ `scene_index`, `caption_vi`, `generated_image`. Không thêm metadata/style/seed vào Storyboard hoặc sửa TV2 schemas.
 
-Từ repository root, dùng `.venv` hiện có:
+| Stage | Interface orchestration | Concrete handoff |
+|---|---|---|
+| Story | `generate(summary) -> Storyboard` | `RepairStoryStageAdapter(controller)` gọi controller một lần |
+| Prompt | `build(storyboard) -> list[ScenePrompt]` | Existing `LegacyPromptBuilderAdapter(PromptBuilder())` |
+| Image | `generate(prompts) -> list[GeneratedImage]` | `ImageStageAdapter` gọi TV2 `generate_all(prompts, base_seed=...)` một lần |
+| Render | `render(panels: list[ComicPanel]) -> Path` | `RenderStageAdapter` gọi TV2 `render(images, captions)` rồi `save(RenderResult, run_dir)` |
+
+Pipeline vẫn kiểm tra đúng bốn prompts/images, scene indices strict [1,2,3,4], không sort hoặc thêm/bỏ phần tử. PromptBuilder nhận copy Storyboard đã revalidate; nếu mutate input, pipeline dừng. Caption ghép theo scene index. Base prompts/captions/catalog không bị adapters ghi đè. Shared Pydantic/list sang legacy dataclass/tuple vẫn mapping tường minh qua adapter hiện có; cần TV2 migration trước khi bỏ adapter. ScenePrompt/GeneratedImage thuộc ownership TV2.
+
+## 3. StoryStage và failure contract
+
+`RepairStoryStageAdapter.generate(summary)` truyền original summary nguyên văn, gọi đúng một controller invocation. Chỉ trả Storyboard khi result là `accepted_initial` hoặc `accepted_after_repair`, có accepted history/report và storyboard. Adapter revalidate Shared Storyboard, yêu cầu cả JSON/schema/exact summary PASS, kiểm tra accepted raw parse ra cùng board và summary khớp input. Không sửa raw, trim/normalize/sort hoặc tạo storyboard thay thế.
+
+`StoryStageError(RuntimeError)` có:
+
+- `category`: failed controller status (`input_failure`, `backend_failure`, `budget_exhausted`), hoặc `controller_exception`, `invalid_controller_result`, `invalid_accepted_result`.
+- `result`: deep-copy RepairResult khi có, gồm original summary, diagnostics, attempts và failure category.
+- `attempts`: snapshot history riêng, kể cả partial attempts khi controller raise unexpected exception.
+- `__cause__`: original exception qua chaining với unexpected/controller boundary errors.
+
+Failed result không bị trả thành success; downstream prompt/image/render không được gọi. Không gọi controller/model lần hai để xử lý lỗi. Không lưu mutable `last_result`, nên không có stale result slot giữa invocations. Dependencies vẫn có thể mutable; chỉ hỗ trợ sử dụng tuần tự, chưa có thread-safety claim. Với UI concurrent, TV2 cần quản lý dependency lifetime/concurrency riêng.
+
+## 4. Image và renderer boundary
+
+Image adapter validate list/four prompts/order trước gọi `generate_all`. Seed giữ semantics TV2: **base_seed + scene_index**, mặc định [43,44,45,46]. Backend exceptions propagate nguyên trạng; không fallback sang mock nếu injected backend thất bại.
+
+Render adapter nhận đúng bốn ComicPanel theo [1,2,3,4], strict index types, Pillow image payload và nonblank captions. Mỗi invocation tạo atomic unique directory `comic-<random>/` bằng `tempfile.mkdtemp` dưới output root đã resolve; không dùng summary hoặc timestamp giây làm path. Không ghi đè previous runs.
+
+TV2 renderer nhận hai lists images/captions, trả RenderResult và save năm files:
+
+```text
+outputs/comic-<unique>/
+  panel_1.png
+  panel_2.png
+  panel_3.png
+  panel_4.png
+  comic.png
+```
+
+Adapter kiểm tra saved paths đúng run directory, không symlink, tồn tại/non-empty; dùng Pillow xác minh PNG/CRC và comic dimensions khớp RenderResult trước success. Renderer default panel512×512, caption height130, margin/gap12 tạo **1060×1320** comic. Rendering dùng Noto Sans font đã có cùng provenance/license trong `assets/fonts/`; không tải font hoặc fallback font thiếu dấu. TV2 renderer normalize NFC để đo/vẽ, không đổi captions trong Storyboard.
+
+Nếu render/save/verification thất bại, exception propagate, không ComicResult thành công. Có thể giữ empty/partial unique run directory phục vụ debug; không xóa previous runs hoặc tự cleanup artifacts của lần lỗi. Backend được inject là trusted Python dependency; path checks không phải security sandbox cho code backend tùy ý.
+
+## 5. Configuration và factory
+
+Task10A.1 mở rộng existing factory, không thay adapters/orchestration Task07B. `PipelineConfig` và `load_pipeline_config` được re-export qua `src.factory`; nguồn config là `src/configuration.py`. Xem [configuration.md](configuration.md) cho field/device rules, precedence, DI policy và limitations.
+
+Default `build_pipeline(PipelineConfig())` vẫn mock/mock/cpu, output root dựa trên repository, base_seed42 và max_retries0. Mock chỉ hỗ trợ exact fixture summary. Qwen mode cần explicit story_backend=qwen và story_device=cuda:N; image_device=cpu, retry mặc định2, explicit0 giữ nguyên. Một QwenStoryBackend instance làm cả initial và repair backend; chỉ lazy load khi generate, không gọi load/generate/review khi build.
+
+`build_pipeline` không đọc ambient config. Caller opt-in `load_pipeline_config(yaml_path, environ=..., overrides=...)`: defaults → YAML → supported environment → explicit overrides. Không implicit .env loader. YAML import lazy; PyYAML6.0.3 đã được cài theo approval và actual YAML integration đã PASS. Private SafeLoader-derived parser reject duplicate keys/sections ở mọi level và reject merge keys; intentional cross-layer overrides vẫn hợp lệ. Mock/direct Python config không cần YAML. Settings và .env.example đã cập nhật sang mock defaults cùng auto retry để không ghi đè Qwen default khi chọn real mode.
+
+Qwen selection không cho story-stage/backend override bypass selected backend; dùng public qwen_loader test seam để inject tokenizer/model/runtime doubles. Những injection points Task07B vẫn giữ trong mock mode; prompt/image/render injection giữ ở cả hai modes. Không fake real backend, thêm retry/fallback hoặc semantic-triggered repair.
+
+```python
+from src.factory import PipelineConfig, build_pipeline
+
+pipeline = build_pipeline(PipelineConfig())
+result = pipeline.generate(
+    "Thỏ thách rùa thi chạy. Thỏ chủ quan ngủ quên giữa đường, còn rùa kiên trì về đích và chiến thắng."
+)
+print(result.comic_path)
+```
+
+## 6. CLI và CPU setup
+
+Dùng project `.venv` hiện có, cần Pydantic v2 và Pillow để chạy mock; pytest cho tests. Không cần PyYAML, GPU stack hoặc Gradio cho path này. Không cài dependencies tự động.
+
+Từ repository root:
 
 ```bash
-.venv/bin/python -m pytest tests/test_pipeline.py::test_success_uses_real_story_generator_and_prompt_builder -v
-.venv/bin/python -m pytest tests/test_pipeline.py -v
-.venv/bin/python -m pytest -v
+.venv/bin/python scripts/run_pipeline.py
+.venv/bin/python scripts/run_pipeline.py --output-dir outputs --base-seed 100
+.venv/bin/python -m pytest tests/test_pipeline_integration.py -q
+.venv/bin/python -m pytest -q
 .venv/bin/python -m pip check
 git diff --check
 ```
 
-Test thành công dùng `StoryGenerator(MockStoryBackend())`, PromptBuilder thật qua adapter, image double tạo payload kiểm thử và renderer double ghi JSON artifact trong pytest tmp_path. Assertions kiểm tra cả captions, image identity/index, input arguments, call order và artifact. Một test process mới chặn import GPU/provider packages và mọi socket/urllib network operation trong lúc import/chạy pipeline.
+Có thể gọi script bằng absolute path từ cwd khác; default fixture/font/output paths vẫn dựa vào repository. CLI dùng independent sample string khớp exact `examples/storyboard.json`; không đổi fixture summary hoặc đọc output để giả lập success. Thành công in actual PNG path. Chỉ thêm PNG artifacts dưới ignored outputs hoặc tmp_path, không lưu notebook/model artifacts.
 
-Ví dụ cách lắp ghép; hai biến doubles dưới đây phải được cung cấp từ test harness, chưa phải backend production có sẵn:
+## 7. Gradio handoff và những phần còn lại
 
-```python
-from src.pipeline import ComicPipeline
-from src.story_generator.mock_backend import MockStoryBackend
-from src.story_generator.story_generator import StoryGenerator
-from src.image_generator.prompt_builder import PromptBuilder
-from src.storyboard.compat import LegacyPromptBuilderAdapter
+TV2 có thể inject pipeline đã build vào UI, gọi `pipeline.generate(summary)` và dùng `result.comic_path`. Với story failure, đọc `StoryStageError.category/result/attempts`; log/report phù hợp, không tự gọi lại backend hoặc fallback. Image/render exceptions có thể được UI hiển thị an toàn theo exception contract. Task này không sửa `app.py` hoặc merge UI PR.
 
-pipeline = ComicPipeline(
-    story_generator=StoryGenerator(MockStoryBackend()),
-    prompt_builder=LegacyPromptBuilderAdapter(PromptBuilder()),
-    image_generator=image_double,
-    renderer=renderer_double,
-)
-result = pipeline.generate(summary_matching_fixture)
-```
+CPU mock chỉ nhận exact fixture summary. Qwen story + mock image đã có factory wiring và CPU injected tests ở Task10A.1; chưa chạy real factory invocation. Real image backend/credential management chưa được tích hợp. Không coi bounded repair hoặc semantic reviewers là đã nâng chất lượng nội dung trong pipeline mock.
 
-Test doubles chỉ kiểm tra wiring, sequencing và failure boundaries. Chúng không thực hiện sinh ảnh/render captions như Mock Image Generator hoặc Renderer thực tế TV2 sẽ xây, và không được quảng bá là comic backend đã hoàn tất.
+Task09D.2B riêng đã ghi nhận paired development structural acceptance10/12→12/12, hai initial failures accepted sau first repair. Đây là GPU experiment riêng trên development inputs, không phải kết quả của CPU integration tests và không chứng minh semantic correctness. Story/Repair components và prompts đã freeze; task này không tune/rerun GPU.
 
-## 8. Những điều kiện còn thiếu
+## 8. Verification sau strict YAML fix — Task10A.1.2
 
-- Hoàng Anh xác nhận interfaces image/render và ComicPanel handoff, triển khai backend CPU/mock và Renderer thật với font tiếng Việt/artifact format.
-- Migration PromptBuilder sang shared schema, bỏ adapter sau khi cập nhật interface/tests; chưa sửa tests TV2 trong task này.
-- Integration thực tế giữa Storyboard, final prompts, image payloads và renderer output, gồm file/resource lifecycle và lỗi backend thực.
-- Thống nhất image token limits, caption/layout limits, payload type checks và output format khi đã có backend.
-- Không có Qwen Backend, Semantic Validator, Repair/retry, diffusion, Gradio hoặc evaluation trong Task 07A. Task 07B và full mock pipeline vẫn chưa hoàn thành.
+Targeted config/factory+integration178PASS; full CPU877PASS, không skipped/failed/errors. Hai original duplicate YAML probes đều reject trước factory build/load. Strict loader giữ safe constructors/global PyYAML state, không echo key/value; malformed/empty/invalid shape/object tags vẫn reject. Actual default CPU mock CLI tiếp tục tạo unique1060×1320PNG. Không thay adapters, shared Qwen runtime, Story/Repair prompts hoặc acceptance algorithm. Không có real factory GPU inference trong task này.

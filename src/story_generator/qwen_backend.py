@@ -12,6 +12,8 @@ from typing import Any, Callable
 from uuid import uuid4
 
 from .prompts import PROMPT_VERSION, build_story_messages
+from .repair import RepairFeedback
+from .repair_prompts import REPAIR_PROMPT_VERSION, build_repair_messages
 
 
 MODEL_ID = "Qwen/Qwen2.5-3B-Instruct"
@@ -93,6 +95,7 @@ class QwenStoryBackend:
         self._components: tuple[Any, Any, Any] | None = None
         self._last_run: dict[str, Any] | None = None
         self._last_review: dict[str, Any] | None = None
+        self._last_repair: dict[str, Any] | None = None
 
     @property
     def generation_parameters(self) -> dict[str, Any]:
@@ -143,9 +146,28 @@ class QwenStoryBackend:
 
         return self._generate_messages(prepare, purpose="semantic_review", prompt_version=prompt_version)
 
+    @property
+    def last_repair(self) -> dict[str, Any] | None:
+        """Snapshot repair gần nhất; độc lập với story generation và semantic review."""
+        return deepcopy(self._last_repair)
+
+    def generate_repair(self, feedback: RepairFeedback) -> str:
+        """Một repair call trên cùng cached runtime; controller chịu trách nhiệm validation."""
+        return self._generate_messages(
+            lambda: build_repair_messages(feedback),
+            purpose="story_repair", prompt_version=REPAIR_PROMPT_VERSION,
+        )
+
     def _generate_messages(
         self, prepare: Callable[[], list[dict[str, str]]], *, purpose: str, prompt_version: str
     ) -> str:
+        routes = {
+            "story_generation": "_last_run",
+            "semantic_review": "_last_review",
+            "story_repair": "_last_repair",
+        }
+        if not isinstance(purpose, str) or purpose not in routes:
+            raise ValueError("Unsupported inference purpose; không tạo call hoặc load model.")
         run = {
             "model_id": MODEL_ID, "revision": MODEL_REVISION,
             "prompt_version": prompt_version, "purpose": purpose, "call_id": uuid4().hex,
@@ -159,10 +181,7 @@ class QwenStoryBackend:
             "gpu_model": None, "raw_output": None, "hit_max_new_tokens": None,
             "validation_outcome": "not_checked", "error_category": None,
         }
-        if purpose == "story_generation":
-            self._last_run = run
-        else:
-            self._last_review = run
+        setattr(self, routes[purpose], run)
         phase = "input"
         try:
             messages = prepare()
