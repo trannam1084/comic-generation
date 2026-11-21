@@ -1,0 +1,4 @@
+# Dependencies for the Gradio UI (app.py). Install with: pip install -r requirements-ui.txt
+# Gradio 6.32.0 is the version tested by the team (see the PR that added app.py).
+-r requirements.txt
+gradio==6.32.0
