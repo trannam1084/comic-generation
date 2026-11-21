@@ -2,8 +2,8 @@
 Importing this module does not initialize an API client or access files.
 Optional dependencies: pandas and openai.
 
-Existing ai_evaluated_stories.csv is protected by default. Use --output for a
-new file or --overwrite only when replacement is intentional.
+The default is a separate three-record smoke-test CSV, never the curated
+ai_evaluated_stories.csv. Use --output to choose another destination.
 """
 import argparse
 import json
@@ -12,7 +12,9 @@ from pathlib import Path
 
 ROOT_DIR = Path(__file__).resolve().parents[1]
 INPUT_PATH = ROOT_DIR / "data" / "metadata" / "candidate_stories.csv"
-OUTPUT_PATH = ROOT_DIR / "data" / "metadata" / "ai_evaluated_stories.csv"
+# TEST_LIMIT is a three-record smoke test; keep its default output separate
+# from the curated/full-run ai_evaluated_stories.csv.
+OUTPUT_PATH = ROOT_DIR / "data" / "metadata" / "ai_evaluated_stories_test3.csv"
 TEST_LIMIT = 3
 MODEL_NAME = "YOUR_MODEL_NAME"
 
@@ -66,7 +68,7 @@ def evaluate_story(client, title: str, content: str) -> dict:
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--output", type=Path, default=OUTPUT_PATH,
-                        help="Output CSV path (default: data/metadata/ai_evaluated_stories.csv).")
+                        help="Output CSV path (default: data/metadata/ai_evaluated_stories_test3.csv).")
     parser.add_argument("--overwrite", action="store_true",
                         help="Explicitly allow replacing an existing output file.")
     args = parser.parse_args()

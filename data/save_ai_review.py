@@ -83,8 +83,19 @@ def main() -> int:
 
     for column in SCORE_COLUMNS:
         values = pd.to_numeric(df[column], errors="coerce")
-        if values.isna().any() or not values.between(0, 2).all():
-            raise SystemExit(f"Invalid or missing score in column {column}")
+        invalid_scores = (
+            values.isna()
+            | ~values.between(0, 2)
+            | values.mod(1).ne(0)
+        )
+        if invalid_scores.any():
+            bad_values = df.loc[invalid_scores, column].tolist()
+            raise SystemExit(
+                f"Invalid score(s) in column {column}: {bad_values}. "
+                "Expected integer values 0, 1 or 2; fractional values "
+                "are not rounded or truncated."
+            )
+        # Conversion is safe only after exact integer values are validated.
         df[column] = values.astype(int)
 
     df["score"] = df[SCORE_COLUMNS].sum(axis=1)
@@ -93,7 +104,26 @@ def main() -> int:
     if not df["selected_candidate"].isin([True, False]).all():
         raise SystemExit("selected_candidate must contain booleans")
 
-    df = df.drop_duplicates(subset=["id"], keep="last")
+    duplicate_mask = df["id"].duplicated(keep=False)
+    if duplicate_mask.any():
+        duplicate_rows = df.loc[duplicate_mask]
+        identical_ids = []
+        conflicting_ids = []
+        for story_id, group in duplicate_rows.groupby("id", sort=False):
+            unique_payloads = group.drop(columns=["id"]).drop_duplicates()
+            target = identical_ids if len(unique_payloads) == 1 else conflicting_ids
+            target.append(str(story_id))
+
+        details = []
+        if identical_ids:
+            details.append("identical duplicate rows: " + ", ".join(identical_ids))
+        if conflicting_ids:
+            details.append("conflicting rows: " + ", ".join(conflicting_ids))
+        raise SystemExit(
+            "Duplicate story IDs detected; refusing to silently drop or overwrite "
+            "records. " + "; ".join(details)
+        )
+
     selected_df = df[df["selected_candidate"] == True].copy()
     selected_df = selected_df.sort_values(by="score", ascending=False)
 

@@ -112,3 +112,90 @@ def test_prepare_ai_review_preflights_all_batches_before_any_write(tmp_path, mon
 
     assert not (output_dir / "batch_001.txt").exists()
     assert existing.read_text(encoding="utf-8") == "keep this old batch"
+
+
+
+def _prepare_save_ai_review_run(tmp_path, monkeypatch, rows):
+    import json
+    import data.save_ai_review as module
+
+    result_dir = tmp_path / "ai_review_results"
+    result_dir.mkdir()
+    (result_dir / "batch_001.json").write_text(
+        json.dumps(rows, ensure_ascii=False), encoding="utf-8"
+    )
+    full_output = tmp_path / "full_output.csv"
+    selected_output = tmp_path / "selected_output.csv"
+    monkeypatch.setattr(module, "RESULT_DIR", result_dir)
+    monkeypatch.setattr(module, "OUTPUT_FILE", full_output)
+    monkeypatch.setattr(module, "SELECTED_FILE", selected_output)
+    monkeypatch.setattr("sys.argv", ["save_ai_review.py"])
+    return module, full_output, selected_output
+
+
+def _valid_review_row():
+    return {
+        "id": "story_001",
+        "title": "Example story",
+        "characters_clear": 2,
+        "events_clear": 1,
+        "scene_suitable": 2,
+        "ending_clear": 1,
+        "score": 6,
+        "selected_candidate": True,
+        "difficulty": "easy",
+        "reason": "test fixture",
+    }
+
+
+def test_save_ai_review_rejects_fractional_component_scores(tmp_path, monkeypatch):
+    pytest.importorskip("pandas")
+    row = _valid_review_row()
+    row["characters_clear"] = 1.5
+    module, full_output, selected_output = _prepare_save_ai_review_run(
+        tmp_path, monkeypatch, [row]
+    )
+
+    with pytest.raises(SystemExit, match="fractional values are not rounded or truncated"):
+        module.main()
+
+    assert not full_output.exists()
+    assert not selected_output.exists()
+
+
+def test_save_ai_review_rejects_identical_duplicate_ids(tmp_path, monkeypatch):
+    pytest.importorskip("pandas")
+    row = _valid_review_row()
+    module, full_output, selected_output = _prepare_save_ai_review_run(
+        tmp_path, monkeypatch, [row, row.copy()]
+    )
+
+    with pytest.raises(SystemExit, match="identical duplicate rows: story_001"):
+        module.main()
+
+    assert not full_output.exists()
+    assert not selected_output.exists()
+
+
+def test_save_ai_review_rejects_conflicting_duplicate_ids(tmp_path, monkeypatch):
+    pytest.importorskip("pandas")
+    first = _valid_review_row()
+    second = _valid_review_row()
+    second["reason"] = "different evaluation for the same ID"
+    module, full_output, selected_output = _prepare_save_ai_review_run(
+        tmp_path, monkeypatch, [first, second]
+    )
+
+    with pytest.raises(SystemExit, match="conflicting rows: story_001"):
+        module.main()
+
+    assert not full_output.exists()
+    assert not selected_output.exists()
+
+
+def test_evaluate_stories_uses_dedicated_three_case_smoke_test_output():
+    import data.evaluate_stories as module
+
+    assert module.TEST_LIMIT == 3
+    assert module.OUTPUT_PATH.name == "ai_evaluated_stories_test3.csv"
+    assert module.OUTPUT_PATH.name != "ai_evaluated_stories.csv"
