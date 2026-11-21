@@ -108,3 +108,26 @@ Trong các file local được kiểm tra ở đợt audit này, chưa tìm th�
 4. Đồng bộ `normalization_note` sau khi semantic review được chốt; không tự đổi metadata status thành “semantic pass”.
 5. Bổ sung rights evidence/attribution register và lưu cùng phiên bản dataset.
 6. Sau mọi thay đổi, tạo dataset version mới, cập nhật SHA-256, chạy lại `scripts/validate_dataset.py` và tests; giữ bản gốc để truy vết.
+
+## 9. Resolution of the 11 key-event alignment flags (2026-11-21)
+
+The flagged `key_events` were compared against the exact `summary` field supplied to Story Generator. The resolution edits only `key_events`; no summary was expanded to justify source-only details. The original raw-source material remains unchanged.
+
+| Split | Story ID | Event | Decision | Resolution |
+|---|---|---:|---|---|
+| Dev | `story_010` | 1 | removed | Removed — the initial terrain/water condition occurs in raw source but not in the input summary. |
+| Dev | `story_013` | 1 | revised | `Ngô Thì Sĩ ham học dù nhà nghèo.` — reduced to the level supported by the input summary. |
+| Dev | `story_013` | 3 | removed | Removed — the “ngọn đèn lớn” anecdote is not present in the input summary. |
+| Dev | `story_030` | 1 | revised | `Sông Mekong và sông Ping thi nhau ra biển để giành cá bức.` — removed the raw-source-only taunt/detail. |
+| Dev | `story_030` | 2 | revised | `Ping hợp với các sông khác rồi đi chậm.` — removed secondary river names and journey details absent from the summary. |
+| Dev | `story_033` | 2 | revised | `Anh liên tục chê kính không tốt vì không đọc được lịch đang cầm ngược.` — removed unsupported counts/details of trying glasses. |
+| Dev | `story_041` | 1 | removed | Removed — the king's visit to West Lake and guards blocking the crowd are absent from the input summary. |
+| Dev | `story_047` | 1 | revised | `Một người bạn cũ trở thành quan và nhiều lần từ chối tiếp người bạn kia.` — removed the sworn-brother/exam details absent from the summary. |
+| Test | `story_040` | 1 | revised | `Ngựa Con mải chăm chút vẻ ngoài và tin rằng mình sẽ thắng.` — kept only the appearance/self-confidence idea present in the input summary. |
+| Test | `story_053` | 4 | revised | `Người quen hiểu tính anh nên dùng lời “cầm tay tôi” để anh nắm lấy và được cứu.` — aligned the phrasing to the causal relationship explicitly stated in the summary. |
+| Dev | `story_033` | 4 | retained | Retained as a semantic paraphrase of the summary statement that the buyer admits he would not need glasses if he could read. This is a lexical-screen false positive, not a confirmed defect. |
+
+**Resolution count:** 7 event texts revised, 3 events removed, and 1 event retained after semantic-equivalence review. Dev/Test split, IDs, source URLs, summaries, characters, difficulty and selection scores were not changed.
+
+**Scope limitation:** the 109 records not flagged by the lexical screen were not all independently certified by this resolution step. A lexical-screen pass is not proof of semantic alignment. The existing `normalization_note` values were retained; this work does not claim that the entire 30-story dataset has completed human semantic review.
+
