@@ -394,7 +394,7 @@ from src.story_generator.mock_backend import MockStoryBackend
 from src.story_generator.repair import BoundedRepairController
 import json
 from pathlib import Path
-summary = json.loads(Path('examples/storyboard.json').read_text())['summary']
+summary = json.loads(Path('examples/storyboard.json').read_text(encoding="utf-8"))['summary']
 r = BoundedRepairController(MockStoryBackend(), max_retries=0).generate(summary)
 assert r.status == 'accepted_initial'
 '''
