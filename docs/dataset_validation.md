@@ -8,12 +8,16 @@ Pass explicit file paths so the validator cannot silently depend on a bundled da
 
 ```powershell
 python scripts/validate_dataset.py --dev <path-to-dev.jsonl> --test <path-to-test.jsonl>
+# Or run the same CLI as a module:
+python -m scripts.validate_dataset --dev <path-to-dev.jsonl> --test <path-to-test.jsonl>
 ```
 
 Optional fixed-size checks can be enabled for a particular experiment:
 
 ```powershell
 python scripts/validate_dataset.py --dev <path-to-dev.jsonl> --test <path-to-test.jsonl> --expected-dev 20 --expected-test 10
+# Equivalent module invocation:
+python -m scripts.validate_dataset --dev <path-to-dev.jsonl> --test <path-to-test.jsonl> --expected-dev 20 --expected-test 10
 ```
 
 The CLI exits with code 0 when validation passes and code 1 when a record, URL, identifier, split-overlap or expected-count check fails.
