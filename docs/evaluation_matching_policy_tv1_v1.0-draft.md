@@ -52,7 +52,7 @@ Severity agreement remains the per-match boolean severity_agrees already emitted
 
 ## 5. Official dataset gates
 
-For any planned case with official origin (development, official_dev or official_test), EvaluationPlan requires split_frozen, review_approved, rights_approved and a dataset_reference SHA-256. Any official_test case additionally requires official_test_authorized=true. Each planned case must have exactly one B0 and one B1 run.
+When a plan includes an official_dev or official_test origin, EvaluationPlan requires split_frozen, review_approved, rights_approved and a dataset_reference SHA-256. An official_test case additionally requires official_test_authorized=true. The current contract does not treat origin=development as an official_* origin for this gate. Each planned case must have exactly one B0 and one B1 run.
 
 A source URL, selection-review status or passing structural validator does not automatically set review_approved or rights_approved. Those approvals must be backed by project evidence tied to the frozen dataset snapshot.
 
