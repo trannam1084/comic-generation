@@ -123,6 +123,140 @@ def _validate_records(records: Sequence[object]) -> list[dict[str, Any]]:
     return normalized
 
 
+def load_event_inventory_csv(
+    path: str | Path, *, split: str = "Dev"
+) -> dict[str, list[str]]:
+    """Load team-approved event references from the alignment CSV."""
+    if split not in {"Dev", "Test"}:
+        raise ValueError("split must be 'Dev' or 'Test'")
+
+    input_path = Path(path)
+    required_columns = {
+        "split", "id", "event_no", "aligned_key_event",
+        "event_reference_status", "team_confirmation_status",
+    }
+    inventory: dict[str, list[tuple[int, str]]] = {}
+
+    with input_path.open("r", encoding="utf-8-sig", newline="") as stream:
+        reader = csv.DictReader(stream)
+        if reader.fieldnames is None:
+            raise ValueError(f"{input_path}: CSV is empty or has no header")
+        missing = required_columns - set(reader.fieldnames)
+        if missing:
+            raise ValueError(
+                f"{input_path}: missing required columns {sorted(missing)}"
+            )
+
+        for line_number, row in enumerate(reader, start=2):
+            if row.get("split") != split:
+                continue
+            case_id = row.get("id", "")
+            if not case_id.strip():
+                raise ValueError(f"{input_path}, line {line_number}: empty story id")
+
+            reference_status = row.get("event_reference_status")
+            confirmation_status = row.get("team_confirmation_status")
+            if (
+                reference_status == "excluded_from_event_reference"
+                and confirmation_status == "excluded_from_reference"
+            ):
+                continue
+            if not (
+                reference_status == "approved_reference"
+                and confirmation_status == "team_confirmed"
+            ):
+                raise ValueError(
+                    f"{input_path}, line {line_number}: inconsistent or "
+                    "unapproved event reference status"
+                )
+
+            event_no_text = row.get("event_no", "")
+            if not event_no_text.isdigit() or int(event_no_text) < 1:
+                raise ValueError(
+                    f"{input_path}, line {line_number}: event_no must be a positive integer"
+                )
+            aligned_event = row.get("aligned_key_event", "")
+            if not aligned_event.strip():
+                raise ValueError(
+                    f"{input_path}, line {line_number}: approved event has no aligned_key_event"
+                )
+
+            event_no = int(event_no_text)
+            events = inventory.setdefault(case_id, [])
+            if any(existing_no == event_no for existing_no, _ in events):
+                raise ValueError(
+                    f"{input_path}, line {line_number}: duplicate event_no "
+                    f"{event_no} for {case_id}"
+                )
+            events.append((event_no, f"E{event_no}"))
+
+    if not inventory:
+        raise ValueError(f"{input_path}: no approved events found for split {split}")
+    return {
+        case_id: [event_id for _, event_id in sorted(events)]
+        for case_id, events in inventory.items()
+    }
+
+
+def validate_event_inventory(
+    records: Sequence[Mapping[str, Any]],
+    event_inventory: Mapping[str, Sequence[str]],
+) -> None:
+    """Require exact case and event-ID parity with the approved inventory."""
+    if not isinstance(event_inventory, Mapping) or not event_inventory:
+        raise ValueError("event_inventory must be a non-empty mapping")
+
+    record_ids = [record["case_id"] for record in records]
+    if len(record_ids) != len(set(record_ids)):
+        raise ValueError("records contain duplicate case_id values")
+
+    expected_case_ids = set(event_inventory)
+    actual_case_ids = set(record_ids)
+    missing_cases = sorted(expected_case_ids - actual_case_ids)
+    extra_cases = sorted(actual_case_ids - expected_case_ids)
+    if missing_cases or extra_cases:
+        raise ValueError(
+            "case inventory mismatch; "
+            f"missing cases={missing_cases}, extra cases={extra_cases}"
+        )
+
+    records_by_id = {record["case_id"]: record for record in records}
+    for case_id in sorted(expected_case_ids):
+        expected_ids = list(event_inventory[case_id])
+        if not expected_ids or any(
+            not isinstance(event_id, str) or not event_id.strip()
+            for event_id in expected_ids
+        ):
+            raise ValueError(f"{case_id}: reference inventory has invalid event IDs")
+        if len(expected_ids) != len(set(expected_ids)):
+            raise ValueError(f"{case_id}: reference inventory has duplicate event IDs")
+
+        annotations = records_by_id[case_id]["event_annotations"]
+        if annotations is None:
+            raise ValueError(
+                f"{case_id}: event_annotations are required when event inventory is enabled"
+            )
+
+        actual_ids: list[str] = []
+        for event in annotations:
+            if not isinstance(event, Mapping):
+                raise TypeError(f"{case_id}: each event annotation must be a mapping")
+            event_id = event.get("event_id")
+            if not isinstance(event_id, str) or not event_id.strip():
+                raise ValueError(f"{case_id}: each event needs a non-empty event_id")
+            actual_ids.append(event_id)
+
+        if len(actual_ids) != len(set(actual_ids)):
+            raise ValueError(f"{case_id}: duplicate event IDs in annotations")
+        missing_events = sorted(set(expected_ids) - set(actual_ids))
+        extra_events = sorted(set(actual_ids) - set(expected_ids))
+        if missing_events or extra_events:
+            raise ValueError(
+                f"{case_id}: event inventory mismatch; "
+                f"missing events={missing_events}, extra events={extra_events}"
+            )
+
+
 def _metric_dict(metric: RateMetric) -> dict[str, int | float | None]:
     """Convert RateMetric to a JSON-serializable dictionary."""
     return {
@@ -209,7 +343,7 @@ def _event_order_annotations_available(cases: Sequence[Mapping[str, Any]]) -> bo
     return True
 
 
-def evaluate_records(records: Sequence[object]) -> dict[str, Any]:
+def evaluate_records(\n    records: Sequence[object],\n    *,\n    event_inventory: Mapping[str, Sequence[str]] | None = None,\n) -> dict[str, Any]:
     """Evaluate all planned records and return aggregate and per-case results.
 
     Four Scene Rate and Schema Valid Rate use every planned case as denominator.
@@ -219,6 +353,8 @@ def evaluate_records(records: Sequence[object]) -> dict[str, Any]:
     scene-index annotations are supplied for every reference event.
     """
     cases = _validate_records(records)
+    if event_inventory is not None:
+        validate_event_inventory(cases, event_inventory)
 
     outputs = [item["raw_output"] for item in cases]
     keyword_groups_by_case = [item["keyword_groups"] for item in cases]
@@ -330,6 +466,9 @@ def evaluate_records(records: Sequence[object]) -> dict[str, Any]:
         "failed_or_missing_outputs": sum(item["raw_output"] is None for item in cases),
         "event_coverage_status": event_status,
         "event_order_status": order_status,
+        "event_inventory_status": "validated" if event_inventory is not None else "not_checked",
+        "event_inventory_cases": len(event_inventory) if event_inventory is not None else None,
+        "event_inventory_events": sum(len(ids) for ids in event_inventory.values()) if event_inventory is not None else None,
         "metrics": aggregate_metrics,
         "case_results": per_case_results,
         "limitations": [
@@ -416,10 +555,23 @@ def main(argv: Sequence[str] | None = None) -> int:
     parser.add_argument(
         "--csv-out", required=True, help="Destination for per-case CSV report."
     )
+    parser.add_argument(
+        "--event-inventory-csv",
+        help="Optional team-approved event inventory CSV; enables exact case/event parity checks.",
+    )
+    parser.add_argument(
+        "--event-inventory-split", choices=("Dev", "Test"), default="Dev",
+        help="Split selected from --event-inventory-csv (default: Dev).",
+    )
     args = parser.parse_args(argv)
 
     records = load_jsonl(args.input_jsonl)
-    report = evaluate_records(records)
+    inventory = (
+        load_event_inventory_csv(args.event_inventory_csv, split=args.event_inventory_split)
+        if args.event_inventory_csv
+        else None
+    )
+    report = evaluate_records(records, event_inventory=inventory)
     write_json_report(report, args.json_out)
     write_csv_report(report, args.csv_out)
 
