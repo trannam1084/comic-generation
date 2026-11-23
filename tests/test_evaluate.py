@@ -482,6 +482,7 @@ def test_cli_can_enforce_approved_event_inventory(tmp_path):
     assert report["event_inventory_events"] == 2
     assert csv_path.is_file()
 
+
 def test_repository_approved_dev_inventory_has_expected_scope():
     from pathlib import Path
 
