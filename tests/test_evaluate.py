@@ -482,3 +482,16 @@ def test_cli_can_enforce_approved_event_inventory(tmp_path):
     assert report["event_inventory_events"] == 2
     assert csv_path.is_file()
 
+def test_repository_approved_dev_inventory_has_expected_scope():
+    from pathlib import Path
+
+    repository_root = Path(__file__).resolve().parents[1]
+    inventory = load_event_inventory_csv(
+        repository_root / "data" / "dev_key_event_alignment_team_approved.csv",
+        split="Dev",
+    )
+
+    assert len(inventory) == 20
+    assert sum(len(event_ids) for event_ids in inventory.values()) == 76
+    assert inventory["story_010"] == ["E2", "E3", "E4"]
+
