@@ -352,7 +352,11 @@ def _event_order_annotations_available(cases: Sequence[Mapping[str, Any]]) -> bo
     return True
 
 
-def evaluate_records(\n    records: Sequence[object],\n    *,\n    event_inventory: Mapping[str, Sequence[str]] | None = None,\n) -> dict[str, Any]:
+def evaluate_records(
+    records: Sequence[object],
+    *,
+    event_inventory: Mapping[str, Sequence[str]] | None = None,
+) -> dict[str, Any]:
     """Evaluate all planned records and return aggregate and per-case results.
 
     Four Scene Rate and Schema Valid Rate use every planned case as denominator.
