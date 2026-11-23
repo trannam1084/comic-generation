@@ -96,7 +96,7 @@ Event ID annotation khớp chính xác inventory; thiếu/thừa/trùng đều d
 Ví dụ chạy Dev từ repository root:
 
 ```bash
-python -m src.evaluation.evaluate data/dev_event_order_input_v8.jsonl \
+python -m src.evaluation.evaluate /path/to/dev_event_annotations.jsonl \
   --json-out outputs/dev_evaluation.json \
   --csv-out outputs/dev_evaluation_cases.csv \
   --event-inventory-csv data/dev_key_event_alignment_team_approved.csv \
