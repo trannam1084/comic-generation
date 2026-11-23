@@ -150,8 +150,8 @@ def load_event_inventory_csv(
         for line_number, row in enumerate(reader, start=2):
             if row.get("split") != split:
                 continue
-            case_id = row.get("id", "")
-            if not case_id.strip():
+            case_id = row.get("id")
+            if not isinstance(case_id, str) or not case_id.strip():
                 raise ValueError(f"{input_path}, line {line_number}: empty story id")
 
             reference_status = row.get("event_reference_status")
@@ -170,13 +170,17 @@ def load_event_inventory_csv(
                     "unapproved event reference status"
                 )
 
-            event_no_text = row.get("event_no", "")
-            if not event_no_text.isdigit() or int(event_no_text) < 1:
+            event_no_text = row.get("event_no")
+            if (
+                not isinstance(event_no_text, str)
+                or not event_no_text.isdigit()
+                or int(event_no_text) < 1
+            ):
                 raise ValueError(
                     f"{input_path}, line {line_number}: event_no must be a positive integer"
                 )
-            aligned_event = row.get("aligned_key_event", "")
-            if not aligned_event.strip():
+            aligned_event = row.get("aligned_key_event")
+            if not isinstance(aligned_event, str) or not aligned_event.strip():
                 raise ValueError(
                     f"{input_path}, line {line_number}: approved event has no aligned_key_event"
                 )
@@ -205,6 +209,8 @@ def validate_event_inventory(
     """Require exact case and event-ID parity with the approved inventory."""
     if not isinstance(event_inventory, Mapping) or not event_inventory:
         raise ValueError("event_inventory must be a non-empty mapping")
+    if any(not isinstance(case_id, str) or not case_id.strip() for case_id in event_inventory):
+        raise ValueError("event_inventory case IDs must be non-empty strings")
 
     record_ids = [record["case_id"] for record in records]
     if len(record_ids) != len(set(record_ids)):
@@ -222,7 +228,10 @@ def validate_event_inventory(
 
     records_by_id = {record["case_id"]: record for record in records}
     for case_id in sorted(expected_case_ids):
-        expected_ids = list(event_inventory[case_id])
+        raw_expected_ids = event_inventory[case_id]
+        if isinstance(raw_expected_ids, (str, bytes, bytearray)) or not isinstance(raw_expected_ids, Sequence):
+            raise ValueError(f"{case_id}: reference event IDs must be a sequence")
+        expected_ids = list(raw_expected_ids)
         if not expected_ids or any(
             not isinstance(event_id, str) or not event_id.strip()
             for event_id in expected_ids
@@ -468,7 +477,11 @@ def evaluate_records(\n    records: Sequence[object],\n    *,\n    event_invento
         "event_order_status": order_status,
         "event_inventory_status": "validated" if event_inventory is not None else "not_checked",
         "event_inventory_cases": len(event_inventory) if event_inventory is not None else None,
-        "event_inventory_events": sum(len(ids) for ids in event_inventory.values()) if event_inventory is not None else None,
+        "event_inventory_events": (
+            sum(len(ids) for ids in event_inventory.values())
+            if event_inventory is not None
+            else None
+        ),
         "metrics": aggregate_metrics,
         "case_results": per_case_results,
         "limitations": [
