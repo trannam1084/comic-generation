@@ -40,7 +40,7 @@ def make_valid_raw():
 
 
 def make_event_annotations(labels):
-    """Create adjudicated event records with both annotator labels populated."""
+    """Create Event Coverage annotations without Event Order scene labels."""
     return [
         {
             "event_id": f"E{index}",
@@ -50,6 +50,30 @@ def make_event_annotations(labels):
         }
         for index, label in enumerate(labels, start=1)
     ]
+
+
+def make_event_order_annotations(scene_indices, labels=None):
+    """Create complete Event Coverage + Event Order annotation records."""
+    if labels is None:
+        labels = ["covered"] * len(scene_indices)
+    annotations = []
+    for index, (scene_index, label) in enumerate(
+        zip(scene_indices, labels, strict=True), start=1
+    ):
+        observed_index = scene_index if label == "covered" else None
+        annotations.append(
+            {
+                "event_id": f"E{index}",
+                "reference_order": index,
+                "annotator_1_label": label,
+                "annotator_1_scene_index": observed_index,
+                "annotator_2_label": label,
+                "annotator_2_scene_index": observed_index,
+                "adjudicated_label": label,
+                "adjudicated_scene_index": observed_index,
+            }
+        )
+    return annotations
 
 
 def test_evaluate_records_returns_aggregate_and_case_rows():
@@ -79,6 +103,8 @@ def test_evaluate_records_returns_aggregate_and_case_rows():
     assert report["metrics"]["keyword_recall"]["denominator"] == 3
     assert report["event_coverage_status"] == "not_available"
     assert report["metrics"]["event_coverage"]["rate"] is None
+    assert report["event_order_status"] == "not_available"
+    assert report["metrics"]["event_order"]["accuracy"] is None
     assert len(report["case_results"]) == 2
 
 
@@ -107,7 +133,8 @@ def test_evaluate_records_calculates_event_coverage():
     assert event_metric["rate"] == pytest.approx(1 / 3)
     assert report["case_results"][0]["event_coverage_numerator"] == 1
     assert report["case_results"][0]["event_coverage_denominator"] == 2
-    assert report["case_results"][1]["event_coverage_rate"] == 0.0  # uncertain is in denominator, not numerator
+    assert report["case_results"][1]["event_coverage_rate"] == 0.0
+    assert report["event_order_status"] == "not_available"
 
 
 def test_evaluate_records_event_coverage_keeps_failed_output_in_denominator():
@@ -127,6 +154,74 @@ def test_evaluate_records_event_coverage_keeps_failed_output_in_denominator():
     assert report["metrics"]["event_coverage"]["rate"] == 0.0
 
 
+def test_evaluate_records_calculates_event_order_pair_metrics():
+    records = [
+        {
+            "case_id": "dev_001",
+            "raw_output": make_valid_raw(),
+            "keyword_groups": [["cậu bé"]],
+            # Event order: 1 -> scene 1, 2 -> scene 3, 3 -> scene 2.
+            # Thus two of the three reference pairs are correctly ordered.
+            "event_annotations": make_event_order_annotations([1, 3, 2]),
+        }
+    ]
+
+    report = evaluate_records(records)
+
+    assert report["event_order_status"] == "available"
+    metric = report["metrics"]["event_order"]
+    assert metric["correct_pairs"] == 2
+    assert metric["evaluable_pairs"] == 3
+    assert metric["total_reference_pairs"] == 3
+    assert metric["same_scene_pairs"] == 0
+    assert metric["accuracy"] == pytest.approx(2 / 3)
+    assert metric["pair_coverage"] == pytest.approx(1.0)
+    assert report["case_results"][0]["event_order_accuracy"] == pytest.approx(2 / 3)
+
+
+def test_evaluate_records_event_order_excludes_uncovered_event_pairs():
+    records = [
+        {
+            "case_id": "dev_001",
+            "raw_output": None,
+            "keyword_groups": [],
+            "event_annotations": make_event_order_annotations(
+                [1, None, 3], labels=["covered", "not_covered", "covered"]
+            ),
+        }
+    ]
+
+    report = evaluate_records(records)
+    metric = report["metrics"]["event_order"]
+
+    assert metric["correct_pairs"] == 1
+    assert metric["evaluable_pairs"] == 1
+    assert metric["total_reference_pairs"] == 3
+    assert metric["accuracy"] == pytest.approx(1.0)
+    assert metric["pair_coverage"] == pytest.approx(1 / 3)
+
+
+def test_evaluate_records_event_order_counts_same_scene_pairs_separately():
+    records = [
+        {
+            "case_id": "dev_001",
+            "raw_output": make_valid_raw(),
+            "keyword_groups": [],
+            "event_annotations": make_event_order_annotations([1, 2, 2, 4]),
+        }
+    ]
+
+    report = evaluate_records(records)
+    metric = report["metrics"]["event_order"]
+
+    assert metric["total_reference_pairs"] == 6
+    assert metric["same_scene_pairs"] == 1
+    assert metric["evaluable_pairs"] == 5
+    assert metric["correct_pairs"] == 5
+    assert metric["accuracy"] == pytest.approx(1.0)
+    assert metric["pair_coverage"] == pytest.approx(5 / 6)
+
+
 def test_evaluate_records_rejects_partial_event_annotations():
     records = [
         {
@@ -143,6 +238,43 @@ def test_evaluate_records_rejects_partial_event_annotations():
     ]
 
     with pytest.raises(ValueError, match="all planned cases or none"):
+        evaluate_records(records)
+
+
+def test_evaluate_records_rejects_partial_event_order_annotations():
+    events = make_event_order_annotations([1, 2])
+    del events[1]["adjudicated_scene_index"]
+    records = [
+        {
+            "case_id": "dev_001",
+            "raw_output": None,
+            "keyword_groups": [],
+            "event_annotations": events,
+        }
+    ]
+
+    with pytest.raises(ValueError, match="Event Order fields must be supplied together"):
+        evaluate_records(records)
+
+
+def test_evaluate_records_rejects_incomplete_event_order_inventory():
+    events = make_event_order_annotations([1, 2])
+    events[1] = {
+        "event_id": "E2",
+        "annotator_1_label": "covered",
+        "annotator_2_label": "covered",
+        "adjudicated_label": "covered",
+    }
+    records = [
+        {
+            "case_id": "dev_001",
+            "raw_output": None,
+            "keyword_groups": [],
+            "event_annotations": events,
+        }
+    ]
+
+    with pytest.raises(ValueError, match="all reference events or none"):
         evaluate_records(records)
 
 
@@ -170,7 +302,9 @@ def test_evaluate_records_accepts_empty_inventory():
     assert report["metrics"]["schema_valid_rate"]["rate"] is None
     assert report["metrics"]["keyword_recall"]["rate"] is None
     assert report["metrics"]["event_coverage"]["rate"] is None
+    assert report["metrics"]["event_order"]["accuracy"] is None
     assert report["event_coverage_status"] == "not_available"
+    assert report["event_order_status"] == "not_available"
 
 
 def test_load_jsonl_reads_records_and_skips_blank_lines(tmp_path):
@@ -201,7 +335,7 @@ def test_report_writers_create_json_and_csv(tmp_path):
                 "case_id": "dev_001",
                 "raw_output": make_valid_raw(),
                 "keyword_groups": [["cậu bé"]],
-                "event_annotations": make_event_annotations(["covered"]),
+                "event_annotations": make_event_order_annotations([1, 2]),
             }
         ]
     )
@@ -214,5 +348,7 @@ def test_report_writers_create_json_and_csv(tmp_path):
     saved = json.loads(json_path.read_text(encoding="utf-8"))
     saved_csv = csv_path.read_text(encoding="utf-8-sig")
     assert saved["planned_cases"] == 1
+    assert saved["metrics"]["event_order"]["evaluable_pairs"] == 1
     assert "case_id" in saved_csv
     assert "event_coverage_rate" in saved_csv
+    assert "event_order_accuracy" in saved_csv

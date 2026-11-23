@@ -1,4 +1,4 @@
-"""Batch evaluator for the current TV3 story-to-comic metrics.
+"""Batch evaluator for TV3 story-to-comic metrics.
 
 Input format: UTF-8 JSONL, one planned case per line::
 
@@ -9,9 +9,13 @@ Input format: UTF-8 JSONL, one planned case per line::
       "event_annotations": [
         {
           "event_id": "E1",
+          "reference_order": 1,
           "annotator_1_label": "covered",
+          "annotator_1_scene_index": 1,
           "annotator_2_label": "covered",
-          "adjudicated_label": "covered"
+          "annotator_2_scene_index": 1,
+          "adjudicated_label": "covered",
+          "adjudicated_scene_index": 1
         }
       ]
     }
@@ -20,6 +24,11 @@ Input format: UTF-8 JSONL, one planned case per line::
 still remains in the planned denominator for Four Scene Rate and Schema Valid
 Rate. `event_annotations` is optional, but when used it must be supplied for
 all planned cases (including failed-output cases) or for none of them.
+
+Event Coverage needs adjudicated event labels. Event Order additionally needs
+`reference_order` and scene-index labels for both annotators and the adjudicated
+result. Event Order fields must be populated for every reference event or for
+none of them; partial order annotations are rejected.
 
 This module only evaluates supplied records. It does not call the LLM, image
 backend, ComicPipeline, or human annotators.
@@ -35,15 +44,22 @@ from pathlib import Path
 from typing import Any
 
 from src.evaluation.metrics import (
+    EventOrderMetric,
     RateMetric,
     event_coverage,
+    event_order,
     four_scene_rate,
     keyword_recall,
     schema_valid_rate,
 )
 
 
-_ALLOWED_EVENT_LABELS = {"covered", "not_covered", "uncertain"}
+_EVENT_ORDER_FIELDS = (
+    "reference_order",
+    "annotator_1_scene_index",
+    "annotator_2_scene_index",
+    "adjudicated_scene_index",
+)
 
 
 def _is_non_string_sequence(value: object) -> bool:
@@ -117,12 +133,80 @@ def _metric_dict(metric: RateMetric) -> dict[str, int | float | None]:
     }
 
 
+def _event_order_metric_dict(
+    metric: EventOrderMetric | None,
+) -> dict[str, int | float | None]:
+    """Convert EventOrderMetric to a JSON-serializable dictionary."""
+    if metric is None:
+        return {
+            "correct_pairs": 0,
+            "evaluable_pairs": 0,
+            "total_reference_pairs": 0,
+            "same_scene_pairs": 0,
+            "accuracy": None,
+            "accuracy_percentage": None,
+            "pair_coverage": None,
+            "pair_coverage_percentage": None,
+        }
+
+    return {
+        "correct_pairs": metric.correct_pairs,
+        "evaluable_pairs": metric.evaluable_pairs,
+        "total_reference_pairs": metric.total_reference_pairs,
+        "same_scene_pairs": metric.same_scene_pairs,
+        "accuracy": metric.accuracy,
+        "accuracy_percentage": metric.accuracy_percentage,
+        "pair_coverage": metric.pair_coverage,
+        "pair_coverage_percentage": metric.pair_coverage_percentage,
+    }
+
+
 def _event_case(case: Mapping[str, Any]) -> dict[str, Any]:
-    """Adapt one normalized evaluator case to the Event Coverage API."""
+    """Adapt one normalized evaluator case to an event metric API."""
     return {
         "case_id": case["case_id"],
         "events": case["event_annotations"],
     }
+
+
+def _event_order_annotations_available(cases: Sequence[Mapping[str, Any]]) -> bool:
+    """Return True only when all annotated events have the full order schema.
+
+    Event Coverage annotations may exist without Event Order fields. If Event
+    Order fields are started, they must be complete for every reference event
+    across every planned case so that the pair denominator cannot silently vary.
+    """
+    field_presence: list[bool] = []
+
+    for case in cases:
+        annotations = case["event_annotations"]
+        if annotations is None:
+            return False
+
+        for event in annotations:
+            if not isinstance(event, Mapping):
+                # event_coverage() will raise the more specific type error.
+                continue
+
+            present = [field in event for field in _EVENT_ORDER_FIELDS]
+            if any(present) and not all(present):
+                missing = [
+                    field for field, has_value in zip(_EVENT_ORDER_FIELDS, present)
+                    if not has_value
+                ]
+                raise ValueError(
+                    f"{case['case_id']}: Event Order fields must be supplied "
+                    f"together for each event; missing {missing}"
+                )
+            field_presence.append(all(present))
+
+    if not field_presence or not any(field_presence):
+        return False
+    if not all(field_presence):
+        raise ValueError(
+            "Event Order annotations must be provided for all reference events or none"
+        )
+    return True
 
 
 def evaluate_records(records: Sequence[object]) -> dict[str, Any]:
@@ -131,8 +215,8 @@ def evaluate_records(records: Sequence[object]) -> dict[str, Any]:
     Four Scene Rate and Schema Valid Rate use every planned case as denominator.
     Keyword Recall is micro-averaged over all supplied keyword groups.
     Event Coverage uses final human-adjudicated labels and is unavailable when
-    annotations are omitted. Partial annotation coverage is rejected to avoid
-    silently changing its denominator.
+    annotations are omitted. Event Order is calculated only when complete
+    scene-index annotations are supplied for every reference event.
     """
     cases = _validate_records(records)
 
@@ -156,6 +240,18 @@ def evaluate_records(records: Sequence[object]) -> dict[str, Any]:
         event_metric = None
         event_status = "not_available"
 
+    order_available = (
+        _event_order_annotations_available(cases)
+        if event_status == "available"
+        else False
+    )
+    if order_available:
+        order_metric = event_order([_event_case(item) for item in cases])
+        order_status = "available"
+    else:
+        order_metric = None
+        order_status = "not_available"
+
     aggregate_metrics: dict[str, dict[str, int | float | None]] = {
         "four_scene_rate": _metric_dict(four_scene),
         "schema_valid_rate": _metric_dict(schema_valid),
@@ -170,6 +266,7 @@ def evaluate_records(records: Sequence[object]) -> dict[str, Any]:
                 "percentage": None,
             }
         ),
+        "event_order": _event_order_metric_dict(order_metric),
     }
 
     per_case_results: list[dict[str, Any]] = []
@@ -191,6 +288,26 @@ def evaluate_records(records: Sequence[object]) -> dict[str, Any]:
             event_denominator = case_event_metric.denominator
             event_rate = case_event_metric.rate
 
+        if not order_available:
+            case_order_values = {
+                "event_order_correct_pairs": None,
+                "event_order_evaluable_pairs": None,
+                "event_order_total_reference_pairs": None,
+                "event_order_same_scene_pairs": None,
+                "event_order_accuracy": None,
+                "event_order_pair_coverage": None,
+            }
+        else:
+            case_order_metric = event_order([_event_case(item)])
+            case_order_values = {
+                "event_order_correct_pairs": case_order_metric.correct_pairs,
+                "event_order_evaluable_pairs": case_order_metric.evaluable_pairs,
+                "event_order_total_reference_pairs": case_order_metric.total_reference_pairs,
+                "event_order_same_scene_pairs": case_order_metric.same_scene_pairs,
+                "event_order_accuracy": case_order_metric.accuracy,
+                "event_order_pair_coverage": case_order_metric.pair_coverage,
+            }
+
         per_case_results.append(
             {
                 "case_id": item["case_id"],
@@ -202,21 +319,24 @@ def evaluate_records(records: Sequence[object]) -> dict[str, Any]:
                 "event_coverage_numerator": event_numerator,
                 "event_coverage_denominator": event_denominator,
                 "event_coverage_rate": event_rate,
+                **case_order_values,
             }
         )
 
     return {
-        "report_version": "tv3-evaluation-v1",
+        "report_version": "tv3-evaluation-v2",
         "planned_cases": len(cases),
         "completed_outputs": sum(item["raw_output"] is not None for item in cases),
         "failed_or_missing_outputs": sum(item["raw_output"] is None for item in cases),
         "event_coverage_status": event_status,
+        "event_order_status": order_status,
         "metrics": aggregate_metrics,
         "case_results": per_case_results,
         "limitations": [
-            "This evaluator currently aggregates Four Scene Rate, Schema Valid Rate, Keyword Recall, and Event Coverage.",
+            "This evaluator aggregates Four Scene Rate, Schema Valid Rate, Keyword Recall, Event Coverage, and Event Order.",
             "Event Coverage requires final human-adjudicated labels for every planned case.",
-            "Event Order, Hallucination, and Generation Time are not integrated yet.",
+            "Event Order additionally requires reference_order and scene-index labels from both annotators and the adjudicated result for every reference event.",
+            "Hallucination and Generation Time are not integrated yet.",
             "The evaluator does not run the LLM, ComicPipeline, image backend, or human annotators.",
         ],
     }
@@ -252,7 +372,7 @@ def write_json_report(report: Mapping[str, Any], path: str | Path) -> None:
 
 
 def write_csv_report(report: Mapping[str, Any], path: str | Path) -> None:
-    """Write one row per planned case, including Event Coverage when available."""
+    """Write one row per planned case, including Event Coverage and Event Order."""
     output_path = Path(path)
     output_path.parent.mkdir(parents=True, exist_ok=True)
 
@@ -266,6 +386,12 @@ def write_csv_report(report: Mapping[str, Any], path: str | Path) -> None:
         "event_coverage_numerator",
         "event_coverage_denominator",
         "event_coverage_rate",
+        "event_order_correct_pairs",
+        "event_order_evaluable_pairs",
+        "event_order_total_reference_pairs",
+        "event_order_same_scene_pairs",
+        "event_order_accuracy",
+        "event_order_pair_coverage",
     ]
 
     case_results = report.get("case_results")
@@ -281,7 +407,7 @@ def write_csv_report(report: Mapping[str, Any], path: str | Path) -> None:
 def main(argv: Sequence[str] | None = None) -> int:
     """CLI: python -m src.evaluation.evaluate input.jsonl --json-out ... --csv-out ..."""
     parser = argparse.ArgumentParser(
-        description="Aggregate the currently implemented TV3 evaluation metrics."
+        description="Aggregate TV3 structural, keyword, Event Coverage, and Event Order metrics."
     )
     parser.add_argument("input_jsonl", help="One planned case per JSONL line.")
     parser.add_argument(
@@ -299,6 +425,7 @@ def main(argv: Sequence[str] | None = None) -> int:
 
     print(f"Evaluated planned cases: {report['planned_cases']}")
     print(f"Event Coverage status: {report['event_coverage_status']}")
+    print(f"Event Order status: {report['event_order_status']}")
     print(f"JSON report: {args.json_out}")
     print(f"CSV report: {args.csv_out}")
     return 0
