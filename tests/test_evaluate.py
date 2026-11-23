@@ -6,6 +6,8 @@ import pytest
 
 from src.evaluation.evaluate import (
     evaluate_records,
+    load_event_inventory_csv,
+    validate_event_inventory,
     load_jsonl,
     write_csv_report,
     write_json_report,
@@ -352,3 +354,94 @@ def test_report_writers_create_json_and_csv(tmp_path):
     assert "case_id" in saved_csv
     assert "event_coverage_rate" in saved_csv
     assert "event_order_accuracy" in saved_csv
+
+def test_load_event_inventory_csv_uses_only_team_approved_rows(tmp_path):
+    source = tmp_path / "approved_events.csv"
+    source.write_text(
+        "split,id,event_no,aligned_key_event,event_reference_status,team_confirmation_status\\n"
+        'Dev,story_001,3,"Sự kiện thứ ba",approved_reference,team_confirmed\\n'
+        'Dev,story_001,2,"Sự kiện bị loại",excluded_from_event_reference,excluded_from_reference\\n'
+        'Dev,story_001,1,"Sự kiện thứ nhất",approved_reference,team_confirmed\\n'
+        'Test,story_002,1,"Test event",approved_reference,team_confirmed\\n',
+        encoding="utf-8",
+    )
+
+    inventory = load_event_inventory_csv(source, split="Dev")
+
+    assert inventory == {"story_001": ["E1", "E3"]}
+
+
+def test_load_event_inventory_csv_rejects_unconfirmed_approval(tmp_path):
+    source = tmp_path / "bad_events.csv"
+    source.write_text(
+        "split,id,event_no,aligned_key_event,event_reference_status,team_confirmation_status\\n"
+        'Dev,story_001,1,"Sự kiện",approved_reference,pending\\n',
+        encoding="utf-8",
+    )
+
+    with pytest.raises(ValueError, match="inconsistent or unapproved"):
+        load_event_inventory_csv(source)
+
+
+def test_validate_event_inventory_rejects_missing_case():
+    records = [
+        {"case_id": "story_001", "raw_output": None, "keyword_groups": [],
+         "event_annotations": make_event_annotations(["covered"])}
+    ]
+
+    with pytest.raises(ValueError, match="case inventory mismatch"):
+        validate_event_inventory(
+            records,
+            {"story_001": ["E1"], "story_002": ["E1"]},
+        )
+
+
+@pytest.mark.parametrize(
+    ("annotations", "message"),
+    [
+        (["covered"], "missing events"),
+        (["covered", "covered", "covered"], "extra events"),
+    ],
+)
+def test_validate_event_inventory_rejects_event_set_mismatch(annotations, message):
+    records = [
+        {"case_id": "story_001", "raw_output": None, "keyword_groups": [],
+         "event_annotations": make_event_annotations(annotations)}
+    ]
+
+    with pytest.raises(ValueError, match=message):
+        validate_event_inventory(records, {"story_001": ["E1", "E2"]})
+
+
+def test_validate_event_inventory_rejects_duplicate_event_ids():
+    records = [
+        {"case_id": "story_001", "raw_output": None, "keyword_groups": [],
+         "event_annotations": [
+             {"event_id": "E1", "annotator_1_label": "covered",
+              "annotator_2_label": "covered", "adjudicated_label": "covered"},
+             {"event_id": "E1", "annotator_1_label": "covered",
+              "annotator_2_label": "covered", "adjudicated_label": "covered"},
+         ]}
+    ]
+
+    with pytest.raises(ValueError, match="duplicate event IDs"):
+        validate_event_inventory(records, {"story_001": ["E1", "E2"]})
+
+
+def test_evaluate_records_reports_inventory_validation():
+    records = [
+        {"case_id": "story_001", "raw_output": None, "keyword_groups": [],
+         "event_annotations": make_event_annotations(["covered", "uncertain"])}
+    ]
+
+    report = evaluate_records(
+        records,
+        event_inventory={"story_001": ["E1", "E2"]},
+    )
+
+    assert report["event_inventory_status"] == "validated"
+    assert report["event_inventory_cases"] == 1
+    assert report["event_inventory_events"] == 2
+    assert report["metrics"]["event_coverage"]["numerator"] == 1
+    assert report["metrics"]["event_coverage"]["denominator"] == 2
+
