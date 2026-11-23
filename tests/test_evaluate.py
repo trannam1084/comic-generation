@@ -359,11 +359,11 @@ def test_report_writers_create_json_and_csv(tmp_path):
 def test_load_event_inventory_csv_uses_only_team_approved_rows(tmp_path):
     source = tmp_path / "approved_events.csv"
     source.write_text(
-        "split,id,event_no,aligned_key_event,event_reference_status,team_confirmation_status\\n"
-        'Dev,story_001,3,"Sự kiện thứ ba",approved_reference,team_confirmed\\n'
-        'Dev,story_001,2,"Sự kiện bị loại",excluded_from_event_reference,excluded_from_reference\\n'
-        'Dev,story_001,1,"Sự kiện thứ nhất",approved_reference,team_confirmed\\n'
-        'Test,story_002,1,"Test event",approved_reference,team_confirmed\\n',
+        "split,id,event_no,aligned_key_event,event_reference_status,team_confirmation_status\n"
+        'Dev,story_001,3,"Sự kiện thứ ba",approved_reference,team_confirmed\n'
+        'Dev,story_001,2,"Sự kiện bị loại",excluded_from_event_reference,excluded_from_reference\n'
+        'Dev,story_001,1,"Sự kiện thứ nhất",approved_reference,team_confirmed\n'
+        'Test,story_002,1,"Test event",approved_reference,team_confirmed\n',
         encoding="utf-8",
     )
 
@@ -375,8 +375,8 @@ def test_load_event_inventory_csv_uses_only_team_approved_rows(tmp_path):
 def test_load_event_inventory_csv_rejects_unconfirmed_approval(tmp_path):
     source = tmp_path / "bad_events.csv"
     source.write_text(
-        "split,id,event_no,aligned_key_event,event_reference_status,team_confirmation_status\\n"
-        'Dev,story_001,1,"Sự kiện",approved_reference,pending\\n',
+        "split,id,event_no,aligned_key_event,event_reference_status,team_confirmation_status\n"
+        'Dev,story_001,1,"Sự kiện",approved_reference,pending\n',
         encoding="utf-8",
     )
 
@@ -459,13 +459,13 @@ def test_cli_can_enforce_approved_event_inventory(tmp_path):
         "event_annotations": make_event_annotations(["covered", "not_covered"]),
     }
     input_path.write_text(
-        json.dumps(record, ensure_ascii=False) + "\\n",
+        json.dumps(record, ensure_ascii=False) + "\n",
         encoding="utf-8",
     )
     inventory_path.write_text(
-        "split,id,event_no,aligned_key_event,event_reference_status,team_confirmation_status\\n"
-        'Dev,story_001,1,"Sự kiện thứ nhất",approved_reference,team_confirmed\\n'
-        'Dev,story_001,2,"Sự kiện thứ hai",approved_reference,team_confirmed\\n',
+        "split,id,event_no,aligned_key_event,event_reference_status,team_confirmation_status\n"
+        'Dev,story_001,1,"Sự kiện thứ nhất",approved_reference,team_confirmed\n'
+        'Dev,story_001,2,"Sự kiện thứ hai",approved_reference,team_confirmed\n',
         encoding="utf-8",
     )
 
