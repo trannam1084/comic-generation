@@ -9,6 +9,7 @@ from src.evaluation.evaluate import (
     load_event_inventory_csv,
     validate_event_inventory,
     load_jsonl,
+    main,
     write_csv_report,
     write_json_report,
 )
@@ -444,4 +445,40 @@ def test_evaluate_records_reports_inventory_validation():
     assert report["event_inventory_events"] == 2
     assert report["metrics"]["event_coverage"]["numerator"] == 1
     assert report["metrics"]["event_coverage"]["denominator"] == 2
+
+def test_cli_can_enforce_approved_event_inventory(tmp_path):
+    input_path = tmp_path / "annotations.jsonl"
+    inventory_path = tmp_path / "approved_events.csv"
+    json_path = tmp_path / "report.json"
+    csv_path = tmp_path / "cases.csv"
+
+    record = {
+        "case_id": "story_001",
+        "raw_output": None,
+        "keyword_groups": [],
+        "event_annotations": make_event_annotations(["covered", "not_covered"]),
+    }
+    input_path.write_text(
+        json.dumps(record, ensure_ascii=False) + "\\n",
+        encoding="utf-8",
+    )
+    inventory_path.write_text(
+        "split,id,event_no,aligned_key_event,event_reference_status,team_confirmation_status\\n"
+        'Dev,story_001,1,"Sự kiện thứ nhất",approved_reference,team_confirmed\\n'
+        'Dev,story_001,2,"Sự kiện thứ hai",approved_reference,team_confirmed\\n',
+        encoding="utf-8",
+    )
+
+    exit_code = main([
+        str(input_path),
+        "--json-out", str(json_path),
+        "--csv-out", str(csv_path),
+        "--event-inventory-csv", str(inventory_path),
+    ])
+
+    report = json.loads(json_path.read_text(encoding="utf-8"))
+    assert exit_code == 0
+    assert report["event_inventory_status"] == "validated"
+    assert report["event_inventory_events"] == 2
+    assert csv_path.is_file()
 
