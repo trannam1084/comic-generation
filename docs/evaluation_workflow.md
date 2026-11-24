@@ -89,8 +89,9 @@ Loader chỉ nhận các dòng có đồng thời:
 Các dòng bị loại chỉ được bỏ qua khi hai trạng thái loại trừ khớp nhau:
 `excluded_from_event_reference` và `excluded_from_reference`.
 Trạng thái lẫn lộn hoặc pending bị từ chối, không tự suy diễn thành approved.
-Mỗi event được ánh xạ ổn định thành `E{event_no}`; thứ tự được sắp theo
-`event_no`. Trước khi tính metric, evaluator yêu cầu tập case ID và tập
+Mỗi event được ánh xạ ổn định theo case thành
+`{case_id}_event_{event_no:02d}` (ví dụ `story_010_event_02`); thứ tự được sắp
+theo `event_no`. Trước khi tính metric, evaluator yêu cầu tập case ID và tập
 Event ID annotation khớp chính xác inventory; thiếu/thừa/trùng đều dừng bằng lỗi.
 
 Ví dụ chạy Dev từ repository root:
