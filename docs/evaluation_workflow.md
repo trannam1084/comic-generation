@@ -77,6 +77,41 @@ contract; không bắt generic backend giả Qwen metadata. Các measurements tr
 là dữ liệu caller nhập từ artifacts đã xác minh, harness không chứng minh lại rằng GPU
 đã thực thi. System hashes trong plan không phải per-input full-message hashes.
 
+## TV3 Event Inventory integrity gate
+
+Khi tính Event Coverage/Event Order trên annotation đã adjudicate, có thể bật
+inventory gate bằng một CSV inventory đã được phê duyệt và được cung cấp riêng
+bởi người chạy evaluation. Public repository chỉ cung cấp evaluator và fixture
+tổng hợp; không đóng gói inventory, annotation hoặc metadata của dataset.
+
+Loader chỉ nhận các dòng có đồng thời:
+- `event_reference_status=approved_reference`;
+- `team_confirmation_status=team_confirmed`;
+- `aligned_key_event` không rỗng.
+
+Các dòng bị loại chỉ được bỏ qua khi hai trạng thái loại trừ khớp nhau:
+`excluded_from_event_reference` và `excluded_from_reference`.
+Trạng thái lẫn lộn hoặc pending bị từ chối, không tự suy diễn thành approved.
+Mỗi event được ánh xạ ổn định theo case thành
+`{case_id}_event_{event_no:02d}`; thứ tự được sắp theo `event_no`.
+Trước khi tính metric, evaluator yêu cầu tập case ID và tập Event ID annotation
+khớp chính xác inventory; thiếu/thừa/trùng đều dừng bằng lỗi.
+
+Ví dụ chạy với các đường dẫn do người dùng cung cấp từ repository root:
+
+```bash
+python -m src.evaluation.evaluate /path/to/annotations.jsonl \
+  --json-out outputs/evaluation.json \
+  --csv-out outputs/evaluation_cases.csv \
+  --event-inventory-csv /path/to/approved_event_inventory.csv \
+  --event-inventory-split Dev
+```
+
+Gate này kiểm tra tính đầy đủ và provenance trạng thái của event reference; nó
+không tự xác minh nội dung semantic của event hoặc tính đúng đắn của human label.
+Không bật inventory gate nghĩa là report sẽ ghi `event_inventory_status=not_checked`.
+Inventory của một split không được dùng để đánh giá split khác.
+
 ## Metrics và denominators
 
 `N` là số planned cases. `completed` của mỗi variant chỉ gồm interpretable controller
