@@ -80,3 +80,29 @@ def test_existing_directory_is_never_overwritten(tmp_path):
 def test_story_id_is_restricted(tmp_path, bad_id):
     with pytest.raises(ValueError):
         run_story(bad_id, SAMPLE, image_backend=MockImageGenerator(), out_root=tmp_path, base_seed=42)
+
+def test_cleanup_runs_after_every_story_including_failures(tmp_path):
+    calls = []
+    backend = FailOnCall(fail_on=1)
+    results = run_stories(
+        {"a": SAMPLE, "b": SAMPLE, "c": SAMPLE},
+        out_root=tmp_path, image_backend=backend, base_seed=42,
+        cleanup=lambda: calls.append(1),
+    )
+    assert [r["status"] for r in results] == ["error", "success", "success"]
+    assert len(calls) == 3
+
+
+def test_same_backend_instance_is_reused_across_stories(tmp_path):
+    backend = FailOnCall(fail_on=0)
+    run_stories({"a": SAMPLE, "b": SAMPLE, "c": SAMPLE}, out_root=tmp_path, image_backend=backend, base_seed=42)
+    assert backend.calls == 12  # 3 truyện x 4 cảnh trên cùng một backend, không tạo lại
+
+
+def test_cleanup_runs_even_when_story_directory_already_exists(tmp_path):
+    (tmp_path / "a").mkdir()
+    calls = []
+    with pytest.raises(FileExistsError):
+        run_stories({"a": SAMPLE}, out_root=tmp_path, image_backend=MockImageGenerator(), base_seed=42,
+                    cleanup=lambda: calls.append(1))
+    assert len(calls) == 1

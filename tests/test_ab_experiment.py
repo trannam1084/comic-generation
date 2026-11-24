@@ -412,3 +412,61 @@ def test_cli_reports_bad_rating_file_with_its_name(tmp_path, results):
     bad.write_text("comic_id,rabbit_consistency\nC01,3\n", encoding="utf-8")
     with pytest.raises(SystemExit, match="nguoi_cham.csv"):
         cli.main(["analyze", "--pack-dir", str(pack_dir), "--ratings", str(bad), "--out-dir", str(tmp_path / "r")])
+
+CAT_OWL = {
+    "summary": "Mèo xám nhờ cú thắp đèn hải đăng trước cơn bão, sáng hôm sau cả hai ngắm bình minh.",
+    "characters": [
+        {"id": "cat", "visual": "Gray cat with white paws and a blue collar"},
+        {"id": "owl", "visual": "Brown owl with big yellow eyes and a tiny hat"},
+    ],
+    "scenes": [
+        {"index": 1, "caption_vi": "Mèo gặp cú bên ngọn hải đăng.",
+         "image_prompt_en": "A cat meets an owl beside a tall lighthouse.", "characters": ["cat", "owl"]},
+        {"index": 2, "caption_vi": "Cả hai thắp chiếc đèn lồng.",
+         "image_prompt_en": "A cat and an owl light a lantern together.", "characters": ["cat", "owl"]},
+        {"index": 3, "caption_vi": "Cơn bão kéo đến trên biển.",
+         "image_prompt_en": "A cat and an owl watch a storm over the sea.", "characters": ["cat", "owl"]},
+        {"index": 4, "caption_vi": "Bình minh lên, hai bạn mỉm cười.",
+         "image_prompt_en": "A cat and an owl smile at the sunrise.", "characters": ["cat", "owl"]},
+    ],
+}
+SCENE_KEYWORDS = ["lighthouse", "lantern", "storm", "sunrise"]
+
+
+class SpyGenerator(MockImageGenerator):
+    """Mock chỉ để ghi lại prompt thật sự được đưa tới image backend."""
+
+    def __init__(self) -> None:
+        super().__init__()
+        self.prompts = []
+
+    def generate(self, prompt, *args, **kwargs):
+        self.prompts.append(prompt)
+        return super().generate(prompt, *args, **kwargs)
+
+
+def test_ab_generation_uses_given_storyboard_not_mock_story(tmp_path):
+    spy = SpyGenerator()
+    ab.run_ab_generation(spy, storyboard=CAT_OWL, base_seeds=[100], out_dir=tmp_path / "out")
+
+    assert len(spy.prompts) == 8  # nhánh A rồi nhánh B, mỗi nhánh 4 cảnh
+    for position, prompt in enumerate(spy.prompts):
+        scene = position % 4
+        assert prompt.scene_index == scene + 1
+        text = prompt.prompt.lower()
+        assert SCENE_KEYWORDS[scene] in text
+        assert "rabbit" not in text and "turtle" not in text
+    assert all("blue collar" not in p.prompt.lower() for p in spy.prompts[:4])  # A: không chèn mô tả chung
+    assert all("blue collar" in p.prompt.lower() for p in spy.prompts[4:])      # B: có chèn mô tả chung
+
+    manifest = json.loads((tmp_path / "out" / "manifest.json").read_text(encoding="utf-8"))
+    manifest_prompts = [s["prompt"] for run in manifest["runs"] for s in run["scenes"]]
+    assert manifest_prompts == [p.prompt for p in spy.prompts]
+
+
+def test_ab_generation_rejects_invalid_storyboard_before_creating_files(tmp_path):
+    broken = dict(CAT_OWL, scenes=CAT_OWL["scenes"][:3])
+    out = tmp_path / "out"
+    with pytest.raises(Exception):
+        ab.run_ab_generation(SpyGenerator(), storyboard=broken, base_seeds=[100], out_dir=out)
+    assert not out.exists()

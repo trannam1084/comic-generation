@@ -26,6 +26,9 @@ from typing import Any, Mapping, Sequence
 
 from PIL import Image, ImageDraw, ImageFont
 
+from src.image_generator.story_runs import FixedStoryStage
+from src.storyboard.schema import Storyboard
+
 ARMS = ("A", "B")
 ARM_USES_SHARED_CHARACTERS = {"A": False, "B": True}
 SCENES_PER_COMIC = 4
@@ -133,12 +136,13 @@ def run_ab_generation(
     from src.storyboard.compat import LegacyPromptBuilderAdapter
 
     seeds = validate_base_seeds(base_seeds)
+    validated = Storyboard.model_validate(storyboard)
     out = Path(out_dir)
     if out.exists() and any(out.iterdir()):
         raise FileExistsError("Thư mục kết quả đã có nội dung: dùng thư mục mới để không ghi đè")
     out.mkdir(parents=True, exist_ok=True)
 
-    summary = storyboard["summary"]
+    summary = validated.summary
     records: list[RunRecord] = []
     runs: list[dict[str, Any]] = []
     params: dict[str, Any] | None = None
@@ -158,7 +162,10 @@ def run_ab_generation(
             )
             config = PipelineConfig(output_dir=comic_dir, base_seed=base_seed)
             pipeline = build_pipeline(
-                config, image_backend=generator, prompt_stage=LegacyPromptBuilderAdapter(builder)
+                config,
+                story_stage=FixedStoryStage(validated),
+                image_backend=generator,
+                prompt_stage=LegacyPromptBuilderAdapter(builder),
             )
             result = pipeline.generate(summary)
 
