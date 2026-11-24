@@ -369,7 +369,12 @@ def test_load_event_inventory_csv_uses_only_team_approved_rows(tmp_path):
 
     inventory = load_event_inventory_csv(source, split="Dev")
 
-    assert inventory == {"story_001": ["E1", "E3"]}
+    assert inventory == {
+        "story_001": [
+            "story_001_event_01",
+            "story_001_event_03",
+        ]
+    }
 
 
 def test_load_event_inventory_csv_rejects_unconfirmed_approval(tmp_path):
@@ -452,11 +457,15 @@ def test_cli_can_enforce_approved_event_inventory(tmp_path):
     json_path = tmp_path / "report.json"
     csv_path = tmp_path / "cases.csv"
 
+    cli_annotations = make_event_annotations(["covered", "not_covered"])
+    for event_no, event in enumerate(cli_annotations, start=1):
+        event["event_id"] = f"story_001_event_{event_no:02d}"
+
     record = {
         "case_id": "story_001",
         "raw_output": None,
         "keyword_groups": [],
-        "event_annotations": make_event_annotations(["covered", "not_covered"]),
+        "event_annotations": cli_annotations,
     }
     input_path.write_text(
         json.dumps(record, ensure_ascii=False) + "\n",
@@ -494,5 +503,9 @@ def test_repository_approved_dev_inventory_has_expected_scope():
 
     assert len(inventory) == 20
     assert sum(len(event_ids) for event_ids in inventory.values()) == 76
-    assert inventory["story_010"] == ["E2", "E3", "E4"]
+    assert inventory["story_010"] == [
+        "story_010_event_02",
+        "story_010_event_03",
+        "story_010_event_04",
+    ]
 

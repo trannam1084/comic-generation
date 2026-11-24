@@ -192,7 +192,9 @@ def load_event_inventory_csv(
                     f"{input_path}, line {line_number}: duplicate event_no "
                     f"{event_no} for {case_id}"
                 )
-            events.append((event_no, f"E{event_no}"))
+            events.append(
+                (event_no, f"{case_id}_event_{event_no:02d}")
+            )
 
     if not inventory:
         raise ValueError(f"{input_path}: no approved events found for split {split}")
