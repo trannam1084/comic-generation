@@ -1,6 +1,6 @@
-# Image Generation (Task 3)
+# Image Generation (Task 3 và Task 6)
 
-Tài liệu mô tả backend sinh ảnh thật của nhóm: `SDXLImageGenerator`, model được dùng, môi trường đã kiểm chứng, số đo, kết quả thử nghiệm sơ bộ và các giới hạn đã biết. Mọi số liệu dưới đây lấy từ lần chạy thật trên Kaggle; chỗ nào chưa được xác minh thì ghi rõ là `<điền: ...>`.
+Tài liệu mô tả backend sinh ảnh thật của nhóm: `SDXLImageGenerator`, model được dùng, môi trường đã kiểm chứng, số đo, kết quả thử nghiệm sơ bộ và các giới hạn đã biết. Mọi số liệu dưới đây lấy từ lần chạy thật trên Kaggle; chỗ nào chưa được xác minh thì ghi rõ là `<điền: ...>`. Mục 10 trình bày thí nghiệm Task 6 (character consistency).
 
 ## 1. Tổng quan
 
@@ -153,8 +153,70 @@ Không đặt token hay khóa API vào notebook. Repo công khai nên không c�
 
 Dữ liệu thô nằm ngoài repo; chỉ các số liệu tổng hợp ở trên được đưa vào tài liệu.
 
-## 10. Việc chưa làm
+## 10. Task 6: Character consistency (A và B)
 
-- **Task 6:** so sánh A (prompt độc lập) và B (shared character descriptions) với nhiều seed hơn, cùng seed và cùng thông số suy luận cho hai phương án, chấm ẩn nhãn. Chưa khẳng định B tốt hơn A.
+So sánh hai cách sinh image prompt: **A** là prompt độc lập theo từng cảnh (không có mô tả nhân vật), **B** là prompt có mô tả nhân vật dùng chung (`PromptBuilder(use_shared_characters=True)`). Khác với pilot ở mục 6, thí nghiệm này dùng nhiều truyện khác cốt truyện, hai seed và chấm ẩn nhãn bởi người chấm độc lập. Chưa khẳng định B tốt hơn A khi chưa có kết quả chấm.
+
+### 10.1 Thiết kế
+
+| Mục | Giá trị |
+|---|---|
+| Đơn vị so sánh | Một truyện tranh 4 khung, theo cặp (truyện, `base_seed`): A và B cùng seed theo từng cảnh, cùng model và revision, cùng thông số suy luận, cùng style và negative E0; chỉ khác việc có chèn mô tả nhân vật dùng chung hay không |
+| Truyện | 5 storyboard đã được nhóm trưởng duyệt (`story_013`, `story_020_v2`, `story_027`, `story_033_v2`, `story_050`); nội dung nằm ngoài repo |
+| Seed | `base_seed` 100 (tầng lõi, seed cảnh 101 đến 104) và 200 (tầng bổ sung, seed cảnh 201 đến 204); không trùng seed của pilot (43 đến 46) |
+| Số truyện tranh | 5 truyện × 2 seed × 2 nhánh = 20 (mỗi tầng 10) |
+| Chấm ẩn nhãn | Mã truyện tranh `C01...` (lõi) và `E01...` (bổ sung); thứ tự xáo trộn bằng `shuffle_seed` 2026 (lõi) và 2027 (bổ sung); khóa A/B lưu riêng, không gửi người chấm |
+
+### 10.2 Chạy thật
+
+| Mục | Giá trị |
+|---|---|
+| Notebook | `notebooks/03b_ab_experiment.ipynb` (xóa output trước khi commit; storyboard nằm trong dataset private của Kaggle) |
+| Môi trường | Kaggle, Tesla T4 (một GPU), ngày 25/11/2026 |
+| Mã nguồn | `3772bb4e947e70265c1ae0b46c039a71b1004555` (nhánh `feature/image-pipeline`) |
+| Model, revision | như mục 2 |
+| Kết quả | 20 truyện tranh trong 948,9 giây (gồm nạp model 67,4 giây); VRAM đỉnh 9,74 GiB; không dùng mock fallback |
+| `ab_experiment_full.zip` (có khóa A/B, không gửi người chấm) | SHA-256 `5698623549aa63672153fa28497f2b4e9e66809e04f43df5342edc6cb2fa9470` |
+| `ab_for_raters_core.zip` | SHA-256 `f01aec93252855296d7a6969ec12f8433d2efebb810f22bd1dd2877383da6ead` |
+| `ab_for_raters_extra.zip` | SHA-256 `d3222730dddc341959690e87d9993115e031ceb6d1a879e6dcf43686aa7e5319` |
+
+Dữ liệu thô nằm ngoài repo; chỉ các số liệu tổng hợp ở trên được đưa vào tài liệu.
+
+### 10.3 Phiếu chấm và cách phân tích
+
+Mã nguồn: `src/image_generator/ab_rubric.py` (phiếu), `ab_experiment.py` (sinh ảnh), `ab_pack.py` (gói chấm ẩn nhãn), `ab_analysis.py` (phân tích).
+
+- **Phiếu chấm** có một dòng toàn truyện (`panels_duplicate_figure` và `panels_blended_figure`, mỗi chỉ số từ 0 đến 4 khung) và một dòng cho mỗi nhân vật xuất hiện ở ít nhất 2 cảnh theo storyboard (`identity_consistency`, từ 1 đến 5, hoặc `NA` nếu người chấm chỉ thấy nhân vật ở dưới 2 khung). Chỉ số chính là `identity_consistency`.
+- Người chấm chỉ so các khung có giống nhau hay không, không chấm ảnh có khớp mô tả nhân vật hay không. Chỉ số khớp thiết kế (ví dụ đúng màu theo mô tả) không đưa vào phiếu vì A không có mô tả, nên A thua ở chỉ số đó là điều hiển nhiên và nó không đo độ nhất quán.
+- **Cách tính:** với mỗi người chấm, điểm của một truyện tranh là trung bình các nhân vật không `NA`; sau đó lấy trung bình các người chấm; so B với A theo từng truyện (B trừ A) và đếm số truyện B tốt hơn, A tốt hơn, hòa. Không dùng p-value, vì với 5 truyện kiểm định dấu hai phía có p nhỏ nhất 0,0625 nên không thể đạt mức 0,05. Báo cáo còn có hướng chênh lệch theo từng người chấm, số ô `NA` theo từng nhánh và độ đồng thuận giữa người chấm.
+
+Chạy lại phân tích cho một tầng (cần thư mục `packs/core` lấy từ `ab_experiment_full.zip` đã giải nén, vì chỉ bản đầy đủ có khóa A/B):
+
+```powershell
+$env:PYTHONPATH = "."
+python -m src.image_generator.ab_analysis --tier-dir <thư mục packs\core> --rater <TEN1>=<file1.csv> --rater <TEN2>=<file2.csv> --out <thư mục báo cáo mới>
+```
+
+### 10.4 Kết quả
+
+`<điền: số người chấm, vai trò của từng người, người chấm có độc lập hay không>`
+
+`<điền: bảng B trừ A theo từng truyện, lấy từ summary.md của tầng lõi>`
+
+`<điền: hướng chênh lệch theo từng người chấm và độ đồng thuận giữa người chấm>`
+
+`<điền: kết quả tầng bổ sung nếu có người chấm; không gộp với tầng lõi thành một con số>`
+
+### 10.5 Giới hạn riêng của Task 6
+
+- Mẫu rất nhỏ (5 truyện), người chấm theo cảm nhận; kết quả là thống kê mô tả, không đủ để kết luận phương án nào tốt hơn một cách tổng quát.
+- Số nhân vật được chấm nhất quán trong 5 truyện lần lượt là 1, 2, 3, 1, 1 (theo thứ tự `story_013`, `story_020_v2`, `story_027`, `story_033_v2`, `story_050`); ba truyện chỉ có một nhân vật để chấm nên chỉ số chính ở các truyện đó dựa trên rất ít dữ liệu.
+- Mỗi tầng có cả hai nhánh A và B của cùng một truyện, nên người chấm có thể nhận ra các cặp dù đã ẩn nhãn.
+- `manifest.json` chỉ ghi khi chạy xong cả bộ; nếu phiên Kaggle dừng giữa chừng phải chạy lại trong thư mục mới. `inference_params` trong manifest lấy từ ảnh đầu tiên, chưa kiểm tra mọi ảnh dùng cùng thông số.
+
+## 11. Việc chưa làm
+
+- **Task 6:** chờ điểm của người chấm độc lập, chạy phân tích và điền mục 10.4. Chưa khẳng định B tốt hơn A.
+- Tùy chọn: chạy riêng một truyện làm failure case (lưu tách khỏi bộ A/B) nếu còn thời gian.
 - Đo mức khớp giữa ảnh và caption, độ đọc được của caption trên ảnh thật.
 - Đề xuất với nhóm trưởng: đưa cấu hình E0 vào mặc định của `PromptBuilder` nếu nhóm đồng ý.
