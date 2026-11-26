@@ -5,8 +5,7 @@ Quy ước: (1) mỗi người chấm -> mỗi truyện tranh (trung bình các 
 với 5 truyện, kiểm định dấu hai phía có p nhỏ nhất 0.0625 nên không bao giờ đạt mức 0.05.
 """
 
-from __future__ import annotations
-
+import argparse
 import csv
 import itertools
 import json
@@ -14,11 +13,14 @@ from collections import defaultdict
 from pathlib import Path
 from typing import Any, Mapping, Sequence
 
+from src.image_generator.ab_pack import read_expected_rows, read_pack_key
 from src.image_generator.ab_rubric import (
     COMIC_ROW_NO,
     RATING_FIELDS,
+    RatingFileError,
     RatingTable,
     SheetRow,
+    read_rating_sheet,
 )
 
 METRICS = tuple(f.name for f in RATING_FIELDS)
@@ -256,3 +258,67 @@ def write_analysis(analysis: Mapping[str, Any], key_rows: Sequence[Mapping[str, 
             means = analysis["comic_means"][row["comic_id"]]
             writer.writerow([row["comic_id"], row["story_id"], row["arm"], row["base_seed"]]
                             + ["" if means[m] is None else f"{means[m]:.2f}" for m in METRICS])
+
+
+def analyze_tier_dir(
+    tier_dir: str | Path,
+    rater_files: Mapping[str, str | Path],
+    out_dir: str | Path,
+    *,
+    tier_name: str | None = None,
+) -> dict[str, Any]:
+    """Đọc khóa và phiếu gốc trong `tier_dir/private`, đọc file điểm của từng người chấm, phân tích và ghi báo cáo.
+
+    Lỗi của mọi file điểm được gom lại một thông báo, ghi rõ tên người chấm, để gửi lại cho từng người sửa.
+    `out_dir` phải chưa có hoặc trống (không ghi đè kết quả cũ).
+    """
+    tier_path = Path(tier_dir)
+    out = Path(out_dir)
+    if out.exists() and any(out.iterdir()):
+        raise FileExistsError("Thư mục báo cáo đã có nội dung: dùng thư mục mới để không ghi đè")
+    if not rater_files:
+        raise ValueError("Cần ít nhất một file điểm")
+    expected = read_expected_rows(tier_path)
+    key_rows = read_pack_key(tier_path)
+
+    ratings: dict[str, RatingTable] = {}
+    problems: list[str] = []
+    for rater, path in rater_files.items():
+        try:
+            ratings[rater] = read_rating_sheet(path, expected_rows=expected)
+        except RatingFileError as error:
+            problems.append(f"[{rater}] {error}")
+    if problems:
+        raise RatingFileError("\n".join(problems))
+
+    name = tier_name or tier_path.name
+    analysis = analyze_tier(key_rows, expected, ratings)
+    write_analysis(analysis, key_rows, name, out)
+    return analysis
+
+
+def main(argv: Sequence[str] | None = None) -> int:
+    parser = argparse.ArgumentParser(description="Phân tích điểm chấm Task 6 cho một tầng (core hoặc extra).")
+    parser.add_argument("--tier-dir", required=True, help="Thư mục tầng, chứa for_raters/ và private/ (ví dụ packs/core)")
+    parser.add_argument("--rater", action="append", required=True, metavar="TEN=FILE.csv",
+                        help="Một người chấm; lặp lại tham số này cho từng người")
+    parser.add_argument("--out", required=True, help="Thư mục xuất báo cáo (chưa có hoặc trống)")
+    parser.add_argument("--tier-name", default=None)
+    args = parser.parse_args(argv)
+
+    rater_files: dict[str, str] = {}
+    for item in args.rater:
+        name, sep, path = item.partition("=")
+        if not sep or not name.strip() or not path.strip():
+            parser.error(f"--rater cần dạng TEN=FILE.csv, nhận {item!r}")
+        if name.strip() in rater_files:
+            parser.error(f"Tên người chấm bị trùng: {name.strip()!r}")
+        rater_files[name.strip()] = path.strip()
+
+    analyze_tier_dir(args.tier_dir, rater_files, args.out, tier_name=args.tier_name)
+    print(f"Đã ghi báo cáo vào {args.out}")
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
