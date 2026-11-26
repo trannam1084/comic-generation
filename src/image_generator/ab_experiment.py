@@ -20,6 +20,7 @@ import json
 import math
 import os
 import random
+import re
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, Mapping, Sequence
@@ -52,6 +53,7 @@ class RunRecord:
     arm: str
     base_seed: int
     comic_path: Path
+    story_id: str = ""   # "" chỉ dành cho kết quả cũ (một truyện thỏ-rùa); thí nghiệm nhiều truyện luôn có story_id
 
 
 @dataclass(frozen=True)
@@ -116,6 +118,122 @@ def validate_base_seeds(base_seeds: Sequence[int]) -> tuple[int, ...]:
             )
     return seeds
 
+STORY_ID_PATTERN = re.compile(r"^[A-Za-z0-9][A-Za-z0-9_.-]*$")
+
+
+@dataclass(frozen=True)
+class StorySpec:
+    story_id: str                    # dùng làm tên thư mục: chỉ gồm chữ, số, "_", "-", "."
+    storyboard: Mapping[str, Any]    # storyboard đã được duyệt; không bị sửa
+
+
+def validate_stories(stories: Sequence[StorySpec]) -> list[tuple[str, Storyboard, str]]:
+    """Kiểm tra danh sách truyện; trả về (story_id, Storyboard đã validate, sha256 của storyboard)."""
+    if not stories:
+        raise ValueError("Cần ít nhất một truyện")
+    seen: set[str] = set()
+    result: list[tuple[str, Storyboard, str]] = []
+    for spec in stories:
+        if not isinstance(spec.story_id, str) or not STORY_ID_PATTERN.match(spec.story_id):
+            raise ValueError(f"story_id không hợp lệ (chỉ chữ, số, _ - .): {spec.story_id!r}")
+        if spec.story_id in seen:
+            raise ValueError(f"story_id bị trùng: {spec.story_id!r}")
+        seen.add(spec.story_id)
+        validated = Storyboard.model_validate(spec.storyboard)
+        canonical = json.dumps(spec.storyboard, sort_keys=True, ensure_ascii=False).encode("utf-8")
+        result.append((spec.story_id, validated, hashlib.sha256(canonical).hexdigest()))
+    return result
+
+
+def run_ab_generation_stories(
+    generator: Any,
+    *,
+    stories: Sequence[StorySpec],
+    base_seeds: Sequence[int],
+    out_dir: str | Path,
+    style: str = E0_STYLE,
+    negative_prompt: str = E0_NEGATIVE,
+) -> list[RunRecord]:
+    """Sinh một cặp truyện (A và B) cho mỗi (truyện, base_seed) bằng pipeline dùng chung.
+
+    Bố cục: `out_dir/<story_id>/<A|B>_seed<base_seed>/{comic,raw}`. Thứ tự chạy: truyện, rồi seed, rồi nhánh.
+    Mọi lỗi được raise nguyên vẹn (không retry, không bỏ qua). Thư mục `out_dir` phải trống hoặc chưa có.
+    Thứ tự `base_seeds` được ghi vào manifest; seed đầu tiên là tầng lõi (core) khi tạo gói chấm.
+    """
+    from src.configuration import PipelineConfig
+    from src.factory import build_pipeline
+    from src.image_generator.prompt_builder import PromptBuilder
+    from src.storyboard.compat import LegacyPromptBuilderAdapter
+
+    seeds = validate_base_seeds(base_seeds)
+    validated_stories = validate_stories(stories)
+    out = Path(out_dir)
+    if out.exists() and any(out.iterdir()):
+        raise FileExistsError("Thư mục kết quả đã có nội dung: dùng thư mục mới để không ghi đè")
+    out.mkdir(parents=True, exist_ok=True)
+
+    records: list[RunRecord] = []
+    runs: list[dict[str, Any]] = []
+    params: dict[str, Any] | None = None
+    for story_id, validated, _digest in validated_stories:
+        for base_seed in seeds:
+            scene_seeds: dict[str, list[int]] = {}
+            for arm in ARMS:
+                run_dir = out / story_id / f"{arm}_seed{base_seed}"
+                comic_dir = run_dir / "comic"
+                comic_dir.mkdir(parents=True)
+                (run_dir / "raw").mkdir()
+
+                builder = PromptBuilder(
+                    style=style,
+                    negative_prompt=negative_prompt,
+                    use_shared_characters=ARM_USES_SHARED_CHARACTERS[arm],
+                )
+                config = PipelineConfig(output_dir=comic_dir, base_seed=base_seed)
+                pipeline = build_pipeline(
+                    config,
+                    story_stage=FixedStoryStage(validated),
+                    image_backend=generator,
+                    prompt_stage=LegacyPromptBuilderAdapter(builder),
+                )
+                result = pipeline.generate(validated.summary)
+
+                for generated in result.images:
+                    generated.image.save(run_dir / "raw" / f"scene_{generated.scene_index}.png")
+                scene_seeds[arm] = [g.seed for g in result.images]
+                params = params or dict(result.images[0].params)
+                comic_rel = Path(os.path.relpath(Path(result.comic_path), out))
+                records.append(RunRecord(arm, base_seed, comic_rel, story_id))
+                runs.append({
+                    "story_id": story_id,
+                    "arm": arm,
+                    "base_seed": base_seed,
+                    "comic": comic_rel.as_posix(),
+                    "scenes": [
+                        {
+                            "scene_index": g.scene_index,
+                            "seed": g.seed,
+                            "elapsed_sec": round(g.elapsed_sec, 2),
+                            "prompt": p.prompt,
+                            "negative_prompt": p.negative_prompt,
+                        }
+                        for g, p in zip(result.images, result.prompts)
+                    ],
+                })
+            if scene_seeds["A"] != scene_seeds["B"]:
+                raise RuntimeError(f"Seed theo từng cảnh phải giống nhau giữa A và B (truyện {story_id}, seed {base_seed})")
+
+    manifest = {
+        "arms": {arm: {"use_shared_characters": flag} for arm, flag in ARM_USES_SHARED_CHARACTERS.items()},
+        "stories": [{"story_id": sid, "storyboard_sha256": digest} for sid, _v, digest in validated_stories],
+        "base_seeds": list(seeds),
+        "style": style,
+        "negative_prompt": negative_prompt,
+        "inference_params": params,
+        "runs": runs,
+    }
+    (out / "manifest.json").write_text(json.dumps(manifest, indent=2, ensure_ascii=False), encoding="utf-8")
+    return records
 
 def run_ab_generation(
     generator: Any,
@@ -208,7 +326,10 @@ def run_ab_generation(
 def load_records(results_dir: str | Path) -> list[RunRecord]:
     root = Path(results_dir)
     manifest = json.loads((root / "manifest.json").read_text(encoding="utf-8"))
-    return [RunRecord(run["arm"], int(run["base_seed"]), root / run["comic"]) for run in manifest["runs"]]
+    return [
+        RunRecord(run["arm"], int(run["base_seed"]), root / run["comic"], run.get("story_id", ""))
+        for run in manifest["runs"]
+    ]
 
 
 # ---------------------------------------------------------------------------
@@ -258,20 +379,21 @@ def _sha256(path: Path) -> str:
 def _validate_records(records: Sequence[RunRecord]) -> None:
     if not records:
         raise ValueError("Không có truyện nào để chấm")
-    seen: dict[tuple[str, int], Path] = {}
+    seen: dict[tuple[str, str, int], Path] = {}
     for record in records:
         if record.arm not in ARMS:
             raise ValueError(f"Nhãn nhóm không hợp lệ: {record.arm!r}")
-        key = (record.arm, record.base_seed)
+        key = (record.story_id, record.arm, record.base_seed)
         if key in seen:
-            raise ValueError(f"Trùng truyện cho nhóm {record.arm}, base_seed {record.base_seed}")
+            raise ValueError(f"Trùng truyện cho nhóm {record.arm}, base_seed {record.base_seed}, story_id {record.story_id!r}")
         if not Path(record.comic_path).is_file():
             raise FileNotFoundError(f"Thiếu file truyện tranh: {record.comic_path.name}")
         seen[key] = record.comic_path
-    seeds_a = {seed for arm, seed in seen if arm == "A"}
-    seeds_b = {seed for arm, seed in seen if arm == "B"}
-    if seeds_a != seeds_b:
-        raise ValueError("Mỗi base_seed phải có đủ một truyện A và một truyện B")
+    for story_id in {story for story, _arm, _seed in seen}:
+        seeds_a = {seed for story, arm, seed in seen if story == story_id and arm == "A"}
+        seeds_b = {seed for story, arm, seed in seen if story == story_id and arm == "B"}
+        if seeds_a != seeds_b:
+            raise ValueError(f"Mỗi base_seed phải có đủ một truyện A và một truyện B (story_id {story_id!r})")
 
 
 def build_blind_pack(
