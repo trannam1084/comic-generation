@@ -11,14 +11,14 @@ Tài liệu mô tả backend sinh ảnh thật của nhóm: `SDXLImageGenerator`
 
 ## 2. Model
 
-| Mục                        | Giá trị                                                                                                    |
-| -------------------------- | ---------------------------------------------------------------------------------------------------------- |
-| Model                      | `Lykon/dreamshaper-xl-v2-turbo` (tinh chỉnh từ `stabilityai/stable-diffusion-xl-base-1.0`, theo thẻ model) |
-| Pipeline class             | `StableDiffusionXLPipeline` (nạp qua `AutoPipelineForText2Image`)                                          |
-| Revision cố định           | `f70ad5bce436c640d23fc02cd0a6ccc787280b6e` (cập nhật lần cuối 2024-02-19)                                  |
-| Hugging Face Hub           | https://huggingface.co/Lykon/dreamshaper-xl-v2-turbo                                                       |
-| Truy cập                   | Công khai, không bị khóa (`gated: False`, `private: False`) khi kiểm tra ngày 2026-11-20                   |
-| License ghi trên thẻ model | `openrail++`                                                                                               |
+| Mục | Giá trị |
+|---|---|
+| Model | `Lykon/dreamshaper-xl-v2-turbo` (tinh chỉnh từ `stabilityai/stable-diffusion-xl-base-1.0`, theo thẻ model) |
+| Pipeline class | `StableDiffusionXLPipeline` (nạp qua `AutoPipelineForText2Image`) |
+| Revision cố định | `f70ad5bce436c640d23fc02cd0a6ccc787280b6e` (cập nhật lần cuối 2024-02-19) |
+| Hugging Face Hub | https://huggingface.co/Lykon/dreamshaper-xl-v2-turbo |
+| Truy cập | Công khai, không bị khóa (`gated: False`, `private: False`) khi kiểm tra ngày 2026-11-20 |
+| License ghi trên thẻ model | `openrail++` |
 
 **Điều khoản license liên quan đến đồ án:** Thẻ model chỉ ghi nhãn `openrail++` và repo không có file license riêng; nhãn này tương ứng với CreativeML Open RAIL++-M License (26/07/2023) của model nền, toàn văn tại https://huggingface.co/stabilityai/stable-diffusion-xl-base-1.0/blob/main/LICENSE.md (chưa thấy điều khoản bổ sung của tác giả bản tinh chỉnh). Giấy phép cho phép dùng và phân phối model miễn phí, không đòi quyền với ảnh sinh ra (người dùng chịu trách nhiệm về ảnh), nhưng cấm một số mục đích (Attachment A: vi phạm pháp luật, gây hại cho trẻ vị thành niên, tạo thông tin sai lệch hoặc phỉ báng, phân biệt đối xử, tư vấn y tế, ...). Nếu phân phối lại model hoặc cung cấp qua dịch vụ trực tuyến cho người khác thì phải đưa các hạn chế này vào điều khoản sử dụng và kèm bản sao giấy phép; đồ án chỉ tải model lúc chạy, không đưa trọng số vào Git và chỉ dùng cho mục đích học tập. Đây là tóm tắt của nhóm, không phải tư vấn pháp lý.
 
@@ -28,19 +28,19 @@ Tài liệu mô tả backend sinh ảnh thật của nhóm: `SDXLImageGenerator`
 
 ## 3. Môi trường đã kiểm chứng
 
-| Thành phần        | Phiên bản                                                                           |
-| ----------------- | ----------------------------------------------------------------------------------- |
-| Nền tảng          | Kaggle Notebook, Python 3.13.16                                                     |
-| GPU               | Tesla T4, 14,56 GiB, compute capability 7.5 (notebook thấy T4 x2, chỉ dùng một GPU) |
-| PyTorch           | 2.11.0+cu130 (CUDA 13.0)                                                            |
-| diffusers         | 0.42.0                                                                              |
-| transformers      | 5.20.2                                                                              |
-| accelerate        | 1.15.0                                                                              |
-| huggingface_hub   | 1.33.0                                                                              |
-| safetensors       | 0.8.0                                                                               |
-| Pillow            | 13.0.0                                                                              |
-| numpy             | 2.1.3                                                                               |
-| pydantic / PyYAML | 2.14.1 / 6.0.3                                                                      |
+| Thành phần | Phiên bản |
+|---|---|
+| Nền tảng | Kaggle Notebook, Python 3.13.16 |
+| GPU | Tesla T4, 14,56 GiB, compute capability 7.5 (notebook thấy T4 x2, chỉ dùng một GPU) |
+| PyTorch | 2.11.0+cu130 (CUDA 13.0) |
+| diffusers | 0.42.0 |
+| transformers | 5.20.2 |
+| accelerate | 1.15.0 |
+| huggingface_hub | 1.33.0 |
+| safetensors | 0.8.0 |
+| Pillow | 13.0.0 |
+| numpy | 2.1.3 |
+| pydantic / PyYAML | 2.14.1 / 6.0.3 |
 
 Chưa kiểm chứng trên GPU khác, phiên bản thư viện khác hay hệ điều hành khác.
 
@@ -68,23 +68,23 @@ Hành vi cần nhớ:
 
 ## 5. Số đo (Kaggle T4, một GPU)
 
-| Chỉ số                                        | Giá trị                                                                    | Nguồn                             |
-| --------------------------------------------- | -------------------------------------------------------------------------- | --------------------------------- |
-| Tải model fp16                                | khoảng 36 giây (lần đo trong smoke test)                                   | Bước 3.2                          |
-| Nạp model qua `SDXLImageGenerator` (gồm tải)  | 79,0 giây (phiên tương tác), 39,85 giây (Version 1)                        | Phụ thuộc đường truyền từng phiên |
-| Sinh một ảnh 1024×1024                        | 8,77 đến 9,41 giây (Version 1)                                             | `metadata.json`                   |
-| Ảnh đầu tiên sau khi nạp                      | 13,8 đến 17,8 giây (gồm khởi động)                                         | Smoke test và phiên tương tác     |
-| Pipeline đủ 4 cảnh (story mock, SDXL, render) | 37,18 giây (Version 1)                                                     | `metadata.json`                   |
-| VRAM sau khi nạp model                        | 6,57 GiB                                                                   | Smoke test                        |
-| VRAM đỉnh                                     | 9,73 GiB trên 14,56 GiB                                                    | Smoke test và Version 1           |
-| Độ dài prompt                                 | 46 đến 48 token (prompt), 38 token (negative của E0); giới hạn 77 của CLIP | Đo ở bước 3.2 và 3.2d             |
+| Chỉ số | Giá trị | Nguồn |
+|---|---|---|
+| Tải model fp16 | khoảng 36 giây (lần đo trong smoke test) | Bước 3.2 |
+| Nạp model qua `SDXLImageGenerator` (gồm tải) | 79,0 giây (phiên tương tác), 39,85 giây (Version 1) | Phụ thuộc đường truyền từng phiên |
+| Sinh một ảnh 1024×1024 | 8,77 đến 9,41 giây (Version 1) | `metadata.json` |
+| Ảnh đầu tiên sau khi nạp | 13,8 đến 17,8 giây (gồm khởi động) | Smoke test và phiên tương tác |
+| Pipeline đủ 4 cảnh (story mock, SDXL, render) | 37,18 giây (Version 1) | `metadata.json` |
+| VRAM sau khi nạp model | 6,57 GiB | Smoke test |
+| VRAM đỉnh | 9,73 GiB trên 14,56 GiB | Smoke test và Version 1 |
+| Độ dài prompt | 46 đến 48 token (prompt), 38 token (negative của E0); giới hạn 77 của CLIP | Đo ở bước 3.2 và 3.2d |
 
 **Tính lặp lại:** cùng seed cho ảnh giống hệt từng pixel trong một phiên. Giữa hai phiên Kaggle độc lập (một phiên tương tác, một phiên Save & Run All), 9 file ảnh (`comic.png`, `panel_1..4.png`, `raw/scene_1..4.png`) có SHA-256 trùng hoàn toàn. Điều này chỉ được kiểm chứng trong môi trường ở mục 3; không bảo đảm trên GPU hoặc phiên bản thư viện khác.
 
 SHA-256 của ảnh gốc `raw/` (dùng để so khớp khi chạy lại):
 
-| File              | SHA-256                                                            |
-| ----------------- | ------------------------------------------------------------------ |
+| File | SHA-256 |
+|---|---|
 | `raw/scene_1.png` | `83f8a78dd1d50ec2e7fce0b66954c50d7427494d6768be207d91da79b3c35c08` |
 | `raw/scene_2.png` | `bf7d87b373b4ec7bde1c7c41061ac6aa244338dcbe32b6620775e4ba6aecc801` |
 | `raw/scene_3.png` | `96048acb1836e94778f42355cc6c446724dd525a6dd8574fd109786e07e58e75` |
@@ -139,17 +139,17 @@ Không đặt token hay khóa API vào notebook. Repo công khai nên không c�
 
 ## 9. Dấu vết của lần chạy chính thức
 
-| Mục                                     | Giá trị                                                                                                                                                                                                      |
-| --------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| Notebook                                | `comic-gen-03-image-inference` (Private), Version 1, `scriptVersionId` 372563258                                                                                                                             |
-| Cách chạy                               | Save & Run All, 2 phút 40 giây, GPU T4 x2 (dùng một GPU)                                                                                                                                                     |
-| Mã nguồn                                | `af9ada647266478ee331a4dc799e1354a9df3b15`                                                                                                                                                                   |
-| Model, revision                         | `Lykon/dreamshaper-xl-v2-turbo`, `f70ad5bce436c640d23fc02cd0a6ccc787280b6e`                                                                                                                                  |
-| Gói tải về (`results.zip`)              | SHA-256 `4FB58606427D56DFF70F97919A14B6EE0793EAD9B09E5601A66537EEE1E7A42F`                                                                                                                                   |
-| `task03_run.zip` bên trong              | SHA-256 `2898213BD65E09F91C985E22495BB1AE7B260C64F28E77A71ACCDA222DBB72DB` so với dòng "ZIP:" trong đầu ra của Cell chạy pipeline là khớp `2898213bd65e09f91c985e22495bb1ae7b260c64f28e77a71accda222dbb72db` |
-| Kiểm tra `SHA256SUMS` trên bản giải nén | 10/10 file khớp                                                                                                                                                                                              |
-| `metadata.json`                         | SHA-256 `9d117c4d76df9b6e606b081499bc8d0b1db7b0cf2e0fb1dabad3a8114474d4ff`                                                                                                                                   |
-| Ngày tải                                | `22/11/2026`                                                                                                                                                                                                 |
+| Mục | Giá trị |
+|---|---|
+| Notebook | `comic-gen-03-image-inference` (Private), Version 1, `scriptVersionId` 372563258 |
+| Cách chạy | Save & Run All, 2 phút 40 giây, GPU T4 x2 (dùng một GPU) |
+| Mã nguồn | `af9ada647266478ee331a4dc799e1354a9df3b15` |
+| Model, revision | `Lykon/dreamshaper-xl-v2-turbo`, `f70ad5bce436c640d23fc02cd0a6ccc787280b6e` |
+| Gói tải về (`results.zip`) | SHA-256 `4FB58606427D56DFF70F97919A14B6EE0793EAD9B09E5601A66537EEE1E7A42F` |
+| `task03_run.zip` bên trong | SHA-256 `2898213BD65E09F91C985E22495BB1AE7B260C64F28E77A71ACCDA222DBB72DB` so với dòng "ZIP:" trong đầu ra của Cell chạy pipeline là khớp `2898213bd65e09f91c985e22495bb1ae7b260c64f28e77a71accda222dbb72db` |
+| Kiểm tra `SHA256SUMS` trên bản giải nén | 10/10 file khớp |
+| `metadata.json` | SHA-256 `9d117c4d76df9b6e606b081499bc8d0b1db7b0cf2e0fb1dabad3a8114474d4ff` |
+| Ngày tải | `22/11/2026` |
 
 Dữ liệu thô nằm ngoài repo; chỉ các số liệu tổng hợp ở trên được đưa vào tài liệu.
 
@@ -159,26 +159,28 @@ So sánh hai cách sinh image prompt: **A** là prompt độc lập theo từng 
 
 ### 10.1 Thiết kế
 
-| Mục             | Giá trị                                                                                                                                                                                                                         |
-| --------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Đơn vị so sánh  | Một truyện tranh 4 khung, theo cặp (truyện, `base_seed`): A và B cùng seed theo từng cảnh, cùng model và revision, cùng thông số suy luận, cùng style và negative E0; chỉ khác việc có chèn mô tả nhân vật dùng chung hay không |
-| Truyện          | 5 storyboard đã được nhóm trưởng duyệt (`story_013`, `story_020_v2`, `story_027`, `story_033_v2`, `story_050`); nội dung nằm ngoài repo                                                                                         |
-| Seed            | `base_seed` 100 (tầng lõi, seed cảnh 101 đến 104) và 200 (tầng bổ sung, seed cảnh 201 đến 204); không trùng seed của pilot (43 đến 46)                                                                                          |
-| Số truyện tranh | 5 truyện × 2 seed × 2 nhánh = 20 (mỗi tầng 10)                                                                                                                                                                                  |
-| Chấm ẩn nhãn    | Mã truyện tranh `C01...` (lõi) và `E01...` (bổ sung); thứ tự xáo trộn bằng `shuffle_seed` 2026 (lõi) và 2027 (bổ sung); khóa A/B lưu riêng, không gửi người chấm                                                                |
+| Mục | Giá trị |
+|---|---|
+| Đơn vị so sánh | Một truyện tranh 4 khung, theo cặp (truyện, `base_seed`): A và B cùng seed theo từng cảnh, cùng model và revision, cùng thông số suy luận, cùng style và negative E0; chỉ khác việc có chèn mô tả nhân vật dùng chung hay không |
+| Truyện | 5 storyboard đã được nhóm trưởng duyệt (`story_013`, `story_020_v2`, `story_027`, `story_033_v2`, `story_050`); nội dung nằm ngoài repo |
+| Seed | `base_seed` 100 (tầng lõi, seed cảnh 101 đến 104) và 200 (tầng bổ sung, seed cảnh 201 đến 204); không trùng seed của pilot (43 đến 46) |
+| Số truyện tranh | 5 truyện × 2 seed × 2 nhánh = 20 (mỗi tầng 10) |
+| Chấm ẩn nhãn | Mã truyện tranh `C01...` (lõi) và `E01...` (bổ sung); thứ tự xáo trộn bằng `shuffle_seed` 2026 (lõi) và 2027 (bổ sung); khóa A/B lưu riêng, không gửi người chấm |
 
 ### 10.2 Chạy thật
 
-| Mục                                                          | Giá trị                                                                                                            |
-| ------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------ |
-| Notebook                                                     | `notebooks/03c_ab_experiment.ipynb` (xóa output trước khi commit; storyboard nằm trong dataset private của Kaggle) |
-| Môi trường                                                   | Kaggle, Tesla T4 (một GPU), ngày 25/11/2026                                                                        |
-| Mã nguồn                                                     | `3772bb4e947e70265c1ae0b46c039a71b1004555` (nhánh `feature/image-pipeline`)                                        |
-| Model, revision                                              | như mục 2                                                                                                          |
-| Kết quả                                                      | 20 truyện tranh trong 948,9 giây (gồm nạp model 67,4 giây); VRAM đỉnh 9,74 GiB; không dùng mock fallback           |
-| `ab_experiment_full.zip` (có khóa A/B, không gửi người chấm) | SHA-256 `5698623549aa63672153fa28497f2b4e9e66809e04f43df5342edc6cb2fa9470`                                         |
-| `ab_for_raters_core.zip`                                     | SHA-256 `f01aec93252855296d7a6969ec12f8433d2efebb810f22bd1dd2877383da6ead`                                         |
-| `ab_for_raters_extra.zip`                                    | SHA-256 `d3222730dddc341959690e87d9993115e031ceb6d1a879e6dcf43686aa7e5319`                                         |
+| Mục | Giá trị |
+|---|---|
+| Notebook | `notebooks/03c_ab_experiment.ipynb` (xóa output trước khi commit; storyboard nằm trong dataset private của Kaggle) |
+| Môi trường | Kaggle, Tesla T4 (một GPU), ngày 25/11/2026 |
+| Mã nguồn | `3772bb4e947e70265c1ae0b46c039a71b1004555` (nhánh `feature/image-pipeline`) |
+| Model, revision | như mục 2 |
+| Kết quả | 20 truyện tranh trong 948,9 giây (gồm nạp model 67,4 giây); VRAM đỉnh 9,74 GiB; không dùng mock fallback |
+| Phân tích | `python -m src.image_generator.ab_analysis` từ bốn file điểm gốc, chạy tại commit `b56bc3a293836f21027a4fa27d43bf638a7d97f2`. Lần phân tích đầu chạy bằng mã chưa commit; chạy lại tại commit này cho 6/6 file báo cáo (`summary.md`, `analysis.json`, `per_comic.csv` của hai tầng) trùng SHA-256 với lần đầu |
+| Commit sau lần chạy Kaggle | Từ `3772bb4` đến `ddb25a1` có 3 commit chỉ đổi `docs/image_generation.md` và `notebooks/03c_ab_experiment.ipynb`, không ảnh hưởng sinh ảnh hay phân tích nên không chạy lại SDXL. Sau đó nhánh được đồng bộ với `main` (merge `e8a95e4`) và commit `b56bc3a` thêm dòng lệnh phân tích cùng test |
+| `ab_experiment_full.zip` (có khóa A/B, không gửi người chấm) | SHA-256 `5698623549aa63672153fa28497f2b4e9e66809e04f43df5342edc6cb2fa9470` |
+| `ab_for_raters_core.zip` | SHA-256 `f01aec93252855296d7a6969ec12f8433d2efebb810f22bd1dd2877383da6ead` |
+| `ab_for_raters_extra.zip` | SHA-256 `d3222730dddc341959690e87d9993115e031ceb6d1a879e6dcf43686aa7e5319` |
 
 Dữ liệu thô nằm ngoài repo; chỉ các số liệu tổng hợp ở trên được đưa vào tài liệu.
 
@@ -203,42 +205,42 @@ Hai người chấm là TV1 và TV3 (hai thành viên khác của nhóm, không 
 
 **Chỉ số chính `identity_consistency` (thang 1 đến 5, cao hơn là tốt):**
 
-| Truyện                      | Lõi: A | Lõi: B | Lõi: B trừ A | Bổ sung: A | Bổ sung: B | Bổ sung: B trừ A |
-| --------------------------- | ------ | ------ | ------------ | ---------- | ---------- | ---------------- |
-| `story_013`                 | 1,50   | 2,50   | +1,00        | 4,50       | 4,50       | +0,00            |
-| `story_020_v2`              | 2,50   | 2,50   | +0,00        | 1,25       | 1,25       | +0,00            |
-| `story_027`                 | 1,83   | 1,83   | +0,00        | 3,00       | 2,50       | -0,50            |
-| `story_033_v2`              | 3,00   | 4,00   | +1,00        | 1,50       | 2,50       | +1,00            |
-| `story_050`                 | 2,50   | 2,50   | +0,00        | 2,50       | 3,00       | +0,50            |
-| Trung bình                  | 2,27   | 2,67   | +0,40        | 2,55       | 2,75       | +0,20            |
-| B tốt hơn / A tốt hơn / hòa |        |        | 2 / 0 / 3    |            |            | 2 / 1 / 2        |
+| Truyện | Lõi: A | Lõi: B | Lõi: B trừ A | Bổ sung: A | Bổ sung: B | Bổ sung: B trừ A |
+|---|---|---|---|---|---|---|
+| `story_013` | 1,50 | 2,50 | +1,00 | 4,50 | 4,50 | +0,00 |
+| `story_020_v2` | 2,50 | 2,50 | +0,00 | 1,25 | 1,25 | +0,00 |
+| `story_027` | 1,83 | 1,83 | +0,00 | 3,00 | 2,50 | -0,50 |
+| `story_033_v2` | 3,00 | 4,00 | +1,00 | 1,50 | 2,50 | +1,00 |
+| `story_050` | 2,50 | 2,50 | +0,00 | 2,50 | 3,00 | +0,50 |
+| Trung bình | 2,27 | 2,67 | +0,40 | 2,55 | 2,75 | +0,20 |
+| B tốt hơn / A tốt hơn / hòa | | | 2 / 0 / 3 | | | 2 / 1 / 2 |
 
 **Chỉ số phụ (số khung có lỗi, thấp hơn là tốt):**
 
-| Chỉ số                    | Tầng    | Trung bình A | Trung bình B | B tốt hơn | A tốt hơn | Hòa |
-| ------------------------- | ------- | ------------ | ------------ | --------- | --------- | --- |
-| `panels_duplicate_figure` | lõi     | 0,60         | 0,80         | 1         | 1         | 3   |
-| `panels_duplicate_figure` | bổ sung | 1,20         | 1,20         | 1         | 1         | 3   |
-| `panels_blended_figure`   | lõi     | 1,10         | 0,70         | 2         | 0         | 3   |
-| `panels_blended_figure`   | bổ sung | 1,20         | 1,00         | 2         | 0         | 3   |
+| Chỉ số | Tầng | Trung bình A | Trung bình B | B tốt hơn | A tốt hơn | Hòa |
+|---|---|---|---|---|---|---|
+| `panels_duplicate_figure` | lõi | 0,60 | 0,80 | 1 | 1 | 3 |
+| `panels_duplicate_figure` | bổ sung | 1,20 | 1,20 | 1 | 1 | 3 |
+| `panels_blended_figure` | lõi | 1,10 | 0,70 | 2 | 0 | 3 |
+| `panels_blended_figure` | bổ sung | 1,20 | 1,00 | 2 | 0 | 3 |
 
 **B trừ A theo từng người chấm, `identity_consistency` (trong ngoặc: số truyện B tốt hơn / A tốt hơn):**
 
-| Người chấm | Lõi           | Bổ sung       |
-| ---------- | ------------- | ------------- |
-| TV1        | +0,00 (0 / 0) | +0,00 (1 / 1) |
-| TV3        | +0,80 (2 / 0) | +0,40 (1 / 0) |
+| Người chấm | Lõi | Bổ sung |
+|---|---|---|
+| TV1 | +0,00 (0 / 0) | +0,00 (1 / 1) |
+| TV3 | +0,80 (2 / 0) | +0,40 (1 / 0) |
 
 **Độ đồng thuận giữa hai người chấm:**
 
-| Chỉ số                    | Tầng    | Số ô so sánh | Sai khác tuyệt đối trung bình | Chấm trùng nhau | Lệch không quá 1 |
-| ------------------------- | ------- | ------------ | ----------------------------- | --------------- | ---------------- |
-| `identity_consistency`    | lõi     | 12           | 1,00                          | 8%              | 92%              |
-| `identity_consistency`    | bổ sung | 12           | 0,67                          | 33%             | 100%             |
-| `panels_duplicate_figure` | lõi     | 10           | 1,00                          | 60%             | 70%              |
-| `panels_duplicate_figure` | bổ sung | 10           | 1,20                          | 30%             | 80%              |
-| `panels_blended_figure`   | lõi     | 10           | 1,40                          | 30%             | 50%              |
-| `panels_blended_figure`   | bổ sung | 10           | 1,80                          | 20%             | 30%              |
+| Chỉ số | Tầng | Số ô so sánh | Sai khác tuyệt đối trung bình | Chấm trùng nhau | Lệch không quá 1 |
+|---|---|---|---|---|---|
+| `identity_consistency` | lõi | 12 | 1,00 | 8% | 92% |
+| `identity_consistency` | bổ sung | 12 | 0,67 | 33% | 100% |
+| `panels_duplicate_figure` | lõi | 10 | 1,00 | 60% | 70% |
+| `panels_duplicate_figure` | bổ sung | 10 | 1,20 | 30% | 80% |
+| `panels_blended_figure` | lõi | 10 | 1,40 | 30% | 50% |
+| `panels_blended_figure` | bổ sung | 10 | 1,80 | 20% | 30% |
 
 Số ô `NA` bằng nhau giữa hai nhánh ở cả hai tầng (trung bình 1,0 trên 8 ô nhân vật mỗi nhánh, mỗi người chấm).
 
@@ -252,12 +254,12 @@ Số ô `NA` bằng nhau giữa hai nhánh ở cả hai tầng (trung bình 1,0 
 
 **File điểm gốc (SHA-256):**
 
-| File                         | Tầng    | Người chấm | SHA-256                                                            |
-| ---------------------------- | ------- | ---------- | ------------------------------------------------------------------ |
-| `TV1_rating_sheet_1.csv`     | lõi     | TV1        | `32163148bbb1a5ff7346a6fa0ffbcd627628fcd6d4f8b551c85cbe69f59f4b2c` |
-| `TV1_rating_sheet_2.csv`     | bổ sung | TV1        | `1b6be296d1bb2446aaf1861af59a26ed2e78ae931ca75411da3f6c7b751d1e9a` |
-| `TV3_rating_sheet.csv`       | lõi     | TV3        | `a976a4027238696457f07ccf7f3f5d4fa8eb477e2e4b6eb1bbbcec03e1f1cabf` |
-| `TV3_rating_sheet_extra.csv` | bổ sung | TV3        | `11ed29510e275f2e5e883b841ceb563d300a50fc9d69e75088374a01dfb61f6f` |
+| File | Tầng | Người chấm | SHA-256 |
+|---|---|---|---|
+| `TV1_rating_sheet_1.csv` | lõi | TV1 | `32163148bbb1a5ff7346a6fa0ffbcd627628fcd6d4f8b551c85cbe69f59f4b2c` |
+| `TV1_rating_sheet_2.csv` | bổ sung | TV1 | `1b6be296d1bb2446aaf1861af59a26ed2e78ae931ca75411da3f6c7b751d1e9a` |
+| `TV3_rating_sheet.csv` | lõi | TV3 | `a976a4027238696457f07ccf7f3f5d4fa8eb477e2e4b6eb1bbbcec03e1f1cabf` |
+| `TV3_rating_sheet_extra.csv` | bổ sung | TV3 | `11ed29510e275f2e5e883b841ceb563d300a50fc9d69e75088374a01dfb61f6f` |
 
 ### 10.5 Giới hạn riêng của Task 6
 
