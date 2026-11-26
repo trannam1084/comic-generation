@@ -199,13 +199,65 @@ python -m src.image_generator.ab_analysis --tier-dir <thư mục packs\core> --r
 
 ### 10.4 Kết quả
 
-`<điền: số người chấm, vai trò của từng người, người chấm có độc lập hay không>`
+Hai người chấm là TV1 và TV3 (hai thành viên khác của nhóm, không viết pipeline ảnh), được nhờ chấm một mình và không biết nhánh A hay B. Cả hai chấm đủ cả tầng lõi lẫn tầng bổ sung (mỗi tầng 10 truyện tranh, 26 dòng phiếu). Hai tầng cùng truyện nhưng khác seed, nên báo cáo từng tầng riêng và không gộp thành một con số. Báo cáo thô (`summary.md`, `analysis.json`, `per_comic.csv`) nằm ngoài repo.
 
-`<điền: bảng B trừ A theo từng truyện, lấy từ summary.md của tầng lõi>`
+**Chỉ số chính `identity_consistency` (thang 1 đến 5, cao hơn là tốt):**
 
-`<điền: hướng chênh lệch theo từng người chấm và độ đồng thuận giữa người chấm>`
+| Truyện | Lõi: A | Lõi: B | Lõi: B trừ A | Bổ sung: A | Bổ sung: B | Bổ sung: B trừ A |
+|---|---|---|---|---|---|---|
+| `story_013` | 1,50 | 2,50 | +1,00 | 4,50 | 4,50 | +0,00 |
+| `story_020_v2` | 2,50 | 2,50 | +0,00 | 1,25 | 1,25 | +0,00 |
+| `story_027` | 1,83 | 1,83 | +0,00 | 3,00 | 2,50 | -0,50 |
+| `story_033_v2` | 3,00 | 4,00 | +1,00 | 1,50 | 2,50 | +1,00 |
+| `story_050` | 2,50 | 2,50 | +0,00 | 2,50 | 3,00 | +0,50 |
+| Trung bình | 2,27 | 2,67 | +0,40 | 2,55 | 2,75 | +0,20 |
+| B tốt hơn / A tốt hơn / hòa | | | 2 / 0 / 3 | | | 2 / 1 / 2 |
 
-`<điền: kết quả tầng bổ sung nếu có người chấm; không gộp với tầng lõi thành một con số>`
+**Chỉ số phụ (số khung có lỗi, thấp hơn là tốt):**
+
+| Chỉ số | Tầng | Trung bình A | Trung bình B | B tốt hơn | A tốt hơn | Hòa |
+|---|---|---|---|---|---|---|
+| `panels_duplicate_figure` | lõi | 0,60 | 0,80 | 1 | 1 | 3 |
+| `panels_duplicate_figure` | bổ sung | 1,20 | 1,20 | 1 | 1 | 3 |
+| `panels_blended_figure` | lõi | 1,10 | 0,70 | 2 | 0 | 3 |
+| `panels_blended_figure` | bổ sung | 1,20 | 1,00 | 2 | 0 | 3 |
+
+**B trừ A theo từng người chấm, `identity_consistency` (trong ngoặc: số truyện B tốt hơn / A tốt hơn):**
+
+| Người chấm | Lõi | Bổ sung |
+|---|---|---|
+| TV1 | +0,00 (0 / 0) | +0,00 (1 / 1) |
+| TV3 | +0,80 (2 / 0) | +0,40 (1 / 0) |
+
+**Độ đồng thuận giữa hai người chấm:**
+
+| Chỉ số | Tầng | Số ô so sánh | Sai khác tuyệt đối trung bình | Chấm trùng nhau | Lệch không quá 1 |
+|---|---|---|---|---|---|
+| `identity_consistency` | lõi | 12 | 1,00 | 8% | 92% |
+| `identity_consistency` | bổ sung | 12 | 0,67 | 33% | 100% |
+| `panels_duplicate_figure` | lõi | 10 | 1,00 | 60% | 70% |
+| `panels_duplicate_figure` | bổ sung | 10 | 1,20 | 30% | 80% |
+| `panels_blended_figure` | lõi | 10 | 1,40 | 30% | 50% |
+| `panels_blended_figure` | bổ sung | 10 | 1,80 | 20% | 30% |
+
+Số ô `NA` bằng nhau giữa hai nhánh ở cả hai tầng (trung bình 1,0 trên 8 ô nhân vật mỗi nhánh, mỗi người chấm).
+
+**Đọc kết quả (thống kê mô tả, không có p-value):**
+
+- **Chỉ số chính:** B cao hơn A ở 4 trong 10 cặp (truyện, seed), thấp hơn ở 1, bằng nhau ở 5; chênh lệch trung bình +0,40 (lõi) và +0,20 (bổ sung) trên thang 1 đến 5. Các cặp cùng truyện không độc lập với nhau. Chỉ một truyện (`story_033_v2`) cho B cao hơn A ở cả hai seed; `story_013` chỉ ở seed lõi, `story_027` thậm chí A cao hơn ở seed bổ sung, nên hướng chênh lệch không ổn định giữa các seed.
+- **Seed ảnh hưởng mạnh hơn việc chọn A hay B:** với cùng một truyện và cùng một nhánh, điểm đổi trung bình khoảng 1,3 điểm khi đổi từ seed 100 sang seed 200, so với chênh lệch A và B trong cùng một tầng trung bình khoảng 0,4 điểm. Điều này phù hợp với nhận xét ở mục 6 rằng seed ảnh hưởng mạnh hơn các tham số prompt.
+- **Người chấm:** ở tầng lõi, phần B cao hơn A đến từ TV3; TV1 không ghi nhận chênh lệch nào. TV1 chủ yếu cho điểm 2 ở tầng lõi (10 trong 12 ô nhân vật không `NA`), còn TV3 cho điểm cao hơn TV1 ở 10 trong 12 ô chung (trung bình +0,83), nên mức chuẩn của hai người khác nhau. Ở tầng bổ sung mức chuẩn gần nhau hơn (trung bình +0,17) và thứ hạng điểm của hai người tương đồng hơn (hệ số tương quan hạng Spearman 0,81, so với 0,55 ở tầng lõi).
+- **Chỉ số phụ:** `panels_duplicate_figure` không có hướng ổn định (1 truyện B tốt hơn, 1 truyện A tốt hơn ở cả hai tầng). `panels_blended_figure` thấp hơn ở B trong 2 trên 5 truyện ở cả hai tầng (cùng hai truyện là `story_033_v2` và `story_050`), nhưng chỉ TV3 ghi nhận chênh lệch và độ đồng thuận ở chỉ số này thấp nhất, nên chưa coi là bằng chứng.
+- **Kết luận thận trọng:** chưa đủ cơ sở để khẳng định B nhất quán nhân vật hơn A. Dữ liệu chỉ gợi ý B không kém A và có thể nhỉnh nhẹ ở chỉ số chính, nhưng hiệu ứng nhỏ hơn dao động do seed và do người chấm.
+
+**File điểm gốc (SHA-256):**
+
+| File | Tầng | Người chấm | SHA-256 |
+|---|---|---|---|
+| `TV1_rating_sheet_1.csv` | lõi | TV1 | `32163148bbb1a5ff7346a6fa0ffbcd627628fcd6d4f8b551c85cbe69f59f4b2c` |
+| `TV1_rating_sheet_2.csv` | bổ sung | TV1 | `1b6be296d1bb2446aaf1861af59a26ed2e78ae931ca75411da3f6c7b751d1e9a` |
+| `TV3_rating_sheet.csv` | lõi | TV3 | `a976a4027238696457f07ccf7f3f5d4fa8eb477e2e4b6eb1bbbcec03e1f1cabf` |
+| `TV3_rating_sheet_extra.csv` | bổ sung | TV3 | `11ed29510e275f2e5e883b841ceb563d300a50fc9d69e75088374a01dfb61f6f` |
 
 ### 10.5 Giới hạn riêng của Task 6
 
@@ -214,9 +266,12 @@ python -m src.image_generator.ab_analysis --tier-dir <thư mục packs\core> --r
 - Mỗi tầng có cả hai nhánh A và B của cùng một truyện, nên người chấm có thể nhận ra các cặp dù đã ẩn nhãn.
 - `manifest.json` chỉ ghi khi chạy xong cả bộ; nếu phiên Kaggle dừng giữa chừng phải chạy lại trong thư mục mới. `inference_params` trong manifest lấy từ ảnh đầu tiên, chưa kiểm tra mọi ảnh dùng cùng thông số.
 
+- Chỉ có hai người chấm và họ có mức chuẩn khác nhau (mục 10.4); độ đồng thuận thấp, nhất là ở `panels_blended_figure`. Điểm được giữ nguyên như người chấm đã nộp, không chỉnh lại sau khi biết kết quả.
+- Thí nghiệm chỉ có hai seed cho mỗi truyện và hai tầng không độc lập; không đủ để tách tác động của việc chọn A hay B khỏi tác động của seed.
+
 ## 11. Việc chưa làm
 
-- **Task 6:** chờ điểm của người chấm độc lập, chạy phân tích và điền mục 10.4. Chưa khẳng định B tốt hơn A.
+- **Task 6:** đã chấm và phân tích (mục 10.4); chưa khẳng định B tốt hơn A. Muốn kết luận chắc hơn cần thêm seed, thêm truyện và thêm người chấm.
 - Tùy chọn: chạy riêng một truyện làm failure case (lưu tách khỏi bộ A/B) nếu còn thời gian.
 - Đo mức khớp giữa ảnh và caption, độ đọc được của caption trên ảnh thật.
 - Đề xuất với nhóm trưởng: đưa cấu hình E0 vào mặc định của `PromptBuilder` nếu nhóm đồng ý.
