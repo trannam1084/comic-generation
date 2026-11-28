@@ -229,7 +229,7 @@ Ownership và phối hợp review được mô tả trong [CONTRIBUTING.md](CONT
 - B0/B1 mới được so sánh trên 12 development inputs; integration smoke chỉ gồm một input. Chưa đủ bằng chứng để kết luận khả năng tổng quát hóa.
 - Structurally accepted vẫn có thể sai ngữ nghĩa. Semantic Reviewer V1/V2 giữ cho offline analysis, không dùng làm production hard gate hoặc automatic repair trigger.
 - Mock images không phản ánh khả năng minh họa hoặc character consistency của model ảnh. Chưa nghiệm thu SDXL/real diffusion trong shared factory.
-- Official dataset, human gold, rubric và matching policy còn cần TV1/TV3 sign-off. Gradio UI PR #27 đã merge, nhưng demo được kiểm chứng là mock.
+- Human adjudication 12 B1 development Storyboard đã được TV1/TV2/TV3 thống nhất phương án B (19 finding: 11 error, 8 warning); không suy rộng sang official held-out Test. Gradio UI PR #27 đã merge, nhưng demo được kiểm chứng là mock.
 - Chưa xác nhận toàn bộ main trên Windows 11; môi trường GPU và dependency versions có thể khác giữa các Kaggle sessions.
 - Chưa có automatic GPU offloading manager hoặc đánh giá đầy đủ tài nguyên khi kết hợp Qwen với real image backend.
 
@@ -247,7 +247,7 @@ Mã nguồn repository sử dụng [MIT License](LICENSE). Model, dataset, tài 
 
 - **Demo CPU:** `python app.py --demo` dùng mock story và mock image. Phải giữ banner rõ đây không phải ảnh SDXL thật.
 - **GPU artifacts:** 5 comic real SDXL story runner và 20 comic Task 6 A/B là hai thí nghiệm riêng; mô tả, notebook và điều kiện chạy xem `docs/image_generation.md`.
-- **Human adjudication:** 12 B1 và ba phiếu cá nhân là dữ liệu private, không commit vào GitHub public. Số 21 finding/10 case hiện chỉ là panel-submitted, chờ rà semantic taxonomy/severity trước khi công bố human gold.
+- **Human adjudication:** 12 B1 và ba phiếu cá nhân là dữ liệu private, không commit vào GitHub public. Ba thành viên đã thống nhất phương án B: 19 semantic findings (11 error, 8 warning) trên 10 case, hai case NO_ERROR; riêng case_010_D02/D03 được ghi là vấn đề scene references bên ngoài tám mã semantic. Đây là nhãn development human-panel, không phải Test benchmark.
 - **Release:** chạy pytest và smoke UI trên commit cuối, ghi logs, hash artifacts, xác minh báo cáo rồi mới tag.
 
 Chi tiết trong [checklist bàn giao TV1](docs/tv1_release_checklist.md).
