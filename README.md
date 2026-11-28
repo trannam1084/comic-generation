@@ -6,7 +6,7 @@ Comic Generation là đồ án xây dựng hệ thống chuyển một đoạn t
 
 Đóng góp chính là **Story Consistency Validation & Repair**: kiểm tra đầu ra bằng các điều kiện xác định và giới hạn số lần yêu cầu model sinh lại khi có lỗi. Mô tả ngoại hình nhân vật dùng chung được bổ sung vào prompts để hỗ trợ tính nhất quán giữa các cảnh; hiệu quả về ngữ nghĩa và hình ảnh vẫn cần đánh giá riêng.
 
-**Trạng thái đối chiếu main ngày 21/11/2026:** CPU mock pipeline đã hoạt động; Qwen story + CPU mock image đã có một GPU integration smoke thành công. Offline Evaluation Harness đã merge qua [PR #33](https://github.com/trannam1084/comic-generation/pull/33). Dataset và Gradio UI ở PR #20/#27 vẫn chưa merge. Chưa có full pipeline sử dụng ảnh diffusion được nghiệm thu.
+**Trạng thái cập nhật ngày 28/11/2026:** PR #27 (Gradio), #36 (backend SDXL), #38 (evaluation framework), #39 (story runner) và #40 (Task 6 A/B) đã merge vào `main`. Tuy vậy, factory vẫn mặc định ảnh mock, `PipelineConfig` chưa cho chọn `image_backend=sdxl`, và `python app.py --demo` chỉ chạy mock/CPU. Kết quả SDXL thật là các lần chạy GPU riêng lưu artifacts ngoài repository; chưa nghiệm thu live Gradio Qwen → SDXL.
 
 ## 2. Kiến trúc hệ thống
 
@@ -45,8 +45,8 @@ Warnings không tự kích hoạt repair. Backend/infrastructure failure đượ
 | PR liên quan | Trạng thái đã xác minh |
 | --- | --- |
 | [#33 — Offline Evaluation Harness](https://github.com/trannam1084/comic-generation/pull/33) | Đã merge, gồm root matching và human gold-readiness fixes. |
-| [#20 — Dataset và evaluation của TV3](https://github.com/trannam1084/comic-generation/pull/20) | Open; chưa nghiệm thu official dataset/rubric. |
-| [#27 — Gradio UI của TV2](https://github.com/trannam1084/comic-generation/pull/27) | Open; chưa phát hành UI này trên main. |
+| [#20 — Dataset và evaluation của TV3](https://github.com/trannam1084/comic-generation/pull/20) | Đã đóng, không merge; không coi đây là official dataset/rubric trên `main`. |
+| [#27 — Gradio UI của TV2](https://github.com/trannam1084/comic-generation/pull/27) | Đã merge; demo CLI hiện dùng mock/CPU. |
 
 ## 4. Công nghệ sử dụng
 
@@ -62,7 +62,7 @@ Warnings không tự kích hoạt repair. Backend/infrastructure failure đượ
 
 Các thực nghiệm Qwen nêu dưới đây dùng revision `aa8e72537993ba99e69dfaafa59ed015b17504d1`, FP16, `cuda:0`, batch 1, greedy decoding và `max_new_tokens=1024`. Story prompt là `storyboard-v1.0-baseline-001`; repair prompt là `storyboard-repair-v1.0-deterministic-001`.
 
-Gradio thuộc phần UI đang review; SDXL/real diffusion chưa có đường chạy được nghiệm thu trong shared factory. Việc có interface Image Generation không đồng nghĩa đã có kết quả ảnh diffusion.
+Gradio đã merge; đường demo mặc định là mock. SDXL backend và story runner đã merge và có kết quả Kaggle GPU thực, nhưng factory chưa cho chọn SDXL qua cấu hình và chưa nghiệm thu UI real Qwen → SDXL. Việc có interface Image Generation không đồng nghĩa đã có kết quả ảnh diffusion.
 
 ## 5. Cài đặt môi trường
 
@@ -212,7 +212,7 @@ docs/                  # Tài liệu kỹ thuật theo từng task
 data/                  # Khu vực dữ liệu; official dataset còn chờ review
 ```
 
-`app.py` hiện chưa cung cấp Gradio production entry point trên main. Các notebooks thực nghiệm local và ZIP artifacts không mặc nhiên là files đã phát hành trong repository.
+`app.py` có Gradio demo entry point `python app.py --demo` trên `main` (mock); chưa nghiệm thu production entry point Qwen → SDXL. Các notebooks thực nghiệm local và ZIP artifacts không mặc nhiên là files đã phát hành trong repository.
 
 ## 10. Phân công nhóm
 
@@ -229,7 +229,7 @@ Ownership và phối hợp review được mô tả trong [CONTRIBUTING.md](CONT
 - B0/B1 mới được so sánh trên 12 development inputs; integration smoke chỉ gồm một input. Chưa đủ bằng chứng để kết luận khả năng tổng quát hóa.
 - Structurally accepted vẫn có thể sai ngữ nghĩa. Semantic Reviewer V1/V2 giữ cho offline analysis, không dùng làm production hard gate hoặc automatic repair trigger.
 - Mock images không phản ánh khả năng minh họa hoặc character consistency của model ảnh. Chưa nghiệm thu SDXL/real diffusion trong shared factory.
-- Official dataset, human gold, rubric và matching policy còn cần TV1/TV3 sign-off. Gradio UI PR #27 vẫn open.
+- Human adjudication 12 B1 development Storyboard đã được TV1/TV2/TV3 thống nhất phương án B (19 finding: 11 error, 8 warning); không suy rộng sang official held-out Test. Gradio UI PR #27 đã merge, nhưng demo được kiểm chứng là mock.
 - Chưa xác nhận toàn bộ main trên Windows 11; môi trường GPU và dependency versions có thể khác giữa các Kaggle sessions.
 - Chưa có automatic GPU offloading manager hoặc đánh giá đầy đủ tài nguyên khi kết hợp Qwen với real image backend.
 
@@ -241,3 +241,13 @@ Ownership và phối hợp review được mô tả trong [CONTRIBUTING.md](CONT
 - Thực nghiệm và tái lập: [Kaggle workflow](docs/kaggle_workflow.md), [offline evaluation](docs/evaluation_workflow.md).
 
 Mã nguồn repository sử dụng [MIT License](LICENSE). Model, dataset, tài liệu tham khảo và font có điều kiện sử dụng riêng; xem [font provenance](assets/fonts/PROVENANCE.md) và [font license](assets/fonts/OFL.txt). MIT của repository không thay thế quyền sử dụng các tài sản bên ngoài. Legacy scripts được giữ ngoài pipeline; không phân phối chúng hoặc dữ liệu chưa được xác minh quyền sử dụng.
+
+
+## Trạng thái nghiệm thu trước bàn giao (28/11/2026)
+
+- **Demo CPU:** `python app.py --demo` dùng mock story và mock image. Phải giữ banner rõ đây không phải ảnh SDXL thật.
+- **GPU artifacts:** 5 comic real SDXL story runner và 20 comic Task 6 A/B là hai thí nghiệm riêng; mô tả, notebook và điều kiện chạy xem `docs/image_generation.md`.
+- **Human adjudication:** 12 B1 và ba phiếu cá nhân là dữ liệu private, không commit vào GitHub public. Ba thành viên đã thống nhất phương án B: 19 semantic findings (11 error, 8 warning) trên 10 case, hai case NO_ERROR; riêng case_010_D02/D03 được ghi là vấn đề scene references bên ngoài tám mã semantic. Đây là nhãn development human-panel, không phải Test benchmark.
+- **Release:** chạy pytest và smoke UI trên commit cuối, ghi logs, hash artifacts, xác minh báo cáo rồi mới tag.
+
+Chi tiết trong [checklist bàn giao TV1](docs/tv1_release_checklist.md).
